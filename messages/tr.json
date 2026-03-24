@@ -1,0 +1,111 @@
+{
+  "nav": {
+    "home": "Anasayfa",
+    "corporate": "Kurumsal",
+    "about": "Hakkımızda",
+    "quality": "Kalite",
+    "certificates": "Sertifikalar",
+    "products": "Ürünler",
+    "privateLabel": "Özel Etiket",
+    "catalog": "Katalog",
+    "contact": "İletişim"
+  },
+  "hero": {
+    "badge": "Türkiye'nin Güvenilir Hijyen Üreticisi",
+    "title": "Hijyen Ürünlerinde",
+    "titleHighlight": "Güven ve Kalite",
+    "subtitle": "Bebek bezinden yetişkin bakım ürünlerine, ıslak mendilden temizlik havlusuna kadar geniş ürün yelpazemizle toptan satış ve özel etiket hizmeti sunuyoruz.",
+    "cta1": "Ürünleri Gör",
+    "cta2": "Teklif Al"
+  },
+  "products": {
+    "title": "Ürün Kategorilerimiz",
+    "subtitle": "Hijyen ürünlerinin tüm kategorilerinde üretim kapasitesiyle hizmetinizdeyiz",
+    "viewAll": "Tüm Ürünleri Gör",
+    "babyDiapers": "Bebek Bezi",
+    "babyDiapersDesc": "Ultra ince yapı, yüksek emicilik, hassas cilt dostu",
+    "adultDiapers": "Yetişkin Bezi",
+    "adultDiapersDesc": "Konforlu tasarım, güvenilir sızıntı koruması",
+    "adultPants": "Yetişkin Külot Bez",
+    "adultPantsDesc": "Aktif yaşam için iç çamaşırı konforu",
+    "adultUnderpads": "Yetişkin Hasta Altı",
+    "adultUnderpadsDesc": "Sağlık kurumları için profesyonel çözüm",
+    "babyUnderpads": "Bebek Hasta Altı",
+    "babyUnderpadsDesc": "Hassas bebek cildi için yumuşak koruma",
+    "sanitaryPads": "Ped",
+    "sanitaryPadsDesc": "Günlük konfor ve maksimum koruma",
+    "bladderPads": "Mesane Pedi",
+    "bladderPadsDesc": "Hafif ve orta inkontinans için özel tasarım",
+    "babyWipes": "Bebek Islak Mendil",
+    "babyWipesDesc": "Parfümsüz, alkol içermeyen nazik formül",
+    "wetWipes": "Islak Mendil",
+    "wetWipesDesc": "Her ortam için pratik hijyen çözümü",
+    "cleaningTowels": "Temizlik Havlusu",
+    "cleaningTowelsDesc": "Profesyonel temizlik için güçlü yapı"
+  },
+  "whyUs": {
+    "title": "Neden Bizi Seçmelisiniz?",
+    "subtitle": "Yılların deneyimi ve uluslararası standartlarla kaliteli üretim yapıyoruz",
+    "quality": "Kalite Güvencesi",
+    "qualityDesc": "ISO sertifikalı üretim süreçleri ve titiz kalite kontrol standartlarıyla her üründe mükemmelliği hedefliyoruz.",
+    "production": "Güçlü Üretim",
+    "productionDesc": "Modern teknoloji ve yüksek kapasiteli üretim hatlarımızla büyük siparişleri eksiksiz ve zamanında teslim ediyoruz.",
+    "export": "Global İhracat",
+    "exportDesc": "50'den fazla ülkeye düzenli ihracat yaparak dünya genelinde güvenilir tedarikçi konumuna geldik.",
+    "privateLabel": "Özel Etiket",
+    "privateLabelDesc": "Markanız için özel tasarım, ambalaj ve etiketleme hizmetleriyle rakiplerinizden öne çıkın."
+  },
+  "privateLabelSection": {
+    "badge": "Fason / Özel Etiket Üretim",
+    "title": "Kendi Markanızla Satış Yapın",
+    "subtitle": "Ürün geliştirmeden ambalaj tasarımına, küçük deneme siparişlerinden büyük ölçekli üretime kadar tüm süreçlerde yanınızdayız.",
+    "feature1": "Özel ambalaj tasarımı",
+    "feature2": "Esnek minimum sipariş",
+    "feature3": "Hızlı numune üretimi",
+    "feature4": "Dünya geneli teslimat",
+    "cta": "Başvuru Formu Doldur"
+  },
+  "stats": {
+    "title": "Rakamlarla Soft & Power",
+    "countries": "İhracat Ülkesi",
+    "products": "Ürün Çeşidi",
+    "production": "Yıllık Üretim",
+    "productionValue": "500M+",
+    "productionUnit": "Adet",
+    "experience": "Yıllık Deneyim",
+    "countriesValue": "50+",
+    "productsValue": "10+",
+    "experienceValue": "10+"
+  },
+  "certificates": {
+    "title": "Sertifikalar & Standartlar",
+    "subtitle": "Ürünlerimiz uluslararası kalite ve güvenlik standartlarını karşılamaktadır"
+  },
+  "aboutSection": {
+    "badge": "Hakkımızda",
+    "title": "Güvenilir Hijyen Üretiminde 10+ Yıl",
+    "text1": "Soft & Power Hygiene, Türkiye merkezli olarak kurulan ve dünya genelinde 50'den fazla ülkeye ihracat yapan köklü bir hijyen ürünleri üreticisidir.",
+    "text2": "Bebek bezinden yetişkin bakım ürünlerine, ıslak mendilden temizlik havlusuna kadar geniş ürün yelpazemizle toptan satış ve özel etiket üretimi konusunda güvenilir çözümler sunuyoruz.",
+    "cta": "Hakkımızda Daha Fazla",
+    "facility": "Modern üretim tesisi",
+    "global": "50+ ülkeye ihracat",
+    "quality": "Uluslararası sertifikalar",
+    "partnership": "Uzun vadeli ortaklıklar"
+  },
+  "contact": {
+    "title": "Bizimle İletişime Geçin",
+    "subtitle": "Toptan sipariş, özel etiket veya genel bilgi için bize ulaşın",
+    "phone": "Telefon",
+    "email": "E-posta",
+    "whatsapp": "WhatsApp",
+    "address": "Adres"
+  },
+  "footer": {
+    "description": "Soft & Power Hygiene, Türkiye merkezli hijyen ürünleri üreticisidir. 50'den fazla ülkeye ihracat yapan güvenilir tedarikçiniz.",
+    "quickLinks": "Hızlı Bağlantılar",
+    "ourProducts": "Ürünlerimiz",
+    "contactInfo": "İletişim",
+    "rights": "Tüm hakları saklıdır.",
+    "madeIn": "Türkiye'de üretilmektedir"
+  }
+}

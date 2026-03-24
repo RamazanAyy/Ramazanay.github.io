@@ -1,0 +1,107 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --primary: #1B4F8A;
+  --accent: #E8F0FB;
+  --brand-red: #E3001B;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: var(--font-jakarta), 'Plus Jakarta Sans', sans-serif;
+  color: #1A1A2E;
+  background: #ffffff;
+}
+
+/* Fade-up animation for sections */
+.animate-on-scroll {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+}
+
+.animate-on-scroll.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* RTL support for Arabic */
+[dir="rtl"] .rtl-flip {
+  transform: scaleX(-1);
+}
+
+/* Navbar dropdown */
+.nav-dropdown {
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(-8px);
+  transition: all 0.2s ease;
+}
+
+.nav-item:hover .nav-dropdown {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+}
+::-webkit-scrollbar-track {
+  background: #f1f5f9;
+}
+::-webkit-scrollbar-thumb {
+  background: #1B4F8A;
+  border-radius: 3px;
+}
+
+
+/* Hero gradient animation */
+@keyframes gradientShift {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+.hero-gradient {
+  background: linear-gradient(135deg, #0d2d52 0%, #1B4F8A 40%, #1a5fa8 70%, #0d3d6e 100%);
+  background-size: 200% 200%;
+  animation: gradientShift 8s ease infinite;
+}
+
+/* Number counter animation */
+@keyframes countUp {
+  from { opacity: 0; transform: scale(0.8); }
+  to { opacity: 1; transform: scale(1); }
+}
+
+.stat-number {
+  animation: countUp 0.8s ease-out forwards;
+}
+
+/* Product card hover */
+.product-card {
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.product-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 20px 40px rgba(27, 79, 138, 0.15);
+}
+
+/* Pulsing CTA */
+@keyframes pulse-ring {
+  0% { box-shadow: 0 0 0 0 rgba(27, 79, 138, 0.3); }
+  70% { box-shadow: 0 0 0 12px rgba(27, 79, 138, 0); }
+  100% { box-shadow: 0 0 0 0 rgba(27, 79, 138, 0); }
+}
+
+.pulse-btn {
+  animation: pulse-ring 2s ease-out infinite;
+}

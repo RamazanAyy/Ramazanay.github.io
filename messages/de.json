@@ -1,0 +1,111 @@
+{
+  "nav": {
+    "home": "Startseite",
+    "corporate": "Unternehmen",
+    "about": "Über uns",
+    "quality": "Qualität",
+    "certificates": "Zertifikate",
+    "products": "Produkte",
+    "privateLabel": "Eigenmarke",
+    "catalog": "Katalog",
+    "contact": "Kontakt"
+  },
+  "hero": {
+    "badge": "Türkeis zuverlässiger Hygienehersteller",
+    "title": "Qualität & Vertrauen in",
+    "titleHighlight": "Hygieneprodukten",
+    "subtitle": "Von Babywindeln bis zu Erwachsenenpflegeprodukten, Feuchttüchern bis Reinigungstüchern — wir bieten Großhandel und Private-Label-Services.",
+    "cta1": "Produkte ansehen",
+    "cta2": "Angebot anfordern"
+  },
+  "products": {
+    "title": "Unsere Produktkategorien",
+    "subtitle": "Vollständige Produktionskapazität in allen Hygieneproduktkategorien",
+    "viewAll": "Alle Produkte anzeigen",
+    "babyDiapers": "Babywindeln",
+    "babyDiapersDesc": "Ultra-dünne Struktur, hohe Saugfähigkeit, sanft zur Haut",
+    "adultDiapers": "Erwachsenenwindeln",
+    "adultDiapersDesc": "Komfortables Design mit zuverlässigem Auslaufschutz",
+    "adultPants": "Erwachsenenwindelhosen",
+    "adultPantsDesc": "Unterwäschekomfort für ein aktives Leben",
+    "adultUnderpads": "Krankenunterlagen für Erwachsene",
+    "adultUnderpadsDesc": "Professionelle Lösung für Gesundheitseinrichtungen",
+    "babyUnderpads": "Krankenunterlagen für Babys",
+    "babyUnderpadsDesc": "Sanfter Schutz für empfindliche Babyhaut",
+    "sanitaryPads": "Damenbinden",
+    "sanitaryPadsDesc": "Täglicher Komfort und maximaler Schutz",
+    "bladderPads": "Blasenpads",
+    "bladderPadsDesc": "Spezielles Design für leichte bis mittlere Inkontinenz",
+    "babyWipes": "Baby-Feuchttücher",
+    "babyWipesDesc": "Duftstofffreie, alkoholfreie sanfte Formel",
+    "wetWipes": "Feuchttücher",
+    "wetWipesDesc": "Praktische Hygienelösung für jede Umgebung",
+    "cleaningTowels": "Reinigungstücher",
+    "cleaningTowelsDesc": "Robuste Struktur für professionelle Reinigung"
+  },
+  "whyUs": {
+    "title": "Warum uns wählen?",
+    "subtitle": "Wir produzieren nach internationalen Standards mit jahrelanger Erfahrung",
+    "quality": "Qualitätssicherung",
+    "qualityDesc": "ISO-zertifizierte Produktionsprozesse und strenge Qualitätskontrollstandards.",
+    "production": "Starke Produktion",
+    "productionDesc": "Moderne Technologie und hochkapazitive Produktionslinien für pünktliche Lieferung.",
+    "export": "Globaler Export",
+    "exportDesc": "Regelmäßige Exporte in 50+ Länder als zuverlässiger globaler Lieferant.",
+    "privateLabel": "Eigenmarke",
+    "privateLabelDesc": "Individuelles Design, Verpackung und Etikettierungsservices für Ihre Marke."
+  },
+  "privateLabelSection": {
+    "badge": "Lohnherstellung / Eigenmarke",
+    "title": "Verkaufen Sie unter Ihrer eigenen Marke",
+    "subtitle": "Von der Produktentwicklung bis zum Verpackungsdesign begleiten wir Sie bei jedem Schritt.",
+    "feature1": "Individuelles Verpackungsdesign",
+    "feature2": "Flexible Mindestbestellung",
+    "feature3": "Schnelle Musterproduktion",
+    "feature4": "Weltweite Lieferung",
+    "cta": "Antragsformular ausfüllen"
+  },
+  "stats": {
+    "title": "Soft & Power in Zahlen",
+    "countries": "Exportländer",
+    "products": "Produktvarianten",
+    "production": "Jahresproduktion",
+    "productionValue": "500M+",
+    "productionUnit": "Einheiten",
+    "experience": "Jahre Erfahrung",
+    "countriesValue": "50+",
+    "productsValue": "10+",
+    "experienceValue": "10+"
+  },
+  "certificates": {
+    "title": "Zertifikate & Standards",
+    "subtitle": "Unsere Produkte erfüllen internationale Qualitäts- und Sicherheitsstandards"
+  },
+  "aboutSection": {
+    "badge": "Über uns",
+    "title": "10+ Jahre vertrauenswürdige Hygieneproduktion",
+    "text1": "Soft & Power Hygiene ist ein in der Türkei ansässiger Hersteller von Hygieneprodukten, der in über 50 Länder weltweit exportiert.",
+    "text2": "Von Babywindeln bis zur Erwachsenenpflege, Feuchttücher bis Reinigungstücher – wir bieten zuverlässige Großhandels- und Eigenmarkenlösungen.",
+    "cta": "Mehr über uns erfahren",
+    "facility": "Moderne Produktionsanlage",
+    "global": "Export in 50+ Länder",
+    "quality": "Internationale Zertifizierungen",
+    "partnership": "Langfristige Partnerschaften"
+  },
+  "contact": {
+    "title": "Kontakt aufnehmen",
+    "subtitle": "Kontaktieren Sie uns für Großbestellungen, Eigenmarken oder allgemeine Informationen",
+    "phone": "Telefon",
+    "email": "E-Mail",
+    "whatsapp": "WhatsApp",
+    "address": "Adresse"
+  },
+  "footer": {
+    "description": "Soft & Power Hygiene ist ein türkischer Hygieneprodukthersteller. Ihr zuverlässiger Lieferant mit Export in 50+ Länder.",
+    "quickLinks": "Schnelllinks",
+    "ourProducts": "Unsere Produkte",
+    "contactInfo": "Kontaktinfo",
+    "rights": "Alle Rechte vorbehalten.",
+    "madeIn": "Hergestellt in der Türkei"
+  }
+}

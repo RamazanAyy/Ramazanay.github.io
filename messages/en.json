@@ -1,0 +1,111 @@
+{
+  "nav": {
+    "home": "Homepage",
+    "corporate": "Corporate",
+    "about": "About Us",
+    "quality": "Quality",
+    "certificates": "Certificates",
+    "products": "Products",
+    "privateLabel": "Private Label",
+    "catalog": "Catalogue",
+    "contact": "Contact"
+  },
+  "hero": {
+    "badge": "Turkey's Trusted Hygiene Manufacturer",
+    "title": "Quality & Trust in",
+    "titleHighlight": "Hygiene Products",
+    "subtitle": "From baby diapers to adult care products, wet wipes to cleaning towels — we offer wholesale and private label services with an extensive product range.",
+    "cta1": "View Products",
+    "cta2": "Get a Quote"
+  },
+  "products": {
+    "title": "Our Product Categories",
+    "subtitle": "Full-scale production capacity across all hygiene product categories",
+    "viewAll": "View All Products",
+    "babyDiapers": "Baby Diapers",
+    "babyDiapersDesc": "Ultra-thin structure, high absorbency, gentle on sensitive skin",
+    "adultDiapers": "Adult Diapers",
+    "adultDiapersDesc": "Comfortable design with reliable leak protection",
+    "adultPants": "Adult Pants",
+    "adultPantsDesc": "Underwear comfort designed for active life",
+    "adultUnderpads": "Adult Underpads",
+    "adultUnderpadsDesc": "Professional solution for healthcare facilities",
+    "babyUnderpads": "Baby Underpads",
+    "babyUnderpadsDesc": "Soft protection for delicate baby skin",
+    "sanitaryPads": "Sanitary Pads",
+    "sanitaryPadsDesc": "Daily comfort and maximum protection",
+    "bladderPads": "Bladder Pads",
+    "bladderPadsDesc": "Special design for light to moderate incontinence",
+    "babyWipes": "Baby Wet Wipes",
+    "babyWipesDesc": "Fragrance-free, alcohol-free gentle formula",
+    "wetWipes": "Wet Wipes",
+    "wetWipesDesc": "Practical hygiene solution for any environment",
+    "cleaningTowels": "Cleaning Towels",
+    "cleaningTowelsDesc": "Strong structure for professional cleaning"
+  },
+  "whyUs": {
+    "title": "Why Choose Us?",
+    "subtitle": "We manufacture to international standards with years of expertise",
+    "quality": "Quality Assurance",
+    "qualityDesc": "ISO-certified production processes and rigorous quality control standards targeting excellence in every product.",
+    "production": "Strong Production",
+    "productionDesc": "Modern technology and high-capacity production lines delivering large orders completely and on time.",
+    "export": "Global Export",
+    "exportDesc": "Regular exports to 50+ countries positioning us as a reliable global supplier.",
+    "privateLabel": "Private Label",
+    "privateLabelDesc": "Custom design, packaging, and labeling services to set your brand apart from the competition."
+  },
+  "privateLabelSection": {
+    "badge": "Contract / Private Label Manufacturing",
+    "title": "Sell Under Your Own Brand",
+    "subtitle": "From product development to packaging design, from small trial orders to large-scale production — we are with you every step of the way.",
+    "feature1": "Custom packaging design",
+    "feature2": "Flexible minimum order",
+    "feature3": "Fast sample production",
+    "feature4": "Worldwide delivery",
+    "cta": "Fill Application Form"
+  },
+  "stats": {
+    "title": "Soft & Power in Numbers",
+    "countries": "Export Countries",
+    "products": "Product Varieties",
+    "production": "Annual Production",
+    "productionValue": "500M+",
+    "productionUnit": "Units",
+    "experience": "Years Experience",
+    "countriesValue": "50+",
+    "productsValue": "10+",
+    "experienceValue": "10+"
+  },
+  "certificates": {
+    "title": "Certificates & Standards",
+    "subtitle": "Our products meet international quality and safety standards"
+  },
+  "aboutSection": {
+    "badge": "About Us",
+    "title": "10+ Years of Trusted Hygiene Production",
+    "text1": "Soft & Power Hygiene is a well-established hygiene products manufacturer based in Turkey, exporting to more than 50 countries worldwide.",
+    "text2": "From baby diapers to adult care, wet wipes to cleaning towels — we provide reliable wholesale and private label solutions across our full product range.",
+    "cta": "Learn More About Us",
+    "facility": "Modern production facility",
+    "global": "Exports to 50+ countries",
+    "quality": "International certifications",
+    "partnership": "Long-term partnerships"
+  },
+  "contact": {
+    "title": "Get in Touch",
+    "subtitle": "Contact us for wholesale orders, private label or general information",
+    "phone": "Phone",
+    "email": "Email",
+    "whatsapp": "WhatsApp",
+    "address": "Address"
+  },
+  "footer": {
+    "description": "Soft & Power Hygiene is a Turkey-based hygiene products manufacturer. Your reliable supplier exporting to 50+ countries.",
+    "quickLinks": "Quick Links",
+    "ourProducts": "Our Products",
+    "contactInfo": "Contact Info",
+    "rights": "All rights reserved.",
+    "madeIn": "Manufactured in Turkey"
+  }
+}

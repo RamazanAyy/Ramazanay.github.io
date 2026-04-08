@@ -21,7 +21,7 @@ module.exports = {
           800: '#0C2552',
           900: '#07173F',
         },
-        accent: '#F4A300',
+        accent: '#00BAD1',
         accentLight: '#E8F0FB',
         brand: {
           red: '#E3001B',

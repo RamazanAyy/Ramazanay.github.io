@@ -109,7 +109,7 @@ function CorporateMenu({ locale, t }: { locale: string; t: ReturnType<typeof use
               href={href}
               className="flex items-start gap-3 rounded-xl p-3 hover:bg-[#E8F0FB] transition-colors group"
             >
-              <div className="mt-0.5 text-[#1B4F8A] group-hover:text-[#F4A300] transition-colors shrink-0">
+              <div className="mt-0.5 text-[#1B4F8A] group-hover:text-[#00BAD1] transition-colors shrink-0">
                 {icon}
               </div>
               <div>
@@ -150,7 +150,7 @@ function ProductsMenu({ locale }: { locale: string }) {
                 href={href}
                 className="flex items-center gap-2 px-3 py-2 rounded-lg text-sm text-gray-700 hover:bg-[#E8F0FB] hover:text-[#1B4F8A] transition-colors group"
               >
-                <span className="w-1.5 h-1.5 rounded-full bg-[#1B4F8A]/30 group-hover:bg-[#F4A300] transition-colors shrink-0" />
+                <span className="w-1.5 h-1.5 rounded-full bg-[#1B4F8A]/30 group-hover:bg-[#00BAD1] transition-colors shrink-0" />
                 {label}
               </Link>
             </NavigationMenuLink>
@@ -160,7 +160,7 @@ function ProductsMenu({ locale }: { locale: string }) {
       <div className="border-t border-gray-100 mt-3 pt-3 px-3">
         <Link
           href={`/${locale}/products`}
-          className="text-xs font-semibold text-[#1B4F8A] hover:text-[#F4A300] transition-colors flex items-center gap-1"
+          className="text-xs font-semibold text-[#1B4F8A] hover:text-[#00BAD1] transition-colors flex items-center gap-1"
         >
           Tüm ürünler
           <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -216,18 +216,18 @@ export default function Navbar() {
         <nav
           data-state={mobileOpen ? 'active' : undefined}
           className={cn(
-            'fixed z-50 w-full px-3 md:px-4 transition-all duration-300',
-            isScrolled ? 'border-transparent pt-2' : 'border-b border-gray-100 bg-white'
+            'fixed z-50 w-full transition-all duration-300',
+            isScrolled ? 'pt-2 pb-1' : ''
           )}
         >
-          {/* Blue info bar (desktop only, fades out on scroll) */}
+          {/* Blue info bar — full width, no side padding on outer */}
           <motion.div
-            className="hidden md:block bg-[#1B4F8A] text-white text-sm overflow-hidden"
+            className="hidden md:block bg-[#1B4F8A] text-white text-sm overflow-hidden w-full"
             initial={false}
             animate={{ maxHeight: isScrolled ? 0 : 60, opacity: isScrolled ? 0 : 1 }}
             transition={{ duration: 0.3, ease: 'easeInOut' }}
           >
-            <div className="max-w-7xl mx-auto px-4 py-2 flex items-center justify-between">
+            <div className="max-w-7xl mx-auto px-6 py-2 flex items-center justify-between">
               <div className="flex items-center gap-6">
                 <a href="tel:+905396312392" className="flex items-center gap-1.5 hover:text-blue-200 transition-colors">
                   <svg className="w-3.5 h-3.5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -256,13 +256,13 @@ export default function Navbar() {
             </div>
           </motion.div>
 
-          {/* ── Floating pill / navbar ── */}
+          {/* ── Nav content bar ── */}
           <div
             className={cn(
               'mx-auto transition-all duration-300',
               isScrolled
-                ? 'bg-white/95 max-w-6xl rounded-2xl border border-gray-200 backdrop-blur-xl shadow-lg px-4'
-                : 'max-w-7xl px-0'
+                ? 'bg-white/95 max-w-6xl rounded-2xl border border-gray-200 backdrop-blur-xl shadow-lg px-4 mx-auto w-[calc(100%-1.5rem)] md:w-[calc(100%-2rem)]'
+                : 'max-w-full bg-white border-b border-gray-100 px-3 md:px-6'
             )}
           >
             <div className="relative flex flex-wrap items-center justify-between gap-3 py-3">
@@ -399,7 +399,7 @@ export default function Navbar() {
                 {/* CTA button */}
                 <Link
                   href={`/${locale}/contact`}
-                  className="inline-flex items-center gap-2 bg-[#F4A300] hover:bg-[#e09600] text-white text-sm font-semibold px-5 py-2 rounded-xl transition-all hover:scale-105 active:scale-95"
+                  className="inline-flex items-center gap-2 bg-[#00BAD1] hover:bg-[#009db5] text-white text-sm font-semibold px-5 py-2 rounded-xl transition-all hover:scale-105 active:scale-95"
                 >
                   Teklif Al
                   <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -460,7 +460,7 @@ export default function Navbar() {
           >
             {/* Decorative */}
             <div className="absolute top-0 right-0 w-72 h-72 rounded-full bg-white/5 -translate-y-1/2 translate-x-1/2 pointer-events-none" />
-            <div className="absolute bottom-0 left-0 w-56 h-56 rounded-full bg-[#F4A300]/10 translate-y-1/2 -translate-x-1/2 pointer-events-none" />
+            <div className="absolute bottom-0 left-0 w-56 h-56 rounded-full bg-[#00BAD1]/10 translate-y-1/2 -translate-x-1/2 pointer-events-none" />
 
             {/* Header */}
             <div className="flex items-center justify-between px-6 h-[64px] shrink-0 border-b border-white/10 relative">
@@ -474,7 +474,7 @@ export default function Navbar() {
                   priority
                 />
               </Link>
-              <button className="p-2 text-white hover:text-[#F4A300] transition-colors" onClick={closeMobile} aria-label="Kapat">
+              <button className="p-2 text-white hover:text-[#00BAD1] transition-colors" onClick={closeMobile} aria-label="Kapat">
                 <HamburgerIcon open={true} />
               </button>
             </div>
@@ -496,7 +496,7 @@ export default function Navbar() {
                   <Link
                     href={href}
                     onClick={closeMobile}
-                    className="flex items-center py-4 text-xl font-bold text-white border-b border-white/10 hover:text-[#F4A300] transition-colors"
+                    className="flex items-center py-4 text-xl font-bold text-white border-b border-white/10 hover:text-[#00BAD1] transition-colors"
                   >
                     {t(key as any)}
                   </Link>
@@ -506,7 +506,7 @@ export default function Navbar() {
               {/* Kurumsal accordion */}
               <motion.div variants={mobileItemVariants}>
                 <button
-                  className="w-full flex items-center justify-between py-4 text-xl font-bold text-white border-b border-white/10 hover:text-[#F4A300] transition-colors"
+                  className="w-full flex items-center justify-between py-4 text-xl font-bold text-white border-b border-white/10 hover:text-[#00BAD1] transition-colors"
                   onClick={() => setMobileCorp(o => !o)}
                 >
                   {t('corporate')}
@@ -538,7 +538,7 @@ export default function Navbar() {
                           onClick={closeMobile}
                           className="flex items-center gap-3 py-3 text-base text-blue-200 hover:text-white transition-colors"
                         >
-                          <span className="w-1.5 h-1.5 rounded-full bg-[#F4A300] shrink-0" />
+                          <span className="w-1.5 h-1.5 rounded-full bg-[#00BAD1] shrink-0" />
                           {t(key as any)}
                         </Link>
                       ))}
@@ -557,7 +557,7 @@ export default function Navbar() {
                       onClick={() => switchLocale(lang.code)}
                       className={cn(
                         'flex items-center gap-2 px-4 py-2 rounded-full text-sm font-medium transition-all',
-                        locale === lang.code ? 'bg-[#F4A300] text-white' : 'bg-white/10 text-white hover:bg-white/20'
+                        locale === lang.code ? 'bg-[#00BAD1] text-white' : 'bg-white/10 text-white hover:bg-white/20'
                       )}
                     >
                       <span>{lang.flag}</span>

@@ -2,9 +2,13 @@
 
 import { useTranslations, useLocale } from 'next-intl';
 import Link from 'next/link';
+import Image from 'next/image';
 import { motion } from 'framer-motion';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
+import HeroSlider from '@/components/HeroSlider';
+import VideoSection from '@/components/VideoSection';
+import ProductCategoriesSection from '@/components/ProductCategoriesSection';
 
 // ─── Animation Helpers ──────────────────────────────────────────────────────
 
@@ -36,121 +40,11 @@ const slideRight = (delay = 0) => ({
   transition: { duration: 0.7, delay, ease: 'easeOut' as const },
 });
 
-// ─── Product Icon Components ────────────────────────────────────────────────
-
-function BabyDiaperIcon() {
-  return (
-    <svg viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg" className="w-10 h-10">
-      <rect x="8" y="20" width="48" height="28" rx="8" fill="currentColor" opacity="0.15" />
-      <path d="M8 28C8 28 20 32 32 32C44 32 56 28 56 28" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" />
-      <circle cx="22" cy="24" r="4" fill="currentColor" opacity="0.3" />
-      <circle cx="42" cy="24" r="4" fill="currentColor" opacity="0.3" />
-      <path d="M24 40C24 40 28 44 32 44C36 44 40 40 40 40" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
-      <circle cx="32" cy="14" r="6" fill="#FFD6E0" />
-      <circle cx="30" cy="13" r="1.5" fill="#FF6B8A" />
-      <circle cx="34" cy="13" r="1.5" fill="#FF6B8A" />
-      <path d="M30 16.5C30 16.5 31 17.5 34 16.5" stroke="#FF6B8A" strokeWidth="1.2" strokeLinecap="round" />
-    </svg>
-  );
-}
-
-function AdultDiaperIcon() {
-  return (
-    <svg viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg" className="w-10 h-10">
-      <rect x="10" y="18" width="44" height="30" rx="6" fill="currentColor" opacity="0.15" />
-      <path d="M10 26C10 26 22 30 32 30C42 30 54 26 54 26" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" />
-      <rect x="18" y="34" width="28" height="8" rx="4" fill="currentColor" opacity="0.2" />
-      <circle cx="21" cy="22" r="3" fill="currentColor" opacity="0.25" />
-      <circle cx="43" cy="22" r="3" fill="currentColor" opacity="0.25" />
-    </svg>
-  );
-}
-
-function PantsIcon() {
-  return (
-    <svg viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg" className="w-10 h-10">
-      <path d="M14 16H50C52 16 54 18 54 20V28C54 34 48 42 42 50H22C16 42 10 34 10 28V20C10 18 12 16 14 16Z" fill="currentColor" opacity="0.15" />
-      <path d="M10 28C10 28 22 32 32 32C42 32 54 28 54 28" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" />
-      <path d="M14 16C14 16 20 20 32 20C44 20 50 16 50 16" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
-    </svg>
-  );
-}
-
-function UnderpadsIcon({ baby = false }) {
-  return (
-    <svg viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg" className="w-10 h-10">
-      <rect x="8" y="22" width="48" height="24" rx="4" fill="currentColor" opacity="0.15" />
-      <rect x="12" y="26" width="40" height="16" rx="2" fill="currentColor" opacity="0.12" />
-      <path d="M16 32H48" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeDasharray="4 3" />
-      <path d="M16 38H48" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeDasharray="4 3" />
-    </svg>
-  );
-}
-
-function SanitaryPadIcon() {
-  return (
-    <svg viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg" className="w-10 h-10">
-      <path d="M12 32C12 22 20 14 32 14C44 14 52 22 52 32C52 42 44 50 32 50C20 50 12 42 12 32Z" fill="currentColor" opacity="0.12" />
-      <path d="M20 32C20 26 25.5 20 32 20C38.5 20 44 26 44 32C44 38 38.5 44 32 44C25.5 44 20 38 20 32Z" fill="currentColor" opacity="0.2" />
-      <path d="M24 32C24 28 27.5 24 32 24C36.5 24 40 28 40 32C40 36 36.5 40 32 40C27.5 40 24 36 24 32Z" fill="currentColor" opacity="0.35" />
-    </svg>
-  );
-}
-
-function BladderPadIcon() {
-  return (
-    <svg viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg" className="w-10 h-10">
-      <path d="M16 36C16 28 22 20 32 20C42 20 48 28 48 36V44H16V36Z" fill="currentColor" opacity="0.15" />
-      <rect x="16" y="40" width="32" height="8" rx="4" fill="currentColor" opacity="0.2" />
-      <path d="M24 32C24 32 28 36 32 36C36 36 40 32 40 32" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
-      <path d="M32 20V14" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
-    </svg>
-  );
-}
-
-function BabyWipesIcon() {
-  return (
-    <svg viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg" className="w-10 h-10">
-      <rect x="12" y="14" width="40" height="36" rx="6" fill="currentColor" opacity="0.15" />
-      <rect x="18" y="20" width="28" height="24" rx="3" fill="white" opacity="0.5" />
-      <path d="M22 28H42" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
-      <path d="M22 32H42" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
-      <path d="M22 36H36" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
-    </svg>
-  );
-}
-
-function WetWipesIcon() {
-  return (
-    <svg viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg" className="w-10 h-10">
-      <rect x="10" y="16" width="44" height="32" rx="6" fill="currentColor" opacity="0.15" />
-      <rect x="16" y="22" width="32" height="20" rx="3" fill="white" opacity="0.5" />
-      <path d="M20 29H44" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
-      <path d="M20 33H44" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
-      <path d="M20 37H36" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
-    </svg>
-  );
-}
-
-function CleaningTowelIcon() {
-  return (
-    <svg viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg" className="w-10 h-10">
-      <rect x="8" y="12" width="48" height="40" rx="4" fill="currentColor" opacity="0.15" />
-      <path d="M8 20H56" stroke="currentColor" strokeWidth="1.5" />
-      <path d="M8 28H56" stroke="currentColor" strokeWidth="1.5" />
-      <path d="M8 36H56" stroke="currentColor" strokeWidth="1.5" />
-      <path d="M8 44H56" stroke="currentColor" strokeWidth="1.5" />
-      <path d="M20 12V52" stroke="currentColor" strokeWidth="1.5" />
-      <path d="M44 12V52" stroke="currentColor" strokeWidth="1.5" />
-    </svg>
-  );
-}
-
 // ─── Section Label ───────────────────────────────────────────────────────────
 
 function SectionBadge({ children }: { children: React.ReactNode }) {
   return (
-    <span className="inline-flex items-center gap-2 bg-[#F4A300]/10 text-[#F4A300] border border-[#F4A300]/25 text-xs font-bold px-4 py-2 rounded-full uppercase tracking-wider mb-5">
+    <span className="inline-flex items-center gap-2 bg-[#00BAD1]/10 text-[#00BAD1] border border-[#00BAD1]/25 text-xs font-bold px-4 py-2 rounded-full uppercase tracking-wider mb-5">
       {children}
     </span>
   );
@@ -159,27 +53,11 @@ function SectionBadge({ children }: { children: React.ReactNode }) {
 // ─── Main Page ───────────────────────────────────────────────────────────────
 
 export default function HomePage() {
-  const t = useTranslations('hero');
-  const tProducts = useTranslations('products');
   const tWhyUs = useTranslations('whyUs');
   const tPL = useTranslations('privateLabelSection');
-  const tStats = useTranslations('stats');
   const tCerts = useTranslations('certificates');
-  const tAbout = useTranslations('aboutSection');
   const locale = useLocale();
 
-  const products = [
-    { key: 'babyDiapers',    descKey: 'babyDiapersDesc',    icon: <BabyDiaperIcon />,    href: '/products/baby-diapers' },
-    { key: 'adultDiapers',   descKey: 'adultDiapersDesc',   icon: <AdultDiaperIcon />,   href: '/products/adult-diapers' },
-    { key: 'adultPants',     descKey: 'adultPantsDesc',     icon: <PantsIcon />,         href: '/products/adult-pants' },
-    { key: 'adultUnderpads', descKey: 'adultUnderpadsDesc', icon: <UnderpadsIcon />,     href: '/products/adult-underpads' },
-    { key: 'babyUnderpads',  descKey: 'babyUnderpadsDesc',  icon: <UnderpadsIcon baby />,href: '/products/baby-underpads' },
-    { key: 'sanitaryPads',   descKey: 'sanitaryPadsDesc',   icon: <SanitaryPadIcon />,   href: '/products/sanitary-pads' },
-    { key: 'bladderPads',    descKey: 'bladderPadsDesc',    icon: <BladderPadIcon />,    href: '/products/bladder-pads' },
-    { key: 'babyWipes',      descKey: 'babyWipesDesc',      icon: <BabyWipesIcon />,     href: '/products/baby-wet-wipes' },
-    { key: 'wetWipes',       descKey: 'wetWipesDesc',       icon: <WetWipesIcon />,      href: '/products/wet-wipes' },
-    { key: 'cleaningTowels', descKey: 'cleaningTowelsDesc', icon: <CleaningTowelIcon />, href: '/products/cleaning-towels' },
-  ];
 
   const whyUsItems = [
     {
@@ -220,12 +98,6 @@ export default function HomePage() {
     },
   ];
 
-  const stats = [
-    { value: tStats('countriesValue'), label: tStats('countries') },
-    { value: tStats('productsValue'),  label: tStats('products') },
-    { value: tStats('productionValue'),label: tStats('production') },
-    { value: tStats('experienceValue'),label: tStats('experience') },
-  ];
 
   const certificates = [
     { name: 'ISO 9001',   subtitle: 'Quality Management' },
@@ -236,12 +108,6 @@ export default function HomePage() {
     { name: 'TSE',        subtitle: 'Turkish Standards' },
   ];
 
-  const aboutFeatures = [
-    { icon: '🏭', label: tAbout('facility') },
-    { icon: '🌍', label: tAbout('global') },
-    { icon: '🏆', label: tAbout('quality') },
-    { icon: '🤝', label: tAbout('partnership') },
-  ];
 
   return (
     <>
@@ -250,263 +116,113 @@ export default function HomePage() {
       <main>
 
         {/* ══════════════════════════════════════════════════════════════
-            HERO
+            HERO SLIDER
         ══════════════════════════════════════════════════════════════ */}
-        <section className="relative bg-[#1B4F8A] min-h-[90vh] flex items-center overflow-hidden">
-          {/* Background decoration */}
-          <div className="absolute top-0 right-0 w-[700px] h-[700px] rounded-full bg-[#164178] opacity-60 translate-x-1/3 -translate-y-1/3 pointer-events-none" />
-          <div className="absolute bottom-0 left-0 w-[500px] h-[500px] rounded-full bg-[#0d2340] opacity-70 -translate-x-1/3 translate-y-1/3 pointer-events-none" />
-          <div className="absolute inset-0 bg-hero-pattern opacity-[0.06] pointer-events-none" />
-
-          <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24 w-full">
-            <div className="grid lg:grid-cols-2 gap-16 items-center">
-
-              {/* Left — Copy */}
-              <div>
-                <motion.div
-                  initial={{ opacity: 0, y: 30 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.5 }}
-                >
-                  <span className="inline-flex items-center gap-2 bg-[#F4A300] text-white text-sm font-bold px-5 py-2.5 rounded-full mb-8">
-                    <span className="w-1.5 h-1.5 rounded-full bg-white animate-pulse" />
-                    {t('badge')}
-                  </span>
-                </motion.div>
-
-                <motion.h1
-                  initial={{ opacity: 0, y: 30 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.6, delay: 0.1 }}
-                  className="text-5xl lg:text-6xl xl:text-[4.25rem] font-black text-white leading-[1.08] mb-6"
-                  style={{ fontFamily: 'var(--font-outfit)' }}
-                >
-                  {t('title')}<br />
-                  <span className="text-[#F4A300]">{t('titleHighlight')}</span>
-                </motion.h1>
-
-                <motion.p
-                  initial={{ opacity: 0, y: 30 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.6, delay: 0.2 }}
-                  className="text-blue-200 text-lg leading-relaxed mb-10 max-w-lg"
-                >
-                  {t('subtitle')}
-                </motion.p>
-
-                <motion.div
-                  initial={{ opacity: 0, y: 30 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.6, delay: 0.3 }}
-                  className="flex flex-wrap gap-4"
-                >
-                  <Link
-                    href={`/${locale}/products`}
-                    className="inline-flex items-center gap-2 bg-[#F4A300] hover:bg-[#e09600] text-white font-bold px-8 py-4 rounded-xl transition-all hover:scale-105 active:scale-95 shadow-lg shadow-black/20"
-                  >
-                    {t('cta1')}
-                    <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M17 8l4 4m0 0l-4 4m4-4H3" />
-                    </svg>
-                  </Link>
-                  <Link
-                    href={`/${locale}/contact`}
-                    className="inline-flex items-center gap-2 border-2 border-white/40 hover:border-white/70 hover:bg-white/10 text-white font-bold px-8 py-4 rounded-xl transition-all"
-                  >
-                    {t('cta2')}
-                  </Link>
-                </motion.div>
-
-                {/* Trust marks */}
-                <motion.div
-                  initial={{ opacity: 0 }}
-                  animate={{ opacity: 1 }}
-                  transition={{ duration: 0.8, delay: 0.5 }}
-                  className="flex flex-wrap items-center gap-5 mt-10 pt-10 border-t border-white/20"
-                >
-                  {['ISO 9001', 'CE', 'GMP', 'OEKO-TEX'].map((cert) => (
-                    <div key={cert} className="flex items-center gap-1.5 text-sm text-blue-200">
-                      <svg className="w-4 h-4 text-[#F4A300] shrink-0" fill="currentColor" viewBox="0 0 20 20">
-                        <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
-                      </svg>
-                      {cert}
-                    </div>
-                  ))}
-                  <div className="flex items-center gap-1.5 text-sm text-blue-200">
-                    <span>🇹🇷</span>
-                    <span>Made in Turkey</span>
-                  </div>
-                </motion.div>
-              </div>
-
-              {/* Right — Product showcase grid */}
-              <div className="hidden lg:grid grid-cols-2 gap-4">
-                {[
-                  { name: 'Baby Diapers',   icon: <BabyDiaperIcon />,    delay: 0.4 },
-                  { name: 'Adult Care',      icon: <AdultDiaperIcon />,   delay: 0.5 },
-                  { name: 'Wet Wipes',       icon: <WetWipesIcon />,      delay: 0.55 },
-                  { name: 'Private Label',   icon: (
-                    <svg className="w-10 h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M7 7h.01M7 3h5c.512 0 1.024.195 1.414.586l7 7a2 2 0 010 2.828l-7 7a2 2 0 01-2.828 0l-7-7A1.994 1.994 0 013 12V7a4 4 0 014-4z" />
-                    </svg>
-                  ), delay: 0.6 },
-                ].map(({ name, icon, delay }) => (
-                  <motion.div
-                    key={name}
-                    initial={{ opacity: 0, scale: 0.85 }}
-                    animate={{ opacity: 1, scale: 1 }}
-                    transition={{ duration: 0.6, delay }}
-                    className="group bg-white/10 hover:bg-white/16 backdrop-blur-sm border border-white/20 rounded-2xl p-8 flex flex-col items-center gap-4 cursor-default transition-all hover:-translate-y-1"
-                  >
-                    <div className="text-white">{icon}</div>
-                    <p className="text-white font-semibold text-sm text-center">{name}</p>
-                  </motion.div>
-                ))}
-              </div>
-            </div>
-          </div>
-        </section>
+        <HeroSlider />
 
         {/* ══════════════════════════════════════════════════════════════
-            STATS STRIP
+            PRODUCTS
         ══════════════════════════════════════════════════════════════ */}
-        <section className="bg-[#0D2B4E]">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="grid grid-cols-2 lg:grid-cols-4">
-              {stats.map(({ value, label }, i) => (
-                <motion.div
-                  key={label}
-                  {...fadeUp(i * 0.1)}
-                  className="py-10 px-6 text-center border-r border-white/10 last:border-r-0 [&:nth-child(2)]:border-r-0 lg:[&:nth-child(2)]:border-r"
-                >
-                  <div
-                    className="text-4xl lg:text-5xl font-black text-[#F4A300] mb-2"
-                    style={{ fontFamily: 'var(--font-outfit)' }}
-                  >
-                    {value}
-                  </div>
-                  <p className="text-gray-400 text-sm font-medium tracking-wide uppercase">{label}</p>
-                </motion.div>
-              ))}
-            </div>
-          </div>
-        </section>
+        <ProductCategoriesSection />
 
         {/* ══════════════════════════════════════════════════════════════
             ABOUT
         ══════════════════════════════════════════════════════════════ */}
-        <section className="py-28 bg-white" id="about">
+        <section className="py-12 lg:py-28 bg-white" id="about">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="grid lg:grid-cols-2 gap-16 items-center">
+            <div className="grid lg:grid-cols-2 gap-8 lg:gap-20 items-center">
 
-              {/* Left — Visual panel */}
-              <motion.div {...slideLeft(0)} className="relative">
-                {/* Offset background */}
-                <div className="absolute inset-0 bg-[#E8F0FB] rounded-3xl rotate-2 scale-[0.97]" />
-                <div className="relative bg-[#1B4F8A] rounded-3xl p-10 overflow-hidden">
-                  <div className="absolute top-0 right-0 w-64 h-64 rounded-full bg-[#F4A300]/10 -translate-y-1/2 translate-x-1/2" />
-                  <div className="grid grid-cols-2 gap-6 relative">
-                    {aboutFeatures.map(({ icon, label }) => (
-                      <div key={label} className="flex items-start gap-3 bg-white/10 rounded-2xl p-5">
-                        <span className="text-2xl shrink-0">{icon}</span>
-                        <p className="text-blue-100 text-sm font-medium leading-snug">{label}</p>
-                      </div>
-                    ))}
+              {/* Left — VEFA Logo card */}
+              <motion.div {...slideLeft(0)} className="flex flex-col items-center order-1 w-full">
+                {/* Modern Logo Card */}
+                <div className="relative rounded-3xl overflow-hidden shadow-2xl w-full max-w-[220px] sm:max-w-sm lg:max-w-lg mx-auto mb-5">
+                  {/* Glow border */}
+                  <div className="absolute -inset-[1px] rounded-3xl bg-gradient-to-br from-[#00BAD1]/50 via-[#1B4F8A]/30 to-[#00BAD1]/20 z-0" />
+                  <div className="relative z-10 rounded-3xl overflow-hidden">
+                    <Image
+                      src="/vefa-logo.png"
+                      alt="Vefa Global Logo"
+                      width={700}
+                      height={400}
+                      className="w-full h-auto block"
+                    />
                   </div>
-                  {/* Large accent number */}
-                  <div className="mt-8 pt-8 border-t border-white/20 flex items-end gap-3">
-                    <span
-                      className="text-7xl font-black text-[#F4A300] leading-none"
-                      style={{ fontFamily: 'var(--font-outfit)' }}
-                    >
-                      50+
-                    </span>
-                    <span className="text-blue-200 text-base pb-2 leading-tight">
-                      {tStats('countries')}
-                    </span>
+                </div>
+
+                <div className="w-full max-w-sm lg:max-w-lg">
+                  {/* Stats row */}
+                  <div className="grid grid-cols-3 gap-3">
+                    {[
+                      { val: '50+', label: 'İhracat Ülkesi' },
+                      { val: '10+', label: 'Ürün Çeşidi' },
+                      { val: '10+', label: 'Yıl Deneyim' },
+                    ].map(({ val, label }, i) => (
+                      <motion.div
+                        key={label}
+                        initial={{ opacity: 0, y: 20 }}
+                        whileInView={{ opacity: 1, y: 0 }}
+                        viewport={{ once: true }}
+                        transition={{ duration: 0.5, delay: 0.2 + i * 0.1 }}
+                        className="relative text-center bg-gradient-to-b from-[#1B4F8A] to-[#0f3a6e] rounded-2xl py-5 px-3 shadow-lg border border-[#1B4F8A]/60 overflow-hidden group"
+                      >
+                        <div className="absolute inset-0 bg-[#00BAD1]/0 group-hover:bg-[#00BAD1]/5 transition-colors duration-300" />
+                        <div
+                          className="text-2xl font-black text-[#00BAD1] leading-none mb-1.5"
+                          style={{ fontFamily: 'var(--font-outfit)' }}
+                        >
+                          {val}
+                        </div>
+                        <p className="text-blue-200/80 text-xs font-medium leading-tight">{label}</p>
+                      </motion.div>
+                    ))}
                   </div>
                 </div>
               </motion.div>
 
               {/* Right — Text */}
-              <motion.div {...slideRight(0.1)}>
-                <SectionBadge>{tAbout('badge')}</SectionBadge>
+              <motion.div {...slideRight(0.1)} className="order-2">
+                <SectionBadge>Vefa Global</SectionBadge>
                 <h2
-                  className="text-4xl lg:text-5xl font-black text-[#1A1A2E] leading-tight mb-6"
+                  className="text-3xl lg:text-4xl xl:text-5xl font-black text-[#1A1A2E] leading-tight mb-6"
                   style={{ fontFamily: 'var(--font-outfit)' }}
                 >
-                  {tAbout('title')}
+                  Hakkımızda
                 </h2>
-                <p className="text-gray-600 text-lg leading-relaxed mb-4">
-                  {tAbout('text1')}
-                </p>
-                <p className="text-gray-500 leading-relaxed mb-10">
-                  {tAbout('text2')}
-                </p>
+
+                <div className="space-y-4 text-gray-600 leading-relaxed mb-8">
+                  <p>
+                    <strong className="text-[#1A1A2E]">VEFA ULUSLARARASI TOPTAN GIDA PAZARLAMA SAN. VE TİC. LTD. ŞTİ.</strong> olarak biz şuna inanıyoruz: gerçek özen basit ama önemli şeylerden başlar. Bu nedenle, insanların her gün kendilerini rahat, özgüvenli ve güvende hissetmelerine yardımcı olan hijyen ürünleri üretiyoruz.
+                  </p>
+                  <p>
+                    Geniş bir kişisel hijyen ürün yelpazesi üretiyoruz. Tüm ürünlerimiz, yaşamın farklı dönemlerinde hijyenin ne kadar önemli olduğunu bilerek ve ayrıntılara özen gösterilerek geliştirilmektedir.
+                  </p>
+                  <p>
+                    Modern teknolojileri, sıkı kalite kontrolünü ve sıcak bir insani yaklaşımı bir araya getiriyoruz. Bizim için önemli olan sadece üretim yapmak değil, aynı zamanda birilerinin bakımının güvenilir bir parçası olmaktır — ister aile, ister çocuk, ister yetişkin ya da yaşlı bir birey olsun.
+                  </p>
+                  <p className="text-[#1B4F8A] font-medium italic border-l-4 border-[#00BAD1] pl-4">
+                    Soft &amp; Power sadece bir ürün değil. Bu, ortaklık, güven ve milyonlarca insanın rahatlığı için verilen günlük bir çabadır. Müşterilerimizle birlikte büyüyoruz ve herkesin yüksek kaliteli ve erişilebilir kişisel hijyen çözümlerine layık olduğuna inanıyoruz.
+                  </p>
+                </div>
+
                 <Link
                   href={`/${locale}/corporate/about`}
                   className="inline-flex items-center gap-2 border-2 border-[#1B4F8A] text-[#1B4F8A] font-bold px-7 py-3.5 rounded-xl hover:bg-[#1B4F8A] hover:text-white transition-all"
                 >
-                  {tAbout('cta')}
+                  Daha Fazla Bilgi
                   <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M17 8l4 4m0 0l-4 4m4-4H3" />
                   </svg>
                 </Link>
               </motion.div>
+
             </div>
           </div>
         </section>
 
         {/* ══════════════════════════════════════════════════════════════
-            PRODUCTS
+            VIDEO
         ══════════════════════════════════════════════════════════════ */}
-        <section className="py-28 bg-gray-50" id="products">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <motion.div {...fadeUp()} className="text-center mb-16">
-              <SectionBadge>{tProducts('viewAll')}</SectionBadge>
-              <h2
-                className="text-4xl lg:text-5xl font-black text-[#1A1A2E] mb-4"
-                style={{ fontFamily: 'var(--font-outfit)' }}
-              >
-                {tProducts('title')}
-              </h2>
-              <p className="text-gray-500 max-w-xl mx-auto">{tProducts('subtitle')}</p>
-            </motion.div>
-
-            <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-4">
-              {products.map(({ key, descKey, icon, href }, i) => (
-                <motion.div key={key} {...fadeUp(i * 0.05)}>
-                  <Link
-                    href={`/${locale}${href}`}
-                    className="group flex flex-col items-center text-center bg-white border border-gray-100 hover:border-[#1B4F8A] rounded-2xl p-6 transition-all hover:shadow-lg hover:-translate-y-1 h-full"
-                  >
-                    <div className="w-16 h-16 rounded-2xl bg-[#E8F0FB] flex items-center justify-center text-[#1B4F8A] mb-4 group-hover:bg-[#1B4F8A] group-hover:text-white transition-all group-hover:scale-110 duration-300">
-                      {icon}
-                    </div>
-                    <h3 className="font-bold text-[#1A1A2E] text-sm mb-1.5 group-hover:text-[#1B4F8A] transition-colors">
-                      {tProducts(key as any)}
-                    </h3>
-                    <p className="text-gray-400 text-xs leading-snug">
-                      {tProducts(descKey as any)}
-                    </p>
-                  </Link>
-                </motion.div>
-              ))}
-            </div>
-
-            <motion.div {...fadeUp(0.2)} className="text-center mt-12">
-              <Link
-                href={`/${locale}/products`}
-                className="inline-flex items-center gap-2 bg-[#1B4F8A] hover:bg-[#164178] text-white font-semibold px-8 py-4 rounded-xl transition-all hover:scale-105 active:scale-95"
-              >
-                {tProducts('viewAll')}
-                <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M17 8l4 4m0 0l-4 4m4-4H3" />
-                </svg>
-              </Link>
-            </motion.div>
-          </div>
-        </section>
+        <VideoSection />
 
         {/* ══════════════════════════════════════════════════════════════
             WHY US
@@ -531,8 +247,8 @@ export default function HomePage() {
                   {...fadeUp(i * 0.1)}
                   className="group relative bg-white border border-gray-100 hover:border-[#1B4F8A]/30 rounded-2xl p-8 hover:shadow-xl transition-all hover:-translate-y-1 overflow-hidden"
                 >
-                  {/* Amber corner accent */}
-                  <div className="absolute top-0 right-0 w-20 h-20 bg-[#F4A300]/5 rounded-bl-[3rem] group-hover:bg-[#F4A300]/10 transition-colors" />
+                  {/* Corner accent */}
+                  <div className="absolute top-0 right-0 w-20 h-20 bg-[#00BAD1]/5 rounded-bl-[3rem] group-hover:bg-[#00BAD1]/10 transition-colors" />
 
                   <div className="w-14 h-14 rounded-2xl bg-[#E8F0FB] flex items-center justify-center text-[#1B4F8A] mb-6 group-hover:bg-[#1B4F8A] group-hover:text-white transition-all relative">
                     {icon}
@@ -552,16 +268,16 @@ export default function HomePage() {
         {/* ══════════════════════════════════════════════════════════════
             PRIVATE LABEL CTA
         ══════════════════════════════════════════════════════════════ */}
-        <section className="py-28 bg-[#1B4F8A] relative overflow-hidden" id="private-label">
+        <section className="py-28 bg-[#0D2B4E] relative overflow-hidden" id="private-label">
           <div className="absolute inset-0 bg-hero-pattern opacity-[0.07]" />
-          <div className="absolute top-0 right-0 w-[500px] h-[500px] rounded-full bg-[#F4A300]/10 translate-x-1/2 -translate-y-1/2 pointer-events-none" />
+          <div className="absolute top-0 right-0 w-[500px] h-[500px] rounded-full bg-[#00BAD1]/10 translate-x-1/2 -translate-y-1/2 pointer-events-none" />
           <div className="absolute bottom-0 left-0 w-[400px] h-[400px] rounded-full bg-white/5 -translate-x-1/2 translate-y-1/2 pointer-events-none" />
 
           <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="grid lg:grid-cols-2 gap-16 items-center">
 
               <motion.div {...slideLeft()} className="text-white">
-                <span className="inline-block bg-[#F4A300] text-white text-xs font-bold px-4 py-2 rounded-full mb-6 uppercase tracking-wider">
+                <span className="inline-block bg-[#00BAD1] text-white text-xs font-bold px-4 py-2 rounded-full mb-6 uppercase tracking-wider">
                   {tPL('badge')}
                 </span>
                 <h2
@@ -575,7 +291,7 @@ export default function HomePage() {
                 </p>
                 <Link
                   href={`/${locale}/private-label`}
-                  className="inline-flex items-center gap-2 bg-white text-[#1B4F8A] font-bold px-8 py-4 rounded-xl hover:bg-[#F4A300] hover:text-white transition-all hover:scale-105 active:scale-95 shadow-lg"
+                  className="inline-flex items-center gap-2 bg-white text-[#1B4F8A] font-bold px-8 py-4 rounded-xl hover:bg-[#00BAD1] hover:text-white transition-all hover:scale-105 active:scale-95 shadow-lg"
                 >
                   {tPL('cta')}
                   <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -590,7 +306,7 @@ export default function HomePage() {
                     key={key}
                     className="bg-white/10 backdrop-blur-sm border border-white/20 rounded-2xl p-6 hover:bg-white/15 transition-colors"
                   >
-                    <div className="w-10 h-10 rounded-xl bg-[#F4A300]/20 flex items-center justify-center text-[#F4A300] mb-4">
+                    <div className="w-10 h-10 rounded-xl bg-[#00BAD1]/20 flex items-center justify-center text-[#00BAD1] mb-4">
                       {i === 0 && (
                         <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M7 21a4 4 0 01-4-4V5a2 2 0 012-2h4a2 2 0 012 2v12a4 4 0 01-4 4zm0 0h12a2 2 0 002-2v-4a2 2 0 00-2-2h-2.343M11 7.343l1.657-1.657a2 2 0 012.828 0l2.829 2.829a2 2 0 010 2.828l-8.486 8.485M7 17h.01" />
@@ -685,7 +401,7 @@ export default function HomePage() {
               </a>
               <Link
                 href={`/${locale}/contact`}
-                className="inline-flex items-center gap-2 bg-[#F4A300] hover:bg-[#e09600] text-white font-semibold px-6 py-3.5 rounded-xl transition-all hover:scale-105"
+                className="inline-flex items-center gap-2 bg-[#00BAD1] hover:bg-[#009db5] text-white font-semibold px-6 py-3.5 rounded-xl transition-all hover:scale-105"
               >
                 <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />

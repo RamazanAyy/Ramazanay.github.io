@@ -82,15 +82,59 @@
     "subtitle": "Unsere Produkte erfüllen internationale Qualitäts- und Sicherheitsstandards"
   },
   "aboutSection": {
-    "badge": "Über uns",
-    "title": "10+ Jahre vertrauenswürdige Hygieneproduktion",
-    "text1": "Soft & Power Hygiene ist ein in der Türkei ansässiger Hersteller von Hygieneprodukten, der in über 50 Länder weltweit exportiert.",
-    "text2": "Von Babywindeln bis zur Erwachsenenpflege, Feuchttücher bis Reinigungstücher – wir bieten zuverlässige Großhandels- und Eigenmarkenlösungen.",
-    "cta": "Mehr über uns erfahren",
-    "facility": "Moderne Produktionsanlage",
-    "global": "Export in 50+ Länder",
-    "quality": "Internationale Zertifizierungen",
-    "partnership": "Langfristige Partnerschaften"
+    "badge": "Soft & Power",
+    "title": "Über uns",
+    "text1": "Bei Soft & Power bieten wir qualitativ hochwertige, zuverlässige und wettbewerbsfähige Lösungen im Bereich Hygiene- und Körperpflegeprodukte. Wir sind auf internationalen Märkten mit unserem breiten Produktsortiment in den Kategorien Babywindeln, Erwachsenenwindeln, Feuchttücher und Hygieneprodukte tätig.",
+    "text2": "Dank unserer starken Lieferinfrastruktur und flexiblen Produktionslösungen bieten wir unseren Geschäftspartnern schnelle, nachhaltige und kosteneffektive Produkte. Mit unserem exportorientierten Ansatz streben wir an, ein zuverlässiger Partner in verschiedenen Ländern zu sein.",
+    "cta": "Mehr erfahren"
+  },
+  "slider": {
+    "discoverProduct": "Produkt entdecken",
+    "allProducts": "Alle Produkte",
+    "madeInTurkey": "Hergestellt in der Türkei",
+    "tagBabyCare": "Babypflege",
+    "tagAdultCare": "Erwachsenenpflege",
+    "tagPersonalHygiene": "Persönliche Hygiene",
+    "tagProfessionalCleaning": "Professionelle Reinigung"
+  },
+  "categoriesSection": {
+    "sectionLabel": "Produktkategorien",
+    "sectionTitle": "Entdecken Sie unsere",
+    "sectionTitleHighlight": "Produkte",
+    "tabBabyCare": "Babypflege",
+    "tabAdultCare": "Erwachsenenpflege",
+    "tabWetWipes": "Feuchttücher",
+    "tabHygiene": "Hygiene & Reinigung",
+    "badgeBestSeller": "Bestseller",
+    "badgeNew": "Neu",
+    "examine": "Entdecken",
+    "viewAll": "Alle Produkte",
+    "viewAllSub": "anzeigen",
+    "scrollHint": "← Wischen für mehr →"
+  },
+  "navExtra": {
+    "productCategories": "Produktkategorien",
+    "allProducts": "Alle Produkte",
+    "getQuote": "Angebot anfordern",
+    "aboutDesc": "Über Soft & Power Hygiene",
+    "qualityDesc": "ISO, CE, GMP Qualitätsstandards",
+    "certificatesDesc": "Unsere internationalen Zertifizierungen"
+  },
+  "video": {
+    "badge": "Promo-Video",
+    "title": "Entdecken Sie unsere",
+    "titleHighlight": "Produktionskraft",
+    "subtitle": "Mit unseren modernen Anlagen und fortschrittlicher Technologie produzieren wir Hygieneprodukte auf Weltniveau.",
+    "play": "Abspielen",
+    "statProducts": "Produktvarianten",
+    "statCountries": "Exportländer",
+    "statCertified": "9001 Zertifiziert",
+    "statCapacity": "Produktionskapazität"
+  },
+  "contactCta": {
+    "title": "Bereit zu starten?",
+    "whatsappBtn": "WhatsApp",
+    "emailBtn": "E-Mail"
   },
   "contact": {
     "title": "Kontakt aufnehmen",

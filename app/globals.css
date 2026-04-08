@@ -3,8 +3,8 @@
 @tailwind utilities;
 
 :root {
-  --primary: #1B4F8A;
-  --accent: #E8F0FB;
+  --primary: #1a5fa8;
+  --accent: #f4f7fb;
   --brand-red: #E3001B;
 }
 
@@ -63,7 +63,7 @@ body {
   background: #f1f5f9;
 }
 ::-webkit-scrollbar-thumb {
-  background: #1B4F8A;
+  background: #1a5fa8;
   border-radius: 3px;
 }
 
@@ -76,7 +76,7 @@ body {
 }
 
 .hero-gradient {
-  background: linear-gradient(135deg, #0d2d52 0%, #1B4F8A 40%, #1a5fa8 70%, #0d3d6e 100%);
+  background: linear-gradient(135deg, #0d2d5e 0%, #1a5fa8 40%, #1a5fa8 70%, #0d2d5e 100%);
   background-size: 200% 200%;
   animation: gradientShift 8s ease infinite;
 }

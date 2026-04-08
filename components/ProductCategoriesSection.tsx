@@ -1,283 +1,414 @@
 'use client';
 
-import { useState, useRef } from 'react';
+import { useState, useRef, useCallback, useEffect } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { motion, AnimatePresence } from 'framer-motion';
-import { useLocale } from 'next-intl';
+import { useLocale, useTranslations } from 'next-intl';
 
-const CATEGORIES = [
+interface ProductDef {
+  nameKey: string;
+  descKey: string;
+  img: string;
+  href: string;
+  badgeKey: string | null;
+}
+
+interface CategoryDef {
+  id: string;
+  labelKey: string;
+  icon: React.ReactNode;
+  products: ProductDef[];
+}
+
+const CATEGORIES: CategoryDef[] = [
   {
     id: 'baby',
-    label: 'Bebek Bakımı',
+    labelKey: 'tabBabyCare',
     icon: (
-      <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
+      /* Bebek Bakımı - bebek bezi */
+      <svg className="w-7 h-7" viewBox="0 0 64 64" fill="none">
+        <circle cx="32" cy="32" r="29" fill="#00b4c8" stroke="#9dd8e0" strokeWidth="3" />
+        {/* Bez gövdesi */}
+        <path d="M20 22c0-1 1-2 2-2h20c1 0 2 1 2 2v6c0 10-5 18-12 18S20 38 20 28v-6z" fill="white" />
+        {/* Bant */}
+        <rect x="20" y="26" width="24" height="4" rx="1" fill="#00b4c8" opacity="0.25" />
+        {/* Bebek yüzü */}
+        <circle cx="32" cy="50" r="6" fill="white" />
+        <circle cx="30" cy="49" r="1" fill="#00b4c8" />
+        <circle cx="34" cy="49" r="1" fill="#00b4c8" />
+        <path d="M30 52c0 0 1 1.5 2 1.5s2-1.5 2-1.5" stroke="#00b4c8" strokeWidth="0.8" fill="none" strokeLinecap="round" />
       </svg>
     ),
     products: [
-      {
-        name: 'Bebek Bezi',
-        desc: 'Ultra ince yapı, yüksek emicilik, hassas cilt dostu',
-        img: '/slider/slide-baby-diapers.jpg',
-        href: '/products/baby-diapers',
-        badge: 'Çok Satan',
-      },
-      {
-        name: 'Bebek Islak Mendil',
-        desc: 'Parfümsüz, alkol içermeyen nazik formül',
-        img: '/slider/slide-wipes.jpg',
-        href: '/products/baby-wet-wipes',
-        badge: null,
-      },
-      {
-        name: 'Bebek Hasta Altı',
-        desc: 'Hassas bebek cildi için yumuşak koruma',
-        img: '/slider/slide-baby-underpads.jpg',
-        href: '/products/baby-underpads',
-        badge: null,
-      },
+      { nameKey: 'babyDiapers', descKey: 'babyDiapersDesc', img: '/images/products/eco-baby-diapers/SP_BABY_DIAPERS_ECO_1_.jpg', href: '/urunler/bebek-bezi', badgeKey: 'badgeBestSeller' },
+      { nameKey: 'babyWipes', descKey: 'babyWipesDesc', img: '/images/products/baby-wet-wipes/SP_WET_WIPES_BABY_72.jpg', href: '/urunler/islak-mendil', badgeKey: null },
+      { nameKey: 'babyUnderpads', descKey: 'babyUnderpadsDesc', img: '/images/products/baby-underpad/SP_UNDERPAD_BABY_60x60_10.png', href: '/urunler/bebek-alt-serme-ortusu', badgeKey: null },
     ],
   },
   {
     id: 'adult',
-    label: 'Yetişkin Bakımı',
+    labelKey: 'tabAdultCare',
     icon: (
-      <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
+      /* Yetişkin Bakımı - açık bez silüeti (referans fotoğraf gibi) */
+      <svg className="w-7 h-7" viewBox="0 0 64 64" fill="none">
+        <circle cx="32" cy="32" r="29" fill="#00b4c8" stroke="#9dd8e0" strokeWidth="3" />
+        {/* Açık bez - ana gövde */}
+        <path d="M18 20c0 0 4 2 14 2s14-2 14-2v10c0 6-4 16-14 16S18 36 18 30V20z" fill="white" />
+        {/* İç katman - emici tabaka */}
+        <path d="M22 22c0 0 3 1 10 1s10-1 10-1v8c0 4-3 12-10 12S22 34 22 30V22z" fill="#e0f4f7" />
+        {/* Bantlar */}
+        <path d="M18 22l5 3" stroke="white" strokeWidth="2.5" strokeLinecap="round" />
+        <path d="M46 22l-5 3" stroke="white" strokeWidth="2.5" strokeLinecap="round" />
+        {/* Fırfır kenarlar */}
+        <path d="M20 20c-2-2-3-4-2-6M44 20c2-2 3-4 2-6" stroke="white" strokeWidth="1.5" strokeLinecap="round" />
       </svg>
     ),
     products: [
-      {
-        name: 'Yetişkin Külot Bezi',
-        desc: 'Aktif yaşam için iç çamaşırı konforu',
-        img: '/slider/slide-adult-pants.jpg',
-        href: '/products/adult-pants',
-        badge: 'Yeni',
-      },
-      {
-        name: 'Yetişkin Hasta Altı',
-        desc: 'Sağlık kurumları için profesyonel çözüm',
-        img: '/slider/slide-underpads.jpg',
-        href: '/products/adult-underpads',
-        badge: null,
-      },
-      {
-        name: 'Mesane Pedi',
-        desc: 'Hafif ve orta inkontinans için özel tasarım',
-        img: '/slider/slide-bladder-pads.jpg',
-        href: '/products/bladder-pads',
-        badge: null,
-      },
+      { nameKey: 'adultPants', descKey: 'adultPantsDesc', img: '/images/products/adult-pants-30/SP_ADULT_PANTS_M (2).jpg', href: '/urunler/yetiskin-kulot-bezi', badgeKey: 'badgeNew' },
+      { nameKey: 'adultDiapers', descKey: 'adultDiapersDesc', img: '/images/products/adult-diapers-30/SP_ADULT_DIAPERS_M (2).jpg', href: '/urunler/yetiskin-bezi', badgeKey: null },
+      { nameKey: 'adultUnderpads', descKey: 'adultUnderpadsDesc', img: '/images/products/adult-underpad/SP_UNDERPAD_60x90_30 (2).jpg', href: '/urunler/yetiskin-alt-serme-ortusu', badgeKey: null },
+      { nameKey: 'bladderPads', descKey: 'bladderPadsDesc', img: '/images/products/bladder-pads/SP_PADS_UNISEX_4 (2).jpg', href: '/urunler/mesane-pedi', badgeKey: null },
+      { nameKey: 'sanitaryPads', descKey: 'sanitaryPadsDesc', img: '/images/products/sanitary-pads/SP_PADS_LADY_4.jpg.jpeg', href: '/urunler/hijyenik-ped', badgeKey: null },
     ],
   },
   {
     id: 'wipes',
-    label: 'Islak Mendil',
+    labelKey: 'tabWetWipes',
     icon: (
-      <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z" />
+      /* Islak Mendil - mendil paketi + çıkan mendil */
+      <svg className="w-7 h-7" viewBox="0 0 64 64" fill="none">
+        <circle cx="32" cy="32" r="29" fill="#00b4c8" stroke="#9dd8e0" strokeWidth="3" />
+        {/* Paket gövde */}
+        <rect x="16" y="28" width="32" height="18" rx="3" fill="white" />
+        {/* Çıkan mendil */}
+        <path d="M28 28v-6c0 0 0-3 4-3s4 3 4 3v6" fill="white" />
+        <path d="M26 28c0 0 1-10 6-10s6 10 6 10" stroke="#e0f4f7" strokeWidth="1.5" fill="white" />
+        {/* Kapak çizgisi */}
+        <rect x="16" y="28" width="32" height="4" rx="2" fill="#e0f4f7" />
+        {/* Açıklık */}
+        <ellipse cx="32" cy="30" rx="4" ry="1.5" fill="#00b4c8" opacity="0.3" />
       </svg>
     ),
     products: [
-      {
-        name: 'Bebek Islak Mendil',
-        desc: 'Parfümsüz, alkol içermeyen nazik formül',
-        img: '/slider/slide-wipes.jpg',
-        href: '/products/baby-wet-wipes',
-        badge: null,
-      },
-      {
-        name: 'Islak Mendil',
-        desc: 'Her ortam için pratik hijyen çözümü',
-        img: '/slider/slide-wet-wipes.jpg',
-        href: '/products/wet-wipes',
-        badge: null,
-      },
+      { nameKey: 'babyWipes', descKey: 'babyWipesDesc', img: '/images/products/baby-wet-wipes/SP_WET_WIPES_BABY_72.jpg', href: '/urunler/islak-mendil', badgeKey: null },
+      { nameKey: 'wetWipes', descKey: 'wetWipesDesc', img: '/images/products/wet-wipes/SP_WET_WIPES_120.jpg', href: '/urunler/islak-mendil', badgeKey: null },
     ],
   },
   {
     id: 'hygiene',
-    label: 'Hijyen & Temizlik',
+    labelKey: 'tabHygiene',
     icon: (
-      <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z" />
+      /* Hijyen & Temizlik - temizlik havlusu paketi */
+      <svg className="w-7 h-7" viewBox="0 0 64 64" fill="none">
+        <circle cx="32" cy="32" r="29" fill="#00b4c8" stroke="#9dd8e0" strokeWidth="3" />
+        {/* Paket gövde - yatay dikdörtgen */}
+        <rect x="14" y="26" width="36" height="20" rx="3" fill="white" />
+        {/* Çıkan havlu */}
+        <path d="M26 26c0 0 0-8 6-8s6 8 6 8" fill="white" stroke="#e0f4f7" strokeWidth="1" />
+        {/* Kapak */}
+        <rect x="14" y="26" width="36" height="5" rx="2" fill="#e0f4f7" />
+        {/* Parlama çizgileri */}
+        <path d="M44 16l2-4M48 20l3-2M46 24l4 0" stroke="white" strokeWidth="1.5" strokeLinecap="round" opacity="0.8" />
       </svg>
     ),
     products: [
-      {
-        name: 'Temizlik Havlusu',
-        desc: 'Profesyonel temizlik için güçlü yapı',
-        img: '/slider/slide-cleaning-towels.jpg',
-        href: '/products/cleaning-towels',
-        badge: null,
-      },
-      {
-        name: 'Mesane Pedi',
-        desc: 'Discreet ve etkili — özgürce yaşamanız için',
-        img: '/slider/slide-bladder-pads.jpg',
-        href: '/products/bladder-pads',
-        badge: null,
-      },
+      { nameKey: 'cleaningTowels', descKey: 'cleaningTowelsDesc', img: '/images/products/home-care-wet-towels/SP_Cleaning_towels_100.jpg', href: '/urunler/yuzey-temizleme-havlusu', badgeKey: null },
     ],
   },
 ];
 
 export default function ProductCategoriesSection() {
   const locale = useLocale();
+  const tCat = useTranslations('categoriesSection');
+  const tProducts = useTranslations('products');
   const [activeId, setActiveId] = useState(CATEGORIES[0].id);
   const scrollRef = useRef<HTMLDivElement>(null);
+  const tabsRef = useRef<HTMLDivElement>(null);
+  const [showTabLeft, setShowTabLeft] = useState(false);
+  const [showTabRight, setShowTabRight] = useState(false);
 
   const active = CATEGORIES.find((c) => c.id === activeId)!;
 
-  return (
-    <section className="py-16 lg:py-24 bg-white overflow-hidden" id="product-categories">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+  const scroll = useCallback((dir: 'left' | 'right') => {
+    if (!scrollRef.current) return;
+    const amount = 280;
+    scrollRef.current.scrollBy({ left: dir === 'right' ? amount : -amount, behavior: 'smooth' });
+  }, []);
 
-        {/* Header */}
+  const scrollTabs = useCallback((dir: 'left' | 'right') => {
+    if (!tabsRef.current) return;
+    tabsRef.current.scrollBy({ left: dir === 'right' ? 150 : -150, behavior: 'smooth' });
+  }, []);
+
+  const updateTabArrows = useCallback(() => {
+    const el = tabsRef.current;
+    if (!el) return;
+    setShowTabLeft(el.scrollLeft > 4);
+    setShowTabRight(el.scrollLeft + el.clientWidth < el.scrollWidth - 4);
+  }, []);
+
+  useEffect(() => {
+    const el = tabsRef.current;
+    if (!el) return;
+    updateTabArrows();
+    el.addEventListener('scroll', updateTabArrows);
+    window.addEventListener('resize', updateTabArrows);
+    return () => {
+      el.removeEventListener('scroll', updateTabArrows);
+      window.removeEventListener('resize', updateTabArrows);
+    };
+  }, [updateTabArrows]);
+
+  return (
+    <section className="relative py-12 sm:py-20 lg:py-24 overflow-hidden" id="product-categories"
+      style={{ background: 'linear-gradient(160deg, #e8f4fd 0%, #f0f9ff 35%, #e6f3fb 65%, #dff0fa 100%)' }}
+    >
+      {/* Büyük arka plan baloncukları */}
+      <div className="absolute -top-24 -right-24 w-[420px] h-[420px] rounded-full bg-[#00b4c8]/10 blur-3xl pointer-events-none" />
+      <div className="absolute -bottom-24 -left-24 w-[480px] h-[480px] rounded-full bg-[#1a5fa8]/8 blur-3xl pointer-events-none" />
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] rounded-full bg-[#00b4c8]/5 blur-3xl pointer-events-none" />
+
+      {/* Dekoratif yüzen daireler */}
+      <div className="absolute top-10 left-[8%] w-16 h-16 rounded-full border-2 border-[#00b4c8]/20 pointer-events-none" />
+      <div className="absolute top-20 left-[12%] w-8 h-8 rounded-full bg-[#00b4c8]/10 pointer-events-none" />
+      <div className="absolute top-16 right-[10%] w-20 h-20 rounded-full border border-[#1a5fa8]/15 pointer-events-none" />
+      <div className="absolute top-32 right-[6%] w-5 h-5 rounded-full bg-[#1a5fa8]/15 pointer-events-none" />
+      <div className="absolute bottom-24 left-[5%] w-12 h-12 rounded-full border-2 border-[#00b4c8]/15 pointer-events-none" />
+      <div className="absolute bottom-16 right-[8%] w-10 h-10 rounded-full bg-[#00b4c8]/8 pointer-events-none" />
+      <div className="absolute bottom-40 left-[20%] w-6 h-6 rounded-full bg-[#1a5fa8]/10 pointer-events-none" />
+      <div className="absolute top-1/3 right-[18%] w-4 h-4 rounded-full bg-[#00b4c8]/20 pointer-events-none" />
+
+      {/* Alt dalga SVG */}
+      <svg className="absolute bottom-0 left-0 w-full pointer-events-none" viewBox="0 0 1440 60" preserveAspectRatio="none" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M0 30 C360 60 720 0 1080 30 C1260 45 1380 20 1440 30 L1440 60 L0 60 Z" fill="white" fillOpacity="0.4" />
+      </svg>
+
+      <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+
+        {/* ── Header ── */}
         <motion.div
-          initial={{ opacity: 0, y: 24 }}
+          initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          transition={{ duration: 0.55 }}
+          transition={{ duration: 0.6 }}
           className="text-center mb-10"
         >
-          <div className="flex items-center justify-center gap-3 mb-3">
-            <span className="w-8 h-[2px] bg-[#00BAD1]" />
-            <span className="text-[#00BAD1] text-xs font-semibold uppercase tracking-[0.25em]">Ürün Kategorileri</span>
-            <span className="w-8 h-[2px] bg-[#00BAD1]" />
+          <div className="flex items-center justify-center gap-3 mb-4">
+            <span className="w-10 h-[2px] bg-[#00b4c8]" />
+            <span className="text-[#00b4c8] text-xs font-semibold uppercase tracking-[0.3em]">{tCat('sectionLabel')}</span>
+            <span className="w-10 h-[2px] bg-[#00b4c8]" />
           </div>
-          <h2
-            className="text-3xl sm:text-4xl lg:text-5xl font-black text-[#1A1A2E] leading-tight"
-            style={{ fontFamily: 'var(--font-outfit)' }}
-          >
-            Ürünlerimizi <span className="text-[#1B4F8A]">Keşfedin</span>
+          <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-black text-[#0d2d5e] leading-tight" style={{ fontFamily: 'var(--font-outfit)' }}>
+            {tCat('sectionTitle')}{' '}
+            <span className="bg-gradient-to-r from-[#1a5fa8] to-[#00b4c8] bg-clip-text text-transparent">{tCat('sectionTitleHighlight')}</span>
           </h2>
+          <p className="text-gray-500 max-w-lg mx-auto mt-3 text-sm">
+            Hijyen sektorunde uluslararasi kalite standartlarinda uretilen urunlerimizi kategorilere gore inceleyin.
+          </p>
         </motion.div>
 
-        {/* Category Tabs — horizontally scrollable */}
+        {/* ── Category Tabs ── */}
         <motion.div
           initial={{ opacity: 0, y: 16 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.5, delay: 0.1 }}
-          className="flex gap-3 overflow-x-auto pb-2 mb-8 scrollbar-hide"
-          style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
+          className="flex items-center justify-center gap-2 mb-10"
         >
-          {CATEGORIES.map((cat) => (
-            <button
-              key={cat.id}
-              onClick={() => setActiveId(cat.id)}
-              className={`flex items-center gap-2 whitespace-nowrap px-5 py-2.5 rounded-full text-sm font-semibold transition-all duration-300 border shrink-0 ${
-                activeId === cat.id
-                  ? 'bg-[#1B4F8A] text-white border-[#1B4F8A] shadow-lg shadow-[#1B4F8A]/25 scale-105'
-                  : 'bg-white text-gray-600 border-gray-200 hover:border-[#1B4F8A]/40 hover:text-[#1B4F8A]'
-              }`}
-            >
-              <span className={activeId === cat.id ? 'text-[#00BAD1]' : 'text-gray-400'}>
-                {cat.icon}
-              </span>
-              {cat.label}
-            </button>
-          ))}
+          {/* Left tab arrow */}
+          <button
+            onClick={() => scrollTabs('left')}
+            aria-label="Sola kaydır"
+            className={`shrink-0 w-8 h-8 rounded-full bg-white border border-gray-200 shadow flex items-center justify-center text-gray-500 hover:text-[#1a5fa8] hover:border-[#1a5fa8] transition-all ${showTabLeft ? 'opacity-100 pointer-events-auto' : 'opacity-0 pointer-events-none'}`}
+          >
+            <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M15 19l-7-7 7-7" />
+            </svg>
+          </button>
+
+          <div
+            ref={tabsRef}
+            className="flex gap-1.5 sm:gap-2 bg-white/80 backdrop-blur-sm p-1 sm:p-1.5 rounded-xl sm:rounded-2xl shadow-sm border border-gray-100 overflow-x-auto max-w-[calc(100vw-6rem)] sm:max-w-none"
+            style={{ scrollbarWidth: 'none', msOverflowStyle: 'none', WebkitOverflowScrolling: 'touch' } as React.CSSProperties}
+          >
+            {CATEGORIES.map((cat) => (
+              <button
+                key={cat.id}
+                onClick={() => setActiveId(cat.id)}
+                className={`relative flex items-center gap-1.5 sm:gap-2 whitespace-nowrap px-3.5 py-2 sm:px-5 sm:py-2.5 rounded-lg sm:rounded-xl text-xs sm:text-sm font-semibold transition-all duration-300 shrink-0 ${
+                  activeId === cat.id ? 'text-white shadow-lg shadow-blue-200' : 'text-gray-500 hover:text-[#1a5fa8] hover:bg-gray-50'
+                }`}
+              >
+                {activeId === cat.id && (
+                  <motion.div layoutId="activeTab" className="absolute inset-0 bg-gradient-to-r from-[#1a5fa8] to-[#00b4c8] rounded-lg sm:rounded-xl" transition={{ type: 'spring', bounce: 0.2, duration: 0.5 }} />
+                )}
+                <span className="relative z-10 hidden sm:inline-block shrink-0">{cat.icon}</span>
+                <span className="relative z-10">{tCat(cat.labelKey as any)}</span>
+              </button>
+            ))}
+          </div>
+
+          {/* Right tab arrow */}
+          <button
+            onClick={() => scrollTabs('right')}
+            aria-label="Sağa kaydır"
+            className={`shrink-0 w-8 h-8 rounded-full bg-white border border-gray-200 shadow flex items-center justify-center text-gray-500 hover:text-[#1a5fa8] hover:border-[#1a5fa8] transition-all ${showTabRight ? 'opacity-100 pointer-events-auto' : 'opacity-0 pointer-events-none'}`}
+          >
+            <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M9 5l7 7-7 7" />
+            </svg>
+          </button>
         </motion.div>
 
-        {/* Product Cards — horizontally scrollable */}
-        <AnimatePresence mode="wait">
-          <motion.div
-            key={activeId}
-            initial={{ opacity: 0, x: 40 }}
-            animate={{ opacity: 1, x: 0 }}
-            exit={{ opacity: 0, x: -20 }}
-            transition={{ duration: 0.35, ease: 'easeOut' }}
-            ref={scrollRef}
-            className="flex gap-5 overflow-x-auto pb-4"
-            style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
+        {/* ── Product Carousel ── */}
+        <div className="relative">
+          {/* Left Arrow */}
+          <button
+            onClick={() => scroll('left')}
+            className="absolute -left-2 sm:-left-5 top-1/2 -translate-y-1/2 z-10 w-10 h-10 sm:w-12 sm:h-12 bg-white hover:bg-[#1a5fa8] border border-gray-200 hover:border-[#1a5fa8] rounded-full flex items-center justify-center shadow-lg transition-all group"
           >
-            {active.products.map((product, i) => (
+            <svg className="w-5 h-5 text-gray-600 group-hover:text-white transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M15 19l-7-7 7-7" />
+            </svg>
+          </button>
+
+          {/* Right Arrow */}
+          <button
+            onClick={() => scroll('right')}
+            className="absolute -right-2 sm:-right-5 top-1/2 -translate-y-1/2 z-10 w-10 h-10 sm:w-12 sm:h-12 bg-white hover:bg-[#1a5fa8] border border-gray-200 hover:border-[#1a5fa8] rounded-full flex items-center justify-center shadow-lg transition-all group"
+          >
+            <svg className="w-5 h-5 text-gray-600 group-hover:text-white transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M9 5l7 7-7 7" />
+            </svg>
+          </button>
+
+          {/* Scrollable cards */}
+          <AnimatePresence mode="wait">
+            <motion.div
+              key={activeId}
+              initial={{ opacity: 0, x: 40 }}
+              animate={{ opacity: 1, x: 0 }}
+              exit={{ opacity: 0, x: -20 }}
+              transition={{ duration: 0.3 }}
+              ref={scrollRef}
+              className="flex gap-5 overflow-x-auto px-1 py-2 snap-x snap-mandatory"
+              style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
+            >
+              {active.products.map((product, i) => (
+                <motion.div
+                  key={product.nameKey}
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.35, delay: i * 0.08 }}
+                  className="snap-start shrink-0 w-[200px] sm:w-[260px] lg:w-[280px]"
+                >
+                  <Link
+                    href={`/${locale}${product.href}`}
+                    className="group relative flex flex-col bg-white rounded-2xl sm:rounded-3xl border border-transparent hover:border-[#00b4c8]/30 overflow-hidden shadow-sm hover:shadow-xl hover:shadow-blue-100/50 transition-all duration-300 hover:-translate-y-1.5 h-full"
+                  >
+                    {/* Hover accent */}
+                    <div className="absolute left-0 top-0 bottom-0 w-[3px] bg-[#00b4c8] scale-y-0 group-hover:scale-y-100 transition-transform duration-300 origin-top z-10 rounded-r" />
+
+                    {/* Image */}
+                    <div className="relative h-[180px] sm:h-[220px] lg:h-[240px] overflow-hidden bg-gradient-to-br from-[#f0f7ff] to-[#e8f4fd]">
+                      <Image
+                        src={product.img}
+                        alt={tProducts(product.nameKey as any)}
+                        fill
+                        sizes="280px"
+                        className="object-contain p-4 sm:p-5 group-hover:scale-[1.08] transition-transform duration-500"
+                      />
+                      {product.badgeKey && (
+                        <span className={`absolute top-3 left-3 text-white text-[9px] sm:text-[10px] font-bold px-2.5 py-1 rounded-full uppercase tracking-wider shadow-md z-10 ${
+                          product.badgeKey === 'badgeBestSeller' ? 'bg-gradient-to-r from-[#1a5fa8] to-[#00b4c8]' : 'bg-[#00b4c8]'
+                        }`}>
+                          {tCat(product.badgeKey as any)}
+                        </span>
+                      )}
+                    </div>
+
+                    {/* Content */}
+                    <div className="p-4 sm:p-5 flex flex-col flex-1">
+                      <h3 className="font-bold text-[#0d2d5e] text-sm sm:text-base lg:text-lg mb-1 group-hover:text-[#1a5fa8] transition-colors line-clamp-2">
+                        {tProducts(product.nameKey as any)}
+                      </h3>
+                      <p className="text-gray-500 text-xs sm:text-sm leading-relaxed flex-1 mt-1 line-clamp-2">
+                        {tProducts(product.descKey as any)}
+                      </p>
+                      <div className="mt-3 sm:mt-4 flex items-center justify-between">
+                        <span className="text-[#00b4c8] text-xs sm:text-sm font-semibold flex items-center gap-1">
+                          {tCat('examine')}
+                          <svg className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M17 8l4 4m0 0l-4 4m4-4H3" />
+                          </svg>
+                        </span>
+                        <div className="w-7 h-7 sm:w-8 sm:h-8 rounded-full bg-[#f4f7fb] group-hover:bg-[#00b4c8] flex items-center justify-center transition-all">
+                          <svg className="w-3.5 h-3.5 text-[#1a5fa8] group-hover:text-white transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M9 5l7 7-7 7" />
+                          </svg>
+                        </div>
+                      </div>
+                    </div>
+                  </Link>
+                </motion.div>
+              ))}
+
+              {/* Tüm Ürünler card */}
               <motion.div
-                key={product.name}
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.35, delay: i * 0.08 }}
-                className="shrink-0 w-[260px] sm:w-[300px]"
+                transition={{ duration: 0.35, delay: active.products.length * 0.08 }}
+                className="snap-start shrink-0 w-[160px] sm:w-[200px]"
               >
                 <Link
-                  href={`/${locale}${product.href}`}
-                  className="group flex flex-col bg-white rounded-2xl border border-gray-100 hover:border-[#1B4F8A]/30 overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300 hover:-translate-y-1 h-full"
+                  href={`/${locale}/urunler`}
+                  className="group flex flex-col items-center justify-center bg-gradient-to-b from-[#f0f9ff] to-white border-2 border-dashed border-[#00b4c8]/40 hover:border-solid hover:border-[#00b4c8] rounded-2xl sm:rounded-3xl h-full min-h-[280px] sm:min-h-[360px] transition-all duration-300 gap-4 p-5 text-center hover:shadow-lg"
                 >
-                  {/* Image */}
-                  <div className="relative h-[180px] sm:h-[200px] overflow-hidden bg-gray-50">
-                    <Image
-                      src={product.img}
-                      alt={product.name}
-                      fill
-                      sizes="320px"
-                      className="object-cover object-center group-hover:scale-105 transition-transform duration-500"
-                    />
-                    {/* Overlay */}
-                    <div className="absolute inset-0 bg-gradient-to-t from-[#0D2B4E]/40 via-transparent to-transparent" />
-                    {product.badge && (
-                      <span className="absolute top-3 left-3 bg-[#00BAD1] text-white text-[10px] font-bold px-2.5 py-1 rounded-full uppercase tracking-wider">
-                        {product.badge}
-                      </span>
-                    )}
-                    {/* Arrow on hover */}
-                    <div className="absolute bottom-3 right-3 w-8 h-8 bg-white/90 backdrop-blur-sm rounded-full flex items-center justify-center opacity-0 group-hover:opacity-100 transition-all duration-300 translate-x-2 group-hover:translate-x-0">
-                      <svg className="w-4 h-4 text-[#1B4F8A]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M17 8l4 4m0 0l-4 4m4-4H3" />
-                      </svg>
-                    </div>
+                  <div className="w-14 h-14 rounded-2xl bg-[#1a5fa8]/10 group-hover:bg-[#1a5fa8] flex items-center justify-center transition-all">
+                    <svg className="w-6 h-6 text-[#1a5fa8] group-hover:text-white transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 10h16M4 14h16M4 18h16" />
+                    </svg>
                   </div>
-
-                  {/* Content */}
-                  <div className="p-5 flex flex-col flex-1">
-                    <h3 className="font-bold text-[#1A1A2E] text-base mb-1.5 group-hover:text-[#1B4F8A] transition-colors">
-                      {product.name}
-                    </h3>
-                    <p className="text-gray-500 text-xs leading-relaxed flex-1">{product.desc}</p>
-                    <div className="mt-4 flex items-center gap-1.5 text-[#1B4F8A] text-xs font-semibold">
-                      <span>İncele</span>
-                      <svg className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M17 8l4 4m0 0l-4 4m4-4H3" />
-                      </svg>
-                    </div>
+                  <div>
+                    <p className="font-bold text-[#1a5fa8] text-sm">{tCat('viewAll')}</p>
+                    <p className="font-bold text-[#1a5fa8] text-sm">{tCat('viewAllSub')}</p>
                   </div>
+                  <motion.svg
+                    className="w-5 h-5 text-[#00b4c8]"
+                    fill="none" stroke="currentColor" viewBox="0 0 24 24"
+                    animate={{ x: [0, 6, 0] }}
+                    transition={{ duration: 1.5, repeat: Infinity, ease: 'easeInOut' }}
+                  >
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M17 8l4 4m0 0l-4 4m4-4H3" />
+                  </motion.svg>
                 </Link>
               </motion.div>
-            ))}
-
-            {/* "Tüm Ürünler" card */}
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.35, delay: active.products.length * 0.08 }}
-              className="shrink-0 w-[200px] sm:w-[220px]"
-            >
-              <Link
-                href={`/${locale}/products`}
-                className="group flex flex-col items-center justify-center bg-[#F0F6FF] hover:bg-[#1B4F8A] border-2 border-dashed border-[#1B4F8A]/25 hover:border-[#1B4F8A] rounded-2xl h-full min-h-[320px] transition-all duration-300 gap-4 p-6 text-center"
-              >
-                <div className="w-14 h-14 rounded-full bg-[#1B4F8A]/10 group-hover:bg-white/20 flex items-center justify-center transition-colors">
-                  <svg className="w-6 h-6 text-[#1B4F8A] group-hover:text-white transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 10h16M4 14h16M4 18h16" />
-                  </svg>
-                </div>
-                <div>
-                  <p className="font-bold text-[#1B4F8A] group-hover:text-white text-sm transition-colors">Tüm Ürünleri</p>
-                  <p className="font-bold text-[#1B4F8A] group-hover:text-white text-sm transition-colors">Gör</p>
-                </div>
-                <svg className="w-5 h-5 text-[#00BAD1] group-hover:text-white transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M17 8l4 4m0 0l-4 4m4-4H3" />
-                </svg>
-              </Link>
             </motion.div>
-          </motion.div>
-        </AnimatePresence>
+          </AnimatePresence>
+        </div>
 
-        {/* Scroll hint on mobile */}
-        <p className="text-center text-gray-400 text-xs mt-3 sm:hidden">← Kaydırarak daha fazla görün →</p>
-
+        {/* ── Bottom CTA ── */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.5, delay: 0.2 }}
+          className="mt-12 flex flex-col sm:flex-row items-center justify-center gap-4 text-center"
+        >
+          <span className="text-gray-500 text-sm">Aradiginiz urunu bulamadiniz mi?</span>
+          <a
+            href="https://wa.me/905396312392?text=Merhaba%2C%20urunleriniz%20hakkinda%20bilgi%20almak%20istiyorum."
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex items-center gap-2 bg-[#25D366] hover:bg-[#20bd5a] text-white font-semibold text-sm px-5 py-2.5 rounded-xl transition-all hover:scale-105 shadow-md"
+          >
+            <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
+              <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z" />
+            </svg>
+            WhatsApp ile Sorun
+          </a>
+        </motion.div>
       </div>
     </section>
   );

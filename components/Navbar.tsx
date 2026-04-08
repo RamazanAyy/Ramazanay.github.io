@@ -66,57 +66,57 @@ const mobileItemVariants = {
 
 // ─── Desktop NavigationMenu content ──────────────────────────────────────────
 
-function CorporateMenu({ locale, t }: { locale: string; t: ReturnType<typeof useTranslations<'nav'>> }) {
+function CorporateMenu({ locale, t, tNav }: { locale: string; t: ReturnType<typeof useTranslations<'navExtra'>>; tNav: ReturnType<typeof useTranslations<'nav'>> }) {
   const links = [
     {
       key: 'about' as const,
-      href: `/${locale}/corporate/about`,
+      href: `/${locale}/kurumsal/hakkimizda`,
+      descKey: 'aboutDesc' as const,
       icon: (
         <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.8} d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
         </svg>
       ),
-      desc: 'Soft & Power Hygiene hakkında',
     },
     {
       key: 'quality' as const,
-      href: `/${locale}/corporate/quality`,
+      href: `/${locale}/kurumsal/uretim`,
+      descKey: 'qualityDesc' as const,
       icon: (
         <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.8} d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z" />
         </svg>
       ),
-      desc: 'ISO, CE, GMP kalite standartları',
     },
     {
       key: 'certificates' as const,
-      href: `/${locale}/corporate/certificates`,
+      href: `/${locale}/kurumsal/sertifikalar`,
+      descKey: 'certificatesDesc' as const,
       icon: (
         <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.8} d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2" />
         </svg>
       ),
-      desc: 'Uluslararası sertifikalarımız',
     },
   ];
 
   return (
     <ul className="grid w-64 gap-1 p-3">
-      {links.map(({ key, href, icon, desc }) => (
+      {links.map(({ key, href, icon, descKey }) => (
         <li key={key}>
           <NavigationMenuLink asChild>
             <Link
               href={href}
-              className="flex items-start gap-3 rounded-xl p-3 hover:bg-[#E8F0FB] transition-colors group"
+              className="flex items-start gap-3 rounded-xl p-3 hover:bg-[#f4f7fb] transition-colors group"
             >
-              <div className="mt-0.5 text-[#1B4F8A] group-hover:text-[#00BAD1] transition-colors shrink-0">
+              <div className="mt-0.5 text-[#1a5fa8] group-hover:text-[#00b4c8] transition-colors shrink-0">
                 {icon}
               </div>
               <div>
-                <p className="text-sm font-semibold text-gray-800 group-hover:text-[#1B4F8A] transition-colors">
-                  {t(key)}
+                <p className="text-sm font-semibold text-gray-800 group-hover:text-[#1a5fa8] transition-colors">
+                  {tNav(key)}
                 </p>
-                <p className="text-xs text-gray-500 mt-0.5 leading-snug">{desc}</p>
+                <p className="text-xs text-gray-500 mt-0.5 leading-snug">{t(descKey as any)}</p>
               </div>
             </Link>
           </NavigationMenuLink>
@@ -126,32 +126,34 @@ function CorporateMenu({ locale, t }: { locale: string; t: ReturnType<typeof use
   );
 }
 
-function ProductsMenu({ locale }: { locale: string }) {
+function ProductsMenu({ locale, tProducts, tNav }: { locale: string; tProducts: ReturnType<typeof useTranslations<'products'>>; tNav: ReturnType<typeof useTranslations<'navExtra'>> }) {
   const items = [
-    { label: 'Bebek Bezi',         href: `/${locale}/products/baby-diapers` },
-    { label: 'Yetişkin Bezi',      href: `/${locale}/products/adult-diapers` },
-    { label: 'Yetişkin Külot',     href: `/${locale}/products/adult-pants` },
-    { label: 'Hasta Altı',         href: `/${locale}/products/adult-underpads` },
-    { label: 'Ped & Mesane Pedi',  href: `/${locale}/products/sanitary-pads` },
-    { label: 'Islak Mendil',       href: `/${locale}/products/wet-wipes` },
-    { label: 'Temizlik Havlusu',   href: `/${locale}/products/cleaning-towels` },
+    { key: 'babyDiapers' as const,    href: `/${locale}/urunler/bebek-bezi` },
+    { key: 'adultDiapers' as const,   href: `/${locale}/urunler/yetiskin-bezi` },
+    { key: 'adultPants' as const,     href: `/${locale}/urunler/yetiskin-kulot-bezi` },
+    { key: 'adultUnderpads' as const, href: `/${locale}/urunler/yetiskin-alt-serme-ortusu` },
+    { key: 'babyUnderpads' as const,  href: `/${locale}/urunler/bebek-alt-serme-ortusu` },
+    { key: 'bladderPads' as const,    href: `/${locale}/urunler/mesane-pedi` },
+    { key: 'sanitaryPads' as const,   href: `/${locale}/urunler/hijyenik-ped` },
+    { key: 'wetWipes' as const,       href: `/${locale}/urunler/islak-mendil` },
+    { key: 'cleaningTowels' as const, href: `/${locale}/urunler/yuzey-temizleme-havlusu` },
   ];
 
   return (
     <div className="w-56 p-3">
       <p className="text-[10px] font-bold text-gray-400 uppercase tracking-widest px-3 mb-2">
-        Ürün Kategorileri
+        {tNav('productCategories')}
       </p>
       <ul className="grid gap-0.5">
-        {items.map(({ label, href }) => (
-          <li key={label}>
+        {items.map(({ key, href }) => (
+          <li key={key}>
             <NavigationMenuLink asChild>
               <Link
                 href={href}
-                className="flex items-center gap-2 px-3 py-2 rounded-lg text-sm text-gray-700 hover:bg-[#E8F0FB] hover:text-[#1B4F8A] transition-colors group"
+                className="flex items-center gap-2 px-3 py-2 rounded-lg text-sm text-gray-700 hover:bg-[#f4f7fb] hover:text-[#1a5fa8] transition-colors group"
               >
-                <span className="w-1.5 h-1.5 rounded-full bg-[#1B4F8A]/30 group-hover:bg-[#00BAD1] transition-colors shrink-0" />
-                {label}
+                <span className="w-1.5 h-1.5 rounded-full bg-[#1a5fa8]/30 group-hover:bg-[#00b4c8] transition-colors shrink-0" />
+                {tProducts(key)}
               </Link>
             </NavigationMenuLink>
           </li>
@@ -159,10 +161,10 @@ function ProductsMenu({ locale }: { locale: string }) {
       </ul>
       <div className="border-t border-gray-100 mt-3 pt-3 px-3">
         <Link
-          href={`/${locale}/products`}
-          className="text-xs font-semibold text-[#1B4F8A] hover:text-[#00BAD1] transition-colors flex items-center gap-1"
+          href={`/${locale}/urunler`}
+          className="text-xs font-semibold text-[#1a5fa8] hover:text-[#00b4c8] transition-colors flex items-center gap-1"
         >
-          Tüm ürünler
+          {tNav('allProducts')}
           <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M17 8l4 4m0 0l-4 4m4-4H3" />
           </svg>
@@ -176,6 +178,8 @@ function ProductsMenu({ locale }: { locale: string }) {
 
 export default function Navbar() {
   const t = useTranslations('nav');
+  const tNavExtra = useTranslations('navExtra');
+  const tProducts = useTranslations('products');
   const locale = useLocale();
   const pathname = usePathname();
   const router = useRouter();
@@ -222,7 +226,7 @@ export default function Navbar() {
         >
           {/* Blue info bar — full width, no side padding on outer */}
           <motion.div
-            className="hidden md:block bg-[#1B4F8A] text-white text-sm overflow-hidden w-full"
+            className="hidden md:block bg-[#1a5fa8] text-white text-sm overflow-hidden w-full"
             initial={false}
             animate={{ maxHeight: isScrolled ? 0 : 60, opacity: isScrolled ? 0 : 1 }}
             transition={{ duration: 0.3, ease: 'easeInOut' }}
@@ -261,21 +265,21 @@ export default function Navbar() {
             className={cn(
               'mx-auto transition-all duration-300',
               isScrolled
-                ? 'bg-white/95 max-w-6xl rounded-2xl border border-gray-200 backdrop-blur-xl shadow-lg px-4 mx-auto w-[calc(100%-1.5rem)] md:w-[calc(100%-2rem)]'
+                ? 'bg-white/95 max-w-7xl rounded-2xl border border-gray-200 backdrop-blur-xl shadow-lg px-4 mx-auto w-[calc(100%-1.5rem)] md:w-[calc(100%-2rem)]'
                 : 'max-w-full bg-white border-b border-gray-100 px-3 md:px-6'
             )}
           >
-            <div className="relative flex flex-wrap items-center justify-between gap-3 py-3">
+            <div className="relative flex items-center justify-between gap-3 py-3">
 
               {/* Logo */}
-              <div className="flex w-full justify-between lg:w-auto items-center">
+              <div className="flex w-full lg:w-auto justify-between lg:justify-start items-center shrink-0">
                 <Link href={`/${locale}`} aria-label="Anasayfa" className="flex items-center">
                   <Image
                     src="/logo.png"
                     alt="Soft & Power"
-                    width={120}
-                    height={40}
-                    className="h-9 w-auto object-contain"
+                    width={150}
+                    height={48}
+                    className="h-9 md:h-11 w-auto object-contain"
                     style={{ mixBlendMode: 'multiply' }}
                     priority
                   />
@@ -293,7 +297,7 @@ export default function Navbar() {
                   <button
                     onClick={() => setMobileOpen(o => !o)}
                     aria-label={mobileOpen ? 'Menüyü kapat' : 'Menüyü aç'}
-                    className="relative z-20 p-2 text-[#1B4F8A]"
+                    className="relative z-20 p-2 text-[#1a5fa8]"
                   >
                     <HamburgerIcon open={mobileOpen} />
                   </button>
@@ -308,42 +312,42 @@ export default function Navbar() {
 
                       {/* Anasayfa */}
                       <NavigationMenuItem>
-                        <NavigationMenuLink asChild className={cn(navigationMenuTriggerStyle(), 'bg-transparent text-sm')}>
+                        <NavigationMenuLink asChild className={cn(navigationMenuTriggerStyle(), 'bg-transparent text-[15px]')}>
                           <Link href={`/${locale}`}>{t('home')}</Link>
                         </NavigationMenuLink>
                       </NavigationMenuItem>
 
                       {/* Ürünler */}
                       <NavigationMenuItem>
-                        <NavigationMenuTrigger className="bg-transparent text-sm">
+                        <NavigationMenuTrigger className="bg-transparent text-[15px]">
                           {t('products')}
                         </NavigationMenuTrigger>
                         <NavigationMenuContent>
-                          <ProductsMenu locale={locale} />
+                          <ProductsMenu locale={locale} tProducts={tProducts} tNav={tNavExtra} />
                         </NavigationMenuContent>
                       </NavigationMenuItem>
 
                       {/* Kurumsal */}
                       <NavigationMenuItem>
-                        <NavigationMenuTrigger className="bg-transparent text-sm">
+                        <NavigationMenuTrigger className="bg-transparent text-[15px]">
                           {t('corporate')}
                         </NavigationMenuTrigger>
                         <NavigationMenuContent>
-                          <CorporateMenu locale={locale} t={t} />
+                          <CorporateMenu locale={locale} t={tNavExtra} tNav={t} />
                         </NavigationMenuContent>
                       </NavigationMenuItem>
 
                       {/* Private Label */}
                       <NavigationMenuItem>
-                        <NavigationMenuLink asChild className={cn(navigationMenuTriggerStyle(), 'bg-transparent text-sm')}>
-                          <Link href={`/${locale}/private-label`}>{t('privateLabel')}</Link>
+                        <NavigationMenuLink asChild className={cn(navigationMenuTriggerStyle(), 'bg-transparent text-[15px]')}>
+                          <Link href={`/${locale}/ozel-etiket`}>{t('privateLabel')}</Link>
                         </NavigationMenuLink>
                       </NavigationMenuItem>
 
                       {/* İletişim */}
                       <NavigationMenuItem>
-                        <NavigationMenuLink asChild className={cn(navigationMenuTriggerStyle(), 'bg-transparent text-sm')}>
-                          <Link href={`/${locale}/contact`}>{t('contact')}</Link>
+                        <NavigationMenuLink asChild className={cn(navigationMenuTriggerStyle(), 'bg-transparent text-[15px]')}>
+                          <Link href={`/${locale}/iletisim`}>{t('contact')}</Link>
                         </NavigationMenuLink>
                       </NavigationMenuItem>
 
@@ -353,12 +357,12 @@ export default function Navbar() {
               </div>
 
               {/* Right: language + CTA (desktop) */}
-              <div className="hidden lg:flex items-center gap-3">
+              <div className="hidden lg:flex items-center gap-3 shrink-0">
                 {/* Language dropdown */}
                 <div className="relative">
                   <button
                     onClick={() => setLangOpen(o => !o)}
-                    className="flex items-center gap-1.5 px-3 py-2 text-sm font-medium text-gray-700 hover:text-[#1B4F8A] hover:bg-[#E8F0FB] rounded-lg border border-gray-200 transition-all"
+                    className="flex items-center gap-1.5 px-3 py-2 text-sm font-medium text-gray-700 hover:text-[#1a5fa8] hover:bg-[#f4f7fb] rounded-lg border border-gray-200 transition-all"
                   >
                     <span>{currentLang.flag}</span>
                     <span className="hidden xl:inline text-sm">{currentLang.label}</span>
@@ -383,7 +387,7 @@ export default function Navbar() {
                             className={cn(
                               'w-full flex items-center gap-2.5 px-4 py-2.5 text-sm text-left transition-colors',
                               locale === lang.code
-                                ? 'bg-[#E8F0FB] text-[#1B4F8A] font-semibold'
+                                ? 'bg-[#f4f7fb] text-[#1a5fa8] font-semibold'
                                 : 'text-gray-700 hover:bg-gray-50'
                             )}
                           >
@@ -398,10 +402,10 @@ export default function Navbar() {
 
                 {/* CTA button */}
                 <Link
-                  href={`/${locale}/contact`}
-                  className="inline-flex items-center gap-2 bg-[#00BAD1] hover:bg-[#009db5] text-white text-sm font-semibold px-5 py-2 rounded-xl transition-all hover:scale-105 active:scale-95"
+                  href={`/${locale}/iletisim`}
+                  className="inline-flex items-center gap-1.5 bg-[#00b4c8] hover:bg-[#009aad] text-white text-[13px] font-semibold px-4 py-2 rounded-xl transition-all hover:scale-105 active:scale-95 whitespace-nowrap"
                 >
-                  Teklif Al
+                  {tNavExtra('getQuote')}
                   <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M17 8l4 4m0 0l-4 4m4-4H3" />
                   </svg>
@@ -433,7 +437,7 @@ export default function Navbar() {
                 className={cn(
                   'w-full flex items-center gap-2.5 px-4 py-2.5 text-sm text-left transition-colors',
                   locale === lang.code
-                    ? 'bg-[#E8F0FB] text-[#1B4F8A] font-semibold'
+                    ? 'bg-[#f4f7fb] text-[#1a5fa8] font-semibold'
                     : 'text-gray-700 hover:bg-gray-50'
                 )}
               >
@@ -452,7 +456,7 @@ export default function Navbar() {
         {mobileOpen && (
           <motion.div
             key="mobile-overlay"
-            className="fixed inset-0 z-[60] bg-[#1B4F8A] flex flex-col lg:hidden overflow-y-auto"
+            className="fixed inset-0 z-[60] bg-[#1a5fa8] flex flex-col lg:hidden overflow-y-auto"
             initial={{ clipPath: 'inset(0 0 100% 0)' }}
             animate={{ clipPath: 'inset(0 0 0% 0)' }}
             exit={{ clipPath: 'inset(0 0 100% 0)' }}
@@ -460,7 +464,7 @@ export default function Navbar() {
           >
             {/* Decorative */}
             <div className="absolute top-0 right-0 w-72 h-72 rounded-full bg-white/5 -translate-y-1/2 translate-x-1/2 pointer-events-none" />
-            <div className="absolute bottom-0 left-0 w-56 h-56 rounded-full bg-[#00BAD1]/10 translate-y-1/2 -translate-x-1/2 pointer-events-none" />
+            <div className="absolute bottom-0 left-0 w-56 h-56 rounded-full bg-[#00b4c8]/10 translate-y-1/2 -translate-x-1/2 pointer-events-none" />
 
             {/* Header */}
             <div className="flex items-center justify-between px-6 h-[64px] shrink-0 border-b border-white/10 relative">
@@ -474,7 +478,7 @@ export default function Navbar() {
                   priority
                 />
               </Link>
-              <button className="p-2 text-white hover:text-[#00BAD1] transition-colors" onClick={closeMobile} aria-label="Kapat">
+              <button className="p-2 text-white hover:text-[#00b4c8] transition-colors" onClick={closeMobile} aria-label="Kapat">
                 <HamburgerIcon open={true} />
               </button>
             </div>
@@ -488,15 +492,15 @@ export default function Navbar() {
             >
               {[
                 { key: 'home',         href: `/${locale}` },
-                { key: 'products',     href: `/${locale}/products` },
-                { key: 'privateLabel', href: `/${locale}/private-label` },
-                { key: 'contact',      href: `/${locale}/contact` },
+                { key: 'products',     href: `/${locale}/urunler` },
+                { key: 'privateLabel', href: `/${locale}/ozel-etiket` },
+                { key: 'contact',      href: `/${locale}/iletisim` },
               ].map(({ key, href }) => (
                 <motion.div key={key} variants={mobileItemVariants}>
                   <Link
                     href={href}
                     onClick={closeMobile}
-                    className="flex items-center py-4 text-xl font-bold text-white border-b border-white/10 hover:text-[#00BAD1] transition-colors"
+                    className="flex items-center py-4 text-xl font-bold text-white border-b border-white/10 hover:text-[#00b4c8] transition-colors"
                   >
                     {t(key as any)}
                   </Link>
@@ -506,7 +510,7 @@ export default function Navbar() {
               {/* Kurumsal accordion */}
               <motion.div variants={mobileItemVariants}>
                 <button
-                  className="w-full flex items-center justify-between py-4 text-xl font-bold text-white border-b border-white/10 hover:text-[#00BAD1] transition-colors"
+                  className="w-full flex items-center justify-between py-4 text-xl font-bold text-white border-b border-white/10 hover:text-[#00b4c8] transition-colors"
                   onClick={() => setMobileCorp(o => !o)}
                 >
                   {t('corporate')}
@@ -528,9 +532,9 @@ export default function Navbar() {
                       className="overflow-hidden pl-4"
                     >
                       {[
-                        { key: 'about',        href: `/${locale}/corporate/about` },
-                        { key: 'quality',      href: `/${locale}/corporate/quality` },
-                        { key: 'certificates', href: `/${locale}/corporate/certificates` },
+                        { key: 'about',        href: `/${locale}/kurumsal/hakkimizda` },
+                        { key: 'quality',      href: `/${locale}/kurumsal/uretim` },
+                        { key: 'certificates', href: `/${locale}/kurumsal/sertifikalar` },
                       ].map(({ key, href }) => (
                         <Link
                           key={key}
@@ -538,7 +542,7 @@ export default function Navbar() {
                           onClick={closeMobile}
                           className="flex items-center gap-3 py-3 text-base text-blue-200 hover:text-white transition-colors"
                         >
-                          <span className="w-1.5 h-1.5 rounded-full bg-[#00BAD1] shrink-0" />
+                          <span className="w-1.5 h-1.5 rounded-full bg-[#00b4c8] shrink-0" />
                           {t(key as any)}
                         </Link>
                       ))}
@@ -557,7 +561,7 @@ export default function Navbar() {
                       onClick={() => switchLocale(lang.code)}
                       className={cn(
                         'flex items-center gap-2 px-4 py-2 rounded-full text-sm font-medium transition-all',
-                        locale === lang.code ? 'bg-[#00BAD1] text-white' : 'bg-white/10 text-white hover:bg-white/20'
+                        locale === lang.code ? 'bg-[#00b4c8] text-white' : 'bg-white/10 text-white hover:bg-white/20'
                       )}
                     >
                       <span>{lang.flag}</span>

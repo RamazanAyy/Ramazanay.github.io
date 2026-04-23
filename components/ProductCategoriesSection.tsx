@@ -261,27 +261,26 @@ export default function ProductCategoriesSection() {
 
         {/* ── Product Carousel ── */}
         <div className="relative">
-          {/* Left Arrow */}
+          {/* Left / Right arrows — hidden on mobile (uses vertical grid there) */}
           <button
             onClick={() => scroll('left')}
-            className="absolute -left-2 sm:-left-5 top-1/2 -translate-y-1/2 z-10 w-10 h-10 sm:w-12 sm:h-12 bg-white hover:bg-[#1a5fa8] border border-gray-200 hover:border-[#1a5fa8] rounded-full flex items-center justify-center shadow-lg transition-all group"
+            className="hidden sm:flex absolute -left-2 sm:-left-5 top-1/2 -translate-y-1/2 z-10 w-10 h-10 sm:w-12 sm:h-12 bg-white hover:bg-[#1a5fa8] border border-gray-200 hover:border-[#1a5fa8] rounded-full items-center justify-center shadow-lg transition-all group"
           >
             <svg className="w-5 h-5 text-gray-600 group-hover:text-white transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M15 19l-7-7 7-7" />
             </svg>
           </button>
 
-          {/* Right Arrow */}
           <button
             onClick={() => scroll('right')}
-            className="absolute -right-2 sm:-right-5 top-1/2 -translate-y-1/2 z-10 w-10 h-10 sm:w-12 sm:h-12 bg-white hover:bg-[#1a5fa8] border border-gray-200 hover:border-[#1a5fa8] rounded-full flex items-center justify-center shadow-lg transition-all group"
+            className="hidden sm:flex absolute -right-2 sm:-right-5 top-1/2 -translate-y-1/2 z-10 w-10 h-10 sm:w-12 sm:h-12 bg-white hover:bg-[#1a5fa8] border border-gray-200 hover:border-[#1a5fa8] rounded-full items-center justify-center shadow-lg transition-all group"
           >
             <svg className="w-5 h-5 text-gray-600 group-hover:text-white transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M9 5l7 7-7 7" />
             </svg>
           </button>
 
-          {/* Scrollable cards */}
+          {/* Mobile: 2-column vertical grid | sm+: horizontal snap carousel */}
           <AnimatePresence mode="wait">
             <motion.div
               key={activeId}
@@ -290,7 +289,7 @@ export default function ProductCategoriesSection() {
               exit={{ opacity: 0, x: -20 }}
               transition={{ duration: 0.3 }}
               ref={scrollRef}
-              className="flex gap-5 overflow-x-auto px-1 py-2 snap-x snap-mandatory"
+              className="grid grid-cols-2 gap-3 sm:flex sm:gap-5 sm:overflow-x-auto px-1 py-2 sm:snap-x sm:snap-mandatory"
               style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
             >
               {active.products.map((product, i) => (
@@ -299,7 +298,7 @@ export default function ProductCategoriesSection() {
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.35, delay: i * 0.08 }}
-                  className="snap-start shrink-0 w-[200px] sm:w-[260px] lg:w-[280px]"
+                  className="w-full sm:snap-start sm:shrink-0 sm:w-[260px] lg:w-[280px]"
                 >
                   <Link
                     href={`/${locale}${product.href}`}
@@ -357,11 +356,13 @@ export default function ProductCategoriesSection() {
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.35, delay: active.products.length * 0.08 }}
-                className="snap-start shrink-0 w-[160px] sm:w-[200px]"
+                className={`w-full sm:snap-start sm:shrink-0 sm:w-[200px] ${
+                  active.products.length % 2 === 0 ? 'col-span-2 sm:col-auto' : ''
+                }`}
               >
                 <Link
                   href={`/${locale}/urunler`}
-                  className="group flex flex-col items-center justify-center bg-gradient-to-b from-[#f0f9ff] to-white border-2 border-dashed border-[#00b4c8]/40 hover:border-solid hover:border-[#00b4c8] rounded-2xl sm:rounded-3xl h-full min-h-[280px] sm:min-h-[360px] transition-all duration-300 gap-4 p-5 text-center hover:shadow-lg"
+                  className="group flex flex-row sm:flex-col items-center justify-center bg-gradient-to-b from-[#f0f9ff] to-white border-2 border-dashed border-[#00b4c8]/40 hover:border-solid hover:border-[#00b4c8] rounded-2xl sm:rounded-3xl min-h-[90px] sm:min-h-[360px] h-full transition-all duration-300 gap-3 sm:gap-4 p-4 sm:p-5 text-center hover:shadow-lg"
                 >
                   <div className="w-14 h-14 rounded-2xl bg-[#1a5fa8]/10 group-hover:bg-[#1a5fa8] flex items-center justify-center transition-all">
                     <svg className="w-6 h-6 text-[#1a5fa8] group-hover:text-white transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24">

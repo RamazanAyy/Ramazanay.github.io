@@ -1,147 +1,150 @@
 'use client';
 
-import { motion } from 'framer-motion';
+import { useState, useEffect } from 'react';
+import Image from 'next/image';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 import FadeInUp from '@/components/animations/FadeInUp';
-import { StaggerContainer, StaggerItem } from '@/components/animations/StaggerContainer';
 import Breadcrumb from '@/components/sections/Breadcrumb';
-
-// ─── Certificate Data ───────────────────────────────────────────────────────
 
 const certificates = [
   {
-    name: 'ISO 9001',
-    subtitle: 'Kalite Yönetim Sistemi',
-    description: 'Uluslararası kalite yönetim standartlarına uygunluğumuzu belgeleyen sertifikamız. Tüm süreçlerimiz bu standartlara göre denetlenmektedir.',
-    icon: (
-      <svg className="w-10 h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z" />
-      </svg>
-    ),
+    title: 'GHP',
+    subtitle: 'Good Hygiene Practices',
+    issuer: 'SQS International Certification',
+    image: '/images/certificates/ghp.png',
   },
   {
-    name: 'CE',
-    subtitle: 'Avrupa Uygunluk Belgesi',
-    description: 'Ürünlerimizin Avrupa Birliği sağlık, güvenlik ve çevre koruma standartlarına uygunluğunu gösteren CE işareti.',
-    icon: (
-      <svg className="w-10 h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-      </svg>
-    ),
+    title: 'GMP',
+    subtitle: 'Good Manufacture Practices',
+    issuer: 'SQR — Sigmacert',
+    image: '/images/certificates/gmp.png',
   },
   {
-    name: 'GMP',
-    subtitle: 'İyi Üretim Uygulamaları',
-    description: 'Good Manufacturing Practice standartları kapsamında hijyenik ve güvenli üretim süreçlerimizin belgelendirilmesi.',
-    icon: (
-      <svg className="w-10 h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
-      </svg>
-    ),
+    title: 'CE',
+    subtitle: 'Attestation of Conformity (93/42/EEC)',
+    issuer: 'DCS Certification',
+    image: '/images/certificates/ce.png',
   },
   {
-    name: 'ISO 13485',
-    subtitle: 'Medikal Cihaz Kalite Yönetimi',
-    description: 'Medikal cihaz ve hijyen ürünleri üretiminde uluslararası kalite yönetim standartlarına uygunluk belgesi.',
-    icon: (
-      <svg className="w-10 h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
-      </svg>
-    ),
+    title: 'ISO 13485:2016',
+    subtitle: 'Medical Devices — Quality Management',
+    issuer: 'IQR International',
+    image: '/images/certificates/iso-13485.png',
+  },
+  {
+    title: 'ISO 9001:2015',
+    subtitle: 'Quality Management System',
+    issuer: 'SQR — Sigmacert',
+    image: '/images/certificates/iso-9001.png',
   },
 ];
 
-// ─── Page ───────────────────────────────────────────────────────────────────
-
 export default function SertifikalarPage() {
+  const [lightbox, setLightbox] = useState<number | null>(null);
+
+  // Prevent background scroll when lightbox open + keyboard nav
+  useEffect(() => {
+    if (lightbox === null) return;
+    document.body.style.overflow = 'hidden';
+    const handler = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') setLightbox(null);
+      if (e.key === 'ArrowLeft') setLightbox((p) => p === null ? 0 : (p - 1 + certificates.length) % certificates.length);
+      if (e.key === 'ArrowRight') setLightbox((p) => p === null ? 0 : (p + 1) % certificates.length);
+    };
+    window.addEventListener('keydown', handler);
+    return () => {
+      document.body.style.overflow = '';
+      window.removeEventListener('keydown', handler);
+    };
+  }, [lightbox]);
+
   return (
     <>
-      <head>
-        <title>Sertifikalar | Soft & Power Hygiene</title>
-        <meta name="description" content="Soft & Power Hygiene kalite sertifikaları: ISO 9001, CE, GMP, ISO 13485. Uluslararası standartlarda üretim." />
-        <meta name="keywords" content="ISO 9001, CE belgesi, GMP, ISO 13485, hijyen ürünleri sertifika, kalite belgesi" />
-        <meta property="og:title" content="Sertifikalar | Soft & Power Hygiene" />
-        <meta property="og:description" content="Uluslararası kalite standartlarına sahip sertifikalarımız." />
-      </head>
-
       <Navbar />
 
-      <main className="bg-[#f4f7fb] min-h-screen">
+      <main className="bg-[#f4f7fb] min-h-screen pt-14 md:pt-24">
+        {/* Breadcrumb */}
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <Breadcrumb items={[
+            { label: 'Kurumsal' },
+            { label: 'Sertifikalar' },
+          ]} />
+        </div>
+
         {/* Hero */}
-        <section className="relative bg-gradient-to-br from-[#0d2d5e] to-[#1a5fa8] py-20 lg:py-28 overflow-hidden">
-          <div className="absolute inset-0 bg-[url('/grid.svg')] opacity-5" />
-          <div className="absolute bottom-0 left-0 w-[400px] h-[400px] rounded-full bg-[#00b4c8]/10 -translate-x-1/2 translate-y-1/2" />
-          <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+        <section className="relative overflow-hidden bg-gradient-to-br from-[#0d2d5e] via-[#143d75] to-[#1a5fa8] text-white">
+          <div className="absolute -top-24 -right-24 w-[420px] h-[420px] rounded-full bg-[#00b4c8]/20 blur-3xl pointer-events-none" />
+          <div className="absolute -bottom-24 -left-24 w-[480px] h-[480px] rounded-full bg-white/5 blur-3xl pointer-events-none" />
+          <div className="relative max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-14 sm:py-20 lg:py-24 text-center">
             <FadeInUp>
-              <span className="inline-flex items-center gap-2 bg-white/10 text-white border border-white/20 text-xs font-bold px-4 py-2 rounded-full uppercase tracking-wider mb-6">
+              <span className="inline-block px-4 py-1.5 rounded-full text-xs sm:text-sm font-semibold bg-white/10 backdrop-blur-sm border border-white/15">
                 Kalite Belgeleri
               </span>
-              <h1 className="text-4xl lg:text-6xl font-black text-white mb-6" style={{ fontFamily: 'var(--font-outfit)' }}>
+            </FadeInUp>
+            <FadeInUp delay={0.1}>
+              <h1 className="mt-5 text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-black leading-tight" style={{ fontFamily: 'var(--font-outfit)' }}>
                 Sertifikalarımız
               </h1>
-              <p className="text-blue-200 text-lg max-w-2xl mx-auto leading-relaxed">
+            </FadeInUp>
+            <FadeInUp delay={0.15}>
+              <p className="mt-4 text-sm sm:text-base text-white/70 max-w-2xl mx-auto">
                 Uluslararası standartlara uygun üretim süreçlerimiz, bağımsız denetim kuruluşları tarafından belgelendirilmiştir.
               </p>
             </FadeInUp>
           </div>
         </section>
 
-        {/* Breadcrumb */}
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <Breadcrumb items={[
-            { label: 'Kurumsal', href: '#' },
-            { label: 'Sertifikalar' },
-          ]} />
-        </div>
+        {/* Certificate Grid */}
+        <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-16 lg:py-20">
+          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-3 sm:gap-5 lg:gap-6">
+            {certificates.map((cert, i) => (
+              <FadeInUp key={cert.title} delay={i * 0.05}>
+                <button
+                  onClick={() => setLightbox(i)}
+                  aria-label={`${cert.title} sertifikasını büyüt`}
+                  className="group relative w-full bg-white rounded-xl sm:rounded-2xl border border-gray-100 shadow-sm hover:shadow-xl hover:border-[#00b4c8]/30 transition-all duration-300 hover:-translate-y-1 overflow-hidden text-left"
+                >
+                  <div className="relative aspect-[3/4] bg-gradient-to-br from-[#f0f7ff] to-[#e8f4fd] overflow-hidden">
+                    <Image
+                      src={cert.image}
+                      alt={`${cert.title} sertifikası`}
+                      fill
+                      sizes="(max-width: 640px) 45vw, (max-width: 1024px) 30vw, 18vw"
+                      className="object-contain p-2 sm:p-3 group-hover:scale-[1.03] transition-transform duration-300"
+                    />
+                    <span className="absolute top-2 right-2 w-7 h-7 rounded-full bg-white/90 backdrop-blur-sm flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity shadow-md">
+                      <svg className="w-3.5 h-3.5 text-[#1a5fa8]" fill="none" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" d="M21 21l-4.35-4.35M11 8v6M8 11h6M18 11a7 7 0 11-14 0 7 7 0 0114 0z" />
+                      </svg>
+                    </span>
+                  </div>
 
-        {/* Certificate Cards */}
-        <section className="py-20">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <StaggerContainer className="grid md:grid-cols-2 gap-8 max-w-5xl mx-auto">
-              {certificates.map((cert) => (
-                <StaggerItem key={cert.name}>
-                  <motion.div
-                    whileHover={{ scale: 1.03 }}
-                    transition={{ type: 'spring', stiffness: 300, damping: 20 }}
-                    className="bg-white rounded-2xl p-8 border border-gray-100 hover:border-[#1a5fa8]/30 hover:shadow-xl transition-shadow h-full"
-                  >
-                    <div className="flex items-start gap-5">
-                      <div className="w-16 h-16 rounded-2xl bg-[#f4f7fb] flex items-center justify-center text-[#1a5fa8] flex-shrink-0">
-                        {cert.icon}
-                      </div>
-                      <div className="flex-1">
-                        <h3 className="text-xl font-bold text-[#0d2d5e] mb-1">{cert.name}</h3>
-                        <p className="text-[#00b4c8] text-sm font-medium mb-3">{cert.subtitle}</p>
-                        <p className="text-gray-500 text-sm leading-relaxed mb-5">{cert.description}</p>
-                        <button
-                          className="inline-flex items-center gap-2 bg-[#f4f7fb] hover:bg-[#1a5fa8] text-[#1a5fa8] hover:text-white text-sm font-semibold px-5 py-2.5 rounded-xl transition-all"
-                        >
-                          <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
-                          </svg>
-                          PDF İndir
-                        </button>
-                      </div>
-                    </div>
-                  </motion.div>
-                </StaggerItem>
-              ))}
-            </StaggerContainer>
+                  <div className="p-3 sm:p-4 border-t border-gray-100">
+                    <p className="text-[#0d2d5e] font-bold text-xs sm:text-sm truncate">
+                      {cert.title}
+                    </p>
+                    <p className="text-gray-500 text-[10px] sm:text-xs mt-0.5 line-clamp-2">
+                      {cert.subtitle}
+                    </p>
+                  </div>
+                </button>
+              </FadeInUp>
+            ))}
           </div>
         </section>
 
         {/* Trust Banner */}
-        <section className="py-16 bg-white">
+        <section className="pb-16 sm:pb-20 lg:pb-24">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <FadeInUp>
-              <div className="bg-gradient-to-r from-[#0d2d5e] to-[#1a5fa8] rounded-2xl p-10 lg:p-14 text-center relative overflow-hidden">
-                <div className="absolute top-0 right-0 w-64 h-64 rounded-full bg-[#00b4c8]/10 translate-x-1/3 -translate-y-1/3" />
+              <div className="bg-gradient-to-r from-[#0d2d5e] to-[#1a5fa8] rounded-2xl sm:rounded-3xl p-8 sm:p-10 lg:p-14 text-center relative overflow-hidden">
+                <div className="absolute top-0 right-0 w-48 sm:w-64 h-48 sm:h-64 rounded-full bg-[#00b4c8]/10 translate-x-1/3 -translate-y-1/3" />
                 <div className="relative">
-                  <h3 className="text-2xl lg:text-3xl font-bold text-white mb-4" style={{ fontFamily: 'var(--font-outfit)' }}>
+                  <h3 className="text-xl sm:text-2xl lg:text-3xl font-bold text-white mb-3 sm:mb-4" style={{ fontFamily: 'var(--font-outfit)' }}>
                     Kalite Güvencesi
                   </h3>
-                  <p className="text-blue-200 max-w-2xl mx-auto leading-relaxed">
+                  <p className="text-blue-200 max-w-2xl mx-auto leading-relaxed text-sm sm:text-base">
                     Tüm ürünlerimiz uluslararası standartlara uygun olarak üretilmekte ve düzenli olarak bağımsız laboratuvarlarda test edilmektedir. Müşterilerimize her zaman en yüksek kaliteyi sunmayı taahhüt ediyoruz.
                   </p>
                 </div>
@@ -149,6 +152,60 @@ export default function SertifikalarPage() {
             </FadeInUp>
           </div>
         </section>
+
+        {/* Lightbox */}
+        {lightbox !== null && (
+          <div
+            onClick={() => setLightbox(null)}
+            className="fixed inset-0 z-[100] bg-black/85 backdrop-blur-sm flex items-center justify-center p-4 sm:p-8"
+          >
+            <button
+              onClick={() => setLightbox(null)}
+              aria-label="Kapat"
+              className="absolute top-4 right-4 sm:top-6 sm:right-6 w-10 h-10 rounded-full bg-white/10 hover:bg-white/20 text-white flex items-center justify-center transition-colors z-10"
+            >
+              <svg className="w-5 h-5" fill="none" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
+              </svg>
+            </button>
+
+            <div className="relative max-w-4xl w-full flex flex-col items-center" onClick={(e) => e.stopPropagation()}>
+              <div className="relative w-full flex items-center justify-center">
+                <Image
+                  src={certificates[lightbox].image}
+                  alt={certificates[lightbox].title}
+                  width={1200}
+                  height={1600}
+                  className="w-auto max-h-[75vh] object-contain rounded-lg bg-white"
+                />
+              </div>
+              <div className="text-center mt-3 sm:mt-4 text-white">
+                <p className="font-bold text-sm sm:text-lg">{certificates[lightbox].title}</p>
+                <p className="text-xs sm:text-sm text-white/70 mt-0.5">{certificates[lightbox].subtitle}</p>
+                <p className="text-[10px] sm:text-xs text-white/50 mt-0.5">{certificates[lightbox].issuer}</p>
+              </div>
+
+              <button
+                onClick={(e) => { e.stopPropagation(); setLightbox((p) => p === null ? 0 : (p - 1 + certificates.length) % certificates.length); }}
+                aria-label="Önceki"
+                className="absolute left-0 sm:-left-14 top-1/2 -translate-y-1/2 w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-white/10 hover:bg-white/20 text-white flex items-center justify-center transition-colors"
+              >
+                <svg className="w-5 h-5" fill="none" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M15 19l-7-7 7-7" />
+                </svg>
+              </button>
+              <button
+                onClick={(e) => { e.stopPropagation(); setLightbox((p) => p === null ? 0 : (p + 1) % certificates.length); }}
+                aria-label="Sonraki"
+                className="absolute right-0 sm:-right-14 top-1/2 -translate-y-1/2 w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-white/10 hover:bg-white/20 text-white flex items-center justify-center transition-colors"
+              >
+                <svg className="w-5 h-5" fill="none" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M9 5l7 7-7 7" />
+                </svg>
+              </button>
+            </div>
+          </div>
+        )}
       </main>
 
       <Footer />

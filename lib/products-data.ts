@@ -215,10 +215,10 @@ export const categories: Category[] = [
     name: "Yetişkin Bezi",
     nameKey: "adultDiapers",
     description:
-      "Yetişkinler için üstün emicilik ve konfor sunan bantlı bezler. Standart ve Gece serilerimizle 24 saat güvence sağlıyoruz.",
-    seoTitle: "Yetişkin Bezi | Standart & Gece Seriler | Soft & Power",
+      "Yüksek emiş gücü, sızdırmaz koruması ve nefes alabilen yapısı ile gündüz ve gece kullanımına uygundur.",
+    seoTitle: "Yetişkin Bezi | M / L / XL | Soft & Power",
     seoDescription:
-      "Soft & Power yetişkin bezleri üstün emicilik, nefes alabilen yapı ve sızdırmaz tasarımıyla 24 saat güvence sağlar. Dermatolojik olarak test edilmiştir.",
+      "Soft & Power yetişkin bezleri yüksek emiş gücü, sızdırmaz koruma ve nefes alabilen yapısı ile gündüz ve gece kullanıma uygundur. Dermatolojik olarak test edilmiştir.",
     features: [
       "Superior Absorption",
       "Breathable",
@@ -228,74 +228,34 @@ export const categories: Category[] = [
     gradient: "from-indigo-600 to-blue-400",
     products: [
       {
-        slug: "standart-small",
-        name: "Standart Small",
+        slug: "yetiskin-bezi-m",
+        name: "Yetişkin Bezi M",
         description:
-          "Küçük beden yetişkin bezi, günlük kullanım için ideal emicilik sunar. Nefes alabilen dış yüzeyi ile cilt sağlığını korur.",
+          "Orta beden yetişkin bezi. Yüksek emiş gücü, sızdırmaz yan bariyerleri ve nefes alabilen yapısıyla gündüz ve gece kullanıma uygundur. Bel çevresi 85-125 cm.",
         count: "30 Adet",
-        size: "S",
+        size: "M (85-125 cm)",
         series: "Standart",
         seriesColor: "#1a5fa8",
       },
       {
-        slug: "standart-medium",
-        name: "Standart Medium",
+        slug: "yetiskin-bezi-l",
+        name: "Yetişkin Bezi L",
         description:
-          "Orta beden yetişkin bezi, geniş emici tabana sahip olup gündüz kullanımında güvenilir koruma sağlar. Esnek bel bandı ile rahat hareket imkanı sunar.",
+          "Büyük beden yetişkin bezi. Yüksek emiş gücü, sızdırmaz yan bariyerleri ve nefes alabilen yapısıyla gündüz ve gece kullanıma uygundur. Bel çevresi 100-150 cm.",
         count: "30 Adet",
-        size: "M",
+        size: "L (100-150 cm)",
         series: "Standart",
         seriesColor: "#1a5fa8",
       },
       {
-        slug: "standart-large",
-        name: "Standart Large",
+        slug: "yetiskin-bezi-xl",
+        name: "Yetişkin Bezi XL",
         description:
-          "Büyük beden yetişkin bezi, yüksek emicilik kapasitesi ile uzun süreli kullanıma uygundur. Anatomik tasarımı sayesinde vücuda mükemmel oturur.",
+          "Ekstra büyük beden yetişkin bezi. Yüksek emiş gücü, sızdırmaz yan bariyerleri ve nefes alabilen yapısıyla gündüz ve gece kullanıma uygundur. Bel çevresi 120-170 cm.",
         count: "30 Adet",
-        size: "L",
+        size: "XL (120-170 cm)",
         series: "Standart",
         seriesColor: "#1a5fa8",
-      },
-      {
-        slug: "standart-xlarge",
-        name: "Standart XLarge",
-        description:
-          "Ekstra büyük beden yetişkin bezi, geniş yapısıyla hareket kısıtlaması olmadan üstün koruma sunar. Çift bariyer sistemi ile sızıntıyı önler.",
-        count: "30 Adet",
-        size: "XL",
-        series: "Standart",
-        seriesColor: "#1a5fa8",
-      },
-      {
-        slug: "gece-medium",
-        name: "Gece Medium",
-        description:
-          "Gece kullanımı için özel olarak tasarlanmış orta beden yetişkin bezi. 8 saat koruma kapasitesiyle kesintisiz uyku sağlar.",
-        count: "30 Adet",
-        size: "M - 8 saat koruma",
-        series: "Gece",
-        seriesColor: "#0d2d5e",
-      },
-      {
-        slug: "gece-large",
-        name: "Gece Large",
-        description:
-          "Gece boyu koruma sunan büyük beden yetişkin bezi. Süper emici çekirdeği ile 8 saat boyunca kuruluk ve konfor sağlar.",
-        count: "30 Adet",
-        size: "L - 8 saat koruma",
-        series: "Gece",
-        seriesColor: "#0d2d5e",
-      },
-      {
-        slug: "gece-xlarge",
-        name: "Gece XLarge",
-        description:
-          "Gece kullanımı için ekstra büyük beden yetişkin bezi. 8 saatlik üstün emicilik kapasitesiyle gece boyunca maksimum güvence sunar.",
-        count: "30 Adet",
-        size: "XL - 8 saat koruma",
-        series: "Gece",
-        seriesColor: "#0d2d5e",
       },
     ],
     faqs: [
@@ -305,9 +265,9 @@ export const categories: Category[] = [
           "Yetişkin bezleri idrar kaçırma problemi yaşayan kişiler, ameliyat sonrası dönemde olan hastalar ve yaşlı bakımında kullanılır. Hareket kısıtlılığı olan bireylerde de günlük konfor için tercih edilmektedir.",
       },
       {
-        question: "Standart ve Gece serisi arasındaki fark nedir?",
+        question: "Yetişkin bezi sızıntı yapar mı?",
         answer:
-          "Gece serisi, 8 saate kadar kesintisiz koruma sağlayan ekstra emici çekirdek içerir. Standart seri günlük kullanım için optimize edilmiş olup düzenli aralıklarla değiştirilerek kullanılır.",
+          "Soft & Power yetişkin bezleri çift bariyer sistemi, sızdırmaz yan lastikler ve ultra emici çekirdeği sayesinde sızıntıyı etkili biçimde önler. Esnek bel bandı vücuda tam oturarak uzun süreli kullanımlarda bile güvenli koruma sağlar.",
       },
       {
         question: "Yetişkin bezi cilt tahrişine neden olur mu?",
@@ -317,12 +277,12 @@ export const categories: Category[] = [
       {
         question: "Doğru beden nasıl seçilir?",
         answer:
-          "Beden seçiminde bel çevresini ölçmeniz gerekmektedir. S beden 50-80 cm, M beden 70-110 cm, L beden 100-150 cm ve XL beden 130-170 cm bel çevresine uygundur. Doğru ölçüm konforlu kullanım için çok önemlidir.",
+          "Beden seçiminde bel çevresini ölçmeniz gerekmektedir. M beden 85-125 cm, L beden 100-150 cm ve XL beden 120-170 cm bel çevresine uygundur. Doğru ölçüm konforlu kullanım için çok önemlidir.",
       },
       {
         question: "Yetişkin bezi ne sıklıkla değiştirilmelidir?",
         answer:
-          "Gündüz kullanımda 3-4 saatte bir, gece serisinde ise 8 saate kadar kullanılabilir. Ancak her dışkılamadan sonra derhal değiştirilmelidir. Cildin temiz ve kuru kalması enfeksiyon riskini azaltır.",
+          "Yetişkin bezi, ıslaklık durumu ve kullanıcının ihtiyacına bağlı olarak ortalama 3-4 saatte bir değiştirilmelidir. Her dışkılamadan sonra derhal yenilenmesi gerekir. Cildin temiz ve kuru tutulması cilt tahrişini ve enfeksiyon riskini en aza indirir.",
       },
       {
         question: "Yetişkin bezleri koku yapar mı?",
@@ -332,24 +292,24 @@ export const categories: Category[] = [
     ],
   },
 
-  // ─── 3. YETİŞKİN KULOT BEZİ ──────────────────────────────────────
+  // ─── 3. YETİŞKİN KÜLOT BEZİ ──────────────────────────────────────
   {
     slug: "yetiskin-kulot-bezi",
-    name: "Yetişkin Kulot Bezi",
+    name: "Yetişkin Külot Bezi",
     nameKey: "adultPants",
     description:
-      "Kulot gibi giyilebilen, aktif yaşam tarzına uygun yetişkin bezleri. 360° koruma ve elastik bel bandı ile maksimum konfor.",
-    seoTitle: "Yetişkin Kulot Bezi | 360° Koruma | Soft & Power",
+      "Aktif yaşam için tasarlanmış külot tipi yetişkin bezleri; 360° koruma ve esnek bel bandı ile gün boyu konfor sunar.",
+    seoTitle: "Yetişkin Külot Bezi | 360° Koruma | Soft & Power",
     seoDescription:
-      "Soft & Power yetişkin kulot bezleri 360° koruma, çift bariyer sistemi ve elastik bel bandıyla aktif yaşamınızda özgürce hareket etmenizi sağlar.",
-    features: ["360° Koruma", "Çift Bariyer", "Elastik Bel"],
+      "Soft & Power yetişkin külot bezleri 360° koruma, çift bariyer sistemi ve esnek bel bandıyla aktif yaşamınızda özgürce hareket etmenizi sağlar.",
+    features: ["360° Koruma", "Elastik Bel", "Çift Bariyer", "Anatomik Uyum"],
     gradient: "from-violet-600 to-indigo-400",
     products: [
       {
         slug: "kulot-bezi-m",
-        name: "Kulot Bezi Medium",
+        name: "Külot Bezi Medium",
         description:
-          "Orta beden kulot bezi, normal iç çamaşırı gibi giyilip çıkarılabilir. 360° elastik bel bandı ile vücuda tam oturur.",
+          "Orta beden külot bezi, normal iç çamaşırı gibi giyilip çıkarılabilir. 360° elastik bel bandı ile vücuda tam oturur.",
         count: "30 Adet",
         size: "M (70-100 cm)",
         series: "Standart",
@@ -357,9 +317,9 @@ export const categories: Category[] = [
       },
       {
         slug: "kulot-bezi-l",
-        name: "Kulot Bezi Large",
+        name: "Külot Bezi Large",
         description:
-          "Büyük beden kulot bezi, aktif kullanıcılar için ideal hareket özgürlüğü sağlar. Çift bariyer sistemiyle sızıntıyı önler.",
+          "Büyük beden külot bezi, aktif kullanıcılar için ideal hareket özgürlüğü sağlar. Çift bariyer sistemiyle sızıntıyı önler.",
         count: "30 Adet",
         size: "L (90-120 cm)",
         series: "Standart",
@@ -367,55 +327,40 @@ export const categories: Category[] = [
       },
       {
         slug: "kulot-bezi-xl",
-        name: "Kulot Bezi XLarge",
+        name: "Külot Bezi XLarge",
         description:
-          "Ekstra büyük beden kulot bezi, geniş emici yüzeyiyle üstün koruma sunar. Yırtılarak kolayca çıkarılabilir tasarıma sahiptir.",
+          "Ekstra büyük beden külot bezi, geniş emici yüzeyiyle üstün koruma sunar. Yırtılarak kolayca çıkarılabilir tasarıma sahiptir.",
         count: "28 Adet",
         size: "XL (110-150 cm)",
-        series: "Standart",
-        seriesColor: "#1a5fa8",
-      },
-      {
-        slug: "kulot-bezi-xxl",
-        name: "Kulot Bezi XXLarge",
-        description:
-          "En büyük beden kulot bezi, maksimum konfor ve emicilik için tasarlanmıştır. Geniş bel çevresine sahip kullanıcılar için ideal çözüm sunar.",
-        count: "24 Adet",
-        size: "XXL (130-170 cm)",
         series: "Standart",
         seriesColor: "#1a5fa8",
       },
     ],
     faqs: [
       {
-        question: "Kulot bezi ile bantlı bez arasındaki fark nedir?",
+        question: "Külot bezi ile bantlı bez arasındaki fark nedir?",
         answer:
-          "Kulot bezi normal iç çamaşırı gibi giyilip çıkarılır, bantlı bez ise yatarak takılır. Aktif ve hareketli kişiler için kulot bezi daha pratik bir seçenektir.",
+          "Külot bezi normal iç çamaşırı gibi giyilip çıkarılır, bantlı bez ise yatarak takılır. Aktif ve hareketli kişiler için külot bezi daha pratik bir seçenektir.",
       },
       {
-        question: "Kulot bezi giysi altında belli olur mu?",
+        question: "Külot bezi giysi altında belli olur mu?",
         answer:
-          "Hayır, Soft & Power kulot bezleri ince ve ergonomik tasarımı sayesinde giysi altında belli olmaz. Normal iç çamaşırına benzer siluetiyle günlük hayatta rahatça kullanılabilir.",
+          "Hayır, Soft & Power külot bezleri ince ve ergonomik tasarımı sayesinde giysi altında belli olmaz. Normal iç çamaşırına benzer siluetiyle günlük hayatta rahatça kullanılabilir.",
       },
       {
-        question: "Kulot bezi nasıl giyilir ve çıkarılır?",
+        question: "Külot bezi nasıl giyilir ve çıkarılır?",
         answer:
-          "Kulot bezi normal iç çamaşırı gibi ayaklardan geçirilerek giyilir. Çıkarırken yanlardan yırtarak kolayca çıkarılabilir. Bu özellik özellikle bakım verenlerin işini kolaylaştırır.",
+          "Külot bezi normal iç çamaşırı gibi ayaklardan geçirilerek giyilir. Çıkarırken yanlardan yırtarak kolayca çıkarılabilir. Bu özellik özellikle bakım verenlerin işini kolaylaştırır.",
       },
       {
-        question: "Hangi beden kulot bezi seçmeliyim?",
+        question: "Hangi beden külot bezi seçmeliyim?",
         answer:
-          "Bel çevrenizi ölçerek doğru bedeni belirleyebilirsiniz. M beden 70-100 cm, L beden 90-120 cm, XL beden 110-150 cm ve XXL beden 130-170 cm bel çevresine uygundur.",
+          "Bel çevrenizi ölçerek doğru bedeni belirleyebilirsiniz. M beden 70-100 cm, L beden 90-120 cm ve XL beden 110-150 cm bel çevresine uygundur.",
       },
       {
-        question: "Kulot bezi gece kullanımına uygun mu?",
+        question: "Külot bezi gün boyu kullanıma uygun mu?",
         answer:
-          "Kulot bezleri gece kullanımında da tercih edilebilir, ancak uzun süreli gece kullanımı için bantlı gece bezlerini öneriyoruz. Kulot bezleri daha çok gündüz aktif kullanım için optimize edilmiştir.",
-      },
-      {
-        question: "Kulot bezi ne kadar sıvı absorbe eder?",
-        answer:
-          "Soft & Power kulot bezleri 800 ml'ye kadar sıvı absorbe edebilir. Çift bariyer sistemi ve süper emici çekirdek ile gün boyu güvenle kullanılabilir.",
+          "Evet. Soft & Power külot bezleri esnek bel bandı, anatomik kesimi ve çift bariyer sistemi sayesinde gün boyu konforlu kullanıma uygundur. İhtiyaca göre gündüz ve gece kullanılabilir, ortalama 3-4 saatte bir değiştirilmesi önerilir.",
       },
     ],
   },

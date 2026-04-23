@@ -1,284 +1,116 @@
 'use client';
 
-import { motion } from 'framer-motion';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
-import FadeInUp from '@/components/animations/FadeInUp';
-import CountUp from '@/components/animations/CountUp';
-import { StaggerContainer, StaggerItem } from '@/components/animations/StaggerContainer';
 import Breadcrumb from '@/components/sections/Breadcrumb';
-import Head from 'next/head';
-
-// ─── Timeline Data ──────────────────────────────────────────────────────────
-
-const milestones = [
-  {
-    year: '2010',
-    title: 'Kuruluş',
-    description: 'Soft & Power, İstanbul\'da hijyen ürünleri sektöründe faaliyetlerine başladı.',
-  },
-  {
-    year: '2015',
-    title: 'İlk İhracat',
-    description: 'Avrupa ve Orta Doğu pazarlarına ilk ihracatımızı gerçekleştirdik.',
-  },
-  {
-    year: '2020',
-    title: 'Kapasite Artışı',
-    description: 'Modern üretim tesislerimizi genişleterek kapasitemizi 3 katına çıkardık.',
-  },
-  {
-    year: '2024',
-    title: '20+ Ülkeye İhracat',
-    description: '20\'den fazla ülkeye ihracat yapan global bir marka haline geldik.',
-  },
-];
-
-const certificates = [
-  { name: 'ISO 9001', subtitle: 'Kalite Yönetim Sistemi' },
-  { name: 'CE', subtitle: 'Avrupa Uygunluk' },
-  { name: 'GMP', subtitle: 'İyi Üretim Uygulamaları' },
-  { name: 'ISO 13485', subtitle: 'Medikal Cihazlar' },
-];
-
-const stats = [
-  { target: 500, suffix: '+', label: 'Ürün' },
-  { target: 20, suffix: '+', label: 'Ülke' },
-  { target: 15, suffix: '', label: 'Yıl Tecrübe' },
-];
-
-// ─── JSON-LD ────────────────────────────────────────────────────────────────
-
-const organizationSchema = {
-  '@context': 'https://schema.org',
-  '@type': 'Organization',
-  name: 'Soft & Power Hygiene',
-  url: 'https://softandpower.com',
-  logo: 'https://softandpower.com/logo-wide.png',
-  description: 'Türkiye merkezli hijyen ürünleri üreticisi. Bebek bezi, yetişkin bezi, ıslak mendil ve özel etiket üretimi.',
-  address: {
-    '@type': 'PostalAddress',
-    addressLocality: 'İstanbul',
-    addressCountry: 'TR',
-  },
-  contactPoint: {
-    '@type': 'ContactPoint',
-    telephone: '+90-539-631-23-92',
-    contactType: 'customer service',
-    email: 'info@softandpower.com',
-  },
-  sameAs: [
-    'https://www.instagram.com/softandpowertr',
-    'https://www.linkedin.com/company/softandpower',
-    'https://www.facebook.com/people/Softpower/61579102840493/',
-  ],
-};
-
-// ─── Page ───────────────────────────────────────────────────────────────────
+import FadeInUp from '@/components/animations/FadeInUp';
 
 export default function HakkimizdaPage() {
   return (
     <>
-      <head>
-        <title>Hakkımızda | Soft & Power Hygiene</title>
-        <meta name="description" content="Soft & Power Hygiene hakkında bilgi edinin. 15 yılı aşkın tecrübe, 500+ ürün çeşidi ve 20+ ülkeye ihracat." />
-        <meta name="keywords" content="Soft & Power, hijyen ürünleri, bebek bezi üreticisi, Türkiye, hakkımızda" />
-        <meta property="og:title" content="Hakkımızda | Soft & Power Hygiene" />
-        <meta property="og:description" content="Türkiye'nin lider hijyen ürünleri üreticisi Soft & Power hakkında." />
-        <meta property="og:type" content="website" />
-        <script
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(organizationSchema) }}
-        />
-      </head>
-
       <Navbar />
 
-      <main className="bg-[#f4f7fb] min-h-screen">
+      <main className="min-h-screen bg-[#f4f7fb] pt-14 md:pt-24">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <Breadcrumb
+            items={[
+              { label: 'Kurumsal' },
+              { label: 'Hakkımızda' },
+            ]}
+          />
+        </div>
+
         {/* Hero */}
-        <section className="relative bg-gradient-to-br from-[#0d2d5e] to-[#1a5fa8] py-20 lg:py-28 overflow-hidden">
-          <div className="absolute inset-0 bg-[url('/grid.svg')] opacity-5" />
-          <div className="absolute top-0 right-0 w-[500px] h-[500px] rounded-full bg-[#00b4c8]/10 translate-x-1/2 -translate-y-1/2" />
-          <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+        <section className="relative overflow-hidden bg-gradient-to-br from-[#0d2d5e] via-[#143d75] to-[#1a5fa8] text-white">
+          <div className="absolute -top-24 -right-24 w-[420px] h-[420px] rounded-full bg-[#00b4c8]/20 blur-3xl pointer-events-none" />
+          <div className="absolute -bottom-24 -left-24 w-[480px] h-[480px] rounded-full bg-white/5 blur-3xl pointer-events-none" />
+          <div className="relative max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-14 sm:py-20 lg:py-24 text-center">
             <FadeInUp>
-              <span className="inline-flex items-center gap-2 bg-white/10 text-white border border-white/20 text-xs font-bold px-4 py-2 rounded-full uppercase tracking-wider mb-6">
-                Kurumsal
+              <span className="inline-block px-4 py-1.5 rounded-full text-xs sm:text-sm font-semibold bg-white/10 backdrop-blur-sm border border-white/15">
+                About Us
               </span>
-              <h1 className="text-4xl lg:text-6xl font-black text-white mb-6" style={{ fontFamily: 'var(--font-outfit)' }}>
-                Hakkımızda
+            </FadeInUp>
+            <FadeInUp delay={0.1}>
+              <h1 className="mt-5 text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-black leading-tight" style={{ fontFamily: 'var(--font-outfit)' }}>
+                Our Mission & Vision
               </h1>
-              <p className="text-blue-200 text-lg max-w-2xl mx-auto leading-relaxed">
-                Hijyen sektöründe güvenilir çözüm ortağınız. Kalite, yenilik ve müşteri memnuniyeti odaklı üretim anlayışımızla fark yaratıyoruz.
+            </FadeInUp>
+            <FadeInUp delay={0.15}>
+              <p className="mt-4 text-sm sm:text-base text-white/70 max-w-2xl mx-auto">
+                Quality hygiene and personal care, built on trust and sustainable growth.
               </p>
             </FadeInUp>
           </div>
         </section>
 
-        {/* Breadcrumb */}
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <Breadcrumb items={[
-            { label: 'Kurumsal', href: '#' },
-            { label: 'Hakkımızda' },
-          ]} />
-        </div>
-
-        {/* Company Story */}
-        <section className="py-20">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        {/* Content */}
+        <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-16 lg:py-20">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-5 sm:gap-6 lg:gap-8 items-stretch">
+            {/* Mission */}
             <FadeInUp>
-              <div className="text-center mb-16">
-                <span className="inline-flex items-center gap-2 bg-[#00b4c8]/10 text-[#00b4c8] border border-[#00b4c8]/25 text-xs font-bold px-4 py-2 rounded-full uppercase tracking-wider mb-5">
-                  Hikayemiz
-                </span>
-                <h2 className="text-3xl lg:text-4xl font-black text-[#0d2d5e] mb-4" style={{ fontFamily: 'var(--font-outfit)' }}>
-                  Yolculuğumuz
-                </h2>
-                <p className="text-gray-500 max-w-2xl mx-auto">
-                  2010 yılından bu yana hijyen sektöründe kaliteyi ve yeniliği bir arada sunuyoruz.
-                </p>
-              </div>
-            </FadeInUp>
+              <article className="group relative h-full bg-white rounded-2xl sm:rounded-3xl shadow-sm border border-gray-100 hover:shadow-lg hover:border-[#1a5fa8]/20 transition-all duration-300 p-5 sm:p-7 lg:p-9 overflow-hidden">
+                {/* corner accent */}
+                <span className="absolute -top-14 -right-14 w-40 h-40 rounded-full bg-gradient-to-br from-[#1a5fa8]/10 to-[#00b4c8]/10 blur-2xl pointer-events-none" />
 
-            {/* Vertical Timeline */}
-            <div className="relative max-w-3xl mx-auto">
-              {/* Center line */}
-              <div className="absolute left-1/2 transform -translate-x-1/2 w-0.5 h-full bg-gradient-to-b from-[#1a5fa8] via-[#00b4c8] to-[#1a5fa8] hidden md:block" />
-              <div className="absolute left-6 w-0.5 h-full bg-gradient-to-b from-[#1a5fa8] via-[#00b4c8] to-[#1a5fa8] md:hidden" />
-
-              <div className="space-y-12">
-                {milestones.map((milestone, i) => (
-                  <motion.div
-                    key={milestone.year}
-                    initial={{ opacity: 0, x: i % 2 === 0 ? -40 : 40 }}
-                    whileInView={{ opacity: 1, x: 0 }}
-                    viewport={{ once: true }}
-                    transition={{ duration: 0.6, delay: i * 0.15 }}
-                    className={`relative flex items-center gap-6 ${
-                      i % 2 === 0 ? 'md:flex-row' : 'md:flex-row-reverse'
-                    } flex-row`}
-                  >
-                    {/* Content card */}
-                    <div className={`flex-1 ${i % 2 === 0 ? 'md:text-right' : 'md:text-left'} text-left pl-16 md:pl-0`}>
-                      <div className="bg-white rounded-2xl p-6 shadow-sm border border-gray-100 hover:shadow-lg transition-shadow">
-                        <span className="text-[#00b4c8] font-bold text-sm">{milestone.year}</span>
-                        <h3 className="text-xl font-bold text-[#0d2d5e] mt-1 mb-2">{milestone.title}</h3>
-                        <p className="text-gray-500 text-sm leading-relaxed">{milestone.description}</p>
-                      </div>
-                    </div>
-
-                    {/* Circle dot */}
-                    <div className="absolute left-6 md:left-1/2 transform md:-translate-x-1/2 -translate-x-1/2 w-4 h-4 bg-[#1a5fa8] rounded-full border-4 border-white shadow-md z-10" />
-
-                    {/* Spacer for the other side */}
-                    <div className="flex-1 hidden md:block" />
-                  </motion.div>
-                ))}
-              </div>
-            </div>
-          </div>
-        </section>
-
-        {/* Mission & Vision */}
-        <section className="py-20 bg-white">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <FadeInUp>
-              <div className="text-center mb-16">
-                <span className="inline-flex items-center gap-2 bg-[#00b4c8]/10 text-[#00b4c8] border border-[#00b4c8]/25 text-xs font-bold px-4 py-2 rounded-full uppercase tracking-wider mb-5">
-                  Vizyon & Misyon
-                </span>
-                <h2 className="text-3xl lg:text-4xl font-black text-[#0d2d5e]" style={{ fontFamily: 'var(--font-outfit)' }}>
-                  Değerlerimiz
-                </h2>
-              </div>
-            </FadeInUp>
-
-            <div className="grid md:grid-cols-2 gap-8 max-w-5xl mx-auto">
-              <FadeInUp delay={0.1}>
-                <div className="relative bg-gradient-to-br from-[#1a5fa8] to-[#0d2d5e] rounded-2xl p-8 lg:p-10 text-white overflow-hidden h-full">
-                  <div className="absolute top-0 right-0 w-32 h-32 rounded-bl-full bg-white/5" />
-                  <div className="relative">
-                    <div className="w-14 h-14 rounded-2xl bg-white/10 flex items-center justify-center mb-6">
-                      <svg className="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
-                      </svg>
-                    </div>
-                    <h3 className="text-2xl font-bold mb-4">Vizyonumuz</h3>
-                    <p className="text-blue-100 leading-relaxed">
-                      Hijyen sektöründe global bir marka olarak, yenilikci ürünlerimizle dünya genelinde insanların yaşam kalitesini artırmak ve sektörün referans noktası olmak.
-                    </p>
-                  </div>
+                <div className="relative flex items-center gap-3 mb-4 sm:mb-5">
+                  <span className="flex items-center justify-center w-12 h-12 sm:w-14 sm:h-14 rounded-2xl bg-gradient-to-br from-[#1a5fa8] to-[#00b4c8] shadow-lg shadow-[#1a5fa8]/25 group-hover:scale-105 transition-transform">
+                    {/* Rocket — launching purpose & ambition */}
+                    <svg className="w-6 h-6 sm:w-7 sm:h-7 text-white" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" viewBox="0 0 24 24">
+                      <path d="M4.5 16.5c-1.5 1.26-2 5-2 5s3.74-.5 5-2c.71-.84.7-2.13-.09-2.91a2.18 2.18 0 0 0-2.91-.09z" />
+                      <path d="m12 15-3-3a22 22 0 0 1 2-3.95A12.88 12.88 0 0 1 22 2c0 2.72-.78 7.5-6 11a22.35 22.35 0 0 1-4 2z" />
+                      <path d="M9 12H4s.55-3.03 2-4c1.62-1.08 5 0 5 0" />
+                      <path d="M12 15v5s3.03-.55 4-2c1.08-1.62 0-5 0-5" />
+                    </svg>
+                  </span>
+                  <h2 className="text-xl sm:text-2xl lg:text-3xl font-bold text-[#0d2d5e]" style={{ fontFamily: 'var(--font-outfit)' }}>
+                    Mission
+                  </h2>
                 </div>
-              </FadeInUp>
 
-              <FadeInUp delay={0.2}>
-                <div className="relative bg-gradient-to-br from-[#00b4c8] to-[#0097a7] rounded-2xl p-8 lg:p-10 text-white overflow-hidden h-full">
-                  <div className="absolute top-0 right-0 w-32 h-32 rounded-bl-full bg-white/5" />
-                  <div className="relative">
-                    <div className="w-14 h-14 rounded-2xl bg-white/10 flex items-center justify-center mb-6">
-                      <svg className="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
-                      </svg>
-                    </div>
-                    <h3 className="text-2xl font-bold mb-4">Misyonumuz</h3>
-                    <p className="text-cyan-100 leading-relaxed">
-                      En yüksek kalite standartlarında, çevre dostu ve yenilikci hijyen ürünleri üreterek, iş ortaklarımıza ve tüketicilere güvenilir çözümler sunmak.
-                    </p>
-                  </div>
+                <div className="relative space-y-3 sm:space-y-4 text-gray-700 text-[13px] sm:text-sm lg:text-base leading-relaxed">
+                  <p>
+                    We aim to enhance quality of life by developing reliable, high-quality, and accessible hygiene and care products that meet the daily needs of people of all ages. Our broad product portfolio—including baby diapers, adult diapers, pant diapers, sanitary and urological pads, underpads, wet wipes, and other personal care products—is developed in accordance with international quality and safety standards and supported by modern production technologies.
+                  </p>
+                  <p>
+                    Across all our operations, we adopt a people-centered approach and regard quality, reliability, and sustainability as core values. Our objective goes beyond manufacturing; we focus on delivering solutions that provide long-term value for our users and business partners while bringing comfort, confidence, and reliability into everyday life. Our growth is built on continuous improvement, attention to detail, and trust-based business relationships.
+                  </p>
                 </div>
-              </FadeInUp>
-            </div>
-          </div>
-        </section>
-
-        {/* Animated Counters */}
-        <section className="py-20 bg-gradient-to-r from-[#0d2d5e] to-[#1a5fa8] relative overflow-hidden">
-          <div className="absolute inset-0 bg-[url('/grid.svg')] opacity-5" />
-          <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <StaggerContainer className="grid grid-cols-1 md:grid-cols-3 gap-8 text-center">
-              {stats.map((stat) => (
-                <StaggerItem key={stat.label}>
-                  <div className="bg-white/10 backdrop-blur-sm rounded-2xl p-8 border border-white/10">
-                    <div className="text-5xl lg:text-6xl font-black text-white mb-2" style={{ fontFamily: 'var(--font-outfit)' }}>
-                      <CountUp target={stat.target} suffix={stat.suffix} />
-                    </div>
-                    <p className="text-blue-200 text-lg font-medium">{stat.label}</p>
-                  </div>
-                </StaggerItem>
-              ))}
-            </StaggerContainer>
-          </div>
-        </section>
-
-        {/* Certificate Badges */}
-        <section className="py-20 bg-white">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <FadeInUp>
-              <div className="text-center mb-14">
-                <span className="inline-flex items-center gap-2 bg-[#00b4c8]/10 text-[#00b4c8] border border-[#00b4c8]/25 text-xs font-bold px-4 py-2 rounded-full uppercase tracking-wider mb-5">
-                  Kalite Belgeleri
-                </span>
-                <h2 className="text-3xl lg:text-4xl font-black text-[#0d2d5e]" style={{ fontFamily: 'var(--font-outfit)' }}>
-                  Sertifikalarımız
-                </h2>
-              </div>
+              </article>
             </FadeInUp>
 
-            <StaggerContainer className="grid grid-cols-2 lg:grid-cols-4 gap-6 max-w-4xl mx-auto">
-              {certificates.map((cert) => (
-                <StaggerItem key={cert.name}>
-                  <div className="group flex flex-col items-center justify-center p-8 bg-[#f4f7fb] rounded-2xl border border-gray-100 hover:border-[#1a5fa8] hover:shadow-lg transition-all">
-                    <div className="w-16 h-16 rounded-full bg-white flex items-center justify-center mb-4 group-hover:bg-[#1a5fa8] transition-colors shadow-sm">
-                      <svg className="w-8 h-8 text-[#1a5fa8] group-hover:text-white transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z" />
-                      </svg>
-                    </div>
-                    <p className="font-bold text-[#1a5fa8] text-lg">{cert.name}</p>
-                    <p className="text-gray-400 text-xs text-center mt-1">{cert.subtitle}</p>
-                  </div>
-                </StaggerItem>
-              ))}
-            </StaggerContainer>
+            {/* Vision */}
+            <FadeInUp delay={0.1}>
+              <article className="group relative h-full bg-white rounded-2xl sm:rounded-3xl shadow-sm border border-gray-100 hover:shadow-lg hover:border-[#00b4c8]/20 transition-all duration-300 p-5 sm:p-7 lg:p-9 overflow-hidden">
+                <span className="absolute -top-14 -right-14 w-40 h-40 rounded-full bg-gradient-to-br from-[#00b4c8]/10 to-[#1a5fa8]/10 blur-2xl pointer-events-none" />
+
+                <div className="relative flex items-center gap-3 mb-4 sm:mb-5">
+                  <span className="flex items-center justify-center w-12 h-12 sm:w-14 sm:h-14 rounded-2xl bg-gradient-to-br from-[#00b4c8] to-[#1a5fa8] shadow-lg shadow-[#00b4c8]/25 group-hover:scale-105 transition-transform">
+                    {/* Telescope — looking to the future */}
+                    <svg className="w-6 h-6 sm:w-7 sm:h-7 text-white" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" viewBox="0 0 24 24">
+                      <path d="m10.065 12.493-6.18 1.318a.934.934 0 0 1-1.108-.702l-.537-2.15a1.07 1.07 0 0 1 .691-1.265l13.504-4.44" />
+                      <path d="m13.56 11.747 4.332-.924" />
+                      <path d="m16 21-3.105-6.21" />
+                      <path d="M16.485 5.94a2 2 0 0 1 1.455-2.425l1.09-.272a1 1 0 0 1 1.212.727l1.515 6.06a1 1 0 0 1-.727 1.213l-1.09.272a2 2 0 0 1-2.425-1.455z" />
+                      <path d="m6.158 8.633 1.114 4.456" />
+                      <path d="m8 21 3.105-6.21" />
+                      <circle cx="12" cy="13" r="2" />
+                    </svg>
+                  </span>
+                  <h2 className="text-xl sm:text-2xl lg:text-3xl font-bold text-[#0d2d5e]" style={{ fontFamily: 'var(--font-outfit)' }}>
+                    Vision
+                  </h2>
+                </div>
+
+                <div className="relative space-y-3 sm:space-y-4 text-gray-700 text-[13px] sm:text-sm lg:text-base leading-relaxed">
+                  <p>
+                    We aim to become a trusted and preferred brand in the hygiene and personal care industry, achieving sustainable growth across international markets through a strong commitment to quality and reliability. By integrating technology, innovation, and operational excellence, we deliver solutions that adapt to evolving market dynamics and user expectations.
+                  </p>
+                  <p>
+                    Guided by ethical principles and a strong sense of environmental and social responsibility, we focus on building a respected corporate structure that creates long-term value for our employees, business partners, and all stakeholders.
+                  </p>
+                </div>
+              </article>
+            </FadeInUp>
           </div>
         </section>
       </main>

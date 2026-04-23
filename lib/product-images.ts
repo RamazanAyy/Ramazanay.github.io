@@ -1,7 +1,10 @@
+// ── Shared product images ──────────────────────────────────────────
+const BABY_DIAPER_OPEN = '/images/products/eco-baby-diapers/SP_BABY_DIAPER_OPEN.png';
+
 // ── Category cover images ──────────────────────────────────────────
 export const categoryImages: Record<string, string> = {
   'bebek-bezi': '/images/products/eco-baby-diapers/SP_BABY_DIAPERS_ECO_1_.jpg',
-  'yetiskin-bezi': '/images/products/adult-diapers-30/SP_ADULT_DIAPERS_M (2).jpg',
+  'yetiskin-bezi': '/images/products/adult-diapers-30/SP_ADULT_DIAPERS_M (2).png',
   'yetiskin-kulot-bezi': '/images/products/adult-pants-30/SP_ADULT_PANTS_M (2).jpg',
   'yetiskin-alt-serme-ortusu': '/images/products/adult-underpad/SP_UNDERPAD_60x90_30 (2).jpg',
   'bebek-alt-serme-ortusu': '/images/products/baby-underpad/SP_UNDERPAD_BABY_60x60_10.png',
@@ -14,40 +17,36 @@ export const categoryImages: Record<string, string> = {
 // ── Product images mapped by product slug ──────────────────────────
 export const productImages: Record<string, string[]> = {
   // Bebek Bezi - Eco
-  'eco-newborn': ['/images/products/eco-baby-diapers/SP_BABY_DIAPERS_ECO_1_.jpg'],
-  'eco-mini': ['/images/products/eco-baby-diapers/SP_BABY_DIAPERS_ECO_2.jpg'],
-  'eco-midi': ['/images/products/eco-baby-diapers/SP_BABY_DIAPERS_ECO_3.jpg'],
-  'eco-maxi': ['/images/products/eco-baby-diapers/SP_BABY_DIAPERS_ECO_4.jpg'],
-  'eco-junior': ['/images/products/eco-baby-diapers/SP_BABY_DIAPERS_ECO_5 (2).jpg'],
-  'eco-xlarge': ['/images/products/eco-baby-diapers/SP_BABY_DIAPERS_ECO_6 (2).jpg'],
-  'eco-xxlarge': ['/images/products/eco-baby-diapers/SP_BABY_DIAPERS_ECO_7_.jpg'],
+  'eco-newborn': ['/images/products/eco-baby-diapers/SP_BABY_DIAPERS_ECO_1_.png', BABY_DIAPER_OPEN],
+  'eco-mini': ['/images/products/eco-baby-diapers/SP_BABY_DIAPERS_ECO_2.png', BABY_DIAPER_OPEN],
+  'eco-midi': ['/images/products/eco-baby-diapers/SP_BABY_DIAPERS_ECO_3.png', BABY_DIAPER_OPEN],
+  'eco-maxi': ['/images/products/eco-baby-diapers/SP_BABY_DIAPERS_ECO_4.png', BABY_DIAPER_OPEN],
+  'eco-junior': ['/images/products/eco-baby-diapers/SP_BABY_DIAPERS_ECO_5 (2).png', BABY_DIAPER_OPEN],
+  'eco-xlarge': ['/images/products/eco-baby-diapers/SP_BABY_DIAPERS_ECO_6 (2).png', BABY_DIAPER_OPEN],
+  'eco-xxlarge': ['/images/products/eco-baby-diapers/SP_BABY_DIAPERS_ECO_7_.png', BABY_DIAPER_OPEN],
 
   // Bebek Bezi - Premium (Mega)
-  'premium-newborn': ['/images/products/mega-baby-diapers/SP_BABY_DIAPERS_MEGA_1_.jpg'],
-  'premium-mini': ['/images/products/mega-baby-diapers/SP_BABY_DIAPERS_MEGA_2_.jpg'],
-  'premium-midi': ['/images/products/mega-baby-diapers/SP_BABY_DIAPERS_MEGA_3_.jpg'],
-  'premium-maxi': ['/images/products/mega-baby-diapers/SP_BABY_DIAPERS_MEGA_4_.jpg'],
-  'premium-junior': ['/images/products/mega-baby-diapers/SP_BABY_DIAPERS_MEGA_5_.jpg'],
-  'premium-xlarge': ['/images/products/mega-baby-diapers/SP_BABY_DIAPERS_MEGA_6_.jpg'],
-  'premium-xxlarge': ['/images/products/mega-baby-diapers/SP_BABY_DIAPERS_MEGA_7_.jpg'],
+  'premium-newborn': ['/images/products/mega-baby-diapers/SP_BABY_DIAPERS_MEGA_1_.png', BABY_DIAPER_OPEN],
+  'premium-mini': ['/images/products/mega-baby-diapers/SP_BABY_DIAPERS_MEGA_2_.png', BABY_DIAPER_OPEN],
+  'premium-midi': ['/images/products/mega-baby-diapers/SP_BABY_DIAPERS_MEGA_3_.png', BABY_DIAPER_OPEN],
+  'premium-maxi': ['/images/products/mega-baby-diapers/SP_BABY_DIAPERS_MEGA_4_.png', BABY_DIAPER_OPEN],
+  'premium-junior': ['/images/products/mega-baby-diapers/SP_BABY_DIAPERS_MEGA_5_.png', BABY_DIAPER_OPEN],
+  'premium-xlarge': ['/images/products/mega-baby-diapers/SP_BABY_DIAPERS_MEGA_6_.png', BABY_DIAPER_OPEN],
+  'premium-xxlarge': ['/images/products/mega-baby-diapers/SP_BABY_DIAPERS_MEGA_7_.png', BABY_DIAPER_OPEN],
 
   // Yetişkin Bezi
-  'yetiskin-bezi-s': ['/images/products/adult-diapers-10/SP_ADULT_DIAPERS_M_10.jpg'],
   'yetiskin-bezi-m': [
-    '/images/products/adult-diapers-30/SP_ADULT_DIAPERS_M (2).jpg',
-    '/images/products/adult-diapers-10/SP_ADULT_DIAPERS_M_10.jpg',
+    '/images/products/adult-diapers-30/SP_ADULT_DIAPERS_M (2).png',
+    '/images/products/adult-diapers-10/SP_ADULT_DIAPERS_M_10.png',
   ],
   'yetiskin-bezi-l': [
-    '/images/products/adult-diapers-30/SP_ADULT_DIAPERS_L (2).jpg',
-    '/images/products/adult-diapers-10/SP_ADULT_DIAPERS_L_10.jpg',
+    '/images/products/adult-diapers-30/SP_ADULT_DIAPERS_L (2).png',
+    '/images/products/adult-diapers-10/SP_ADULT_DIAPERS_L_10.png',
   ],
   'yetiskin-bezi-xl': [
-    '/images/products/adult-diapers-30/SP_ADULT_DIAPERS_XL (2).jpg',
-    '/images/products/adult-diapers-10/SP_ADULT_DIAPERS_XL_10.jpg',
+    '/images/products/adult-diapers-30/SP_ADULT_DIAPERS_XL (2).png',
+    '/images/products/adult-diapers-10/SP_ADULT_DIAPERS_XL_10.png',
   ],
-  'gece-bezi-m': ['/images/products/adult-diapers-10/SP_ADULT_DIAPERS_M_10.jpg'],
-  'gece-bezi-l': ['/images/products/adult-diapers-10/SP_ADULT_DIAPERS_L_10.jpg'],
-  'gece-bezi-xl': ['/images/products/adult-diapers-10/SP_ADULT_DIAPERS_XL_10.jpg'],
 
   // Yetişkin Külot Bezi
   'kulot-bezi-m': [
@@ -62,7 +61,6 @@ export const productImages: Record<string, string[]> = {
     '/images/products/adult-pants-30/SP_ADULT_PANTS_XL (2).jpg',
     '/images/products/adult-pants-10/SP_ADULT_PANTS_XL_10.jpg',
   ],
-  'kulot-bezi-xxl': ['/images/products/adult-pants-30/SP_ADULT_PANTS_XL (2).jpg'],
 
   // Yetişkin Alt Serme
   'alt-serme-60x60': ['/images/products/adult-underpad/SP_UNDERPAD_60x90_10.jpg'],

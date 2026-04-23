@@ -26,18 +26,18 @@ const CATEGORIES: CategoryDef[] = [
     id: 'baby',
     labelKey: 'tabBabyCare',
     icon: (
-      /* Bebek Bakımı - bebek bezi */
-      <svg className="w-7 h-7" viewBox="0 0 64 64" fill="none">
-        <circle cx="32" cy="32" r="29" fill="#00b4c8" stroke="#9dd8e0" strokeWidth="3" />
-        {/* Bez gövdesi */}
-        <path d="M20 22c0-1 1-2 2-2h20c1 0 2 1 2 2v6c0 10-5 18-12 18S20 38 20 28v-6z" fill="white" />
-        {/* Bant */}
-        <rect x="20" y="26" width="24" height="4" rx="1" fill="#00b4c8" opacity="0.25" />
+      /* Bebek Bakımı - bebek bezi + bebek yüzü (referans görsel gibi) */
+      <svg className="w-6 h-6 sm:w-7 sm:h-7" viewBox="0 0 64 64" fill="none">
+        <circle cx="32" cy="32" r="30" fill="#00b4c8" />
+        {/* Bez - sivri bantlı hourglass silüeti */}
+        <path d="M16 22 L20 20 L22 22 L42 22 L44 20 L48 22 L48 28 Q48 42 32 46 Q16 42 16 28 Z" fill="white" />
+        {/* İç açık aksan */}
+        <path d="M20 24 L22 24 L42 24 L44 24 L44 28 Q44 40 32 44 Q20 40 20 28 Z" fill="#e0f4f7" opacity="0.55" />
         {/* Bebek yüzü */}
-        <circle cx="32" cy="50" r="6" fill="white" />
-        <circle cx="30" cy="49" r="1" fill="#00b4c8" />
-        <circle cx="34" cy="49" r="1" fill="#00b4c8" />
-        <path d="M30 52c0 0 1 1.5 2 1.5s2-1.5 2-1.5" stroke="#00b4c8" strokeWidth="0.8" fill="none" strokeLinecap="round" />
+        <circle cx="32" cy="36" r="5" fill="white" stroke="#00b4c8" strokeWidth="1.1" />
+        <circle cx="30" cy="35.5" r="0.7" fill="#00b4c8" />
+        <circle cx="34" cy="35.5" r="0.7" fill="#00b4c8" />
+        <path d="M30 38 Q32 39.2 34 38" stroke="#00b4c8" strokeWidth="0.8" strokeLinecap="round" fill="none" />
       </svg>
     ),
     products: [
@@ -50,18 +50,15 @@ const CATEGORIES: CategoryDef[] = [
     id: 'adult',
     labelKey: 'tabAdultCare',
     icon: (
-      /* Yetişkin Bakımı - açık bez silüeti (referans fotoğraf gibi) */
-      <svg className="w-7 h-7" viewBox="0 0 64 64" fill="none">
-        <circle cx="32" cy="32" r="29" fill="#00b4c8" stroke="#9dd8e0" strokeWidth="3" />
-        {/* Açık bez - ana gövde */}
-        <path d="M18 20c0 0 4 2 14 2s14-2 14-2v10c0 6-4 16-14 16S18 36 18 30V20z" fill="white" />
-        {/* İç katman - emici tabaka */}
-        <path d="M22 22c0 0 3 1 10 1s10-1 10-1v8c0 4-3 12-10 12S22 34 22 30V22z" fill="#e0f4f7" />
-        {/* Bantlar */}
-        <path d="M18 22l5 3" stroke="white" strokeWidth="2.5" strokeLinecap="round" />
-        <path d="M46 22l-5 3" stroke="white" strokeWidth="2.5" strokeLinecap="round" />
-        {/* Fırfır kenarlar */}
-        <path d="M20 20c-2-2-3-4-2-6M44 20c2-2 3-4 2-6" stroke="white" strokeWidth="1.5" strokeLinecap="round" />
+      /* Yetişkin Bakımı - pull-up / külot bez silüeti (referans görsel gibi) */
+      <svg className="w-6 h-6 sm:w-7 sm:h-7" viewBox="0 0 64 64" fill="none">
+        <circle cx="32" cy="32" r="30" fill="#00b4c8" />
+        {/* Külot dış gövde - geniş bel, daralan orta, bacak çıkıntıları */}
+        <path d="M18 20 L46 20 L46 26 Q45 30 43 30 Q43 40 41 44 Q39 48 36 48 L34 48 L33 32 L31 32 L30 48 L28 48 Q25 48 23 44 Q21 40 21 30 Q19 30 18 26 Z" fill="white" />
+        {/* Bel bandı */}
+        <rect x="18" y="20" width="28" height="3.5" fill="#e0f4f7" />
+        {/* İç emici aksan */}
+        <path d="M27 26 L37 26 L36 38 L28 38 Z" fill="#e0f4f7" opacity="0.7" />
       </svg>
     ),
     products: [
@@ -76,18 +73,18 @@ const CATEGORIES: CategoryDef[] = [
     id: 'wipes',
     labelKey: 'tabWetWipes',
     icon: (
-      /* Islak Mendil - mendil paketi + çıkan mendil */
-      <svg className="w-7 h-7" viewBox="0 0 64 64" fill="none">
-        <circle cx="32" cy="32" r="29" fill="#00b4c8" stroke="#9dd8e0" strokeWidth="3" />
-        {/* Paket gövde */}
-        <rect x="16" y="28" width="32" height="18" rx="3" fill="white" />
+      /* Islak Mendil - paket + çıkan mendil (referans görsel gibi) */
+      <svg className="w-6 h-6 sm:w-7 sm:h-7" viewBox="0 0 64 64" fill="none">
+        <circle cx="32" cy="32" r="30" fill="#00b4c8" />
         {/* Çıkan mendil */}
-        <path d="M28 28v-6c0 0 0-3 4-3s4 3 4 3v6" fill="white" />
-        <path d="M26 28c0 0 1-10 6-10s6 10 6 10" stroke="#e0f4f7" strokeWidth="1.5" fill="white" />
-        {/* Kapak çizgisi */}
-        <rect x="16" y="28" width="32" height="4" rx="2" fill="#e0f4f7" />
-        {/* Açıklık */}
-        <ellipse cx="32" cy="30" rx="4" ry="1.5" fill="#00b4c8" opacity="0.3" />
+        <path d="M26 26 Q26 16 32 16 Q38 16 38 26 Z" fill="white" />
+        <path d="M28 26 Q28 19 32 19 Q36 19 36 26" stroke="#e0f4f7" strokeWidth="1" fill="none" />
+        {/* Paket gövde */}
+        <rect x="16" y="26" width="32" height="22" rx="2.5" fill="white" />
+        {/* Üst kapak şeridi */}
+        <rect x="16" y="26" width="32" height="4" fill="#e0f4f7" />
+        {/* Açıklık ovali */}
+        <ellipse cx="32" cy="28" rx="4.5" ry="1.3" fill="#00b4c8" opacity="0.3" />
       </svg>
     ),
     products: [
@@ -99,17 +96,18 @@ const CATEGORIES: CategoryDef[] = [
     id: 'hygiene',
     labelKey: 'tabHygiene',
     icon: (
-      /* Hijyen & Temizlik - temizlik havlusu paketi */
-      <svg className="w-7 h-7" viewBox="0 0 64 64" fill="none">
-        <circle cx="32" cy="32" r="29" fill="#00b4c8" stroke="#9dd8e0" strokeWidth="3" />
-        {/* Paket gövde - yatay dikdörtgen */}
-        <rect x="14" y="26" width="36" height="20" rx="3" fill="white" />
+      /* Hijyen & Temizlik - temizlik havlu paketi (referans görsel gibi) */
+      <svg className="w-6 h-6 sm:w-7 sm:h-7" viewBox="0 0 64 64" fill="none">
+        <circle cx="32" cy="32" r="30" fill="#00b4c8" />
         {/* Çıkan havlu */}
-        <path d="M26 26c0 0 0-8 6-8s6 8 6 8" fill="white" stroke="#e0f4f7" strokeWidth="1" />
-        {/* Kapak */}
-        <rect x="14" y="26" width="36" height="5" rx="2" fill="#e0f4f7" />
-        {/* Parlama çizgileri */}
-        <path d="M44 16l2-4M48 20l3-2M46 24l4 0" stroke="white" strokeWidth="1.5" strokeLinecap="round" opacity="0.8" />
+        <path d="M24 24 Q24 14 32 14 Q40 14 40 24 Z" fill="white" />
+        <path d="M26 24 Q26 17 32 17 Q38 17 38 24" stroke="#e0f4f7" strokeWidth="1" fill="none" />
+        {/* Paket gövde - daha geniş */}
+        <rect x="14" y="24" width="36" height="24" rx="3" fill="white" />
+        {/* Üst kapak şeridi */}
+        <rect x="14" y="24" width="36" height="4.5" fill="#e0f4f7" />
+        {/* Açıklık ovali */}
+        <ellipse cx="32" cy="26.5" rx="5" ry="1.4" fill="#00b4c8" opacity="0.3" />
       </svg>
     ),
     products: [

@@ -6,7 +6,7 @@ import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 import Breadcrumb from '@/components/sections/Breadcrumb';
 import CategoryHero from '@/components/sections/CategoryHero';
-import ProductGrid from '@/components/sections/ProductGrid';
+import ProductSeriesGroups from '@/components/sections/ProductSeriesGroups';
 import FaqAccordion from '@/components/sections/FaqAccordion';
 import CtaSection from '@/components/sections/CtaSection';
 import FadeInUp from '@/components/animations/FadeInUp';
@@ -79,17 +79,11 @@ export default function CategoryPage({ params }: PageProps) {
 
         {/* Products */}
         <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-16 lg:py-20">
-          <FadeInUp>
-            <div className="mb-8">
-              <h2 className="text-2xl sm:text-3xl font-bold text-[#0d2d5e]">
-                Tüm {category.name} Ürünleri
-              </h2>
-              <p className="mt-2 text-gray-500">
-                {category.products.length} ürün listeleniyor
-              </p>
-            </div>
-          </FadeInUp>
-          <ProductGrid products={category.products} categorySlug={category.slug} />
+          <ProductSeriesGroups
+            products={category.products}
+            categorySlug={category.slug}
+            categoryName={category.name}
+          />
         </section>
 
         {/* FAQ with JSON-LD */}

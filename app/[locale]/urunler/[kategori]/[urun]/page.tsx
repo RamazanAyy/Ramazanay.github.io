@@ -15,6 +15,7 @@ import CtaSection from '@/components/sections/CtaSection';
 import FadeInUp from '@/components/animations/FadeInUp';
 import ProductContactForm from './ProductContactForm';
 import ProductImageGallery from './ProductImageGallery';
+import SeriesSizeGuide from '@/components/sections/SeriesSizeGuide';
 import { getProductImages, getProductImage } from '@/lib/product-images';
 
 interface PageProps {
@@ -69,9 +70,12 @@ export default function ProductPage({ params }: PageProps) {
   // Product images
   const images = getProductImages(product.slug);
 
-  // Related products: other products in the same category, excluding current
+  // Same-series siblings (e.g. all Ekonomik or all Mega diapers)
+  const seriesSiblings = category.products.filter((p) => p.series === product.series);
+
+  // Related products: other products in the same category, excluding current & same series
   const related = category.products
-    .filter((p) => p.slug !== product.slug)
+    .filter((p) => p.slug !== product.slug && p.series !== product.series)
     .slice(0, 3);
 
   // Product JSON-LD
@@ -306,6 +310,21 @@ export default function ProductPage({ params }: PageProps) {
             </FadeInUp>
           </div>
         </section>
+
+        {/* ─── Same-series size guide ─────────────────────────────── */}
+        {seriesSiblings.length > 1 && (
+          <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-0 pb-8 sm:pb-12">
+            <FadeInUp>
+              <SeriesSizeGuide
+                series={product.series}
+                seriesColor={product.seriesColor}
+                products={seriesSiblings}
+                activeSlug={product.slug}
+                categorySlug={category.slug}
+              />
+            </FadeInUp>
+          </section>
+        )}
 
         {/* ─── Technical Specs ────────────────────────────────────── */}
         <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-12">

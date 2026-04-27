@@ -79,7 +79,17 @@
   },
   "certificates": {
     "title": "Certificates & Standards",
-    "subtitle": "Our products meet international quality and safety standards"
+    "subtitle": "Our products meet international quality and safety standards",
+    "breadcrumb": "Certificates",
+    "heroBadge": "Quality Certificates",
+    "heroTitle": "Our Certificates",
+    "heroSubtitle": "Our manufacturing processes comply with international standards and are audited by independent certification bodies.",
+    "trustTitle": "Quality Assurance",
+    "trustText": "All of our products are manufactured to international standards and regularly tested in independent laboratories. We are committed to delivering the highest quality to our customers at all times.",
+    "viewLarger": "Enlarge {title} certificate",
+    "close": "Close",
+    "previous": "Previous",
+    "next": "Next"
   },
   "aboutSection": {
     "badge": "Soft & Power",
@@ -213,20 +223,6 @@
     "visionTitle": "Vision",
     "visionText1": "We aim to become a trusted and preferred brand in the hygiene and personal care industry, achieving sustainable growth across international markets through a strong commitment to quality and reliability. By integrating technology, innovation, and operational excellence, we deliver solutions that adapt to evolving market dynamics and user expectations.",
     "visionText2": "Guided by ethical principles and a strong sense of environmental and social responsibility, we focus on building a respected corporate structure that creates long-term value for our employees, business partners, and all stakeholders."
-  },
-  "certificates": {
-    "title": "Certificates & Standards",
-    "subtitle": "Our products meet international quality and safety standards",
-    "breadcrumb": "Certificates",
-    "heroBadge": "Quality Certificates",
-    "heroTitle": "Our Certificates",
-    "heroSubtitle": "Our manufacturing processes comply with international standards and are audited by independent certification bodies.",
-    "trustTitle": "Quality Assurance",
-    "trustText": "All of our products are manufactured to international standards and regularly tested in independent laboratories. We are committed to delivering the highest quality to our customers at all times.",
-    "viewLarger": "Enlarge {title} certificate",
-    "close": "Close",
-    "previous": "Previous",
-    "next": "Next"
   },
   "catalogWidget": {
     "badge": "Soft & Power Catalogue",

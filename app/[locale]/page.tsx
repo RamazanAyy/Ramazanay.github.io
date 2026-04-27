@@ -1,5 +1,6 @@
 'use client';
 
+import { useState, useEffect } from 'react';
 import { useTranslations, useLocale } from 'next-intl';
 import Link from 'next/link';
 import Image from 'next/image';
@@ -102,12 +103,30 @@ export default function HomePage() {
 
 
   const certificates = [
-    { name: 'ISO 9001',   subtitle: 'Quality Management' },
-    { name: 'ISO 13485', subtitle: 'Medical Devices' },
-    { name: 'CE',         subtitle: 'European Conformity' },
-    { name: 'GMP',        subtitle: 'Good Manufacturing' },
-    { name: 'TSE',        subtitle: 'Turkish Standards' },
+    { name: 'GHP',           subtitle: 'Good Hygiene Practices',                image: '/images/certificates/ghp.png' },
+    { name: 'GMP',           subtitle: 'Good Manufacture Practices',            image: '/images/certificates/gmp.png' },
+    { name: 'CE',            subtitle: 'Attestation of Conformity (93/42/EEC)', image: '/images/certificates/ce.png' },
+    { name: 'ISO 13485:2016', subtitle: 'Medical Devices — Quality Management', image: '/images/certificates/iso-13485.png' },
+    { name: 'ISO 9001:2015',  subtitle: 'Quality Management System',            image: '/images/certificates/iso-9001.png' },
   ];
+
+  const [certLightbox, setCertLightbox] = useState<number | null>(null);
+  useEffect(() => {
+    if (certLightbox === null) return;
+    document.body.style.overflow = 'hidden';
+    const handler = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') setCertLightbox(null);
+      if (e.key === 'ArrowLeft')
+        setCertLightbox((p) => (p === null ? 0 : (p - 1 + certificates.length) % certificates.length));
+      if (e.key === 'ArrowRight')
+        setCertLightbox((p) => (p === null ? 0 : (p + 1) % certificates.length));
+    };
+    window.addEventListener('keydown', handler);
+    return () => {
+      document.body.style.overflow = '';
+      window.removeEventListener('keydown', handler);
+    };
+  }, [certLightbox, certificates.length]);
 
 
   return (
@@ -316,23 +335,88 @@ export default function HomePage() {
               <p className="text-gray-500 max-w-xl mx-auto text-sm sm:text-base">{tCerts('subtitle')}</p>
             </motion.div>
 
-            <div className="grid grid-cols-3 sm:grid-cols-3 lg:grid-cols-6 gap-3 sm:gap-4">
-              {certificates.map(({ name, subtitle }, i) => (
-                <motion.div
-                  key={name}
-                  {...fadeUp(i * 0.07)}
-                  className="group flex flex-col items-center justify-center p-3 sm:p-6 bg-white rounded-xl sm:rounded-2xl border border-gray-100 hover:border-[#1a5fa8] hover:shadow-lg transition-all"
-                >
-                  <div className="w-10 h-10 sm:w-14 sm:h-14 rounded-full bg-[#f4f7fb] flex items-center justify-center mb-2 sm:mb-3 group-hover:bg-[#1a5fa8] transition-colors">
-                    <svg className="w-5 h-5 sm:w-7 sm:h-7 text-[#1a5fa8] group-hover:text-white transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z" />
-                    </svg>
-                  </div>
-                  <p className="font-bold text-[#1a5fa8] text-xs sm:text-base">{name}</p>
-                  <p className="text-gray-400 text-[10px] sm:text-xs text-center mt-0.5 sm:mt-1">{subtitle}</p>
+            <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-3 sm:gap-4 lg:gap-5">
+              {certificates.map(({ name, subtitle, image }, i) => (
+                <motion.div key={name} {...fadeUp(i * 0.07)}>
+                  <button
+                    type="button"
+                    onClick={() => setCertLightbox(i)}
+                    aria-label={`${name} sertifikasını büyüt`}
+                    className="group relative flex flex-col items-center w-full bg-white rounded-xl sm:rounded-2xl border border-gray-100 hover:border-[#1a5fa8] hover:shadow-lg transition-all overflow-hidden text-left"
+                  >
+                    <div className="relative w-full aspect-[3/4] bg-gradient-to-br from-[#f0f7ff] to-[#e8f4fd] overflow-hidden">
+                      <Image
+                        src={image}
+                        alt={`${name} sertifikası`}
+                        fill
+                        sizes="(max-width: 640px) 45vw, (max-width: 1024px) 30vw, 18vw"
+                        className="object-contain p-2 sm:p-3 group-hover:scale-[1.04] transition-transform duration-300"
+                      />
+                      <span className="absolute top-2 right-2 w-7 h-7 rounded-full bg-white/90 backdrop-blur-sm flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity shadow-md">
+                        <svg className="w-3.5 h-3.5 text-[#1a5fa8]" fill="none" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 24 24">
+                          <path strokeLinecap="round" strokeLinejoin="round" d="M21 21l-4.35-4.35M11 8v6M8 11h6M18 11a7 7 0 11-14 0 7 7 0 0114 0z" />
+                        </svg>
+                      </span>
+                    </div>
+                    <div className="flex flex-col items-start w-full p-3 sm:p-4 border-t border-gray-100">
+                      <p className="font-bold text-[#1a5fa8] text-xs sm:text-sm">{name}</p>
+                      <p className="text-gray-400 text-[10px] sm:text-xs mt-0.5 line-clamp-2">{subtitle}</p>
+                    </div>
+                  </button>
                 </motion.div>
               ))}
             </div>
+
+            {/* Lightbox */}
+            {certLightbox !== null && (
+              <div
+                onClick={() => setCertLightbox(null)}
+                className="fixed inset-0 z-[100] bg-black/85 backdrop-blur-sm flex items-center justify-center p-4 sm:p-8"
+              >
+                <button
+                  onClick={() => setCertLightbox(null)}
+                  aria-label="Kapat"
+                  className="absolute top-4 right-4 sm:top-6 sm:right-6 w-10 h-10 rounded-full bg-white/10 hover:bg-white/20 text-white flex items-center justify-center transition-colors z-10"
+                >
+                  <svg className="w-5 h-5" fill="none" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
+                  </svg>
+                </button>
+                <div className="relative max-w-4xl w-full flex flex-col items-center" onClick={(e) => e.stopPropagation()}>
+                  <div className="relative w-full flex items-center justify-center">
+                    <Image
+                      src={certificates[certLightbox].image}
+                      alt={certificates[certLightbox].name}
+                      width={1200}
+                      height={1600}
+                      className="w-auto max-h-[75vh] object-contain rounded-lg bg-white"
+                    />
+                  </div>
+                  <div className="text-center mt-3 sm:mt-4 text-white">
+                    <p className="font-bold text-sm sm:text-lg">{certificates[certLightbox].name}</p>
+                    <p className="text-xs sm:text-sm text-white/70 mt-0.5">{certificates[certLightbox].subtitle}</p>
+                  </div>
+                  <button
+                    onClick={(e) => { e.stopPropagation(); setCertLightbox((p) => p === null ? 0 : (p - 1 + certificates.length) % certificates.length); }}
+                    aria-label="Önceki"
+                    className="absolute left-0 sm:-left-14 top-1/2 -translate-y-1/2 w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-white/10 hover:bg-white/20 text-white flex items-center justify-center transition-colors"
+                  >
+                    <svg className="w-5 h-5" fill="none" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" d="M15 19l-7-7 7-7" />
+                    </svg>
+                  </button>
+                  <button
+                    onClick={(e) => { e.stopPropagation(); setCertLightbox((p) => p === null ? 0 : (p + 1) % certificates.length); }}
+                    aria-label="Sonraki"
+                    className="absolute right-0 sm:-right-14 top-1/2 -translate-y-1/2 w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-white/10 hover:bg-white/20 text-white flex items-center justify-center transition-colors"
+                  >
+                    <svg className="w-5 h-5" fill="none" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" d="M9 5l7 7-7 7" />
+                    </svg>
+                  </button>
+                </div>
+              </div>
+            )}
           </div>
         </section>
 

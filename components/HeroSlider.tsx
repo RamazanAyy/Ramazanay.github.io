@@ -119,7 +119,7 @@ export default function HeroSlider() {
 
       {/* ── Slide Content ─────────────────────────────────────────── */}
       <div className="relative h-full flex items-center">
-        <div className="max-w-7xl mx-auto px-4 sm:px-8 lg:px-12 w-full">
+        <div className="max-w-7xl mx-auto px-12 sm:px-8 lg:px-12 w-full">
           <AnimatePresence mode="wait">
             <motion.div
               key={`text-${current}`}

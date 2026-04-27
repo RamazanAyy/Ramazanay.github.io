@@ -37,8 +37,8 @@ export default function Footer() {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10">
           {/* Brand Column */}
           <div className="lg:col-span-1">
-            <div className="bg-white rounded-xl p-3 inline-block mb-5">
-              <Image src="/logo.png" alt="Soft & Power" width={120} height={40} />
+            <div className="inline-block mb-5">
+              <Image src="/logo-transparent.png" alt="Soft & Power" width={120} height={40} />
             </div>
             <p className="text-blue-200 text-sm leading-relaxed mb-6">{t('description')}</p>
             <div className="flex gap-3">

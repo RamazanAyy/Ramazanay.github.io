@@ -79,7 +79,17 @@
   },
   "certificates": {
     "title": "Sertifikalar & Standartlar",
-    "subtitle": "Ürünlerimiz uluslararası kalite ve güvenlik standartlarını karşılamaktadır"
+    "subtitle": "Ürünlerimiz uluslararası kalite ve güvenlik standartlarını karşılamaktadır",
+    "breadcrumb": "Sertifikalar",
+    "heroBadge": "Kalite Belgeleri",
+    "heroTitle": "Sertifikalarımız",
+    "heroSubtitle": "Uluslararası standartlara uygun üretim süreçlerimiz, bağımsız denetim kuruluşları tarafından belgelendirilmiştir.",
+    "trustTitle": "Kalite Güvencesi",
+    "trustText": "Tüm ürünlerimiz uluslararası standartlara uygun olarak üretilmekte ve düzenli olarak bağımsız laboratuvarlarda test edilmektedir. Müşterilerimize her zaman en yüksek kaliteyi sunmayı taahhüt ediyoruz.",
+    "viewLarger": "{title} sertifikasını büyüt",
+    "close": "Kapat",
+    "previous": "Önceki",
+    "next": "Sonraki"
   },
   "aboutSection": {
     "badge": "Soft & Power",
@@ -213,18 +223,6 @@
     "visionTitle": "Vizyon",
     "visionText1": "Hijyen ve kişisel bakım sektöründe güvenilir ve tercih edilen bir marka olmayı; kalite ve güvenilirliğe sıkı bağlılığımızla uluslararası pazarlarda sürdürülebilir büyümeyi hedefliyoruz. Teknoloji, yenilik ve operasyonel mükemmelliği bir araya getirerek değişen pazar dinamikleri ve kullanıcı beklentilerine uyum sağlayan çözümler sunuyoruz.",
     "visionText2": "Etik ilkeler ve güçlü çevresel ve sosyal sorumluluk anlayışı çerçevesinde; çalışanlarımız, iş ortaklarımız ve tüm paydaşlarımız için uzun vadeli değer yaratan saygın bir kurumsal yapı kurmaya odaklanıyoruz."
-  },
-  "certificates": {
-    "breadcrumb": "Sertifikalar",
-    "heroBadge": "Kalite Belgeleri",
-    "heroTitle": "Sertifikalarımız",
-    "heroSubtitle": "Uluslararası standartlara uygun üretim süreçlerimiz, bağımsız denetim kuruluşları tarafından belgelendirilmiştir.",
-    "trustTitle": "Kalite Güvencesi",
-    "trustText": "Tüm ürünlerimiz uluslararası standartlara uygun olarak üretilmekte ve düzenli olarak bağımsız laboratuvarlarda test edilmektedir. Müşterilerimize her zaman en yüksek kaliteyi sunmayı taahhüt ediyoruz.",
-    "viewLarger": "{title} sertifikasını büyüt",
-    "close": "Kapat",
-    "previous": "Önceki",
-    "next": "Sonraki"
   },
   "catalogWidget": {
     "badge": "Soft & Power Katalog",

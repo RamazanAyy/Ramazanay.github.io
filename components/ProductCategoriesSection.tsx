@@ -167,15 +167,15 @@ export default function ProductCategoriesSection() {
       <div className="absolute -bottom-24 -left-24 w-[480px] h-[480px] rounded-full bg-[#1a5fa8]/8 blur-3xl pointer-events-none" />
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] rounded-full bg-[#00b4c8]/5 blur-3xl pointer-events-none" />
 
-      {/* Dekoratif yüzen daireler */}
-      <div className="absolute top-10 left-[8%] w-16 h-16 rounded-full border-2 border-[#00b4c8]/20 pointer-events-none" />
-      <div className="absolute top-20 left-[12%] w-8 h-8 rounded-full bg-[#00b4c8]/10 pointer-events-none" />
-      <div className="absolute top-16 right-[10%] w-20 h-20 rounded-full border border-[#1a5fa8]/15 pointer-events-none" />
-      <div className="absolute top-32 right-[6%] w-5 h-5 rounded-full bg-[#1a5fa8]/15 pointer-events-none" />
-      <div className="absolute bottom-24 left-[5%] w-12 h-12 rounded-full border-2 border-[#00b4c8]/15 pointer-events-none" />
-      <div className="absolute bottom-16 right-[8%] w-10 h-10 rounded-full bg-[#00b4c8]/8 pointer-events-none" />
-      <div className="absolute bottom-40 left-[20%] w-6 h-6 rounded-full bg-[#1a5fa8]/10 pointer-events-none" />
-      <div className="absolute top-1/3 right-[18%] w-4 h-4 rounded-full bg-[#00b4c8]/20 pointer-events-none" />
+      {/* Dekoratif yüzen daireler — sadece sm+ ekranlarda */}
+      <div className="hidden sm:block absolute top-10 left-[8%] w-16 h-16 rounded-full border-2 border-[#00b4c8]/20 pointer-events-none" />
+      <div className="hidden sm:block absolute top-20 left-[12%] w-8 h-8 rounded-full bg-[#00b4c8]/10 pointer-events-none" />
+      <div className="hidden sm:block absolute top-16 right-[10%] w-20 h-20 rounded-full border border-[#1a5fa8]/15 pointer-events-none" />
+      <div className="hidden sm:block absolute top-32 right-[6%] w-5 h-5 rounded-full bg-[#1a5fa8]/15 pointer-events-none" />
+      <div className="hidden sm:block absolute bottom-24 left-[5%] w-12 h-12 rounded-full border-2 border-[#00b4c8]/15 pointer-events-none" />
+      <div className="hidden sm:block absolute bottom-16 right-[8%] w-10 h-10 rounded-full bg-[#00b4c8]/8 pointer-events-none" />
+      <div className="hidden sm:block absolute bottom-40 left-[20%] w-6 h-6 rounded-full bg-[#1a5fa8]/10 pointer-events-none" />
+      <div className="hidden sm:block absolute top-1/3 right-[18%] w-4 h-4 rounded-full bg-[#00b4c8]/20 pointer-events-none" />
 
       {/* Alt dalga SVG */}
       <svg className="absolute bottom-0 left-0 w-full pointer-events-none" viewBox="0 0 1440 60" preserveAspectRatio="none" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -214,11 +214,11 @@ export default function ProductCategoriesSection() {
           transition={{ duration: 0.5, delay: 0.1 }}
           className="flex items-center justify-center gap-2 mb-10"
         >
-          {/* Left tab arrow */}
+          {/* Left tab arrow — desktop only */}
           <button
             onClick={() => scrollTabs('left')}
             aria-label="Sola kaydır"
-            className={`shrink-0 w-8 h-8 rounded-full bg-white border border-gray-200 shadow flex items-center justify-center text-gray-500 hover:text-[#1a5fa8] hover:border-[#1a5fa8] transition-all ${showTabLeft ? 'opacity-100 pointer-events-auto' : 'opacity-0 pointer-events-none'}`}
+            className={`hidden sm:flex shrink-0 w-8 h-8 rounded-full bg-white border border-gray-200 shadow items-center justify-center text-gray-500 hover:text-[#1a5fa8] hover:border-[#1a5fa8] transition-all ${showTabLeft ? 'opacity-100 pointer-events-auto' : 'opacity-0 pointer-events-none'}`}
           >
             <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M15 19l-7-7 7-7" />
@@ -227,14 +227,14 @@ export default function ProductCategoriesSection() {
 
           <div
             ref={tabsRef}
-            className="flex gap-1.5 sm:gap-2 bg-white/80 backdrop-blur-sm p-1 sm:p-1.5 rounded-xl sm:rounded-2xl shadow-sm border border-gray-100 overflow-x-auto max-w-[calc(100vw-6rem)] sm:max-w-none"
+            className="grid grid-cols-2 gap-1.5 sm:flex sm:gap-2 bg-white/80 backdrop-blur-sm p-1 sm:p-1.5 rounded-xl sm:rounded-2xl shadow-sm border border-gray-100 sm:overflow-x-auto w-full sm:w-auto sm:max-w-none"
             style={{ scrollbarWidth: 'none', msOverflowStyle: 'none', WebkitOverflowScrolling: 'touch' } as React.CSSProperties}
           >
             {CATEGORIES.map((cat) => (
               <button
                 key={cat.id}
                 onClick={() => setActiveId(cat.id)}
-                className={`relative flex items-center gap-1.5 sm:gap-2 whitespace-nowrap px-3.5 py-2 sm:px-5 sm:py-2.5 rounded-lg sm:rounded-xl text-xs sm:text-sm font-semibold transition-all duration-300 shrink-0 ${
+                className={`relative flex items-center justify-center sm:justify-start gap-1.5 sm:gap-2 sm:whitespace-nowrap px-2 py-2 sm:px-5 sm:py-2.5 rounded-lg sm:rounded-xl text-xs sm:text-sm font-semibold transition-all duration-300 sm:shrink-0 ${
                   activeId === cat.id ? 'text-white shadow-lg shadow-blue-200' : 'text-gray-500 hover:text-[#1a5fa8] hover:bg-gray-50'
                 }`}
               >
@@ -242,16 +242,16 @@ export default function ProductCategoriesSection() {
                   <motion.div layoutId="activeTab" className="absolute inset-0 bg-gradient-to-r from-[#1a5fa8] to-[#00b4c8] rounded-lg sm:rounded-xl" transition={{ type: 'spring', bounce: 0.2, duration: 0.5 }} />
                 )}
                 <span className="relative z-10 hidden sm:inline-block shrink-0">{cat.icon}</span>
-                <span className="relative z-10">{tCat(cat.labelKey as any)}</span>
+                <span className="relative z-10 text-center leading-tight">{tCat(cat.labelKey as any)}</span>
               </button>
             ))}
           </div>
 
-          {/* Right tab arrow */}
+          {/* Right tab arrow — desktop only */}
           <button
             onClick={() => scrollTabs('right')}
             aria-label="Sağa kaydır"
-            className={`shrink-0 w-8 h-8 rounded-full bg-white border border-gray-200 shadow flex items-center justify-center text-gray-500 hover:text-[#1a5fa8] hover:border-[#1a5fa8] transition-all ${showTabRight ? 'opacity-100 pointer-events-auto' : 'opacity-0 pointer-events-none'}`}
+            className={`hidden sm:flex shrink-0 w-8 h-8 rounded-full bg-white border border-gray-200 shadow items-center justify-center text-gray-500 hover:text-[#1a5fa8] hover:border-[#1a5fa8] transition-all ${showTabRight ? 'opacity-100 pointer-events-auto' : 'opacity-0 pointer-events-none'}`}
           >
             <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M9 5l7 7-7 7" />
@@ -395,7 +395,7 @@ export default function ProductCategoriesSection() {
           transition={{ duration: 0.5, delay: 0.2 }}
           className="mt-12 flex flex-col sm:flex-row items-center justify-center gap-4 text-center"
         >
-          <span className="text-gray-500 text-sm">Aradiginiz urunu bulamadiniz mi?</span>
+          <span className="text-gray-500 text-sm">Aradığınız Ürünü Bulamadınız mı?</span>
           <a
             href="https://wa.me/905396312392?text=Merhaba%2C%20urunleriniz%20hakkinda%20bilgi%20almak%20istiyorum."
             target="_blank"

@@ -79,7 +79,17 @@
   },
   "certificates": {
     "title": "Zertifikate & Standards",
-    "subtitle": "Unsere Produkte erfüllen internationale Qualitäts- und Sicherheitsstandards"
+    "subtitle": "Unsere Produkte erfüllen internationale Qualitäts- und Sicherheitsstandards",
+    "breadcrumb": "Zertifikate",
+    "heroBadge": "Qualitätszertifikate",
+    "heroTitle": "Unsere Zertifikate",
+    "heroSubtitle": "Unsere Produktionsprozesse erfüllen internationale Standards und werden von unabhängigen Stellen zertifiziert.",
+    "trustTitle": "Qualitätssicherung",
+    "trustText": "Alle Produkte werden nach internationalen Standards hergestellt und regelmäßig in unabhängigen Laboren geprüft. Wir verpflichten uns, unseren Kunden stets höchste Qualität zu liefern.",
+    "viewLarger": "Zertifikat {title} vergrößern",
+    "close": "Schließen",
+    "previous": "Vorherige",
+    "next": "Nächste"
   },
   "aboutSection": {
     "badge": "Soft & Power",
@@ -213,20 +223,6 @@
     "visionTitle": "Vision",
     "visionText1": "Wir streben danach, eine vertrauenswürdige und bevorzugte Marke in der Hygiene- und Pflegebranche zu werden – mit nachhaltigem Wachstum auf internationalen Märkten dank konsequenter Qualität und Zuverlässigkeit. Durch die Verbindung von Technologie, Innovation und operativer Exzellenz bieten wir Lösungen, die sich an wandelnde Marktanforderungen und Erwartungen anpassen.",
     "visionText2": "Geleitet von ethischen Prinzipien und einem starken Bewusstsein für ökologische und soziale Verantwortung bauen wir eine respektierte Unternehmensstruktur auf, die langfristigen Wert für Mitarbeitende, Geschäftspartner und alle Stakeholder schafft."
-  },
-  "certificates": {
-    "title": "Zertifikate & Standards",
-    "subtitle": "Unsere Produkte erfüllen internationale Qualitäts- und Sicherheitsstandards",
-    "breadcrumb": "Zertifikate",
-    "heroBadge": "Qualitätszertifikate",
-    "heroTitle": "Unsere Zertifikate",
-    "heroSubtitle": "Unsere Produktionsprozesse erfüllen internationale Standards und werden von unabhängigen Stellen zertifiziert.",
-    "trustTitle": "Qualitätssicherung",
-    "trustText": "Alle Produkte werden nach internationalen Standards hergestellt und regelmäßig in unabhängigen Laboren geprüft. Wir verpflichten uns, unseren Kunden stets höchste Qualität zu liefern.",
-    "viewLarger": "Zertifikat {title} vergrößern",
-    "close": "Schließen",
-    "previous": "Vorherige",
-    "next": "Nächste"
   },
   "catalogWidget": {
     "badge": "Soft & Power Katalog",

@@ -9,7 +9,7 @@ export const categoryImages: Record<string, string> = {
   'yetiskin-alt-serme-ortusu': '/images/products/adult-underpad/SP_UNDERPAD_60x90_30 (2).jpg',
   'bebek-alt-serme-ortusu': '/images/products/baby-underpad/SP_UNDERPAD_BABY_60x60_10.png',
   'mesane-pedi': '/images/products/bladder-pads/SP_PADS_UNISEX_4 (2).jpg',
-  'hijyenik-ped': '/images/products/bladder-pads/SP_PADS_UNISEX_6.jpg',
+  'hijyenik-ped': '/images/products/sanitary-pads/SP_PADS_LADY_4.jpg.jpeg',
   'islak-mendil': '/images/products/wet-wipes/SP_WET_WIPES_120.jpg',
   'yuzey-temizleme-havlusu': '/images/products/home-care-wet-towels/SP_Cleaning_towels_100.jpg',
 };
@@ -63,54 +63,37 @@ export const productImages: Record<string, string[]> = {
   ],
 
   // Yetişkin Alt Serme
-  'alt-serme-60x60': ['/images/products/adult-underpad/SP_UNDERPAD_60x90_10.jpg'],
   'alt-serme-60x90': ['/images/products/adult-underpad/SP_UNDERPAD_60x90_30 (2).jpg'],
-  'alt-serme-90x180': ['/images/products/adult-underpad/SP_UNDERPAD_60x90_30 (2).jpg'],
 
   // Bebek Alt Serme
-  'bebek-alt-serme-40x60': ['/images/products/baby-underpad/SP_UNDERPAD_BABY_60x60_10.png'],
   'bebek-alt-serme-60x60': ['/images/products/baby-underpad/SP_UNDERPAD_BABY_60x60_10.png'],
 
   // Mesane Pedi
-  'mesane-pedi-mini': ['/images/products/bladder-pads/SP_PADS_UNISEX_4 (2).jpg'],
-  'mesane-pedi-normal': ['/images/products/bladder-pads/SP_PADS_UNISEX_4.jpg'],
-  'mesane-pedi-maxi': ['/images/products/bladder-pads/SP_PADS_UNISEX_6.jpg'],
+  'mesane-pedi-4-damla': ['/images/products/bladder-pads/SP_PADS_UNISEX_4.jpg'],
+  'mesane-pedi-6-damla': ['/images/products/bladder-pads/SP_PADS_UNISEX_6.jpg'],
+  'mesane-pedi-8-damla': ['/images/products/bladder-pads/SP_PADS_UNISEX_PURPLE.png'],
 
   // Hijyenik Ped
-  'gunluk-ped': ['/images/products/bladder-pads/SP_PADS_UNISEX_4 (2).jpg'],
-  'normal-ped': ['/images/products/bladder-pads/SP_PADS_UNISEX_4.jpg'],
-  'uzun-ped': ['/images/products/bladder-pads/SP_PADS_UNISEX_6.jpg'],
-  'gece-pedi': ['/images/products/bladder-pads/SP_PADS_UNISEX_6.jpg'],
+  'hijyenik-ped-4-damla': ['/images/products/sanitary-pads/SP_PADS_LADY_4.jpg.jpeg'],
+  'hijyenik-ped-5-damla': ['/images/products/sanitary-pads/SP_PADS_LADY_5.jpg.jpeg'],
+  'hijyenik-ped-6-damla': ['/images/products/sanitary-pads/SP_PADS_LADY_6.jpg.jpeg'],
 
   // Islak Mendil
-  'bebek-hassas': ['/images/products/baby-wet-wipes/SP_WET_WIPES_BABY_72.jpg'],
-  'aloe-vera': ['/images/products/wet-wipes/SP_WET_WIPES_ALOE_90.jpg'],
-  'antibakteriyel': ['/images/products/wet-wipes/SP_WET_WIPES_UNIVERSAL_90.jpg'],
-  'ekstra-kalin': ['/images/products/wet-wipes/SP_WET_WIPES_120.jpg'],
-  'islak-mendil-bebek-hassas': [
-    '/images/products/baby-wet-wipes/SP_WET_WIPES_BABY_72.jpg',
-    '/images/products/baby-wet-wipes/SP_WET_WIPES_BABY_90.jpg',
-    '/images/products/baby-wet-wipes/SP_WET_WIPES_BABY_120.jpg',
-  ],
-  'islak-mendil-aloe-vera': [
-    '/images/products/wet-wipes/SP_WET_WIPES_ALOE_90.jpg',
-  ],
-  'islak-mendil-antibakteriyel': [
-    '/images/products/wet-wipes/SP_WET_WIPES_UNIVERSAL_90.jpg',
-    '/images/products/wet-wipes/SP_WET_WIPES_UNIVERSAL_90_2.jpg',
-  ],
-  'islak-mendil-ekstra-kalin': [
-    '/images/products/wet-wipes/SP_WET_WIPES_120.jpg',
-    '/images/products/wet-wipes/SP_WET_WIPES_120_2.jpg',
-  ],
+  // Bebek serisi
+  'islak-mendil-bebek-72': ['/images/products/baby-wet-wipes/SP_WET_WIPES_BABY_72.jpg'],
+  'islak-mendil-bebek-90': ['/images/products/baby-wet-wipes/SP_WET_WIPES_BABY_90.jpg'],
+  'islak-mendil-bebek-120': ['/images/products/baby-wet-wipes/SP_WET_WIPES_BABY_120.jpg'],
+  // Günlük Kullanım serisi
+  'islak-mendil-fresh-splash-120': ['/images/products/wet-wipes/SP_WET_WIPES_120.jpg'],
+  'islak-mendil-fresh-splash-90': ['/images/products/wet-wipes/SP_WET_WIPES_UNIVERSAL_90.jpg'],
+  // Çiçek serisi
+  'islak-mendil-aloe-vera': ['/images/products/wet-wipes/SP_WET_WIPES_ALOE_90.jpg'],
+  'islak-mendil-papatya': ['/images/products/wet-wipes/SP_WET_WIPES_CHAMOMILE_90.jpg'],
+  'islak-mendil-gul': ['/images/products/wet-wipes/SP_WET_WIPES_ROSE_90.jpg'],
+  'islak-mendil-lavanta': ['/images/products/wet-wipes/SP_WET_WIPES_LAVENDER_90.jpg'],
 
   // Yüzey Temizleme Havlusu
-  'rulo-havlu': ['/images/products/home-care-wet-towels/SP_Cleaning_towels_50.jpg'],
-  'katli-havlu': ['/images/products/home-care-wet-towels/SP_Cleaning_towels_100.jpg'],
-  'endustriyel-rulo': ['/images/products/home-care-wet-towels/SP_SURFACE CLEANING TOWEL (2).jpg'],
-  'yuzey-temizleme-rulo': ['/images/products/home-care-wet-towels/SP_Cleaning_towels_50.jpg'],
-  'yuzey-temizleme-katli': ['/images/products/home-care-wet-towels/SP_Cleaning_towels_100.jpg'],
-  'yuzey-temizleme-endustriyel': ['/images/products/home-care-wet-towels/SP_SURFACE CLEANING TOWEL (2).jpg'],
+  'yuzey-temizleme-havlusu-100': ['/images/products/home-care-wet-towels/SP_Cleaning_towels_100.jpg'],
 };
 
 /** Get primary image for a product slug */

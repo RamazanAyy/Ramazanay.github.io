@@ -3,6 +3,7 @@
 import { useState } from 'react';
 import { motion } from 'framer-motion';
 import dynamic from 'next/dynamic';
+import { useTranslations } from 'next-intl';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 import FadeInUp from '@/components/animations/FadeInUp';
@@ -30,13 +31,7 @@ const PackageEditor = dynamic(
 
 // ─── Data ───────────────────────────────────────────────────────────────────
 
-const processSteps = [
-  { step: 1, title: 'Talep', description: 'Ürün ve marka gereksinimlerinizi bize iletin.' },
-  { step: 2, title: 'Numune', description: 'İsteğinize özel numune üretimi gerçekleştirilir.' },
-  { step: 3, title: 'Onay', description: 'Numune onayınızın ardından üretim planı hazırlanır.' },
-  { step: 4, title: 'Üretim', description: 'Onaylanan spesifikasyonlara göre seri üretim başlar.' },
-  { step: 5, title: 'Teslimat', description: 'Ürünler kalite kontrol sonrası sevk edilir.' },
-];
+// processSteps moved into component to access translations
 
 const minOrderTable = [
   { category: 'Bebek Bezi', minQty: '50.000 adet', delivery: '15-20 gün' },
@@ -46,43 +41,11 @@ const minOrderTable = [
   { category: 'Alt Açma Örtüsü', minQty: '20.000 adet', delivery: '10-15 gün' },
 ];
 
-const advantages = [
-  {
-    title: 'Özel Tasarım',
-    description: 'Markanıza özel ambalaj ve ürün tasarımı yapılır.',
-    icon: (
-      <svg className="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M7 21a4 4 0 01-4-4V5a2 2 0 012-2h4a2 2 0 012 2v12a4 4 0 01-4 4zm0 0h12a2 2 0 002-2v-4a2 2 0 00-2-2h-2.343M11 7.343l1.657-1.657a2 2 0 012.828 0l2.829 2.829a2 2 0 010 2.828l-8.486 8.485M7 17h.01" />
-      </svg>
-    ),
-  },
-  {
-    title: 'Esnek Üretim',
-    description: 'Farklı ebat, özellik ve paketleme seçenekleri.',
-    icon: (
-      <svg className="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6V4m0 2a2 2 0 100 4m0-4a2 2 0 110 4m-6 8a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4m6 6v10m6-2a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4" />
-      </svg>
-    ),
-  },
-  {
-    title: 'Hızlı Teslimat',
-    description: 'Yüksek üretim kapasitesi ile kısa sürede teslimat.',
-    icon: (
-      <svg className="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
-      </svg>
-    ),
-  },
-  {
-    title: 'Kalite Garantisi',
-    description: 'ISO ve CE sertifikalı üretim tesislerinde üretim.',
-    icon: (
-      <svg className="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
-      </svg>
-    ),
-  },
+const ADV_ICONS = [
+  <svg key="1" className="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M7 21a4 4 0 01-4-4V5a2 2 0 012-2h4a2 2 0 012 2v12a4 4 0 01-4 4zm0 0h12a2 2 0 002-2v-4a2 2 0 00-2-2h-2.343M11 7.343l1.657-1.657a2 2 0 012.828 0l2.829 2.829a2 2 0 010 2.828l-8.486 8.485M7 17h.01" /></svg>,
+  <svg key="2" className="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6V4m0 2a2 2 0 100 4m0-4a2 2 0 110 4m-6 8a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4m6 6v10m6-2a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4" /></svg>,
+  <svg key="3" className="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" /></svg>,
+  <svg key="4" className="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" /></svg>,
 ];
 
 const productInterests = [
@@ -115,6 +78,9 @@ const serviceSchema = {
 // ─── Page ───────────────────────────────────────────────────────────────────
 
 export default function OzelEtiketPage() {
+  const t = useTranslations('privateLabelPage');
+  const tNav = useTranslations('nav');
+  const tCommon = useTranslations('common');
   const [formData, setFormData] = useState({
     company: '',
     name: '',
@@ -130,22 +96,29 @@ export default function OzelEtiketPage() {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    alert('Talebiniz alınmıştır. En kısa sürede sizinle iletişime geçeceğiz.');
+    alert(tCommon('loading'));
   };
+
+  const processSteps = [
+    { step: 1, title: t('step1Title'), description: t('step1Desc') },
+    { step: 2, title: t('step2Title'), description: t('step2Desc') },
+    { step: 3, title: t('step3Title'), description: t('step3Desc') },
+    { step: 4, title: t('step4Title'), description: t('step4Desc') },
+  ];
+
+  const advantages = [
+    { title: t('adv1Title'), description: t('adv1Desc'), icon: ADV_ICONS[0] },
+    { title: t('adv2Title'), description: t('adv2Desc'), icon: ADV_ICONS[1] },
+    { title: t('adv3Title'), description: t('adv3Desc'), icon: ADV_ICONS[2] },
+    { title: t('adv4Title'), description: t('adv4Desc'), icon: ADV_ICONS[3] },
+  ];
 
   return (
     <>
-      <head>
-        <title>Özel Etiket (Private Label) | Soft & Power Hygiene</title>
-        <meta name="description" content="Kendi markanızla hijyen ürünleri üretelim. Bebek bezi, yetişkin bezi, ıslak mendil özel etiket üretimi. Private label hizmetlerimiz." />
-        <meta name="keywords" content="özel etiket, private label, fason üretim, hijyen ürünleri, bebek bezi üretim, OEM" />
-        <meta property="og:title" content="Özel Etiket (Private Label) | Soft & Power Hygiene" />
-        <meta property="og:description" content="Kendi markanızla hijyen ürünleri üretelim. Private label hizmetleri." />
-        <script
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(serviceSchema) }}
-        />
-      </head>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(serviceSchema) }}
+      />
 
       <Navbar />
 
@@ -158,19 +131,19 @@ export default function OzelEtiketPage() {
           <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
             <FadeInUp>
               <span className="inline-flex items-center gap-2 bg-white/10 text-white border border-white/20 text-xs font-bold px-4 py-2 rounded-full uppercase tracking-wider mb-6">
-                Private Label
+                {t('heroBadge')}
               </span>
               <h1 className="text-4xl lg:text-6xl font-black text-white mb-6" style={{ fontFamily: 'var(--font-outfit)' }}>
-                Kendi Markanızla Üretelim
+                {t('heroTitle')}
               </h1>
               <p className="text-blue-100 text-lg max-w-2xl mx-auto leading-relaxed mb-8">
-                Hijyen sektöründe kendi markanızı oluşturun. Tasarımdan üretime, paketlemeden teslimatına kadar tüm süreçlerde yanınızdayız.
+                {t('heroSubtitle')}
               </p>
               <a
                 href="#request-form"
                 className="inline-flex items-center gap-2 bg-white text-[#1a5fa8] font-bold px-8 py-4 rounded-xl hover:bg-[#f4f7fb] transition-all hover:scale-105 active:scale-95 shadow-lg"
               >
-                Hemen Teklif Alın
+                {tCommon('getQuote')}
                 <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M17 8l4 4m0 0l-4 4m4-4H3" />
                 </svg>
@@ -181,7 +154,7 @@ export default function OzelEtiketPage() {
 
         {/* Breadcrumb */}
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <Breadcrumb items={[{ label: 'Özel Etiket' }]} />
+          <Breadcrumb items={[{ label: t('breadcrumb') }]} />
         </div>
 
         {/* 5-Step Process */}
@@ -190,10 +163,10 @@ export default function OzelEtiketPage() {
             <FadeInUp>
               <div className="text-center mb-16">
                 <span className="inline-flex items-center gap-2 bg-[#00b4c8]/10 text-[#00b4c8] border border-[#00b4c8]/25 text-xs font-bold px-4 py-2 rounded-full uppercase tracking-wider mb-5">
-                  Süreç
+                  {t('stepsBadge')}
                 </span>
                 <h2 className="text-3xl lg:text-4xl font-black text-[#0d2d5e]" style={{ fontFamily: 'var(--font-outfit)' }}>
-                  5 Adımda Özel Etiket
+                  {t('stepsTitle')}
                 </h2>
               </div>
             </FadeInUp>
@@ -202,7 +175,7 @@ export default function OzelEtiketPage() {
               {/* Connector line */}
               <div className="hidden md:block absolute top-8 left-[10%] right-[10%] h-0.5 bg-gradient-to-r from-[#1a5fa8] via-[#00b4c8] to-[#1a5fa8]" />
 
-              <StaggerContainer className="grid grid-cols-2 md:grid-cols-5 gap-6 md:gap-4">
+              <StaggerContainer className="grid grid-cols-2 md:grid-cols-4 gap-6 md:gap-4">
                 {processSteps.map((step) => (
                   <StaggerItem key={step.step}>
                     <div className="flex flex-col items-center text-center">
@@ -292,10 +265,10 @@ export default function OzelEtiketPage() {
             <FadeInUp>
               <div className="text-center mb-14">
                 <span className="inline-flex items-center gap-2 bg-[#00b4c8]/10 text-[#00b4c8] border border-[#00b4c8]/25 text-xs font-bold px-4 py-2 rounded-full uppercase tracking-wider mb-5">
-                  Avantajlar
+                  {t('advantagesBadge')}
                 </span>
                 <h2 className="text-3xl lg:text-4xl font-black text-[#0d2d5e]" style={{ fontFamily: 'var(--font-outfit)' }}>
-                  Neden Bizi Tercih Etmelisiniz?
+                  {t('advantagesTitle')}
                 </h2>
               </div>
             </FadeInUp>
@@ -323,12 +296,12 @@ export default function OzelEtiketPage() {
               <FadeInUp>
                 <div className="text-center mb-12">
                   <span className="inline-flex items-center gap-2 bg-[#00b4c8]/10 text-[#00b4c8] border border-[#00b4c8]/25 text-xs font-bold px-4 py-2 rounded-full uppercase tracking-wider mb-5">
-                    İletişim
+                    {tCommon('quoteForm')}
                   </span>
                   <h2 className="text-3xl lg:text-4xl font-black text-[#0d2d5e] mb-4" style={{ fontFamily: 'var(--font-outfit)' }}>
-                    Özel Etiket Talebi
+                    {t('ctaTitle')}
                   </h2>
-                  <p className="text-gray-500">Formu doldurun, uzman ekibimiz sizinle iletişime geçsin.</p>
+                  <p className="text-gray-500">{t('ctaSubtitle')}</p>
                 </div>
               </FadeInUp>
 
@@ -422,7 +395,7 @@ export default function OzelEtiketPage() {
                       type="submit"
                       className="w-full bg-gradient-to-r from-[#1a5fa8] to-[#00b4c8] text-white font-bold py-3.5 rounded-xl hover:shadow-lg hover:shadow-[#1a5fa8]/25 transition-all hover:-translate-y-0.5 active:translate-y-0"
                     >
-                      Talep Gönder
+                      {tCommon('getQuote')}
                     </button>
                   </div>
                 </form>

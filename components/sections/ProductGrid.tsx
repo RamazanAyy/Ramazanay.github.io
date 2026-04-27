@@ -1,7 +1,7 @@
 'use client';
 import Link from 'next/link';
 import Image from 'next/image';
-import { useLocale } from 'next-intl';
+import { useLocale, useTranslations } from 'next-intl';
 import { motion } from 'framer-motion';
 import type { Product } from '@/lib/products-data';
 import { getProductImage } from '@/lib/product-images';
@@ -30,6 +30,7 @@ const cardVariants = {
 
 export default function ProductGrid({ products, categorySlug }: ProductGridProps) {
   const locale = useLocale();
+  const t = useTranslations('common');
 
   if (products.length === 0) {
     return (
@@ -47,7 +48,7 @@ export default function ProductGrid({ products, categorySlug }: ProductGridProps
             d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4"
           />
         </svg>
-        <p className="text-gray-500 text-lg">Bu filtrelere uygun urun bulunamadi.</p>
+        <p className="text-gray-500 text-lg">—</p>
       </div>
     );
   }
@@ -166,7 +167,7 @@ export default function ProductGrid({ products, categorySlug }: ProductGridProps
                 href={`/${locale}/urunler/${categorySlug}/${product.slug}`}
                 className="flex-1 inline-flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl bg-[#00b4c8] hover:bg-[#009db0] text-white text-sm font-semibold transition-all duration-200 hover:scale-[1.02] active:scale-[0.98]"
               >
-                Detaylari Gor
+                {t('viewDetails')}
                 <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path
                     strokeLinecap="round"
@@ -182,7 +183,7 @@ export default function ProductGrid({ products, categorySlug }: ProductGridProps
                 rel="noopener noreferrer"
                 className="inline-flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl border-2 border-[#1a5fa8] text-[#1a5fa8] hover:bg-[#1a5fa8] hover:text-white text-sm font-semibold transition-all duration-200 hover:scale-[1.02] active:scale-[0.98]"
               >
-                Teklif Al
+                {t('getQuote')}
               </a>
             </div>
           </div>

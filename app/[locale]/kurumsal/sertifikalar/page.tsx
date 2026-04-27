@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import Image from 'next/image';
+import { useTranslations } from 'next-intl';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 import FadeInUp from '@/components/animations/FadeInUp';
@@ -42,6 +43,8 @@ const certificates = [
 
 export default function SertifikalarPage() {
   const [lightbox, setLightbox] = useState<number | null>(null);
+  const t = useTranslations('certificates');
+  const tNav = useTranslations('nav');
 
   // Prevent background scroll when lightbox open + keyboard nav
   useEffect(() => {
@@ -67,8 +70,8 @@ export default function SertifikalarPage() {
         {/* Breadcrumb */}
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <Breadcrumb items={[
-            { label: 'Kurumsal' },
-            { label: 'Sertifikalar' },
+            { label: tNav('corporate') },
+            { label: t('breadcrumb') },
           ]} />
         </div>
 
@@ -79,17 +82,17 @@ export default function SertifikalarPage() {
           <div className="relative max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-14 sm:py-20 lg:py-24 text-center">
             <FadeInUp>
               <span className="inline-block px-4 py-1.5 rounded-full text-xs sm:text-sm font-semibold bg-white/10 backdrop-blur-sm border border-white/15">
-                Kalite Belgeleri
+                {t('heroBadge')}
               </span>
             </FadeInUp>
             <FadeInUp delay={0.1}>
               <h1 className="mt-5 text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-black leading-tight" style={{ fontFamily: 'var(--font-outfit)' }}>
-                Sertifikalarımız
+                {t('heroTitle')}
               </h1>
             </FadeInUp>
             <FadeInUp delay={0.15}>
               <p className="mt-4 text-sm sm:text-base text-white/70 max-w-2xl mx-auto">
-                Uluslararası standartlara uygun üretim süreçlerimiz, bağımsız denetim kuruluşları tarafından belgelendirilmiştir.
+                {t('heroSubtitle')}
               </p>
             </FadeInUp>
           </div>
@@ -102,7 +105,7 @@ export default function SertifikalarPage() {
               <FadeInUp key={cert.title} delay={i * 0.05}>
                 <button
                   onClick={() => setLightbox(i)}
-                  aria-label={`${cert.title} sertifikasını büyüt`}
+                  aria-label={t('viewLarger', { title: cert.title })}
                   className="group relative w-full bg-white rounded-xl sm:rounded-2xl border border-gray-100 shadow-sm hover:shadow-xl hover:border-[#00b4c8]/30 transition-all duration-300 hover:-translate-y-1 overflow-hidden text-left"
                 >
                   <div className="relative aspect-[3/4] bg-gradient-to-br from-[#f0f7ff] to-[#e8f4fd] overflow-hidden">
@@ -142,10 +145,10 @@ export default function SertifikalarPage() {
                 <div className="absolute top-0 right-0 w-48 sm:w-64 h-48 sm:h-64 rounded-full bg-[#00b4c8]/10 translate-x-1/3 -translate-y-1/3" />
                 <div className="relative">
                   <h3 className="text-xl sm:text-2xl lg:text-3xl font-bold text-white mb-3 sm:mb-4" style={{ fontFamily: 'var(--font-outfit)' }}>
-                    Kalite Güvencesi
+                    {t('trustTitle')}
                   </h3>
                   <p className="text-blue-200 max-w-2xl mx-auto leading-relaxed text-sm sm:text-base">
-                    Tüm ürünlerimiz uluslararası standartlara uygun olarak üretilmekte ve düzenli olarak bağımsız laboratuvarlarda test edilmektedir. Müşterilerimize her zaman en yüksek kaliteyi sunmayı taahhüt ediyoruz.
+                    {t('trustText')}
                   </p>
                 </div>
               </div>
@@ -161,7 +164,7 @@ export default function SertifikalarPage() {
           >
             <button
               onClick={() => setLightbox(null)}
-              aria-label="Kapat"
+              aria-label={t('close')}
               className="absolute top-4 right-4 sm:top-6 sm:right-6 w-10 h-10 rounded-full bg-white/10 hover:bg-white/20 text-white flex items-center justify-center transition-colors z-10"
             >
               <svg className="w-5 h-5" fill="none" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 24 24">
@@ -187,7 +190,7 @@ export default function SertifikalarPage() {
 
               <button
                 onClick={(e) => { e.stopPropagation(); setLightbox((p) => p === null ? 0 : (p - 1 + certificates.length) % certificates.length); }}
-                aria-label="Önceki"
+                aria-label={t('previous')}
                 className="absolute left-0 sm:-left-14 top-1/2 -translate-y-1/2 w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-white/10 hover:bg-white/20 text-white flex items-center justify-center transition-colors"
               >
                 <svg className="w-5 h-5" fill="none" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 24 24">
@@ -196,7 +199,7 @@ export default function SertifikalarPage() {
               </button>
               <button
                 onClick={(e) => { e.stopPropagation(); setLightbox((p) => p === null ? 0 : (p + 1) % certificates.length); }}
-                aria-label="Sonraki"
+                aria-label={t('next')}
                 className="absolute right-0 sm:-right-14 top-1/2 -translate-y-1/2 w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-white/10 hover:bg-white/20 text-white flex items-center justify-center transition-colors"
               >
                 <svg className="w-5 h-5" fill="none" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 24 24">

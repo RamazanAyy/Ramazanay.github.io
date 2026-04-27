@@ -2,32 +2,48 @@
 
 import { useState } from 'react';
 import { motion } from 'framer-motion';
+import { useTranslations } from 'next-intl';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 import FadeInUp from '@/components/animations/FadeInUp';
 import { StaggerContainer, StaggerItem } from '@/components/animations/StaggerContainer';
 import Breadcrumb from '@/components/sections/Breadcrumb';
 
-// ─── Export Countries ───────────────────────────────────────────────────────
-
-const exportCountries = [
-  { name: 'Almanya', flag: '🇩🇪', region: 'Avrupa' },
-  { name: 'Hollanda', flag: '🇳🇱', region: 'Avrupa' },
-  { name: 'Arnavutluk', flag: '🇦🇱', region: 'Avrupa' },
-  { name: 'Kosova', flag: '🇽🇰', region: 'Avrupa' },
-  { name: 'Suudi Arabistan', flag: '🇸🇦', region: 'Orta Doğu' },
-  { name: 'Katar', flag: '🇶🇦', region: 'Orta Doğu' },
-  { name: 'Irak', flag: '🇮🇶', region: 'Orta Doğu' },
-  { name: 'Azerbaycan', flag: '🇦🇿', region: 'Türk Cumhuriyetleri' },
-  { name: 'Gürcistan', flag: '🇬🇪', region: 'Kafkasya' },
-  { name: 'Libya', flag: '🇱🇾', region: 'Afrika' },
-  { name: 'Senegal', flag: '🇸🇳', region: 'Afrika' },
-  { name: 'Kamerun', flag: '🇨🇲', region: 'Afrika' },
+// Country names: ISO via Intl.DisplayNames; only flag/region keys here.
+type CountryDef = { code: string; flag: string; regionKey: 'regionEurope' | 'regionMiddleEast' | 'regionAfrica' | 'regionTurkic' | 'regionCaucasus' };
+const COUNTRY_DEFS: CountryDef[] = [
+  { code: 'DE', flag: '🇩🇪', regionKey: 'regionEurope' },
+  { code: 'NL', flag: '🇳🇱', regionKey: 'regionEurope' },
+  { code: 'AL', flag: '🇦🇱', regionKey: 'regionEurope' },
+  { code: 'XK', flag: '🇽🇰', regionKey: 'regionEurope' },
+  { code: 'SA', flag: '🇸🇦', regionKey: 'regionMiddleEast' },
+  { code: 'QA', flag: '🇶🇦', regionKey: 'regionMiddleEast' },
+  { code: 'IQ', flag: '🇮🇶', regionKey: 'regionMiddleEast' },
+  { code: 'AZ', flag: '🇦🇿', regionKey: 'regionTurkic' },
+  { code: 'GE', flag: '🇬🇪', regionKey: 'regionCaucasus' },
+  { code: 'LY', flag: '🇱🇾', regionKey: 'regionAfrica' },
+  { code: 'SN', flag: '🇸🇳', regionKey: 'regionAfrica' },
+  { code: 'CM', flag: '🇨🇲', regionKey: 'regionAfrica' },
 ];
+
+const LOCALE_TO_INTL: Record<string, string> = { tr: 'tr', en: 'en', de: 'de', ru: 'ru', ar: 'ar', uk: 'uk' };
 
 // ─── Page ───────────────────────────────────────────────────────────────────
 
 export default function IhracatPage() {
+  const t = useTranslations('exportPage');
+  const tNav = useTranslations('nav');
+  const tCommon = useTranslations('common');
+  const locale = (typeof window !== 'undefined' && document.documentElement.lang) || 'tr';
+  const intlLocale = LOCALE_TO_INTL[locale] || 'en';
+  const regionNames = new Intl.DisplayNames([intlLocale, 'en'], { type: 'region' });
+
+  const exportCountries = COUNTRY_DEFS.map(({ code, flag, regionKey }) => ({
+    name: regionNames.of(code) || code,
+    flag,
+    region: t(regionKey),
+  }));
+
   const [formData, setFormData] = useState({
     name: '',
     company: '',
@@ -42,20 +58,11 @@ export default function IhracatPage() {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    // Placeholder - no backend
-    alert('Talebiniz alınmıştır. En kısa sürede sizinle iletişime geçeceğiz.');
+    alert(t('submitSuccess'));
   };
 
   return (
     <>
-      <head>
-        <title>İhracat | Soft & Power Hygiene</title>
-        <meta name="description" content="Soft & Power Hygiene 20'den fazla ülkeye hijyen ürünleri ihraç etmektedir. B2B ihracat ve toptan sipariş için bizimle iletişime geçin." />
-        <meta name="keywords" content="hijyen ürünleri ihracat, bebek bezi ihracat, Türkiye ihracat, B2B hijyen" />
-        <meta property="og:title" content="İhracat | Soft & Power Hygiene" />
-        <meta property="og:description" content="20+ ülkeye hijyen ürünleri ihracatı. B2B iş birliği fırsatları." />
-      </head>
-
       <Navbar />
 
       <main className="bg-[#f4f7fb] min-h-screen">
@@ -68,26 +75,26 @@ export default function IhracatPage() {
             <div className="grid lg:grid-cols-2 gap-12 items-center">
               <FadeInUp>
                 <span className="inline-flex items-center gap-2 bg-white/10 text-white border border-white/20 text-xs font-bold px-4 py-2 rounded-full uppercase tracking-wider mb-6">
-                  Global Pazarlar
+                  {t('heroBadge')}
                 </span>
                 <h1 className="text-4xl lg:text-6xl font-black text-white mb-6" style={{ fontFamily: 'var(--font-outfit)' }}>
-                  İhracat
+                  {t('heroTitle')}
                 </h1>
                 <p className="text-blue-200 text-lg leading-relaxed mb-8">
-                  Türkiye&apos;den dünyaya hijyen ürünleri ihraç ediyoruz. 20&apos;den fazla ülkede güvenilir iş ortaklarımızla birlikte, kaliteli ve rekabetçi ürünlerimizi global pazarlara ulaştırıyoruz.
+                  {t('heroSubtitle')}
                 </p>
                 <div className="flex flex-wrap gap-4">
                   <div className="bg-white/10 backdrop-blur-sm border border-white/20 rounded-xl px-6 py-4 text-center">
                     <div className="text-3xl font-black text-white" style={{ fontFamily: 'var(--font-outfit)' }}>20+</div>
-                    <div className="text-blue-200 text-sm">Ülke</div>
+                    <div className="text-blue-200 text-sm">{t('statCountries')}</div>
                   </div>
                   <div className="bg-white/10 backdrop-blur-sm border border-white/20 rounded-xl px-6 py-4 text-center">
                     <div className="text-3xl font-black text-white" style={{ fontFamily: 'var(--font-outfit)' }}>4</div>
-                    <div className="text-blue-200 text-sm">Kıta</div>
+                    <div className="text-blue-200 text-sm">{t('statContinents')}</div>
                   </div>
                   <div className="bg-white/10 backdrop-blur-sm border border-white/20 rounded-xl px-6 py-4 text-center">
                     <div className="text-3xl font-black text-white" style={{ fontFamily: 'var(--font-outfit)' }}>500+</div>
-                    <div className="text-blue-200 text-sm">Ürün Çeşidi</div>
+                    <div className="text-blue-200 text-sm">{t('statProducts')}</div>
                   </div>
                 </div>
               </FadeInUp>
@@ -121,8 +128,8 @@ export default function IhracatPage() {
         {/* Breadcrumb */}
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <Breadcrumb items={[
-            { label: 'Kurumsal', href: '#' },
-            { label: 'İhracat' },
+            { label: tNav('corporate') },
+            { label: t('breadcrumb') },
           ]} />
         </div>
 
@@ -132,10 +139,10 @@ export default function IhracatPage() {
             <FadeInUp>
               <div className="text-center mb-16">
                 <span className="inline-flex items-center gap-2 bg-[#00b4c8]/10 text-[#00b4c8] border border-[#00b4c8]/25 text-xs font-bold px-4 py-2 rounded-full uppercase tracking-wider mb-5">
-                  İhracat Ağımız
+                  {t('countriesBadge')}
                 </span>
                 <h2 className="text-3xl lg:text-4xl font-black text-[#0d2d5e]" style={{ fontFamily: 'var(--font-outfit)' }}>
-                  İhracat Yaptığımız Ülkeler
+                  {t('countriesTitle')}
                 </h2>
               </div>
             </FadeInUp>
@@ -162,20 +169,20 @@ export default function IhracatPage() {
             <div className="grid lg:grid-cols-2 gap-16 items-start">
               <FadeInUp>
                 <span className="inline-flex items-center gap-2 bg-[#00b4c8]/10 text-[#00b4c8] border border-[#00b4c8]/25 text-xs font-bold px-4 py-2 rounded-full uppercase tracking-wider mb-5">
-                  B2B İş Birliği
+                  {t('formBadge')}
                 </span>
                 <h2 className="text-3xl lg:text-4xl font-black text-[#0d2d5e] mb-6" style={{ fontFamily: 'var(--font-outfit)' }}>
-                  Teklif Alın
+                  {t('formTitle')}
                 </h2>
                 <p className="text-gray-500 leading-relaxed mb-8">
-                  İhracat ve toptan sipariş talepleriniz için formu doldurun. Uzman ekibimiz en kısa sürede sizinle iletişime geçecektir.
+                  {t('formSubtitle')}
                 </p>
                 <div className="space-y-4">
                   {[
-                    { text: 'Rekabetçi FOB/CIF fiyatları', icon: '💰' },
-                    { text: 'Özel etiket ve OEM üretim', icon: '🏷️' },
-                    { text: 'Minimum sipariş miktarı esnekliği', icon: '📦' },
-                    { text: 'Dünya genelinde lojistik destek', icon: '🌍' },
+                    { text: t('formItem1'), icon: '💰' },
+                    { text: t('formItem2'), icon: '🏷️' },
+                    { text: t('formItem3'), icon: '📦' },
+                    { text: t('formItem4'), icon: '🌍' },
                   ].map((item) => (
                     <div key={item.text} className="flex items-center gap-3">
                       <span className="text-xl">{item.icon}</span>
@@ -189,7 +196,7 @@ export default function IhracatPage() {
                 <form onSubmit={handleSubmit} className="bg-[#f4f7fb] rounded-2xl p-8 border border-gray-100">
                   <div className="space-y-5">
                     <div>
-                      <label htmlFor="name" className="block text-sm font-medium text-[#0d2d5e] mb-1.5">Ad Soyad *</label>
+                      <label htmlFor="name" className="block text-sm font-medium text-[#0d2d5e] mb-1.5">{t('fieldName')} *</label>
                       <input
                         type="text"
                         id="name"
@@ -198,11 +205,11 @@ export default function IhracatPage() {
                         value={formData.name}
                         onChange={handleChange}
                         className="w-full px-4 py-3 rounded-xl border border-gray-200 bg-white focus:border-[#1a5fa8] focus:ring-2 focus:ring-[#1a5fa8]/20 outline-none transition-all text-sm"
-                        placeholder="Adınız Soyadınız"
+                        placeholder={t('phName')}
                       />
                     </div>
                     <div>
-                      <label htmlFor="company" className="block text-sm font-medium text-[#0d2d5e] mb-1.5">Firma *</label>
+                      <label htmlFor="company" className="block text-sm font-medium text-[#0d2d5e] mb-1.5">{t('fieldCompany')} *</label>
                       <input
                         type="text"
                         id="company"
@@ -211,12 +218,12 @@ export default function IhracatPage() {
                         value={formData.company}
                         onChange={handleChange}
                         className="w-full px-4 py-3 rounded-xl border border-gray-200 bg-white focus:border-[#1a5fa8] focus:ring-2 focus:ring-[#1a5fa8]/20 outline-none transition-all text-sm"
-                        placeholder="Firma Adı"
+                        placeholder={t('phCompany')}
                       />
                     </div>
                     <div className="grid sm:grid-cols-2 gap-5">
                       <div>
-                        <label htmlFor="email" className="block text-sm font-medium text-[#0d2d5e] mb-1.5">E-posta *</label>
+                        <label htmlFor="email" className="block text-sm font-medium text-[#0d2d5e] mb-1.5">{t('fieldEmail')} *</label>
                         <input
                           type="email"
                           id="email"
@@ -225,11 +232,11 @@ export default function IhracatPage() {
                           value={formData.email}
                           onChange={handleChange}
                           className="w-full px-4 py-3 rounded-xl border border-gray-200 bg-white focus:border-[#1a5fa8] focus:ring-2 focus:ring-[#1a5fa8]/20 outline-none transition-all text-sm"
-                          placeholder="ornek@firma.com"
+                          placeholder={t('phEmail')}
                         />
                       </div>
                       <div>
-                        <label htmlFor="phone" className="block text-sm font-medium text-[#0d2d5e] mb-1.5">Telefon</label>
+                        <label htmlFor="phone" className="block text-sm font-medium text-[#0d2d5e] mb-1.5">{t('fieldPhone')}</label>
                         <input
                           type="tel"
                           id="phone"
@@ -237,12 +244,12 @@ export default function IhracatPage() {
                           value={formData.phone}
                           onChange={handleChange}
                           className="w-full px-4 py-3 rounded-xl border border-gray-200 bg-white focus:border-[#1a5fa8] focus:ring-2 focus:ring-[#1a5fa8]/20 outline-none transition-all text-sm"
-                          placeholder="+90 5XX XXX XX XX"
+                          placeholder={t('phPhone')}
                         />
                       </div>
                     </div>
                     <div>
-                      <label htmlFor="message" className="block text-sm font-medium text-[#0d2d5e] mb-1.5">Mesaj *</label>
+                      <label htmlFor="message" className="block text-sm font-medium text-[#0d2d5e] mb-1.5">{t('fieldMessage')} *</label>
                       <textarea
                         id="message"
                         name="message"
@@ -251,14 +258,14 @@ export default function IhracatPage() {
                         value={formData.message}
                         onChange={handleChange}
                         className="w-full px-4 py-3 rounded-xl border border-gray-200 bg-white focus:border-[#1a5fa8] focus:ring-2 focus:ring-[#1a5fa8]/20 outline-none transition-all text-sm resize-none"
-                        placeholder="Ürün taleplerinizi ve sipariş detaylarınızı yazın..."
+                        placeholder={t('phMessage')}
                       />
                     </div>
                     <button
                       type="submit"
                       className="w-full bg-gradient-to-r from-[#1a5fa8] to-[#00b4c8] text-white font-bold py-3.5 rounded-xl hover:shadow-lg hover:shadow-[#1a5fa8]/25 transition-all hover:-translate-y-0.5 active:translate-y-0"
                     >
-                      Teklif Talebi Gönder
+                      {t('submitBtn')}
                     </button>
                   </div>
                 </form>

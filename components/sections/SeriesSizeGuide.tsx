@@ -2,7 +2,7 @@
 
 import Link from 'next/link';
 import Image from 'next/image';
-import { useLocale } from 'next-intl';
+import { useLocale, useTranslations } from 'next-intl';
 import { motion } from 'framer-motion';
 import type { Product } from '@/lib/products-data';
 import { getProductImage } from '@/lib/product-images';
@@ -25,6 +25,7 @@ export default function SeriesSizeGuide({
   categorySlug,
 }: Props) {
   const locale = useLocale();
+  const t = useTranslations('categoryPage');
 
   if (products.length <= 1) return null;
 
@@ -36,10 +37,10 @@ export default function SeriesSizeGuide({
       >
         <span className="h-7 w-1.5 rounded-full" style={{ backgroundColor: seriesColor }} />
         <h2 className="text-lg sm:text-xl font-bold text-[#0d2d5e]">
-          {series} — Tüm Bedenler
+          {t('siblingsTitle', { series })}
         </h2>
         <span className="ml-auto text-xs sm:text-sm text-gray-500">
-          {products.length} beden
+          {t('siblingsCount', { count: products.length })}
         </span>
       </div>
 

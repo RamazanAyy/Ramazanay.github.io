@@ -2,6 +2,7 @@
 import { useState, useEffect } from "react"
 import Image from "next/image"
 import { motion, AnimatePresence } from "framer-motion"
+import { useTranslations } from "next-intl"
 import { FileDown, Eye } from "lucide-react"
 import { CatalogViewer } from "./CatalogViewer"
 
@@ -12,6 +13,7 @@ const CATALOG_IMAGES = Array.from({ length: 30 }, (_, i) =>
 export function CatalogWidget() {
   const [viewerOpen, setViewerOpen] = useState(false)
   const [currentImg, setCurrentImg] = useState(0)
+  const t = useTranslations('catalogWidget')
 
   useEffect(() => {
     const timer = setInterval(() => {
@@ -61,7 +63,7 @@ export function CatalogWidget() {
               {/* Top badge */}
               <div className="absolute top-3 left-3 right-3 flex items-center justify-between">
                 <span className="bg-[#00b4c8] text-white text-[9px] font-bold px-2 py-1 rounded-md uppercase tracking-wider">
-                  2025 Katalog
+                  {t('yearBadge')}
                 </span>
                 <span className="bg-white/20 backdrop-blur-sm text-white text-[9px] font-medium px-2 py-1 rounded-md">
                   {currentImg + 1}/{CATALOG_IMAGES.length}
@@ -78,7 +80,7 @@ export function CatalogWidget() {
                   className="h-6 w-auto object-contain brightness-0 invert mb-2"
                 />
                 <p className="text-white/70 text-[10px] leading-tight">
-                  Family Care Collection
+                  {t('collectionLabel')}
                 </p>
               </div>
 
@@ -90,18 +92,6 @@ export function CatalogWidget() {
             <div className="absolute -right-1 top-2 bottom-2 w-[6px] bg-white/20 rounded-r-sm" />
             <div className="absolute -right-2 top-3 bottom-3 w-[5px] bg-white/10 rounded-r-sm" />
 
-            {/* Dot indicators */}
-            <div className="absolute -bottom-8 left-1/2 -translate-x-1/2 flex gap-1">
-              {CATALOG_IMAGES.map((_, i) => (
-                <button
-                  key={i}
-                  onClick={() => setCurrentImg(i)}
-                  className={`rounded-full transition-all duration-300 ${
-                    i === currentImg ? 'w-5 h-1.5 bg-[#00b4c8]' : 'w-1.5 h-1.5 bg-white/30'
-                  }`}
-                />
-              ))}
-            </div>
           </div>
 
           {/* Sag: Content */}
@@ -113,17 +103,17 @@ export function CatalogWidget() {
             transition={{ duration: 0.5 }}
           >
             <span className="inline-block bg-[#00b4c8]/20 text-[#00b4c8] text-xs font-semibold px-3 py-1 rounded-full mb-4 border border-[#00b4c8]/30">
-              Soft &amp; Power Katalog
+              {t('badge')}
             </span>
             <h2 className="text-white text-3xl md:text-4xl font-bold mb-3" style={{ fontFamily: 'var(--font-outfit)' }}>
-              Online{' '}
-              <span className="text-[#00b4c8]">Katalog</span>
+              {t('title')}{' '}
+              <span className="text-[#00b4c8]">{t('titleHighlight')}</span>
             </h2>
             <p className="text-white/70 text-sm mb-6 max-w-md">
-              Tüm ürünlerimize tek bir katalog ile sınırsız erişebilirsiniz.
+              {t('subtitle')}
             </p>
             <div className="flex flex-wrap gap-2.5 mb-8 justify-center md:justify-start">
-              {["Tum Sayfalar", "TR / EN", "Tum Urunler", "ISO Sertifikali"].map(item => (
+              {[t('tagAllPages'), t('tagBilingual'), t('tagAllProducts'), t('tagCertified')].map(item => (
                 <span key={item} className="bg-white/10 text-white/80 text-xs px-3 py-1.5 rounded-full border border-white/15">
                   {item}
                 </span>
@@ -138,7 +128,7 @@ export function CatalogWidget() {
                 whileTap={{ scale: 0.98 }}
               >
                 <FileDown className="w-5 h-5" />
-                Katalogu Indir
+                {t('downloadBtn')}
               </motion.a>
               <motion.button
                 onClick={() => setViewerOpen(true)}
@@ -147,7 +137,7 @@ export function CatalogWidget() {
                 whileTap={{ scale: 0.98 }}
               >
                 <Eye className="w-5 h-5" />
-                Online Goruntule
+                {t('viewBtn')}
               </motion.button>
             </div>
           </motion.div>

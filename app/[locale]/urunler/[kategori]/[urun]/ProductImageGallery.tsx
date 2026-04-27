@@ -3,6 +3,7 @@
 import Image from 'next/image';
 import { useState, useRef, useEffect, useCallback } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
+import { useTranslations } from 'next-intl';
 
 interface ProductImageGalleryProps {
   images: string[];
@@ -21,6 +22,7 @@ export default function ProductImageGallery({
   const [imgError, setImgError] = useState<Record<number, boolean>>({});
   const [direction, setDirection] = useState(0);
   const touchStartX = useRef<number | null>(null);
+  const t = useTranslations('productPage');
 
   const validImages = images.filter((_, i) => !imgError[i]);
   if (validImages.length === 0) return null;
@@ -95,7 +97,7 @@ export default function ProductImageGallery({
           <>
             <button
               onClick={prev}
-              aria-label="Önceki görsel"
+              aria-label={t('previousImage')}
               className="absolute left-2 sm:left-3 top-1/2 -translate-y-1/2 w-9 h-9 sm:w-10 sm:h-10 rounded-full bg-white/90 hover:bg-white text-[#0d2d5e] shadow-md flex items-center justify-center z-10 opacity-0 group-hover:opacity-100 sm:opacity-100 transition-opacity"
             >
               <svg className="w-5 h-5" fill="none" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 24 24">
@@ -104,7 +106,7 @@ export default function ProductImageGallery({
             </button>
             <button
               onClick={next}
-              aria-label="Sonraki görsel"
+              aria-label={t('nextImage')}
               className="absolute right-2 sm:right-3 top-1/2 -translate-y-1/2 w-9 h-9 sm:w-10 sm:h-10 rounded-full bg-white/90 hover:bg-white text-[#0d2d5e] shadow-md flex items-center justify-center z-10 opacity-0 group-hover:opacity-100 sm:opacity-100 transition-opacity"
             >
               <svg className="w-5 h-5" fill="none" stroke="currentColor" strokeWidth="2.5" viewBox="0 0 24 24">
@@ -118,7 +120,7 @@ export default function ProductImageGallery({
                 <button
                   key={i}
                   onClick={() => goTo(i, i > activeIndex ? 1 : -1)}
-                  aria-label={`Görsel ${i + 1}`}
+                  aria-label={t('imageNumber', { n: i + 1 })}
                   className={`rounded-full transition-all ${
                     activeIndex === i ? 'w-6 h-1.5 bg-[#0d2d5e]' : 'w-1.5 h-1.5 bg-[#0d2d5e]/30 hover:bg-[#0d2d5e]/60'
                   }`}

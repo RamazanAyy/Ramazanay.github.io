@@ -2,6 +2,7 @@
 
 import { useMemo, useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
+import { useTranslations } from 'next-intl';
 import type { Product } from '@/lib/products-data';
 import ProductGrid from './ProductGrid';
 import FadeInUp from '@/components/animations/FadeInUp';
@@ -14,16 +15,13 @@ interface Props {
 
 const ALL_KEY = '__all__';
 
-function pluralize(name: string) {
-  return name === 'Bebek Bezi' ? 'Bebek Bezleri' : `${name} Ürünleri`;
-}
-
 function groupTitle(series: string, pluralName: string) {
-  const prefix = series.replace(/\s*Paket$/i, '').trim();
+  const prefix = series.replace(/\s*(Paket|Pack)$/i, '').trim();
   return prefix ? `${prefix} ${pluralName}` : pluralName;
 }
 
 export default function ProductSeriesGroups({ products, categorySlug, categoryName }: Props) {
+  const t = useTranslations();
   const groups = useMemo(() => {
     const map = new Map<string, { items: Product[]; color: string }>();
     for (const p of products) {
@@ -34,7 +32,8 @@ export default function ProductSeriesGroups({ products, categorySlug, categoryNa
     return Array.from(map.entries()).map(([series, { items, color }]) => ({ series, items, color }));
   }, [products]);
 
-  const pluralName = pluralize(categoryName);
+  // pluralName for series headings (e.g. "All Bebek Bezi Ürünleri")
+  const pluralName = t('categoryPage.allProductsTitle', { name: categoryName }).replace(/^\s*(Tüm|Alle|Все|All|Усі)\s*/i, '').trim() || categoryName;
   const [filter, setFilter] = useState<string>(ALL_KEY);
 
   if (groups.length <= 1) {
@@ -43,9 +42,9 @@ export default function ProductSeriesGroups({ products, categorySlug, categoryNa
         <FadeInUp>
           <div className="mb-8">
             <h2 className="text-2xl sm:text-3xl font-bold text-[#0d2d5e]">
-              Tüm {categoryName} Ürünleri
+              {t('categoryPage.allProductsTitle', { name: categoryName })}
             </h2>
-            <p className="mt-2 text-gray-500">{products.length} ürün listeleniyor</p>
+            <p className="mt-2 text-gray-500">{t('categoryPage.productsListed', { count: products.length })}</p>
           </div>
         </FadeInUp>
         <ProductGrid products={products} categorySlug={categorySlug} />
@@ -71,14 +70,14 @@ export default function ProductSeriesGroups({ products, categorySlug, categoryNa
                   : 'bg-white text-gray-600 border border-gray-200 hover:border-[#0d2d5e] hover:text-[#0d2d5e]'
               }`}
             >
-              Tümü
+              {t('common.all')}
               <span className={`ml-1.5 text-[10px] font-bold ${filter === ALL_KEY ? 'opacity-80' : 'text-gray-400'}`}>
                 {products.length}
               </span>
             </button>
             {groups.map((g) => {
               const active = filter === g.series;
-              const prefix = g.series.replace(/\s*Paket$/i, '').trim() || g.series;
+              const prefix = g.series.replace(/\s*(Paket|Pack)$/i, '').trim() || g.series;
               return (
                 <button
                   key={g.series}
@@ -131,7 +130,7 @@ export default function ProductSeriesGroups({ products, categorySlug, categoryNa
                     {groupTitle(g.series, pluralName)}
                   </h2>
                   <span className="text-xs sm:text-sm text-gray-500">
-                    {g.items.length} ürün
+                    {g.items.length} {t('common.products')}
                   </span>
                 </div>
               </div>

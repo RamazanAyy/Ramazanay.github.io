@@ -219,13 +219,18 @@ export function useFabricCanvas(canvasId: string) {
 
       return () => {
         window.removeEventListener('keydown', onKeyDown);
-        canvas.dispose();
+        try {
+          canvas.dispose();
+        } catch {
+          // Ignore disposal errors (React Strict Mode / re-render race conditions
+          // can cause the canvas DOM node to already be detached).
+        }
       };
     };
 
     const cleanupPromise = init();
     return () => {
-      cleanupPromise.then(fn => fn && fn());
+      cleanupPromise.then(fn => fn && fn()).catch(() => {});
     };
   }, [canvasId]);
 

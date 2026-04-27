@@ -2,63 +2,34 @@
 
 import { useState } from 'react';
 import { motion } from 'framer-motion';
+import { useTranslations } from 'next-intl';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 import FadeInUp from '@/components/animations/FadeInUp';
 import { StaggerContainer, StaggerItem } from '@/components/animations/StaggerContainer';
 import Breadcrumb from '@/components/sections/Breadcrumb';
 
-// ─── Data ───────────────────────────────────────────────────────────────────
-
-const contactInfo = [
-  {
-    title: 'Adres',
-    value: 'İstanbul, Türkiye',
-    icon: (
-      <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
-        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
-      </svg>
-    ),
-  },
-  {
-    title: 'Telefon',
-    value: '+90 539 631 23 92',
-    href: 'tel:+905396312392',
-    icon: (
-      <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
-      </svg>
-    ),
-  },
-  {
-    title: 'E-posta',
-    value: 'info@softandpower.com',
-    href: 'mailto:info@softandpower.com',
-    icon: (
-      <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
-      </svg>
-    ),
-  },
-  {
-    title: 'Çalışma Saatleri',
-    value: 'Pzt - Cuma: 09:00 - 18:00',
-    icon: (
-      <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
-      </svg>
-    ),
-  },
-];
-
-const subjectOptions = [
-  'Toptan Sipariş',
-  'Özel Etiket',
-  'Numune Talebi',
-  'Genel Bilgi',
-  'Diğer',
-];
+const ICON_ADDRESS = (
+  <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+  </svg>
+);
+const ICON_PHONE = (
+  <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
+  </svg>
+);
+const ICON_EMAIL = (
+  <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+  </svg>
+);
+const ICON_CLOCK = (
+  <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+  </svg>
+);
 
 // ─── JSON-LD ────────────────────────────────────────────────────────────────
 
@@ -86,6 +57,8 @@ const localBusinessSchema = {
 // ─── Page ───────────────────────────────────────────────────────────────────
 
 export default function IletisimPage() {
+  const t = useTranslations('contactPage');
+  const tCommon = useTranslations('common');
   const [formData, setFormData] = useState({
     name: '',
     company: '',
@@ -101,22 +74,22 @@ export default function IletisimPage() {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    alert('Mesajınız alınmıştır. En kısa sürede sizinle iletişime geçeceğiz.');
+    alert(t('submitSuccess'));
   };
+
+  const contactInfo = [
+    { title: t('addressLabel'), value: 'İstanbul, Türkiye', icon: ICON_ADDRESS },
+    { title: t('phoneLabel'), value: '+90 539 631 23 92', href: 'tel:+905396312392', icon: ICON_PHONE },
+    { title: t('emailLabel'), value: 'info@softandpower.com', href: 'mailto:info@softandpower.com', icon: ICON_EMAIL },
+    { title: t('workingHoursLabel'), value: t('workingHoursValue'), icon: ICON_CLOCK },
+  ];
 
   return (
     <>
-      <head>
-        <title>İletişim | Soft & Power Hygiene</title>
-        <meta name="description" content="Soft & Power Hygiene ile iletişime geçin. Toptan sipariş, özel etiket ve numune talepleri için bize ulaşın. Telefon: +90 539 631 23 92" />
-        <meta name="keywords" content="Soft & Power iletişim, hijyen ürünleri sipariş, toptan sipariş, İstanbul hijyen üreticisi" />
-        <meta property="og:title" content="İletişim | Soft & Power Hygiene" />
-        <meta property="og:description" content="Bizimle iletişime geçin. Toptan sipariş ve özel etiket talepleri." />
-        <script
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(localBusinessSchema) }}
-        />
-      </head>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(localBusinessSchema) }}
+      />
 
       <Navbar />
 
@@ -128,13 +101,13 @@ export default function IletisimPage() {
           <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
             <FadeInUp>
               <span className="inline-flex items-center gap-2 bg-white/10 text-white border border-white/20 text-xs font-bold px-4 py-2 rounded-full uppercase tracking-wider mb-6">
-                Bize Ulaşın
+                {t('heroBadge')}
               </span>
               <h1 className="text-4xl lg:text-6xl font-black text-white mb-6" style={{ fontFamily: 'var(--font-outfit)' }}>
-                İletişim
+                {t('heroTitle')}
               </h1>
               <p className="text-blue-200 text-lg max-w-2xl mx-auto leading-relaxed">
-                Sorularınız, sipariş talepleriniz veya iş birliği teklifleriniz için bize ulaşın. Ekibimiz en kısa sürede size dönüş yapacaktır.
+                {t('heroSubtitle')}
               </p>
             </FadeInUp>
           </div>
@@ -142,7 +115,7 @@ export default function IletisimPage() {
 
         {/* Breadcrumb */}
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <Breadcrumb items={[{ label: 'İletişim' }]} />
+          <Breadcrumb items={[{ label: t('breadcrumb') }]} />
         </div>
 
         {/* Contact Info Cards */}
@@ -178,12 +151,12 @@ export default function IletisimPage() {
               <FadeInUp>
                 <div className="bg-white rounded-2xl p-8 lg:p-10 border border-gray-100 shadow-sm">
                   <h2 className="text-2xl font-bold text-[#0d2d5e] mb-6" style={{ fontFamily: 'var(--font-outfit)' }}>
-                    Mesaj Gönderin
+                    {t('formTitle')}
                   </h2>
                   <form onSubmit={handleSubmit} className="space-y-5">
                     <div className="grid sm:grid-cols-2 gap-5">
                       <div>
-                        <label htmlFor="name" className="block text-sm font-medium text-[#0d2d5e] mb-1.5">Ad Soyad *</label>
+                        <label htmlFor="name" className="block text-sm font-medium text-[#0d2d5e] mb-1.5">{t('fieldName')} *</label>
                         <input
                           type="text"
                           id="name"
@@ -192,7 +165,7 @@ export default function IletisimPage() {
                           value={formData.name}
                           onChange={handleChange}
                           className="w-full px-4 py-3 rounded-xl border border-gray-200 bg-[#f4f7fb] focus:bg-white focus:border-[#1a5fa8] focus:ring-2 focus:ring-[#1a5fa8]/20 outline-none transition-all text-sm"
-                          placeholder="Adınız Soyadınız"
+                          placeholder={t('phName')}
                         />
                       </div>
                       <div>
@@ -204,13 +177,13 @@ export default function IletisimPage() {
                           value={formData.company}
                           onChange={handleChange}
                           className="w-full px-4 py-3 rounded-xl border border-gray-200 bg-[#f4f7fb] focus:bg-white focus:border-[#1a5fa8] focus:ring-2 focus:ring-[#1a5fa8]/20 outline-none transition-all text-sm"
-                          placeholder="Firma Adı"
+                          placeholder="Soft & Power"
                         />
                       </div>
                     </div>
                     <div className="grid sm:grid-cols-2 gap-5">
                       <div>
-                        <label htmlFor="phone" className="block text-sm font-medium text-[#0d2d5e] mb-1.5">Telefon *</label>
+                        <label htmlFor="phone" className="block text-sm font-medium text-[#0d2d5e] mb-1.5">{t('fieldPhone')} *</label>
                         <input
                           type="tel"
                           id="phone"
@@ -219,11 +192,11 @@ export default function IletisimPage() {
                           value={formData.phone}
                           onChange={handleChange}
                           className="w-full px-4 py-3 rounded-xl border border-gray-200 bg-[#f4f7fb] focus:bg-white focus:border-[#1a5fa8] focus:ring-2 focus:ring-[#1a5fa8]/20 outline-none transition-all text-sm"
-                          placeholder="+90 5XX XXX XX XX"
+                          placeholder={t('phPhone')}
                         />
                       </div>
                       <div>
-                        <label htmlFor="email" className="block text-sm font-medium text-[#0d2d5e] mb-1.5">E-posta *</label>
+                        <label htmlFor="email" className="block text-sm font-medium text-[#0d2d5e] mb-1.5">{t('fieldEmail')} *</label>
                         <input
                           type="email"
                           id="email"
@@ -232,28 +205,25 @@ export default function IletisimPage() {
                           value={formData.email}
                           onChange={handleChange}
                           className="w-full px-4 py-3 rounded-xl border border-gray-200 bg-[#f4f7fb] focus:bg-white focus:border-[#1a5fa8] focus:ring-2 focus:ring-[#1a5fa8]/20 outline-none transition-all text-sm"
-                          placeholder="ornek@firma.com"
+                          placeholder={t('phEmail')}
                         />
                       </div>
                     </div>
                     <div>
-                      <label htmlFor="subject" className="block text-sm font-medium text-[#0d2d5e] mb-1.5">Konu *</label>
-                      <select
+                      <label htmlFor="subject" className="block text-sm font-medium text-[#0d2d5e] mb-1.5">{t('fieldSubject')} *</label>
+                      <input
+                        type="text"
                         id="subject"
                         name="subject"
                         required
                         value={formData.subject}
                         onChange={handleChange}
                         className="w-full px-4 py-3 rounded-xl border border-gray-200 bg-[#f4f7fb] focus:bg-white focus:border-[#1a5fa8] focus:ring-2 focus:ring-[#1a5fa8]/20 outline-none transition-all text-sm"
-                      >
-                        <option value="">Konu seçin...</option>
-                        {subjectOptions.map((opt) => (
-                          <option key={opt} value={opt}>{opt}</option>
-                        ))}
-                      </select>
+                        placeholder={t('phSubject')}
+                      />
                     </div>
                     <div>
-                      <label htmlFor="message" className="block text-sm font-medium text-[#0d2d5e] mb-1.5">Mesaj *</label>
+                      <label htmlFor="message" className="block text-sm font-medium text-[#0d2d5e] mb-1.5">{t('fieldMessage')} *</label>
                       <textarea
                         id="message"
                         name="message"
@@ -262,14 +232,14 @@ export default function IletisimPage() {
                         value={formData.message}
                         onChange={handleChange}
                         className="w-full px-4 py-3 rounded-xl border border-gray-200 bg-[#f4f7fb] focus:bg-white focus:border-[#1a5fa8] focus:ring-2 focus:ring-[#1a5fa8]/20 outline-none transition-all text-sm resize-none"
-                        placeholder="Mesajınızı yazın..."
+                        placeholder={t('phMessage')}
                       />
                     </div>
                     <button
                       type="submit"
                       className="w-full bg-gradient-to-r from-[#1a5fa8] to-[#00b4c8] text-white font-bold py-3.5 rounded-xl hover:shadow-lg hover:shadow-[#1a5fa8]/25 transition-all hover:-translate-y-0.5 active:translate-y-0"
                     >
-                      Mesaj Gönder
+                      {t('submitBtn')}
                     </button>
                   </form>
                 </div>
@@ -303,8 +273,8 @@ export default function IletisimPage() {
                       </svg>
                     </div>
                     <div>
-                      <p className="font-bold text-lg">WhatsApp ile Yazın</p>
-                      <p className="text-white/80 text-sm">Hızlı yanıt için bize WhatsApp&apos;tan ulaşın</p>
+                      <p className="font-bold text-lg">{t('whatsappLabel')}</p>
+                      <p className="text-white/80 text-sm">{tCommon('askWhatsapp')}</p>
                     </div>
                     <svg className="w-5 h-5 ml-auto group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M17 8l4 4m0 0l-4 4m4-4H3" />

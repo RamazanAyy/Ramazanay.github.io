@@ -187,7 +187,12 @@ export default function Navbar() {
   const [isScrolled, setIsScrolled]   = React.useState(false);
   const [mobileOpen, setMobileOpen]   = React.useState(false);
   const [langOpen, setLangOpen]       = React.useState(false);
-  const [mobileCorp, setMobileCorp]   = React.useState(false);
+  // Only one accordion open at a time
+  const [mobileAccordion, setMobileAccordion] = React.useState<'products' | 'corporate' | null>(null);
+  const mobileProds = mobileAccordion === 'products';
+  const mobileCorp = mobileAccordion === 'corporate';
+  const toggleMobileAccordion = (which: 'products' | 'corporate') =>
+    setMobileAccordion(prev => (prev === which ? null : which));
 
   React.useEffect(() => {
     const onScroll = () => setIsScrolled(window.scrollY > 20);
@@ -456,25 +461,21 @@ export default function Navbar() {
         {mobileOpen && (
           <motion.div
             key="mobile-overlay"
-            className="fixed inset-0 z-[60] bg-[#1a5fa8] flex flex-col lg:hidden overflow-y-auto"
+            className="fixed inset-0 z-[60] bg-[#1a5fa8] flex flex-col lg:hidden overflow-y-auto overflow-x-hidden w-screen max-w-full"
             initial={{ clipPath: 'inset(0 0 100% 0)' }}
             animate={{ clipPath: 'inset(0 0 0% 0)' }}
             exit={{ clipPath: 'inset(0 0 100% 0)' }}
             transition={{ duration: 0.38, ease: [0.4, 0, 0.2, 1] }}
           >
-            {/* Decorative */}
-            <div className="absolute top-0 right-0 w-72 h-72 rounded-full bg-white/5 -translate-y-1/2 translate-x-1/2 pointer-events-none" />
-            <div className="absolute bottom-0 left-0 w-56 h-56 rounded-full bg-[#00b4c8]/10 translate-y-1/2 -translate-x-1/2 pointer-events-none" />
-
             {/* Header */}
-            <div className="flex items-center justify-between px-6 h-[64px] shrink-0 border-b border-white/10 relative">
-              <Link href={`/${locale}`} onClick={closeMobile}>
+            <div className="flex items-center justify-between px-5 sm:px-6 h-[64px] shrink-0 border-b border-white/10 relative">
+              <Link href={`/${locale}`} onClick={closeMobile} className="flex items-center">
                 <Image
-                  src="/logo.png"
+                  src="/logo-transparent.png"
                   alt="Soft & Power"
                   width={110}
                   height={36}
-                  className="h-8 w-auto object-contain brightness-0 invert"
+                  className="h-8 w-auto object-contain"
                   priority
                 />
               </Link>
@@ -485,37 +486,117 @@ export default function Navbar() {
 
             {/* Links */}
             <motion.nav
-              className="flex-1 flex flex-col px-6 pt-6 pb-10 relative"
+              className="flex-1 flex flex-col px-5 sm:px-6 pt-6 pb-10 relative w-full max-w-full"
               variants={mobileListVariants}
               initial="closed"
               animate="open"
             >
-              {[
-                { key: 'home',         href: `/${locale}` },
-                { key: 'products',     href: `/${locale}/urunler` },
-                { key: 'privateLabel', href: `/${locale}/ozel-etiket` },
-                { key: 'contact',      href: `/${locale}/iletisim` },
-              ].map(({ key, href }) => (
-                <motion.div key={key} variants={mobileItemVariants}>
-                  <Link
-                    href={href}
-                    onClick={closeMobile}
-                    className="flex items-center py-4 text-xl font-bold text-white border-b border-white/10 hover:text-[#00b4c8] transition-colors"
+              {/* Anasayfa */}
+              <motion.div variants={mobileItemVariants}>
+                <Link
+                  href={`/${locale}`}
+                  onClick={closeMobile}
+                  className="flex items-center py-4 text-xl font-bold text-white border-b border-white/10 hover:text-[#00b4c8] transition-colors"
+                >
+                  {t('home')}
+                </Link>
+              </motion.div>
+
+              {/* Ürünler accordion */}
+              <motion.div variants={mobileItemVariants}>
+                <button
+                  className="w-full flex items-center justify-between py-4 text-xl font-bold text-white border-b border-white/10 hover:text-[#00b4c8] transition-colors"
+                  onClick={() => toggleMobileAccordion('products')}
+                  aria-expanded={mobileProds}
+                >
+                  {t('products')}
+                  <motion.svg
+                    className="w-5 h-5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"
+                    animate={{ rotate: mobileProds ? 180 : 0 }}
+                    transition={{ duration: 0.2 }}
                   >
-                    {t(key as any)}
-                  </Link>
-                </motion.div>
-              ))}
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M19 9l-7 7-7-7" />
+                  </motion.svg>
+                </button>
+                <AnimatePresence>
+                  {mobileProds && (
+                    <motion.div
+                      initial={{ height: 0, opacity: 0 }}
+                      animate={{ height: 'auto', opacity: 1 }}
+                      exit={{ height: 0, opacity: 0 }}
+                      transition={{ duration: 0.25 }}
+                      className="overflow-hidden border-b border-white/10"
+                    >
+                      <div className="grid grid-cols-2 gap-x-3 gap-y-1 py-2">
+                        {[
+                          { key: 'babyDiapers' as const,    href: `/${locale}/urunler/bebek-bezi` },
+                          { key: 'adultDiapers' as const,   href: `/${locale}/urunler/yetiskin-bezi` },
+                          { key: 'adultPants' as const,     href: `/${locale}/urunler/yetiskin-kulot-bezi` },
+                          { key: 'adultUnderpads' as const, href: `/${locale}/urunler/yetiskin-alt-serme-ortusu` },
+                          { key: 'babyUnderpads' as const,  href: `/${locale}/urunler/bebek-alt-serme-ortusu` },
+                          { key: 'bladderPads' as const,    href: `/${locale}/urunler/mesane-pedi` },
+                          { key: 'sanitaryPads' as const,   href: `/${locale}/urunler/hijyenik-ped` },
+                          { key: 'wetWipes' as const,       href: `/${locale}/urunler/islak-mendil` },
+                          { key: 'cleaningTowels' as const, href: `/${locale}/urunler/yuzey-temizleme-havlusu` },
+                        ].map(({ key, href }) => (
+                          <Link
+                            key={key}
+                            href={href}
+                            onClick={closeMobile}
+                            className="group flex items-center gap-2 py-2 text-white/90 hover:text-white transition-colors"
+                          >
+                            <span className="w-1.5 h-1.5 rounded-full bg-[#00b4c8] shrink-0" />
+                            <span className="text-sm font-medium leading-tight line-clamp-2">{tProducts(key)}</span>
+                          </Link>
+                        ))}
+                      </div>
+                      <Link
+                        href={`/${locale}/urunler`}
+                        onClick={closeMobile}
+                        className="flex items-center gap-2 pb-4 text-sm font-semibold text-[#00b4c8] hover:text-white transition-colors"
+                      >
+                        {tNavExtra('allProducts')}
+                        <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M17 8l4 4m0 0l-4 4m4-4H3" />
+                        </svg>
+                      </Link>
+                    </motion.div>
+                  )}
+                </AnimatePresence>
+              </motion.div>
+
+              {/* Özel Etiket */}
+              <motion.div variants={mobileItemVariants}>
+                <Link
+                  href={`/${locale}/ozel-etiket`}
+                  onClick={closeMobile}
+                  className="flex items-center py-4 text-xl font-bold text-white border-b border-white/10 hover:text-[#00b4c8] transition-colors"
+                >
+                  {t('privateLabel')}
+                </Link>
+              </motion.div>
+
+              {/* İletişim */}
+              <motion.div variants={mobileItemVariants}>
+                <Link
+                  href={`/${locale}/iletisim`}
+                  onClick={closeMobile}
+                  className="flex items-center py-4 text-xl font-bold text-white border-b border-white/10 hover:text-[#00b4c8] transition-colors"
+                >
+                  {t('contact')}
+                </Link>
+              </motion.div>
 
               {/* Kurumsal accordion */}
               <motion.div variants={mobileItemVariants}>
                 <button
                   className="w-full flex items-center justify-between py-4 text-xl font-bold text-white border-b border-white/10 hover:text-[#00b4c8] transition-colors"
-                  onClick={() => setMobileCorp(o => !o)}
+                  onClick={() => toggleMobileAccordion('corporate')}
+                  aria-expanded={mobileCorp}
                 >
                   {t('corporate')}
                   <motion.svg
-                    className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"
+                    className="w-5 h-5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"
                     animate={{ rotate: mobileCorp ? 180 : 0 }}
                     transition={{ duration: 0.2 }}
                   >
@@ -529,7 +610,7 @@ export default function Navbar() {
                       animate={{ height: 'auto', opacity: 1 }}
                       exit={{ height: 0, opacity: 0 }}
                       transition={{ duration: 0.25 }}
-                      className="overflow-hidden pl-4"
+                      className="overflow-hidden pl-4 border-b border-white/10"
                     >
                       {[
                         { key: 'about',        href: `/${locale}/kurumsal/hakkimizda` },
@@ -540,10 +621,10 @@ export default function Navbar() {
                           key={key}
                           href={href}
                           onClick={closeMobile}
-                          className="flex items-center gap-3 py-3 text-base text-blue-200 hover:text-white transition-colors"
+                          className="flex items-center gap-3 py-3 text-sm text-blue-200 hover:text-white transition-colors"
                         >
                           <span className="w-1.5 h-1.5 rounded-full bg-[#00b4c8] shrink-0" />
-                          {t(key as any)}
+                          <span className="truncate">{t(key as any)}</span>
                         </Link>
                       ))}
                     </motion.div>
@@ -560,7 +641,7 @@ export default function Navbar() {
                       key={lang.code}
                       onClick={() => switchLocale(lang.code)}
                       className={cn(
-                        'flex items-center gap-2 px-4 py-2 rounded-full text-sm font-medium transition-all',
+                        'flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-medium transition-all shrink-0',
                         locale === lang.code ? 'bg-[#00b4c8] text-white' : 'bg-white/10 text-white hover:bg-white/20'
                       )}
                     >
@@ -573,14 +654,14 @@ export default function Navbar() {
 
               {/* Contact info */}
               <motion.div variants={mobileItemVariants} className="mt-8 pt-6 border-t border-white/10 space-y-2">
-                <a href="tel:+905396312392" className="flex items-center gap-2 text-blue-200 hover:text-white text-sm transition-colors">
-                  <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <a href="tel:+905396312392" className="flex items-center gap-2 text-blue-200 hover:text-white text-sm transition-colors break-all">
+                  <svg className="w-4 h-4 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
                   </svg>
                   +90 539 631 23 92
                 </a>
-                <a href="mailto:info@softandpower.com" className="flex items-center gap-2 text-blue-200 hover:text-white text-sm transition-colors">
-                  <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <a href="mailto:info@softandpower.com" className="flex items-center gap-2 text-blue-200 hover:text-white text-sm transition-colors break-all">
+                  <svg className="w-4 h-4 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
                   </svg>
                   info@softandpower.com

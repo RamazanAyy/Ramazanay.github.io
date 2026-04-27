@@ -1,7 +1,8 @@
 import { notFound } from 'next/navigation';
 import type { Metadata } from 'next';
-import { unstable_setRequestLocale } from 'next-intl/server';
-import { categories, getCategoryBySlug } from '@/lib/products-data';
+import { unstable_setRequestLocale, getTranslations } from 'next-intl/server';
+import { categories } from '@/lib/products-data';
+import { getLocalizedCategoryBySlug } from '@/lib/i18n-products';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 import Breadcrumb from '@/components/sections/Breadcrumb';
@@ -16,7 +17,7 @@ interface PageProps {
 }
 
 export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
-  const category = getCategoryBySlug(params.kategori);
+  const category = getLocalizedCategoryBySlug(params.locale, params.kategori);
   if (!category) return {};
 
   return {
@@ -38,9 +39,10 @@ export function generateStaticParams() {
   return categories.map((cat) => ({ kategori: cat.slug }));
 }
 
-export default function CategoryPage({ params }: PageProps) {
+export default async function CategoryPage({ params }: PageProps) {
   unstable_setRequestLocale(params.locale);
-  const category = getCategoryBySlug(params.kategori);
+  const t = await getTranslations({ locale: params.locale });
+  const category = getLocalizedCategoryBySlug(params.locale, params.kategori);
   if (!category) notFound();
 
   const faqJsonLd = {
@@ -64,7 +66,7 @@ export default function CategoryPage({ params }: PageProps) {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <Breadcrumb
             items={[
-              { label: 'Ürünler', href: `/${params.locale}/urunler` },
+              { label: t('nav.products'), href: `/${params.locale}/urunler` },
               { label: category.name },
             ]}
           />
@@ -95,7 +97,7 @@ export default function CategoryPage({ params }: PageProps) {
             />
             <FadeInUp>
               <h2 className="text-2xl sm:text-3xl font-bold text-[#0d2d5e] text-center mb-8">
-                Sık Sorulan Sorular
+                {t('categoryPage.frequentlyAsked')}
               </h2>
             </FadeInUp>
             <FadeInUp delay={0.1}>

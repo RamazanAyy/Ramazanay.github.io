@@ -119,80 +119,51 @@ export default function Footer() {
           {/* Contact */}
           <div>
             <h3 className="font-semibold text-white mb-5 text-sm uppercase tracking-wider">{t('contactInfo')}</h3>
-            <div className="space-y-4">
+            <ul className="space-y-2.5">
               {/* Address */}
-              <div className="flex items-start gap-3">
-                <div className="w-8 h-8 rounded-lg bg-[#00b4c8] flex items-center justify-center flex-shrink-0 mt-0.5">
-                  <svg className="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <li className="flex items-start gap-2.5">
+                <span className="w-7 h-7 rounded-md bg-[#00b4c8] flex items-center justify-center flex-shrink-0 mt-0.5">
+                  <svg className="w-3.5 h-3.5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
                   </svg>
-                </div>
-                <div>
-                  <p className="text-blue-300 text-xs mb-0.5">Adres / Address</p>
-                  <a
-                    href="https://www.google.com/maps/place/Vefa+Global,+%C3%87aml%C4%B1k+Mah,+Kurtk%C3%B6y,+Sel%C3%A7uklu+Cd.+No:+24%2F148,+34912+Pendik%2F%C4%B0stanbul/@40.9231835,29.2904611,17z"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="text-white text-sm hover:text-blue-200 transition-colors leading-relaxed"
-                  >
-                    Çamlık Mah, Selçuklu Cd. No: 24/148<br />34912 Pendik / İstanbul
-                  </a>
-                </div>
-              </div>
+                </span>
+                <a
+                  href="https://www.google.com/maps/place/Vefa+Global,+%C3%87aml%C4%B1k+Mah,+Kurtk%C3%B6y,+Sel%C3%A7uklu+Cd.+No:+24%2F148,+34912+Pendik%2F%C4%B0stanbul/@40.9231835,29.2904611,17z"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-blue-100 text-sm hover:text-white transition-colors leading-snug"
+                >
+                  Çamlık Mah, Selçuklu Cd. No: 24/148, 34912 Pendik / İstanbul
+                </a>
+              </li>
 
-              {/* Email — info */}
-              <div className="flex items-start gap-3">
-                <div className="w-8 h-8 rounded-lg bg-[#00b4c8] flex items-center justify-center flex-shrink-0 mt-0.5">
-                  <svg className="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              {/* Emails */}
+              <li className="flex items-start gap-2.5">
+                <span className="w-7 h-7 rounded-md bg-[#00b4c8] flex items-center justify-center flex-shrink-0 mt-0.5">
+                  <svg className="w-3.5 h-3.5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
                   </svg>
+                </span>
+                <div className="flex flex-col leading-snug">
+                  <a href="mailto:info@softandpower.com" className="text-blue-100 text-sm hover:text-white transition-colors">info@softandpower.com</a>
+                  <a href="mailto:export@softandpower.com" className="text-blue-100 text-sm hover:text-white transition-colors">export@softandpower.com</a>
                 </div>
-                <div>
-                  <p className="text-blue-300 text-xs mb-0.5">E-posta / Email</p>
-                  <a href="mailto:info@softandpower.com" className="text-white text-sm hover:text-blue-200 transition-colors block">info@softandpower.com</a>
-                </div>
-              </div>
+              </li>
 
-              {/* Email — export */}
-              <div className="flex items-start gap-3">
-                <div className="w-8 h-8 rounded-lg bg-[#00b4c8] flex items-center justify-center flex-shrink-0 mt-0.5">
-                  <svg className="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
-                  </svg>
-                </div>
-                <div>
-                  <p className="text-blue-300 text-xs mb-0.5">İhracat / Export</p>
-                  <a href="mailto:export@softandpower.com" className="text-white text-sm hover:text-blue-200 transition-colors block">export@softandpower.com</a>
-                </div>
-              </div>
-
-              {/* Phone — landline */}
-              <div className="flex items-start gap-3">
-                <div className="w-8 h-8 rounded-lg bg-[#00b4c8] flex items-center justify-center flex-shrink-0 mt-0.5">
-                  <svg className="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              {/* Phones */}
+              <li className="flex items-start gap-2.5">
+                <span className="w-7 h-7 rounded-md bg-[#00b4c8] flex items-center justify-center flex-shrink-0 mt-0.5">
+                  <svg className="w-3.5 h-3.5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
                   </svg>
+                </span>
+                <div className="flex flex-col leading-snug">
+                  <a href="tel:+908503082515" className="text-blue-100 text-sm hover:text-white transition-colors">+90 850 308 25 15</a>
+                  <a href="tel:+905396312392" className="text-blue-100 text-sm hover:text-white transition-colors">+90 539 631 23 92</a>
                 </div>
-                <div>
-                  <p className="text-blue-300 text-xs mb-0.5">Telefon / Phone</p>
-                  <a href="tel:+908503082515" className="text-white text-sm hover:text-blue-200 transition-colors block">+90 850 308 25 15</a>
-                </div>
-              </div>
-
-              {/* Phone — mobile */}
-              <div className="flex items-start gap-3">
-                <div className="w-8 h-8 rounded-lg bg-[#00b4c8] flex items-center justify-center flex-shrink-0 mt-0.5">
-                  <svg className="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 18h.01M8 21h8a2 2 0 002-2V5a2 2 0 00-2-2H8a2 2 0 00-2 2v14a2 2 0 002 2z" />
-                  </svg>
-                </div>
-                <div>
-                  <p className="text-blue-300 text-xs mb-0.5">Mobil / Mobile</p>
-                  <a href="tel:+905396312392" className="text-white text-sm hover:text-blue-200 transition-colors block">+90 539 631 23 92</a>
-                </div>
-              </div>
-            </div>
+              </li>
+            </ul>
           </div>
         </div>
       </div>

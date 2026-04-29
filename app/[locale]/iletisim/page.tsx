@@ -166,11 +166,11 @@ export default function IletisimPage() {
                     </div>
                     <h3 className="font-semibold text-[#0d2d5e] text-sm mb-1">{info.title}</h3>
                     {info.href ? (
-                      <div className="flex flex-col gap-0.5">
+                      <div className="flex flex-col leading-tight">
                         <a
                           href={info.href}
                           {...(info.href.startsWith('http') ? { target: '_blank', rel: 'noopener noreferrer' } : {})}
-                          className="text-[#1a5fa8] font-medium hover:text-[#00b4c8] transition-colors text-sm break-words"
+                          className="text-[#1a5fa8] font-medium hover:text-[#00b4c8] transition-colors text-sm break-words whitespace-nowrap"
                         >
                           {info.value}
                         </a>
@@ -179,7 +179,7 @@ export default function IletisimPage() {
                             <a
                               key={e.href}
                               href={e.href}
-                              className="text-[#1a5fa8] font-medium hover:text-[#00b4c8] transition-colors text-sm"
+                              className="text-[#1a5fa8]/80 hover:text-[#00b4c8] transition-colors text-xs sm:text-sm whitespace-nowrap"
                             >
                               {e.value}
                             </a>

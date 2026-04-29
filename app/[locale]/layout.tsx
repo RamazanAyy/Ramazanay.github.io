@@ -63,7 +63,15 @@ export default async function LocaleLayout({
               logo: 'https://softandpower.com/logo.png',
               telephone: '+905396312392',
               email: 'info@softandpower.com',
-              address: { '@type': 'PostalAddress', addressCountry: 'TR' },
+              address: {
+                '@type': 'PostalAddress',
+                streetAddress: 'Çamlık Mah, Selçuklu Cd. No: 24/148, Kurtköy',
+                addressLocality: 'Pendik',
+                addressRegion: 'İstanbul',
+                postalCode: '34912',
+                addressCountry: 'TR',
+              },
+              geo: { '@type': 'GeoCoordinates', latitude: 40.9231835, longitude: 29.2904611 },
               sameAs: [
                 'https://www.facebook.com/softandpower',
                 'https://www.instagram.com/softandpower',

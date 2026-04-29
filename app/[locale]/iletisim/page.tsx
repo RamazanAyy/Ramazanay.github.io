@@ -42,9 +42,13 @@ const localBusinessSchema = {
   description: 'Hijyen ürünleri üreticisi - Bebek bezi, yetişkin bezi, ıslak mendil, özel etiket üretimi.',
   address: {
     '@type': 'PostalAddress',
-    addressLocality: 'İstanbul',
+    streetAddress: 'Çamlık Mah, Selçuklu Cd. No: 24/148, Kurtköy',
+    addressLocality: 'Pendik',
+    addressRegion: 'İstanbul',
+    postalCode: '34912',
     addressCountry: 'TR',
   },
+  geo: { '@type': 'GeoCoordinates', latitude: 40.9231835, longitude: 29.2904611 },
   telephone: '+90-539-631-23-92',
   email: 'info@softandpower.com',
   openingHours: 'Mo-Fr 09:00-18:00',
@@ -77,8 +81,11 @@ export default function IletisimPage() {
     alert(t('submitSuccess'));
   };
 
+  const COMPANY_ADDRESS = 'Çamlık Mah, Selçuklu Cd. No: 24/148, 34912 Pendik/İstanbul';
+  const MAPS_URL = 'https://www.google.com/maps/place/Vefa+Global,+%C3%87aml%C4%B1k+Mah,+Kurtk%C3%B6y,+Sel%C3%A7uklu+Cd.+No:+24%2F148,+34912+Pendik%2F%C4%B0stanbul/@40.9231835,29.2904611,17z';
+
   const contactInfo = [
-    { title: t('addressLabel'), value: 'İstanbul, Türkiye', icon: ICON_ADDRESS },
+    { title: t('addressLabel'), value: COMPANY_ADDRESS, href: MAPS_URL, icon: ICON_ADDRESS },
     { title: t('phoneLabel'), value: '+90 539 631 23 92', href: 'tel:+905396312392', icon: ICON_PHONE },
     { title: t('emailLabel'), value: 'info@softandpower.com', href: 'mailto:info@softandpower.com', icon: ICON_EMAIL },
     { title: t('workingHoursLabel'), value: t('workingHoursValue'), icon: ICON_CLOCK },
@@ -130,7 +137,11 @@ export default function IletisimPage() {
                     </div>
                     <h3 className="font-semibold text-[#0d2d5e] text-sm mb-1">{info.title}</h3>
                     {info.href ? (
-                      <a href={info.href} className="text-[#1a5fa8] font-medium hover:text-[#00b4c8] transition-colors text-sm">
+                      <a
+                        href={info.href}
+                        {...(info.href.startsWith('http') ? { target: '_blank', rel: 'noopener noreferrer' } : {})}
+                        className="text-[#1a5fa8] font-medium hover:text-[#00b4c8] transition-colors text-sm break-words"
+                      >
                         {info.value}
                       </a>
                     ) : (
@@ -245,19 +256,36 @@ export default function IletisimPage() {
                 </div>
               </FadeInUp>
 
-              {/* Map Placeholder + WhatsApp */}
+              {/* Map Embed + WhatsApp */}
               <FadeInUp delay={0.2}>
                 <div className="space-y-6">
-                  {/* Map Placeholder */}
+                  {/* Google Maps Embed */}
                   <div className="bg-white rounded-2xl border border-gray-100 overflow-hidden shadow-sm">
-                    <div className="bg-[#e8eef6] h-[320px] lg:h-[380px] flex flex-col items-center justify-center text-gray-400">
-                      <svg className="w-16 h-16 mb-4 text-[#1a5fa8]/30" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+                    <iframe
+                      title="Soft & Power Konum"
+                      src="https://maps.google.com/maps?q=40.9231835,29.2904611&hl=tr&z=16&output=embed"
+                      className="w-full h-[320px] lg:h-[380px] border-0"
+                      loading="lazy"
+                      referrerPolicy="no-referrer-when-downgrade"
+                      allowFullScreen
+                    />
+                    <a
+                      href={MAPS_URL}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="flex items-center justify-between gap-2 px-4 py-3 text-sm font-semibold text-[#1a5fa8] hover:bg-[#f4f7fb] border-t border-gray-100 transition-colors"
+                    >
+                      <span className="flex items-center gap-2">
+                        <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+                        </svg>
+                        Google Maps&apos;te Aç
+                      </span>
+                      <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M14 5l7 7m0 0l-7 7m7-7H3" />
                       </svg>
-                      <p className="text-sm font-medium text-gray-400">Google Maps</p>
-                      <p className="text-xs text-gray-300 mt-1">İstanbul, Türkiye</p>
-                    </div>
+                    </a>
                   </div>
 
                   {/* WhatsApp CTA */}

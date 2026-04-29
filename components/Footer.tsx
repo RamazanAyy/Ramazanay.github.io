@@ -142,6 +142,25 @@ export default function Footer() {
                   <a href="mailto:info@softandpower.com" className="text-white text-sm hover:text-blue-200 transition-colors">info@softandpower.com</a>
                 </div>
               </div>
+              <div className="flex items-start gap-3">
+                <div className="w-8 h-8 rounded-lg bg-[#00b4c8] flex items-center justify-center flex-shrink-0 mt-0.5">
+                  <svg className="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+                  </svg>
+                </div>
+                <div>
+                  <p className="text-blue-300 text-xs mb-0.5">Adres / Address</p>
+                  <a
+                    href="https://www.google.com/maps/place/Vefa+Global,+%C3%87aml%C4%B1k+Mah,+Kurtk%C3%B6y,+Sel%C3%A7uklu+Cd.+No:+24%2F148,+34912+Pendik%2F%C4%B0stanbul/@40.9231835,29.2904611,17z"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-white text-sm hover:text-blue-200 transition-colors leading-relaxed"
+                  >
+                    Çamlık Mah, Selçuklu Cd. No: 24/148<br />34912 Pendik / İstanbul
+                  </a>
+                </div>
+              </div>
             </div>
           </div>
         </div>

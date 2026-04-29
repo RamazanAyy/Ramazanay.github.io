@@ -35,6 +35,11 @@ export const metadata: Metadata = {
 };
 
 const RTL_LOCALES = ['ar'];
+const SUPPORTED_LOCALES = ['tr', 'en', 'de', 'ru', 'ar', 'uk'] as const;
+
+export function generateStaticParams() {
+  return SUPPORTED_LOCALES.map((locale) => ({ locale }));
+}
 
 export default async function LocaleLayout({
   children,

@@ -106,7 +106,16 @@ export default function IletisimPage() {
 
   const contactInfo = [
     { title: t('addressLabel'), value: COMPANY_ADDRESS, href: MAPS_URL, icon: ICON_ADDRESS },
-    { title: t('phoneLabel'), value: '+90 539 631 23 92', href: 'tel:+905396312392', icon: ICON_PHONE },
+    {
+      title: t('phoneLabel'),
+      value: '+90 850 308 25 15',
+      href: 'tel:+908503082515',
+      extra: [
+        { value: '+90 530 878 44 92', href: 'tel:+905308784492' },
+        { value: '+90 539 631 23 92', href: 'tel:+905396312392' },
+      ],
+      icon: ICON_PHONE,
+    },
     { title: t('emailLabel'), value: 'info@softandpower.com', href: 'mailto:info@softandpower.com', icon: ICON_EMAIL },
     { title: t('workingHoursLabel'), value: t('workingHoursValue'), icon: ICON_CLOCK },
   ];
@@ -157,13 +166,26 @@ export default function IletisimPage() {
                     </div>
                     <h3 className="font-semibold text-[#0d2d5e] text-sm mb-1">{info.title}</h3>
                     {info.href ? (
-                      <a
-                        href={info.href}
-                        {...(info.href.startsWith('http') ? { target: '_blank', rel: 'noopener noreferrer' } : {})}
-                        className="text-[#1a5fa8] font-medium hover:text-[#00b4c8] transition-colors text-sm break-words"
-                      >
-                        {info.value}
-                      </a>
+                      <div className="flex flex-col gap-0.5">
+                        <a
+                          href={info.href}
+                          {...(info.href.startsWith('http') ? { target: '_blank', rel: 'noopener noreferrer' } : {})}
+                          className="text-[#1a5fa8] font-medium hover:text-[#00b4c8] transition-colors text-sm break-words"
+                        >
+                          {info.value}
+                        </a>
+                        {'extra' in info && Array.isArray((info as { extra?: { value: string; href: string }[] }).extra) && (
+                          (info as { extra: { value: string; href: string }[] }).extra.map((e) => (
+                            <a
+                              key={e.href}
+                              href={e.href}
+                              className="text-[#1a5fa8] font-medium hover:text-[#00b4c8] transition-colors text-sm"
+                            >
+                              {e.value}
+                            </a>
+                          ))
+                        )}
+                      </div>
                     ) : (
                       <p className="text-gray-600 text-sm">{info.value}</p>
                     )}

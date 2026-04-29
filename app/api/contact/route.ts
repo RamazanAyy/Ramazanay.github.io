@@ -23,12 +23,7 @@ const SOURCE_LABEL: Record<ContactBody['source'], string> = {
   urun: 'Ürün Bilgi Talebi',
 };
 
-const RECIPIENTS: Record<ContactBody['source'], string> = {
-  iletisim: 'info@softandpower.com',
-  ihracat: 'export@softandpower.com',
-  'ozel-etiket': 'export@softandpower.com',
-  urun: 'info@softandpower.com',
-};
+const RECIPIENTS = ['info@softandpower.com', 'mustafapolat@globalvefa.com'];
 
 function escape(s: string | undefined): string {
   if (!s) return '-';
@@ -91,7 +86,6 @@ export async function POST(req: NextRequest) {
 
     const source = (body.source && SOURCE_LABEL[body.source]) ? body.source : 'iletisim';
     const sourceLabel = SOURCE_LABEL[source];
-    const to = RECIPIENTS[source];
 
     if (!process.env.SMTP_USER || !process.env.SMTP_PASS) {
       console.error('Contact form: SMTP credentials missing');
@@ -111,7 +105,7 @@ export async function POST(req: NextRequest) {
     const subjectSuffix = body.company ? ` — ${body.company}` : '';
     await transporter.sendMail({
       from: `"Soft & Power Web" <${process.env.SMTP_USER}>`,
-      to,
+      to: RECIPIENTS,
       replyTo: body.email,
       subject: `${sourceLabel}${subjectSuffix}`,
       html: buildHtml(body, sourceLabel),

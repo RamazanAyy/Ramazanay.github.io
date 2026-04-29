@@ -116,7 +116,7 @@ export async function POST(req: NextRequest) {
 
       await transporter.sendMail({
         from: `"Soft & Power Web" <${process.env.SMTP_USER}>`,
-        to: 'info@softandpower.com',
+        to: ['info@softandpower.com', 'mustafapolat@globalvefa.com'],
         replyTo: email,
         subject: `Paket Tasarım Teklif Talebi — ${company} (${product})`,
         html,
@@ -174,7 +174,7 @@ export async function POST(req: NextRequest) {
 
     await transporter.sendMail({
       from: `"Soft & Power Web" <${process.env.SMTP_USER}>`,
-      to: 'info@softandpower.com',
+      to: ['info@softandpower.com', 'mustafapolat@globalvefa.com'],
       replyTo: contact.email,
       subject: `Özel Etiket Talebi — ${contact.company} (${config.product})`,
       html,

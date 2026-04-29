@@ -1,6 +1,7 @@
 'use client';
 
 import { useState, useEffect } from 'react';
+import dynamic from 'next/dynamic';
 import { useTranslations, useLocale } from 'next-intl';
 import Link from 'next/link';
 import Image from 'next/image';
@@ -8,8 +9,15 @@ import { motion } from 'framer-motion';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 import HeroSlider from '@/components/HeroSlider';
-import VideoSection from '@/components/VideoSection';
-import ProductCategoriesSection from '@/components/ProductCategoriesSection';
+
+// Below-the-fold sections — code-split to keep initial bundle lean
+const VideoSection = dynamic(() => import('@/components/VideoSection'), {
+  loading: () => <div className="h-[400px] bg-[#0d2d5e]" />,
+});
+const ProductCategoriesSection = dynamic(
+  () => import('@/components/ProductCategoriesSection'),
+  { loading: () => <div className="h-[400px] bg-[#f0f9ff]" /> }
+);
 
 // ─── Animation Helpers ──────────────────────────────────────────────────────
 
@@ -325,7 +333,7 @@ export default function HomePage() {
         <section className="py-14 sm:py-20 lg:py-24 bg-gray-50" id="certificates">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <motion.div {...fadeUp()} className="text-center mb-8 sm:mb-14">
-              <SectionBadge>{tCerts('title')}</SectionBadge>
+              <SectionBadge>{tCerts('heroBadge')}</SectionBadge>
               <h2
                 className="text-2xl sm:text-4xl lg:text-5xl font-black text-[#0d2d5e] mb-3 sm:mb-4"
                 style={{ fontFamily: 'var(--font-outfit)' }}

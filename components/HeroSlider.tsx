@@ -110,6 +110,7 @@ export default function HeroSlider() {
             sizes="100vw"
             className="object-cover object-center"
             priority={current === 0}
+            quality={85}
           />
           {/* Gradient overlays */}
           <div className="absolute inset-0 bg-gradient-to-r from-[#0d2d5e]/85 via-[#0d2d5e]/50 to-[#0d2d5e]/10" />

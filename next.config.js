@@ -20,6 +20,11 @@ const nextConfig = {
   },
   compress: true,
   poweredByHeader: false,
+  reactStrictMode: true,
+  experimental: {
+    optimizePackageImports: ['framer-motion', 'lucide-react'],
+    scrollRestoration: true,
+  },
   async headers() {
     return [
       {

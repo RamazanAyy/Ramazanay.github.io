@@ -1,14 +1,13 @@
-'use client';
-
-import { useTranslations } from 'next-intl';
+import { getTranslations, unstable_setRequestLocale } from 'next-intl/server';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 import Breadcrumb from '@/components/sections/Breadcrumb';
 import FadeInUp from '@/components/animations/FadeInUp';
 
-export default function HakkimizdaPage() {
-  const t = useTranslations('about');
-  const tNav = useTranslations('nav');
+export default async function HakkimizdaPage({ params: { locale } }: { params: { locale: string } }) {
+  unstable_setRequestLocale(locale);
+  const t = await getTranslations('about');
+  const tNav = await getTranslations('nav');
 
   return (
     <>

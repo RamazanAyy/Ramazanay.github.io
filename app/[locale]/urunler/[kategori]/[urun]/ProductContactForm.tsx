@@ -11,11 +11,35 @@ export default function ProductContactForm({
   productName,
 }: ProductContactFormProps) {
   const [submitted, setSubmitted] = useState(false);
+  const [sending, setSending] = useState(false);
+  const [errorMsg, setErrorMsg] = useState('');
 
-  function handleSubmit(e: FormEvent<HTMLFormElement>) {
+  async function handleSubmit(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
-    // TODO: integrate with backend / email service
-    setSubmitted(true);
+    setSending(true);
+    setErrorMsg('');
+    const form = e.currentTarget;
+    const data = {
+      source: 'urun' as const,
+      productName,
+      name: (form.elements.namedItem('name') as HTMLInputElement).value,
+      email: (form.elements.namedItem('email') as HTMLInputElement).value,
+      message: (form.elements.namedItem('message') as HTMLTextAreaElement).value,
+    };
+    try {
+      const res = await fetch('/api/contact', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(data),
+      });
+      const json = await res.json();
+      if (!res.ok || !json.success) throw new Error(json.error || 'Gönderim başarısız');
+      setSubmitted(true);
+    } catch (err) {
+      setErrorMsg(err instanceof Error ? err.message : 'Bir hata oluştu');
+    } finally {
+      setSending(false);
+    }
   }
 
   if (submitted) {
@@ -121,9 +145,15 @@ export default function ProductContactForm({
         />
       </div>
 
+      {errorMsg && (
+        <div className="rounded-xl bg-red-50 border border-red-200 px-4 py-3 text-sm text-red-700">
+          ⚠ {errorMsg}
+        </div>
+      )}
       <button
         type="submit"
-        className="inline-flex items-center justify-center gap-2 px-8 py-3 rounded-xl bg-[#1a5fa8] hover:bg-[#154d8a] text-white font-semibold text-sm shadow-lg shadow-[#1a5fa8]/20 transition-all duration-200 hover:scale-[1.02] active:scale-[0.98]"
+        disabled={sending}
+        className="inline-flex items-center justify-center gap-2 px-8 py-3 rounded-xl bg-[#1a5fa8] hover:bg-[#154d8a] text-white font-semibold text-sm shadow-lg shadow-[#1a5fa8]/20 transition-all duration-200 hover:scale-[1.02] active:scale-[0.98] disabled:opacity-60 disabled:cursor-not-allowed disabled:hover:scale-100"
       >
         <svg
           className="w-5 h-5"
@@ -138,7 +168,7 @@ export default function ProductContactForm({
             d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"
           />
         </svg>
-        Gönder
+        {sending ? 'Gönderiliyor...' : 'Gönder'}
       </button>
     </form>
   );

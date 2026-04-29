@@ -51,14 +51,31 @@ export default function IhracatPage() {
     phone: '',
     message: '',
   });
+  const [status, setStatus] = useState<'idle' | 'sending' | 'success' | 'error'>('idle');
+  const [errorMsg, setErrorMsg] = useState('');
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     setFormData(prev => ({ ...prev, [e.target.name]: e.target.value }));
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    alert(t('submitSuccess'));
+    setStatus('sending');
+    setErrorMsg('');
+    try {
+      const res = await fetch('/api/contact', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ source: 'ihracat', locale, ...formData }),
+      });
+      const data = await res.json();
+      if (!res.ok || !data.success) throw new Error(data.error || 'Gönderim başarısız');
+      setStatus('success');
+      setFormData({ name: '', company: '', email: '', phone: '', message: '' });
+    } catch (err) {
+      setStatus('error');
+      setErrorMsg(err instanceof Error ? err.message : 'Bir hata oluştu');
+    }
   };
 
   return (
@@ -261,11 +278,22 @@ export default function IhracatPage() {
                         placeholder={t('phMessage')}
                       />
                     </div>
+                    {status === 'success' && (
+                      <div className="rounded-xl bg-green-50 border border-green-200 px-4 py-3 text-sm text-green-700">
+                        ✅ {t('submitSuccess')}
+                      </div>
+                    )}
+                    {status === 'error' && (
+                      <div className="rounded-xl bg-red-50 border border-red-200 px-4 py-3 text-sm text-red-700">
+                        ⚠ {errorMsg || 'Bir hata oluştu, lütfen tekrar deneyin.'}
+                      </div>
+                    )}
                     <button
                       type="submit"
-                      className="w-full bg-gradient-to-r from-[#1a5fa8] to-[#00b4c8] text-white font-bold py-3.5 rounded-xl hover:shadow-lg hover:shadow-[#1a5fa8]/25 transition-all hover:-translate-y-0.5 active:translate-y-0"
+                      disabled={status === 'sending'}
+                      className="w-full bg-gradient-to-r from-[#1a5fa8] to-[#00b4c8] text-white font-bold py-3.5 rounded-xl hover:shadow-lg hover:shadow-[#1a5fa8]/25 transition-all hover:-translate-y-0.5 active:translate-y-0 disabled:opacity-60 disabled:cursor-not-allowed disabled:hover:translate-y-0"
                     >
-                      {t('submitBtn')}
+                      {status === 'sending' ? tCommon('loading') : t('submitBtn')}
                     </button>
                   </div>
                 </form>

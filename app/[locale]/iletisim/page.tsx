@@ -2,7 +2,7 @@
 
 import { useState } from 'react';
 import { motion } from 'framer-motion';
-import { useTranslations } from 'next-intl';
+import { useTranslations, useLocale } from 'next-intl';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 import FadeInUp from '@/components/animations/FadeInUp';
@@ -63,6 +63,7 @@ const localBusinessSchema = {
 export default function IletisimPage() {
   const t = useTranslations('contactPage');
   const tCommon = useTranslations('common');
+  const locale = useLocale();
   const [formData, setFormData] = useState({
     name: '',
     company: '',
@@ -71,14 +72,33 @@ export default function IletisimPage() {
     subject: '',
     message: '',
   });
+  const [status, setStatus] = useState<'idle' | 'sending' | 'success' | 'error'>('idle');
+  const [errorMsg, setErrorMsg] = useState('');
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
     setFormData(prev => ({ ...prev, [e.target.name]: e.target.value }));
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    alert(t('submitSuccess'));
+    setStatus('sending');
+    setErrorMsg('');
+    try {
+      const res = await fetch('/api/contact', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ source: 'iletisim', locale, ...formData }),
+      });
+      const data = await res.json();
+      if (!res.ok || !data.success) {
+        throw new Error(data.error || 'Gönderim başarısız');
+      }
+      setStatus('success');
+      setFormData({ name: '', company: '', phone: '', email: '', subject: '', message: '' });
+    } catch (err) {
+      setStatus('error');
+      setErrorMsg(err instanceof Error ? err.message : 'Bir hata oluştu');
+    }
   };
 
   const COMPANY_ADDRESS = 'Çamlık Mah, Selçuklu Cd. No: 24/148, 34912 Pendik/İstanbul';
@@ -246,11 +266,22 @@ export default function IletisimPage() {
                         placeholder={t('phMessage')}
                       />
                     </div>
+                    {status === 'success' && (
+                      <div className="rounded-xl bg-green-50 border border-green-200 px-4 py-3 text-sm text-green-700">
+                        ✅ {t('submitSuccess')}
+                      </div>
+                    )}
+                    {status === 'error' && (
+                      <div className="rounded-xl bg-red-50 border border-red-200 px-4 py-3 text-sm text-red-700">
+                        ⚠ {errorMsg || 'Bir hata oluştu, lütfen tekrar deneyin.'}
+                      </div>
+                    )}
                     <button
                       type="submit"
-                      className="w-full bg-gradient-to-r from-[#1a5fa8] to-[#00b4c8] text-white font-bold py-3.5 rounded-xl hover:shadow-lg hover:shadow-[#1a5fa8]/25 transition-all hover:-translate-y-0.5 active:translate-y-0"
+                      disabled={status === 'sending'}
+                      className="w-full bg-gradient-to-r from-[#1a5fa8] to-[#00b4c8] text-white font-bold py-3.5 rounded-xl hover:shadow-lg hover:shadow-[#1a5fa8]/25 transition-all hover:-translate-y-0.5 active:translate-y-0 disabled:opacity-60 disabled:cursor-not-allowed disabled:hover:translate-y-0"
                     >
-                      {t('submitBtn')}
+                      {status === 'sending' ? tCommon('loading') : t('submitBtn')}
                     </button>
                   </form>
                 </div>

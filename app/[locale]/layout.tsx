@@ -21,24 +21,81 @@ const outfit = Outfit({
   weight: ['700', '800', '900'],
 });
 
-export const metadata: Metadata = {
-  title: 'Soft & Power Hygiene | Hijyen Ürünleri Üreticisi',
-  description: 'Bebek bezi, yetişkin bezi, ıslak mendil ve daha fazlası. Türkiye\'nin güvenilir hijyen ürünleri üreticisi. 50+ ülkeye ihracat, özel etiket hizmeti.',
-  keywords: 'bebek bezi, yetişkin bezi, ıslak mendil, özel etiket, fason üretim, hijyen ürünleri',
-  openGraph: {
-    title: 'Soft & Power Hygiene',
-    description: 'Turkey\'s trusted hygiene products manufacturer. Baby diapers, adult diapers, wet wipes & more.',
-    siteName: 'Soft & Power Hygiene',
-    locale: 'tr_TR',
-    type: 'website',
-  },
-};
-
 const RTL_LOCALES = ['ar'];
 const SUPPORTED_LOCALES = ['tr', 'en', 'de', 'ru', 'ar', 'uk'] as const;
+const SITE_URL = 'https://softandpower.com';
 
 export function generateStaticParams() {
   return SUPPORTED_LOCALES.map((locale) => ({ locale }));
+}
+
+const META_BY_LOCALE: Record<string, { title: string; description: string }> = {
+  tr: {
+    title: 'Soft & Power Hygiene | Hijyen Ürünleri Üreticisi',
+    description: 'Bebek bezi, yetişkin bezi, ıslak mendil ve daha fazlası. Türkiye\'nin güvenilir hijyen ürünleri üreticisi. 50+ ülkeye ihracat, özel etiket hizmeti.',
+  },
+  en: {
+    title: 'Soft & Power Hygiene | Hygiene Products Manufacturer',
+    description: 'Baby diapers, adult diapers, wet wipes and more. Turkey\'s trusted hygiene products manufacturer. Export to 50+ countries, private label service.',
+  },
+  de: {
+    title: 'Soft & Power Hygiene | Hygieneprodukte-Hersteller',
+    description: 'Babywindeln, Erwachsenenwindeln, Feuchttücher und mehr. Türkeis vertrauenswürdiger Hygieneprodukte-Hersteller. Export in über 50 Länder, Private Label.',
+  },
+  ru: {
+    title: 'Soft & Power Hygiene | Производитель гигиенических товаров',
+    description: 'Детские подгузники, подгузники для взрослых, влажные салфетки и многое другое. Надежный турецкий производитель. Экспорт в 50+ стран.',
+  },
+  ar: {
+    title: 'سوفت آند باور | مُصنّع منتجات النظافة',
+    description: 'حفاضات أطفال، حفاضات بالغين، مناديل مبللة والمزيد. المُصنّع التركي الموثوق به لمنتجات النظافة. تصدير إلى أكثر من 50 دولة.',
+  },
+  uk: {
+    title: 'Soft & Power Hygiene | Виробник гігієнічних товарів',
+    description: 'Дитячі підгузки, підгузки для дорослих, вологі серветки та інше. Надійний турецький виробник. Експорт до 50+ країн.',
+  },
+};
+
+const OG_LOCALE_MAP: Record<string, string> = {
+  tr: 'tr_TR', en: 'en_US', de: 'de_DE', ru: 'ru_RU', ar: 'ar_SA', uk: 'uk_UA',
+};
+
+export async function generateMetadata({ params: { locale } }: { params: { locale: string } }): Promise<Metadata> {
+  const meta = META_BY_LOCALE[locale] || META_BY_LOCALE.tr;
+  const languages: Record<string, string> = {};
+  for (const l of SUPPORTED_LOCALES) languages[l] = `${SITE_URL}/${l}`;
+  languages['x-default'] = `${SITE_URL}/tr`;
+
+  return {
+    metadataBase: new URL(SITE_URL),
+    title: meta.title,
+    description: meta.description,
+    keywords: 'bebek bezi, yetişkin bezi, ıslak mendil, özel etiket, fason üretim, baby diaper, adult diaper, wet wipes, private label, hygiene products',
+    alternates: {
+      canonical: `${SITE_URL}/${locale}`,
+      languages,
+    },
+    openGraph: {
+      title: meta.title,
+      description: meta.description,
+      url: `${SITE_URL}/${locale}`,
+      siteName: 'Soft & Power Hygiene',
+      locale: OG_LOCALE_MAP[locale] || 'tr_TR',
+      type: 'website',
+      images: [{ url: `${SITE_URL}/logo-wide.png`, width: 1200, height: 630, alt: 'Soft & Power Hygiene' }],
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title: meta.title,
+      description: meta.description,
+      images: [`${SITE_URL}/logo-wide.png`],
+    },
+    robots: {
+      index: true,
+      follow: true,
+      googleBot: { index: true, follow: true, 'max-image-preview': 'large', 'max-snippet': -1 },
+    },
+  };
 }
 
 export default async function LocaleLayout({

@@ -8,7 +8,8 @@
     "products": "Продукты",
     "privateLabel": "Частная марка",
     "catalog": "Каталог",
-    "contact": "Контакт"
+    "contact": "Контакт",
+    "export": "Экспорт"
   },
   "hero": {
     "badge": "Надёжный производитель гигиены в Турции",
@@ -128,7 +129,8 @@
     "getQuote": "Запросить цену",
     "aboutDesc": "О Soft & Power Hygiene",
     "qualityDesc": "Стандарты качества ISO, CE, GMP",
-    "certificatesDesc": "Наши международные сертификаты"
+    "certificatesDesc": "Наши международные сертификаты",
+    "exportDesc": "Наша глобальная экспортная сеть"
   },
   "video": {
     "badge": "Промо-видео",

@@ -8,7 +8,8 @@
     "products": "Ürünler",
     "privateLabel": "Özel Etiket",
     "catalog": "Katalog",
-    "contact": "İletişim"
+    "contact": "İletişim",
+    "export": "İhracat"
   },
   "hero": {
     "badge": "Türkiye'nin Güvenilir Hijyen Üreticisi",
@@ -128,7 +129,8 @@
     "getQuote": "Teklif Al",
     "aboutDesc": "Soft & Power Hygiene hakkında",
     "qualityDesc": "ISO, CE, GMP kalite standartları",
-    "certificatesDesc": "Uluslararası sertifikalarımız"
+    "certificatesDesc": "Uluslararası sertifikalarımız",
+    "exportDesc": "Global ihracat ağımız"
   },
   "video": {
     "badge": "Tanıtım Filmi",

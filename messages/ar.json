@@ -8,7 +8,8 @@
     "products": "المنتجات",
     "privateLabel": "العلامة الخاصة",
     "catalog": "الكتالوج",
-    "contact": "اتصل بنا"
+    "contact": "اتصل بنا",
+    "export": "التصدير"
   },
   "hero": {
     "badge": "الشركة التركية الموثوقة لمنتجات النظافة",
@@ -128,7 +129,8 @@
     "getQuote": "احصل على عرض",
     "aboutDesc": "حول Soft & Power Hygiene",
     "qualityDesc": "معايير الجودة ISO, CE, GMP",
-    "certificatesDesc": "شهاداتنا الدولية"
+    "certificatesDesc": "شهاداتنا الدولية",
+    "exportDesc": "شبكة التصدير العالمية لدينا"
   },
   "video": {
     "badge": "فيديو ترويجي",

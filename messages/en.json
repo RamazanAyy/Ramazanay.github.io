@@ -8,7 +8,8 @@
     "products": "Products",
     "privateLabel": "Private Label",
     "catalog": "Catalogue",
-    "contact": "Contact"
+    "contact": "Contact",
+    "export": "Export"
   },
   "hero": {
     "badge": "Turkey's Trusted Hygiene Manufacturer",
@@ -128,7 +129,8 @@
     "getQuote": "Get Quote",
     "aboutDesc": "About Soft & Power Hygiene",
     "qualityDesc": "ISO, CE, GMP quality standards",
-    "certificatesDesc": "Our international certifications"
+    "certificatesDesc": "Our international certifications",
+    "exportDesc": "Our global export network"
   },
   "video": {
     "badge": "Promo Video",

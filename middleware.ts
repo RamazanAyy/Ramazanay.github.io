@@ -28,8 +28,8 @@ export default function middleware(req: NextRequest) {
 
   if (!LOCALE_PREFIX_RE.test(pathname) && !req.cookies.get(LOCALE_COOKIE)) {
     const country = (
-      req.headers.get('x-vercel-ip-country') ||
       req.headers.get('cf-ipcountry') ||
+      req.headers.get('x-country-code') ||
       ''
     ).toUpperCase();
 
@@ -47,5 +47,5 @@ export default function middleware(req: NextRequest) {
 }
 
 export const config = {
-  matcher: ['/((?!api|_next|_vercel|.*\\..*).*)'],
+  matcher: ['/((?!api|_next|.*\\..*).*)'],
 };

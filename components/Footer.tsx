@@ -34,7 +34,7 @@ export default function Footer() {
     <CatalogWidget />
     <footer className="bg-[#0d2d52] text-white">
       <div className="max-w-7xl mx-auto px-4 py-16">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-10">
           {/* Brand Column */}
           <div className="lg:col-span-1">
             <div className="inline-block mb-5">
@@ -116,12 +116,12 @@ export default function Footer() {
             </ul>
           </div>
 
-          {/* Contact */}
-          <div>
+          {/* Contact — wider on lg+ so emails/phones fit in 2 cols */}
+          <div className="lg:col-span-2">
             <h3 className="font-semibold text-white mb-5 text-sm uppercase tracking-wider">{t('contactInfo')}</h3>
-            <ul className="space-y-2.5">
-              {/* Address */}
-              <li className="flex items-start gap-2.5">
+            <ul className="space-y-2.5 sm:grid sm:grid-cols-2 sm:gap-x-5 sm:gap-y-3 sm:space-y-0">
+              {/* Address — full row */}
+              <li className="flex items-start gap-2.5 sm:col-span-2">
                 <span className="w-7 h-7 rounded-md bg-[#00b4c8] flex items-center justify-center flex-shrink-0 mt-0.5">
                   <svg className="w-3.5 h-3.5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />

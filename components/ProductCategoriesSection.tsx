@@ -5,6 +5,15 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useLocale, useTranslations } from 'next-intl';
+import { localizeCategorySlug } from '@/lib/products-data';
+
+// Canonical (TR) slug → href'i runtime'da locale'e göre çevir
+function localizeProductHref(href: string, locale: string): string {
+  const m = href.match(/^\/urunler\/([^/]+)(.*)$/);
+  if (!m) return href;
+  const [, slug, rest] = m;
+  return `/urunler/${localizeCategorySlug(slug, locale)}${rest}`;
+}
 
 interface ProductDef {
   nameKey: string;
@@ -301,7 +310,7 @@ export default function ProductCategoriesSection() {
                   className="w-full sm:snap-start sm:shrink-0 sm:w-[260px] lg:w-[280px]"
                 >
                   <Link
-                    href={`/${locale}${product.href}`}
+                    href={`/${locale}${localizeProductHref(product.href, locale)}`}
                     className="group relative flex flex-col bg-white rounded-2xl sm:rounded-3xl border border-transparent hover:border-[#00b4c8]/30 overflow-hidden shadow-sm hover:shadow-xl hover:shadow-blue-100/50 transition-all duration-300 hover:-translate-y-1.5 h-full"
                   >
                     {/* Hover accent */}

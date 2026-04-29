@@ -8,6 +8,7 @@ import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 import { getLocalizedCategories } from '@/lib/i18n-products';
 import { getCategoryImage } from '@/lib/product-images';
+import { localizeCategorySlug } from '@/lib/products-data';
 
 const CATEGORY_ICONS: Record<string, string> = {
   'bebek-bezi': '👶',
@@ -128,7 +129,7 @@ export default function ProductsPage() {
                 transition={{ duration: 0.45, delay: i * 0.06, ease: 'easeOut' as const }}
               >
                 <Link
-                  href={`/${locale}/urunler/${cat.slug}`}
+                  href={`/${locale}/urunler/${localizeCategorySlug(cat.slug, locale)}`}
                   className="group relative flex flex-col bg-white rounded-2xl border border-gray-100 overflow-hidden shadow-sm hover:shadow-2xl hover:border-[#1a5fa8]/20 transition-all duration-400 hover:-translate-y-1.5"
                 >
                   {/* Image */}

@@ -16,6 +16,9 @@ import {
   NavigationMenuTrigger,
   navigationMenuTriggerStyle,
 } from '@/components/ui/navigation-menu';
+import { localizeCategorySlug } from '@/lib/products-data';
+
+const cs = (canonical: string, locale: string) => localizeCategorySlug(canonical, locale);
 
 // ─── Constants ────────────────────────────────────────────────────────────────
 
@@ -128,15 +131,15 @@ function CorporateMenu({ locale, t, tNav }: { locale: string; t: ReturnType<type
 
 function ProductsMenu({ locale, tProducts, tNav }: { locale: string; tProducts: ReturnType<typeof useTranslations<'products'>>; tNav: ReturnType<typeof useTranslations<'navExtra'>> }) {
   const items = [
-    { key: 'babyDiapers' as const,    href: `/${locale}/urunler/bebek-bezi` },
-    { key: 'adultDiapers' as const,   href: `/${locale}/urunler/yetiskin-bezi` },
-    { key: 'adultPants' as const,     href: `/${locale}/urunler/yetiskin-kulot-bezi` },
-    { key: 'adultUnderpads' as const, href: `/${locale}/urunler/yetiskin-alt-serme-ortusu` },
-    { key: 'babyUnderpads' as const,  href: `/${locale}/urunler/bebek-alt-serme-ortusu` },
-    { key: 'bladderPads' as const,    href: `/${locale}/urunler/mesane-pedi` },
-    { key: 'sanitaryPads' as const,   href: `/${locale}/urunler/hijyenik-ped` },
-    { key: 'wetWipes' as const,       href: `/${locale}/urunler/islak-mendil` },
-    { key: 'cleaningTowels' as const, href: `/${locale}/urunler/yuzey-temizleme-havlusu` },
+    { key: 'babyDiapers' as const,    href: `/${locale}/urunler/${cs('bebek-bezi', locale)}` },
+    { key: 'adultDiapers' as const,   href: `/${locale}/urunler/${cs('yetiskin-bezi', locale)}` },
+    { key: 'adultPants' as const,     href: `/${locale}/urunler/${cs('yetiskin-kulot-bezi', locale)}` },
+    { key: 'adultUnderpads' as const, href: `/${locale}/urunler/${cs('yetiskin-alt-serme-ortusu', locale)}` },
+    { key: 'babyUnderpads' as const,  href: `/${locale}/urunler/${cs('bebek-alt-serme-ortusu', locale)}` },
+    { key: 'bladderPads' as const,    href: `/${locale}/urunler/${cs('mesane-pedi', locale)}` },
+    { key: 'sanitaryPads' as const,   href: `/${locale}/urunler/${cs('hijyenik-ped', locale)}` },
+    { key: 'wetWipes' as const,       href: `/${locale}/urunler/${cs('islak-mendil', locale)}` },
+    { key: 'cleaningTowels' as const, href: `/${locale}/urunler/${cs('yuzey-temizleme-havlusu', locale)}` },
   ];
 
   return (
@@ -529,15 +532,15 @@ export default function Navbar() {
                     >
                       <div className="grid grid-cols-2 gap-x-3 gap-y-1 py-2">
                         {[
-                          { key: 'babyDiapers' as const,    href: `/${locale}/urunler/bebek-bezi` },
-                          { key: 'adultDiapers' as const,   href: `/${locale}/urunler/yetiskin-bezi` },
-                          { key: 'adultPants' as const,     href: `/${locale}/urunler/yetiskin-kulot-bezi` },
-                          { key: 'adultUnderpads' as const, href: `/${locale}/urunler/yetiskin-alt-serme-ortusu` },
-                          { key: 'babyUnderpads' as const,  href: `/${locale}/urunler/bebek-alt-serme-ortusu` },
-                          { key: 'bladderPads' as const,    href: `/${locale}/urunler/mesane-pedi` },
-                          { key: 'sanitaryPads' as const,   href: `/${locale}/urunler/hijyenik-ped` },
-                          { key: 'wetWipes' as const,       href: `/${locale}/urunler/islak-mendil` },
-                          { key: 'cleaningTowels' as const, href: `/${locale}/urunler/yuzey-temizleme-havlusu` },
+                          { key: 'babyDiapers' as const,    href: `/${locale}/urunler/${cs('bebek-bezi', locale)}` },
+                          { key: 'adultDiapers' as const,   href: `/${locale}/urunler/${cs('yetiskin-bezi', locale)}` },
+                          { key: 'adultPants' as const,     href: `/${locale}/urunler/${cs('yetiskin-kulot-bezi', locale)}` },
+                          { key: 'adultUnderpads' as const, href: `/${locale}/urunler/${cs('yetiskin-alt-serme-ortusu', locale)}` },
+                          { key: 'babyUnderpads' as const,  href: `/${locale}/urunler/${cs('bebek-alt-serme-ortusu', locale)}` },
+                          { key: 'bladderPads' as const,    href: `/${locale}/urunler/${cs('mesane-pedi', locale)}` },
+                          { key: 'sanitaryPads' as const,   href: `/${locale}/urunler/${cs('hijyenik-ped', locale)}` },
+                          { key: 'wetWipes' as const,       href: `/${locale}/urunler/${cs('islak-mendil', locale)}` },
+                          { key: 'cleaningTowels' as const, href: `/${locale}/urunler/${cs('yuzey-temizleme-havlusu', locale)}` },
                         ].map(({ key, href }) => (
                           <Link
                             key={key}

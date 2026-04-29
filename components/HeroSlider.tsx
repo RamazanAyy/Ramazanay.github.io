@@ -5,6 +5,13 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useLocale, useTranslations } from 'next-intl';
+import { localizeCategorySlug } from '@/lib/products-data';
+
+function localizeHref(href: string, locale: string): string {
+  const m = href.match(/^\/urunler\/([^/]+)(.*)$/);
+  if (!m) return href;
+  return `/urunler/${localizeCategorySlug(m[1], locale)}${m[2]}`;
+}
 
 const SLIDES = [
   {
@@ -159,7 +166,7 @@ export default function HeroSlider() {
               {/* CTAs */}
               <div className="flex flex-wrap gap-2 sm:gap-3">
                 <Link
-                  href={`/${locale}${slide.href}`}
+                  href={`/${locale}${localizeHref(slide.href, locale)}`}
                   className="inline-flex items-center gap-1.5 sm:gap-2 bg-[#00b4c8] hover:bg-[#009aad] text-white font-bold px-4 py-2 sm:px-7 sm:py-3.5 text-xs sm:text-base rounded-lg sm:rounded-xl transition-all hover:scale-105 active:scale-95 shadow-lg shadow-[#00b4c8]/30"
                 >
                   {tSlider('discoverProduct')}

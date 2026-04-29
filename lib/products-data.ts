@@ -787,10 +787,111 @@ export const categories: Category[] = [
   },
 ];
 
+// ─── LOCALIZED SLUGS — SEO için her dilde özel slug ────────────────
+
+export const SUPPORTED_LOCALES = ['tr', 'en', 'de', 'ru', 'ar', 'uk'] as const;
+export type SupportedLocale = typeof SUPPORTED_LOCALES[number];
+
+// Canonical (TR) slug → localized slug per locale
+export const CATEGORY_SLUGS_BY_LOCALE: Record<string, Record<SupportedLocale, string>> = {
+  'bebek-bezi': {
+    tr: 'bebek-bezi',
+    en: 'baby-diapers',
+    de: 'babywindeln',
+    ru: 'detskie-podguzniki',
+    ar: 'hafadat-atfal',
+    uk: 'dytyachi-pidguzky',
+  },
+  'yetiskin-bezi': {
+    tr: 'yetiskin-bezi',
+    en: 'adult-diapers',
+    de: 'erwachsenenwindeln',
+    ru: 'podguzniki-dlya-vzroslyh',
+    ar: 'hafadat-balighin',
+    uk: 'pidguzky-dlya-doroslyh',
+  },
+  'yetiskin-kulot-bezi': {
+    tr: 'yetiskin-kulot-bezi',
+    en: 'adult-pants',
+    de: 'erwachsenen-pants',
+    ru: 'podguzniki-trusiki',
+    ar: 'sarawil-balighin',
+    uk: 'pidguzky-trusyky',
+  },
+  'yetiskin-alt-serme-ortusu': {
+    tr: 'yetiskin-alt-serme-ortusu',
+    en: 'adult-underpads',
+    de: 'krankenunterlagen',
+    ru: 'pelenki-dlya-vzroslyh',
+    ar: 'mafarish-balighin',
+    uk: 'pidstylky-dlya-doroslyh',
+  },
+  'bebek-alt-serme-ortusu': {
+    tr: 'bebek-alt-serme-ortusu',
+    en: 'baby-underpads',
+    de: 'baby-unterlagen',
+    ru: 'pelenki-detskie',
+    ar: 'mafarish-atfal',
+    uk: 'pidstylky-dytyachi',
+  },
+  'mesane-pedi': {
+    tr: 'mesane-pedi',
+    en: 'bladder-pads',
+    de: 'inkontinenzeinlagen',
+    ru: 'urologicheskie-prokladki',
+    ar: 'fewat-mathana',
+    uk: 'urologichni-prokladky',
+  },
+  'hijyenik-ped': {
+    tr: 'hijyenik-ped',
+    en: 'sanitary-pads',
+    de: 'damenbinden',
+    ru: 'gigienicheskie-prokladki',
+    ar: 'fewat-sihiya',
+    uk: 'gigienichni-prokladky',
+  },
+  'islak-mendil': {
+    tr: 'islak-mendil',
+    en: 'wet-wipes',
+    de: 'feuchttuecher',
+    ru: 'vlazhnye-salfetki',
+    ar: 'mandil-mubalal',
+    uk: 'vologi-servetky',
+  },
+  'yuzey-temizleme-havlusu': {
+    tr: 'yuzey-temizleme-havlusu',
+    en: 'cleaning-towels',
+    de: 'reinigungstuecher',
+    ru: 'salfetki-dlya-uborki',
+    ar: 'mandil-tanzif-asateh',
+    uk: 'servetky-dlya-prybyrannia',
+  },
+};
+
+// Reverse lookup: localized slug → canonical slug (for finding category)
+const SLUG_TO_CANONICAL: Record<string, string> = (() => {
+  const map: Record<string, string> = {};
+  for (const [canonical, locales] of Object.entries(CATEGORY_SLUGS_BY_LOCALE)) {
+    map[canonical] = canonical;
+    for (const slug of Object.values(locales)) map[slug] = canonical;
+  }
+  return map;
+})();
+
+export function localizeCategorySlug(canonicalSlug: string, locale: string): string {
+  return CATEGORY_SLUGS_BY_LOCALE[canonicalSlug]?.[locale as SupportedLocale] || canonicalSlug;
+}
+
+export function canonicalizeCategorySlug(anySlug: string): string {
+  return SLUG_TO_CANONICAL[anySlug] || anySlug;
+}
+
 // ─── HELPER FUNCTIONS ────────────────────────────────────────────────
 
 export function getCategoryBySlug(slug: string) {
-  return categories.find((c) => c.slug === slug);
+  // Önce direct match (TR canonical), sonra locale çevirisi
+  const canonical = canonicalizeCategorySlug(slug);
+  return categories.find((c) => c.slug === canonical);
 }
 
 export function getProductBySlug(catSlug: string, prodSlug: string) {

@@ -4,20 +4,22 @@ import Link from 'next/link';
 import { useTranslations, useLocale } from 'next-intl';
 import Image from 'next/image';
 import { CatalogWidget } from '@/components/ui/CatalogWidget';
+import { localizeCategorySlug } from '@/lib/products-data';
 
 export default function Footer() {
   const t = useTranslations('footer');
   const tNav = useTranslations('nav');
   const tProducts = useTranslations('products');
   const locale = useLocale();
+  const slug = (canonical: string) => localizeCategorySlug(canonical, locale);
 
   const productLinks = [
-    { key: 'babyDiapers', href: '/urunler/bebek-bezi' },
-    { key: 'adultDiapers', href: '/urunler/yetiskin-bezi' },
-    { key: 'adultPants', href: '/urunler/yetiskin-kulot-bezi' },
-    { key: 'sanitaryPads', href: '/urunler/hijyenik-ped' },
-    { key: 'babyWipes', href: '/urunler/islak-mendil' },
-    { key: 'wetWipes', href: '/urunler/islak-mendil' },
+    { key: 'babyDiapers', href: `/urunler/${slug('bebek-bezi')}` },
+    { key: 'adultDiapers', href: `/urunler/${slug('yetiskin-bezi')}` },
+    { key: 'adultPants', href: `/urunler/${slug('yetiskin-kulot-bezi')}` },
+    { key: 'sanitaryPads', href: `/urunler/${slug('hijyenik-ped')}` },
+    { key: 'babyWipes', href: `/urunler/${slug('islak-mendil')}` },
+    { key: 'wetWipes', href: `/urunler/${slug('islak-mendil')}` },
   ];
 
   const quickLinks = [

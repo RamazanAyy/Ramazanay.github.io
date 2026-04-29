@@ -1,7 +1,13 @@
 import { notFound } from 'next/navigation';
 import type { Metadata } from 'next';
 import { unstable_setRequestLocale, getTranslations } from 'next-intl/server';
-import { categories } from '@/lib/products-data';
+import {
+  categories,
+  CATEGORY_SLUGS_BY_LOCALE,
+  SUPPORTED_LOCALES,
+  canonicalizeCategorySlug,
+  localizeCategorySlug,
+} from '@/lib/products-data';
 import { getLocalizedCategoryBySlug } from '@/lib/i18n-products';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
@@ -17,8 +23,15 @@ interface PageProps {
 }
 
 export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
-  const category = getLocalizedCategoryBySlug(params.locale, params.kategori);
+  const canonicalSlug = canonicalizeCategorySlug(params.kategori);
+  const category = getLocalizedCategoryBySlug(params.locale, canonicalSlug);
   if (!category) return {};
+
+  // hreflang: her dilin kendi slug'ı
+  const languages: Record<string, string> = {};
+  for (const l of SUPPORTED_LOCALES) {
+    languages[l] = `/${l}/urunler/${localizeCategorySlug(canonicalSlug, l)}`;
+  }
 
   return {
     title: category.seoTitle,
@@ -30,19 +43,29 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
       locale: params.locale === 'tr' ? 'tr_TR' : params.locale,
     },
     alternates: {
-      canonical: `/${params.locale}/urunler/${category.slug}`,
+      canonical: `/${params.locale}/urunler/${params.kategori}`,
+      languages,
     },
   };
 }
 
+// Her dil için kendi slug'ını üret (locale x kategori)
 export function generateStaticParams() {
-  return categories.map((cat) => ({ kategori: cat.slug }));
+  const params: { locale: string; kategori: string }[] = [];
+  for (const locale of SUPPORTED_LOCALES) {
+    for (const cat of categories) {
+      const slug = CATEGORY_SLUGS_BY_LOCALE[cat.slug]?.[locale] || cat.slug;
+      params.push({ locale, kategori: slug });
+    }
+  }
+  return params;
 }
 
 export default async function CategoryPage({ params }: PageProps) {
   unstable_setRequestLocale(params.locale);
   const t = await getTranslations({ locale: params.locale });
-  const category = getLocalizedCategoryBySlug(params.locale, params.kategori);
+  const canonicalSlug = canonicalizeCategorySlug(params.kategori);
+  const category = getLocalizedCategoryBySlug(params.locale, canonicalSlug);
   if (!category) notFound();
 
   const faqJsonLd = {
@@ -83,7 +106,7 @@ export default async function CategoryPage({ params }: PageProps) {
         <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-16 lg:py-20">
           <ProductSeriesGroups
             products={category.products}
-            categorySlug={category.slug}
+            categorySlug={params.kategori}
             categoryName={category.name}
           />
         </section>

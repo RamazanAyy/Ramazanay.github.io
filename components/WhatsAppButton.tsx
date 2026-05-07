@@ -2,9 +2,20 @@
 
 import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
+import { useLocale } from 'next-intl';
+
+const CATALOG_PDF: Record<string, { href: string; downloadName: string }> = {
+  tr: { href: '/images/catalog/softandpower-katalog-tr.pdf', downloadName: 'SoftPower-Katalog-TR.pdf' },
+  en: { href: '/images/catalog/softpower-katalog.pdf',       downloadName: 'SoftPower-Catalog-EN.pdf' },
+};
+function getCatalogPdf(locale: string) {
+  return CATALOG_PDF[locale] || CATALOG_PDF.en;
+}
 
 export default function WhatsAppButton() {
   const [show, setShow] = useState(false);
+  const locale = useLocale();
+  const pdf = getCatalogPdf(locale);
 
   useEffect(() => {
     const t = setTimeout(() => setShow(true), 1500);
@@ -18,8 +29,8 @@ export default function WhatsAppButton() {
 
           {/* Catalog download button */}
           <motion.a
-            href="/images/catalog/softpower-katalog.pdf"
-            download="SoftPower-Katalog-2025.pdf"
+            href={pdf.href}
+            download={pdf.downloadName}
             initial={{ scale: 0 }}
             animate={{ scale: 1 }}
             transition={{ type: 'spring', stiffness: 200, damping: 15, delay: 0.1 }}

@@ -2,11 +2,20 @@
 import { useState } from "react"
 import Image from "next/image"
 import { motion, AnimatePresence } from "framer-motion"
+import { useLocale } from "next-intl"
 import { ChevronLeft, ChevronRight, Download, X, ZoomIn, ZoomOut } from "lucide-react"
 
 const PAGES = Array.from({ length: 30 }, (_, i) =>
   `/images/catalog/pages/page-${String(i + 1).padStart(2, '0')}.jpg`
 )
+
+const CATALOG_PDF: Record<string, { href: string; downloadName: string }> = {
+  tr: { href: "/images/catalog/softandpower-katalog-tr.pdf", downloadName: "SoftPower-Katalog-TR.pdf" },
+  en: { href: "/images/catalog/softpower-katalog.pdf",       downloadName: "SoftPower-Catalog-EN.pdf" },
+}
+function getCatalogPdf(locale: string) {
+  return CATALOG_PDF[locale] || CATALOG_PDF.en
+}
 
 interface CatalogViewerProps {
   isOpen: boolean
@@ -16,6 +25,8 @@ interface CatalogViewerProps {
 export function CatalogViewer({ isOpen, onClose }: CatalogViewerProps) {
   const [page, setPage] = useState(0)
   const [zoomed, setZoomed] = useState(false)
+  const locale = useLocale()
+  const pdf = getCatalogPdf(locale)
 
   const prev = () => setPage((p) => Math.max(0, p - 1))
   const next = () => setPage((p) => Math.min(PAGES.length - 1, p + 1))
@@ -53,8 +64,8 @@ export function CatalogViewer({ isOpen, onClose }: CatalogViewerProps) {
                   {zoomed ? <ZoomOut className="w-4 h-4" /> : <ZoomIn className="w-4 h-4" />}
                 </button>
                 <a
-                  href="/images/catalog/softpower-katalog.pdf"
-                  download="SoftPower-Katalog-2024.pdf"
+                  href={pdf.href}
+                  download={pdf.downloadName}
                   className="flex items-center gap-1.5 bg-[#00b4c8] text-white text-xs font-semibold px-3 py-1.5 rounded-lg hover:bg-[#00b4c8]/80 transition-colors"
                 >
                   <Download className="w-3.5 h-3.5" />

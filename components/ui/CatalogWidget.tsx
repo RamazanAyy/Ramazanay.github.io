@@ -2,7 +2,7 @@
 import { useState, useEffect } from "react"
 import Image from "next/image"
 import { motion, AnimatePresence } from "framer-motion"
-import { useTranslations } from "next-intl"
+import { useTranslations, useLocale } from "next-intl"
 import { FileDown, Eye } from "lucide-react"
 import { CatalogViewer } from "./CatalogViewer"
 
@@ -10,10 +10,22 @@ const CATALOG_IMAGES = Array.from({ length: 30 }, (_, i) =>
   `/images/catalog/pages/page-${String(i + 1).padStart(2, '0')}.jpg`
 )
 
+// Locale → katalog PDF dosyası. TR kendine, diğerleri İngilizce'ye düşer.
+const CATALOG_PDF: Record<string, { href: string; downloadName: string }> = {
+  tr: { href: "/images/catalog/softandpower-katalog-tr.pdf", downloadName: "SoftPower-Katalog-TR.pdf" },
+  // EN, DE, RU, AR, UK → ortak İngilizce katalog
+  en: { href: "/images/catalog/softpower-katalog.pdf",       downloadName: "SoftPower-Catalog-EN.pdf" },
+}
+function getCatalogPdf(locale: string) {
+  return CATALOG_PDF[locale] || CATALOG_PDF.en
+}
+
 export function CatalogWidget() {
   const [viewerOpen, setViewerOpen] = useState(false)
   const [currentImg, setCurrentImg] = useState(0)
   const t = useTranslations('catalogWidget')
+  const locale = useLocale()
+  const pdf = getCatalogPdf(locale)
 
   useEffect(() => {
     const timer = setInterval(() => {
@@ -121,8 +133,8 @@ export function CatalogWidget() {
             </div>
             <div className="flex flex-wrap gap-4 justify-center md:justify-start">
               <motion.a
-                href="/images/catalog/softpower-katalog.pdf"
-                download="SoftPower-Katalog-2025.pdf"
+                href={pdf.href}
+                download={pdf.downloadName}
                 className="flex items-center gap-2 bg-[#00b4c8] text-white font-semibold px-6 py-3 rounded-xl hover:bg-[#00b4c8]/90 transition-colors shadow-lg shadow-[#00b4c8]/25"
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.98 }}

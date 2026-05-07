@@ -5,6 +5,7 @@ import { useLocale, useTranslations } from 'next-intl';
 import { motion } from 'framer-motion';
 import type { Product } from '@/lib/products-data';
 import { getProductImage } from '@/lib/product-images';
+import { getLocalizedUrl } from '@/lib/paths';
 
 interface ProductGridProps {
   products: Product[];
@@ -164,7 +165,7 @@ export default function ProductGrid({ products, categorySlug }: ProductGridProps
             {/* Action buttons */}
             <div className="mt-4 flex gap-3">
               <Link
-                href={`/${locale}/urunler/${categorySlug}/${product.slug}`}
+                href={getLocalizedUrl(locale, '/urunler', categorySlug, product.slug)}
                 className="flex-1 inline-flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl bg-[#00b4c8] hover:bg-[#009db0] text-white text-sm font-semibold transition-all duration-200 hover:scale-[1.02] active:scale-[0.98]"
               >
                 {t('viewDetails')}

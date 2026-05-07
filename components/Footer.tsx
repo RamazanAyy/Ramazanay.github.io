@@ -5,6 +5,7 @@ import { useTranslations, useLocale } from 'next-intl';
 import Image from 'next/image';
 import { CatalogWidget } from '@/components/ui/CatalogWidget';
 import { localizeCategorySlug } from '@/lib/products-data';
+import { getLocalizedUrl } from '@/lib/paths';
 
 export default function Footer() {
   const t = useTranslations('footer');
@@ -12,23 +13,24 @@ export default function Footer() {
   const tProducts = useTranslations('products');
   const locale = useLocale();
   const slug = (canonical: string) => localizeCategorySlug(canonical, locale);
+  const url = (path: string, ...rest: string[]) => getLocalizedUrl(locale, path, ...rest);
 
   const productLinks = [
-    { key: 'babyDiapers', href: `/urunler/${slug('bebek-bezi')}` },
-    { key: 'adultDiapers', href: `/urunler/${slug('yetiskin-bezi')}` },
-    { key: 'adultPants', href: `/urunler/${slug('yetiskin-kulot-bezi')}` },
-    { key: 'sanitaryPads', href: `/urunler/${slug('hijyenik-ped')}` },
-    { key: 'babyWipes', href: `/urunler/${slug('islak-mendil')}` },
-    { key: 'wetWipes', href: `/urunler/${slug('islak-mendil')}` },
+    { key: 'babyDiapers',  href: url('/urunler', slug('bebek-bezi')) },
+    { key: 'adultDiapers', href: url('/urunler', slug('yetiskin-bezi')) },
+    { key: 'adultPants',   href: url('/urunler', slug('yetiskin-kulot-bezi')) },
+    { key: 'sanitaryPads', href: url('/urunler', slug('hijyenik-ped')) },
+    { key: 'babyWipes',    href: url('/urunler', slug('islak-mendil')) },
+    { key: 'wetWipes',     href: url('/urunler', slug('islak-mendil')) },
   ];
 
   const quickLinks = [
-    { label: tNav('home'), href: `/${locale}` },
-    { label: tNav('about'), href: `/${locale}/kurumsal/hakkimizda` },
-    { label: tNav('quality'), href: `/${locale}/kurumsal/uretim` },
-    { label: tNav('certificates'), href: `/${locale}/kurumsal/sertifikalar` },
-    { label: tNav('privateLabel'), href: `/${locale}/ozel-etiket` },
-    { label: tNav('contact'), href: `/${locale}/iletisim` },
+    { label: tNav('home'),         href: `/${locale}` },
+    { label: tNav('about'),        href: url('/kurumsal/hakkimizda') },
+    { label: tNav('quality'),      href: url('/kurumsal/uretim') },
+    { label: tNav('certificates'), href: url('/kurumsal/sertifikalar') },
+    { label: tNav('privateLabel'), href: url('/ozel-etiket') },
+    { label: tNav('contact'),      href: url('/iletisim') },
   ];
 
   return (
@@ -107,7 +109,7 @@ export default function Footer() {
             <ul className="space-y-3">
               {productLinks.map(({ key, href }) => (
                 <li key={key}>
-                  <Link href={`/${locale}${href}`} className="text-blue-200 hover:text-white text-sm transition-colors flex items-center gap-1.5 group">
+                  <Link href={href} className="text-blue-200 hover:text-white text-sm transition-colors flex items-center gap-1.5 group">
                     <svg className="w-3 h-3 text-[#4785D3] group-hover:text-blue-300 transition-colors" fill="currentColor" viewBox="0 0 20 20">
                       <path fillRule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clipRule="evenodd" />
                     </svg>

@@ -6,11 +6,14 @@ import Link from 'next/link';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useLocale, useTranslations } from 'next-intl';
 import { localizeCategorySlug } from '@/lib/products-data';
+import { getLocalizedUrl } from '@/lib/paths';
 
-function localizeHref(href: string, locale: string): string {
+// "/urunler/<canonical-slug>" → tam lokalize URL ("/en/products/<localized-slug>")
+function localizeProductHref(href: string, locale: string): string {
   const m = href.match(/^\/urunler\/([^/]+)(.*)$/);
-  if (!m) return href;
-  return `/urunler/${localizeCategorySlug(m[1], locale)}${m[2]}`;
+  if (!m) return `/${locale}${href}`;
+  const localizedSlug = localizeCategorySlug(m[1], locale);
+  return getLocalizedUrl(locale, '/urunler', localizedSlug + (m[2] || ''));
 }
 
 const SLIDES = [
@@ -166,7 +169,7 @@ export default function HeroSlider() {
               {/* CTAs */}
               <div className="flex flex-wrap gap-2 sm:gap-3">
                 <Link
-                  href={`/${locale}${localizeHref(slide.href, locale)}`}
+                  href={localizeProductHref(slide.href, locale)}
                   className="inline-flex items-center gap-1.5 sm:gap-2 bg-[#00b4c8] hover:bg-[#009aad] text-white font-bold px-4 py-2 sm:px-7 sm:py-3.5 text-xs sm:text-base rounded-lg sm:rounded-xl transition-all hover:scale-105 active:scale-95 shadow-lg shadow-[#00b4c8]/30"
                 >
                   {tSlider('discoverProduct')}
@@ -175,7 +178,7 @@ export default function HeroSlider() {
                   </svg>
                 </Link>
                 <Link
-                  href={`/${locale}/urunler`}
+                  href={getLocalizedUrl(locale, '/urunler')}
                   className="inline-flex items-center gap-1.5 sm:gap-2 border-2 border-white/35 hover:border-white/65 hover:bg-white/10 text-white font-semibold px-4 py-2 sm:px-7 sm:py-3.5 text-xs sm:text-base rounded-lg sm:rounded-xl transition-all"
                 >
                   {tSlider('allProducts')}

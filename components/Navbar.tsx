@@ -4,7 +4,7 @@ import * as React from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { useTranslations, useLocale } from 'next-intl';
-import { usePathname, useRouter } from 'next/navigation';
+import { usePathname, useRouter } from '@/i18n/navigation';
 import { motion, AnimatePresence } from 'framer-motion';
 import { cn } from '@/lib/utils';
 import {
@@ -17,8 +17,10 @@ import {
   navigationMenuTriggerStyle,
 } from '@/components/ui/navigation-menu';
 import { localizeCategorySlug } from '@/lib/products-data';
+import { getLocalizedUrl } from '@/lib/paths';
 
 const cs = (canonical: string, locale: string) => localizeCategorySlug(canonical, locale);
+const url = getLocalizedUrl;
 
 // ─── Constants ────────────────────────────────────────────────────────────────
 
@@ -73,7 +75,7 @@ function CorporateMenu({ locale, t, tNav }: { locale: string; t: ReturnType<type
   const links = [
     {
       key: 'about' as const,
-      href: `/${locale}/kurumsal/hakkimizda`,
+      href: url(locale, '/kurumsal/hakkimizda'),
       descKey: 'aboutDesc' as const,
       icon: (
         <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -83,7 +85,7 @@ function CorporateMenu({ locale, t, tNav }: { locale: string; t: ReturnType<type
     },
     {
       key: 'quality' as const,
-      href: `/${locale}/kurumsal/uretim`,
+      href: url(locale, '/kurumsal/uretim'),
       descKey: 'qualityDesc' as const,
       icon: (
         <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -93,7 +95,7 @@ function CorporateMenu({ locale, t, tNav }: { locale: string; t: ReturnType<type
     },
     {
       key: 'certificates' as const,
-      href: `/${locale}/kurumsal/sertifikalar`,
+      href: url(locale, '/kurumsal/sertifikalar'),
       descKey: 'certificatesDesc' as const,
       icon: (
         <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -131,15 +133,15 @@ function CorporateMenu({ locale, t, tNav }: { locale: string; t: ReturnType<type
 
 function ProductsMenu({ locale, tProducts, tNav }: { locale: string; tProducts: ReturnType<typeof useTranslations<'products'>>; tNav: ReturnType<typeof useTranslations<'navExtra'>> }) {
   const items = [
-    { key: 'babyDiapers' as const,    href: `/${locale}/urunler/${cs('bebek-bezi', locale)}` },
-    { key: 'adultDiapers' as const,   href: `/${locale}/urunler/${cs('yetiskin-bezi', locale)}` },
-    { key: 'adultPants' as const,     href: `/${locale}/urunler/${cs('yetiskin-kulot-bezi', locale)}` },
-    { key: 'adultUnderpads' as const, href: `/${locale}/urunler/${cs('yetiskin-alt-serme-ortusu', locale)}` },
-    { key: 'babyUnderpads' as const,  href: `/${locale}/urunler/${cs('bebek-alt-serme-ortusu', locale)}` },
-    { key: 'bladderPads' as const,    href: `/${locale}/urunler/${cs('mesane-pedi', locale)}` },
-    { key: 'sanitaryPads' as const,   href: `/${locale}/urunler/${cs('hijyenik-ped', locale)}` },
-    { key: 'wetWipes' as const,       href: `/${locale}/urunler/${cs('islak-mendil', locale)}` },
-    { key: 'cleaningTowels' as const, href: `/${locale}/urunler/${cs('yuzey-temizleme-havlusu', locale)}` },
+    { key: 'babyDiapers' as const,    href: url(locale, '/urunler', cs('bebek-bezi', locale)) },
+    { key: 'adultDiapers' as const,   href: url(locale, '/urunler', cs('yetiskin-bezi', locale)) },
+    { key: 'adultPants' as const,     href: url(locale, '/urunler', cs('yetiskin-kulot-bezi', locale)) },
+    { key: 'adultUnderpads' as const, href: url(locale, '/urunler', cs('yetiskin-alt-serme-ortusu', locale)) },
+    { key: 'babyUnderpads' as const,  href: url(locale, '/urunler', cs('bebek-alt-serme-ortusu', locale)) },
+    { key: 'bladderPads' as const,    href: url(locale, '/urunler', cs('mesane-pedi', locale)) },
+    { key: 'sanitaryPads' as const,   href: url(locale, '/urunler', cs('hijyenik-ped', locale)) },
+    { key: 'wetWipes' as const,       href: url(locale, '/urunler', cs('islak-mendil', locale)) },
+    { key: 'cleaningTowels' as const, href: url(locale, '/urunler', cs('yuzey-temizleme-havlusu', locale)) },
   ];
 
   return (
@@ -164,7 +166,7 @@ function ProductsMenu({ locale, tProducts, tNav }: { locale: string; tProducts: 
       </ul>
       <div className="border-t border-gray-100 mt-3 pt-3 px-3">
         <Link
-          href={`/${locale}/urunler`}
+          href={url(locale, '/urunler')}
           className="text-xs font-semibold text-[#1a5fa8] hover:text-[#00b4c8] transition-colors flex items-center gap-1"
         >
           {tNav('allProducts')}
@@ -209,9 +211,8 @@ export default function Navbar() {
   }, [mobileOpen]);
 
   const switchLocale = (code: string) => {
-    const segs = pathname.split('/');
-    segs[1] = code;
-    router.push(segs.join('/'));
+    // next-intl router/usePathname canonical path döndürür → router.push otomatik lokalize URL üretir
+    router.push(pathname as any, { locale: code });
     setLangOpen(false);
     setMobileOpen(false);
   };
@@ -348,14 +349,14 @@ export default function Navbar() {
                       {/* Private Label */}
                       <NavigationMenuItem>
                         <NavigationMenuLink asChild className={cn(navigationMenuTriggerStyle(), 'bg-transparent text-[15px]')}>
-                          <Link href={`/${locale}/ozel-etiket`}>{t('privateLabel')}</Link>
+                          <Link href={url(locale, '/ozel-etiket')}>{t('privateLabel')}</Link>
                         </NavigationMenuLink>
                       </NavigationMenuItem>
 
                       {/* İletişim */}
                       <NavigationMenuItem>
                         <NavigationMenuLink asChild className={cn(navigationMenuTriggerStyle(), 'bg-transparent text-[15px]')}>
-                          <Link href={`/${locale}/iletisim`}>{t('contact')}</Link>
+                          <Link href={url(locale, '/iletisim')}>{t('contact')}</Link>
                         </NavigationMenuLink>
                       </NavigationMenuItem>
 
@@ -410,7 +411,7 @@ export default function Navbar() {
 
                 {/* CTA button */}
                 <Link
-                  href={`/${locale}/iletisim`}
+                  href={url(locale, '/iletisim')}
                   className="inline-flex items-center gap-1.5 bg-[#00b4c8] hover:bg-[#009aad] text-white text-[13px] font-semibold px-4 py-2 rounded-xl transition-all hover:scale-105 active:scale-95 whitespace-nowrap"
                 >
                   {tNavExtra('getQuote')}
@@ -532,15 +533,15 @@ export default function Navbar() {
                     >
                       <div className="grid grid-cols-2 gap-x-3 gap-y-1 py-2">
                         {[
-                          { key: 'babyDiapers' as const,    href: `/${locale}/urunler/${cs('bebek-bezi', locale)}` },
-                          { key: 'adultDiapers' as const,   href: `/${locale}/urunler/${cs('yetiskin-bezi', locale)}` },
-                          { key: 'adultPants' as const,     href: `/${locale}/urunler/${cs('yetiskin-kulot-bezi', locale)}` },
-                          { key: 'adultUnderpads' as const, href: `/${locale}/urunler/${cs('yetiskin-alt-serme-ortusu', locale)}` },
-                          { key: 'babyUnderpads' as const,  href: `/${locale}/urunler/${cs('bebek-alt-serme-ortusu', locale)}` },
-                          { key: 'bladderPads' as const,    href: `/${locale}/urunler/${cs('mesane-pedi', locale)}` },
-                          { key: 'sanitaryPads' as const,   href: `/${locale}/urunler/${cs('hijyenik-ped', locale)}` },
-                          { key: 'wetWipes' as const,       href: `/${locale}/urunler/${cs('islak-mendil', locale)}` },
-                          { key: 'cleaningTowels' as const, href: `/${locale}/urunler/${cs('yuzey-temizleme-havlusu', locale)}` },
+                          { key: 'babyDiapers' as const,    href: url(locale, '/urunler', cs('bebek-bezi', locale)) },
+                          { key: 'adultDiapers' as const,   href: url(locale, '/urunler', cs('yetiskin-bezi', locale)) },
+                          { key: 'adultPants' as const,     href: url(locale, '/urunler', cs('yetiskin-kulot-bezi', locale)) },
+                          { key: 'adultUnderpads' as const, href: url(locale, '/urunler', cs('yetiskin-alt-serme-ortusu', locale)) },
+                          { key: 'babyUnderpads' as const,  href: url(locale, '/urunler', cs('bebek-alt-serme-ortusu', locale)) },
+                          { key: 'bladderPads' as const,    href: url(locale, '/urunler', cs('mesane-pedi', locale)) },
+                          { key: 'sanitaryPads' as const,   href: url(locale, '/urunler', cs('hijyenik-ped', locale)) },
+                          { key: 'wetWipes' as const,       href: url(locale, '/urunler', cs('islak-mendil', locale)) },
+                          { key: 'cleaningTowels' as const, href: url(locale, '/urunler', cs('yuzey-temizleme-havlusu', locale)) },
                         ].map(({ key, href }) => (
                           <Link
                             key={key}
@@ -554,7 +555,7 @@ export default function Navbar() {
                         ))}
                       </div>
                       <Link
-                        href={`/${locale}/urunler`}
+                        href={url(locale, '/urunler')}
                         onClick={closeMobile}
                         className="flex items-center gap-2 pb-4 text-sm font-semibold text-[#00b4c8] hover:text-white transition-colors"
                       >
@@ -571,7 +572,7 @@ export default function Navbar() {
               {/* Özel Etiket */}
               <motion.div variants={mobileItemVariants}>
                 <Link
-                  href={`/${locale}/ozel-etiket`}
+                  href={url(locale, '/ozel-etiket')}
                   onClick={closeMobile}
                   className="flex items-center py-4 text-xl font-bold text-white border-b border-white/10 hover:text-[#00b4c8] transition-colors"
                 >
@@ -582,7 +583,7 @@ export default function Navbar() {
               {/* İletişim */}
               <motion.div variants={mobileItemVariants}>
                 <Link
-                  href={`/${locale}/iletisim`}
+                  href={url(locale, '/iletisim')}
                   onClick={closeMobile}
                   className="flex items-center py-4 text-xl font-bold text-white border-b border-white/10 hover:text-[#00b4c8] transition-colors"
                 >
@@ -616,9 +617,9 @@ export default function Navbar() {
                       className="overflow-hidden pl-4 border-b border-white/10"
                     >
                       {[
-                        { key: 'about',        href: `/${locale}/kurumsal/hakkimizda` },
-                        { key: 'quality',      href: `/${locale}/kurumsal/uretim` },
-                        { key: 'certificates', href: `/${locale}/kurumsal/sertifikalar` },
+                        { key: 'about',        href: url(locale, '/kurumsal/hakkimizda') },
+                        { key: 'quality',      href: url(locale, '/kurumsal/uretim') },
+                        { key: 'certificates', href: url(locale, '/kurumsal/sertifikalar') },
                       ].map(({ key, href }) => (
                         <Link
                           key={key}

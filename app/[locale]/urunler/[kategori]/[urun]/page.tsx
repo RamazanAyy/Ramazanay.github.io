@@ -13,6 +13,7 @@ import {
   getLocalizedCategoryBySlug,
   getLocalizedProductBySlug,
 } from '@/lib/i18n-products';
+import { getLocalizedUrl } from '@/lib/paths';
 import Image from 'next/image';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
@@ -42,7 +43,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   // hreflang: her dilin kendi kategori slug'ı (ürün slug'ı sabit)
   const languages: Record<string, string> = {};
   for (const l of SUPPORTED_LOCALES) {
-    languages[l] = `/${l}/urunler/${localizeCategorySlug(canonicalSlug, l)}/${params.urun}`;
+    languages[l] = getLocalizedUrl(l, '/urunler', localizeCategorySlug(canonicalSlug, l), params.urun);
   }
 
   return {
@@ -55,7 +56,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
       locale: params.locale === 'tr' ? 'tr_TR' : params.locale,
     },
     alternates: {
-      canonical: `/${params.locale}/urunler/${params.kategori}/${params.urun}`,
+      canonical: getLocalizedUrl(params.locale, '/urunler', params.kategori, params.urun),
       languages,
     },
   };
@@ -139,10 +140,10 @@ export default async function ProductPage({ params }: PageProps) {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <Breadcrumb
             items={[
-              { label: t('nav.products'), href: `/${params.locale}/urunler` },
+              { label: t('nav.products'), href: getLocalizedUrl(params.locale, '/urunler') },
               {
                 label: category.name,
-                href: `/${params.locale}/urunler/${params.kategori}`,
+                href: getLocalizedUrl(params.locale, '/urunler', params.kategori),
               },
               { label: product.name },
             ]}
@@ -406,7 +407,7 @@ export default async function ProductPage({ params }: PageProps) {
               {related.map((rel, i) => (
                 <FadeInUp key={rel.slug} delay={i * 0.08}>
                   <Link
-                    href={`/${params.locale}/urunler/${params.kategori}/${rel.slug}`}
+                    href={getLocalizedUrl(params.locale, '/urunler', params.kategori, rel.slug)}
                     className="group block rounded-2xl bg-white border border-gray-100 shadow-sm hover:shadow-lg hover:border-[#1a5fa8]/20 transition-all duration-300 overflow-hidden"
                   >
                     {/* Image or gradient fallback */}

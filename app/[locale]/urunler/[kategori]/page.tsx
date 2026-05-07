@@ -9,6 +9,7 @@ import {
   localizeCategorySlug,
 } from '@/lib/products-data';
 import { getLocalizedCategoryBySlug } from '@/lib/i18n-products';
+import { getLocalizedUrl, getLocalizedPath } from '@/lib/paths';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 import Breadcrumb from '@/components/sections/Breadcrumb';
@@ -27,10 +28,10 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   const category = getLocalizedCategoryBySlug(params.locale, canonicalSlug);
   if (!category) return {};
 
-  // hreflang: her dilin kendi slug'ı
+  // hreflang: her dilin kendi lokalize URL'i
   const languages: Record<string, string> = {};
   for (const l of SUPPORTED_LOCALES) {
-    languages[l] = `/${l}/urunler/${localizeCategorySlug(canonicalSlug, l)}`;
+    languages[l] = getLocalizedUrl(l, '/urunler', localizeCategorySlug(canonicalSlug, l));
   }
 
   return {
@@ -43,7 +44,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
       locale: params.locale === 'tr' ? 'tr_TR' : params.locale,
     },
     alternates: {
-      canonical: `/${params.locale}/urunler/${params.kategori}`,
+      canonical: getLocalizedUrl(params.locale, '/urunler', params.kategori),
       languages,
     },
   };
@@ -89,7 +90,7 @@ export default async function CategoryPage({ params }: PageProps) {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <Breadcrumb
             items={[
-              { label: t('nav.products'), href: `/${params.locale}/urunler` },
+              { label: t('nav.products'), href: getLocalizedUrl(params.locale, '/urunler') },
               { label: category.name },
             ]}
           />

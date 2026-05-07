@@ -2,6 +2,7 @@
 import Link from 'next/link';
 import { useLocale } from 'next-intl';
 import { motion } from 'framer-motion';
+import { getLocalizedUrl } from '@/lib/paths';
 
 export default function CtaSection() {
   const locale = useLocale();
@@ -57,7 +58,7 @@ export default function CtaSection() {
 
           {/* Teklif Formu Button */}
           <Link
-            href={`/${locale}/iletisim`}
+            href={getLocalizedUrl(locale, '/iletisim')}
             className="inline-flex items-center gap-3 px-8 py-3.5 rounded-xl border-2 border-[#00b4c8] text-[#00b4c8] hover:bg-[#00b4c8] hover:text-white font-semibold text-base transition-all duration-200 hover:scale-[1.02] active:scale-[0.98]"
           >
             <svg

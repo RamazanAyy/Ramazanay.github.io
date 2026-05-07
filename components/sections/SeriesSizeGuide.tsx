@@ -6,6 +6,7 @@ import { useLocale, useTranslations } from 'next-intl';
 import { motion } from 'framer-motion';
 import type { Product } from '@/lib/products-data';
 import { getProductImage } from '@/lib/product-images';
+import { getLocalizedUrl } from '@/lib/paths';
 
 interface Props {
   series: string;
@@ -55,7 +56,7 @@ export default function SeriesSizeGuide({
             return (
               <Link
                 key={p.slug}
-                href={`/${locale}/urunler/${categorySlug}/${p.slug}`}
+                href={getLocalizedUrl(locale, '/urunler', categorySlug, p.slug)}
                 aria-current={isActive ? 'page' : undefined}
                 className={`group relative flex flex-col items-center text-center rounded-xl border transition-all duration-200 overflow-hidden ${
                   isActive

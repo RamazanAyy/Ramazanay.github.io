@@ -6,13 +6,14 @@ import Link from 'next/link';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useLocale, useTranslations } from 'next-intl';
 import { localizeCategorySlug } from '@/lib/products-data';
+import { getLocalizedUrl } from '@/lib/paths';
 
-// Canonical (TR) slug → href'i runtime'da locale'e göre çevir
+// Canonical "/urunler/<slug>" → tam lokalize URL ("/en/products/<localized-slug>")
 function localizeProductHref(href: string, locale: string): string {
   const m = href.match(/^\/urunler\/([^/]+)(.*)$/);
-  if (!m) return href;
+  if (!m) return `/${locale}${href}`;
   const [, slug, rest] = m;
-  return `/urunler/${localizeCategorySlug(slug, locale)}${rest}`;
+  return getLocalizedUrl(locale, '/urunler', localizeCategorySlug(slug, locale) + (rest || ''));
 }
 
 interface ProductDef {
@@ -310,7 +311,7 @@ export default function ProductCategoriesSection() {
                   className="w-full sm:snap-start sm:shrink-0 sm:w-[260px] lg:w-[280px]"
                 >
                   <Link
-                    href={`/${locale}${localizeProductHref(product.href, locale)}`}
+                    href={localizeProductHref(product.href, locale)}
                     className="group relative flex flex-col bg-white rounded-2xl sm:rounded-3xl border border-transparent hover:border-[#00b4c8]/30 overflow-hidden shadow-sm hover:shadow-xl hover:shadow-blue-100/50 transition-all duration-300 hover:-translate-y-1.5 h-full"
                   >
                     {/* Hover accent */}
@@ -370,7 +371,7 @@ export default function ProductCategoriesSection() {
                 }`}
               >
                 <Link
-                  href={`/${locale}/urunler`}
+                  href={getLocalizedUrl(locale, '/urunler')}
                   className="group flex flex-row sm:flex-col items-center justify-center bg-gradient-to-b from-[#f0f9ff] to-white border-2 border-dashed border-[#00b4c8]/40 hover:border-solid hover:border-[#00b4c8] rounded-2xl sm:rounded-3xl min-h-[90px] sm:min-h-[360px] h-full transition-all duration-300 gap-3 sm:gap-4 p-4 sm:p-5 text-center hover:shadow-lg"
                 >
                   <div className="w-14 h-14 rounded-2xl bg-[#1a5fa8]/10 group-hover:bg-[#1a5fa8] flex items-center justify-center transition-all">

@@ -1,15 +1,8 @@
 import createMiddleware from 'next-intl/middleware';
 import { NextRequest, NextResponse } from 'next/server';
+import { routing, locales, defaultLocale, type Locale } from './i18n/routing';
 
-const LOCALES = ['tr', 'en', 'de', 'ru', 'ar', 'uk'] as const;
-type Locale = (typeof LOCALES)[number];
-const DEFAULT_LOCALE: Locale = 'tr';
-
-const intlMiddleware = createMiddleware({
-  locales: LOCALES as unknown as string[],
-  defaultLocale: DEFAULT_LOCALE,
-  localePrefix: 'always',
-});
+const intlMiddleware = createMiddleware(routing);
 
 // ─── Ülke kodu → site dili eşlemesi ────────────────────────────────
 const COUNTRY_TO_LOCALE: Record<string, Locale> = {
@@ -32,14 +25,14 @@ const LANG_TO_LOCALE: Record<string, Locale> = {
   en: 'en',
 };
 
-const LOCALE_PREFIX_RE = /^\/(tr|en|de|ru|ar|uk)(\/|$)/;
+const LOCALE_PREFIX_RE = new RegExp(`^/(${locales.join('|')})(/|$)`);
 const LOCALE_COOKIE = 'NEXT_LOCALE';
 
 function detectFromCountry(req: NextRequest): Locale | null {
   const country = (
-    req.headers.get('cf-ipcountry') ||      // Cloudflare
-    req.headers.get('x-vercel-ip-country') || // Vercel
-    req.headers.get('x-country-code') ||    // Generic / custom
+    req.headers.get('cf-ipcountry') ||
+    req.headers.get('x-vercel-ip-country') ||
+    req.headers.get('x-country-code') ||
     ''
   ).toUpperCase();
   return COUNTRY_TO_LOCALE[country] || null;
@@ -48,7 +41,6 @@ function detectFromCountry(req: NextRequest): Locale | null {
 function detectFromAcceptLanguage(req: NextRequest): Locale | null {
   const header = req.headers.get('accept-language');
   if (!header) return null;
-  // "tr-TR,tr;q=0.9,en-US;q=0.8" → [tr-TR, tr, en-US]
   const langs = header
     .split(',')
     .map((p) => {
@@ -58,7 +50,7 @@ function detectFromAcceptLanguage(req: NextRequest): Locale | null {
     .sort((a, b) => b.q - a.q);
 
   for (const { tag } of langs) {
-    const primary = tag.split('-')[0]; // "tr-tr" → "tr"
+    const primary = tag.split('-')[0];
     if (LANG_TO_LOCALE[primary]) return LANG_TO_LOCALE[primary];
   }
   return null;
@@ -73,7 +65,7 @@ export default function middleware(req: NextRequest) {
       detectFromCountry(req) ||
       detectFromAcceptLanguage(req);
 
-    if (target && target !== DEFAULT_LOCALE) {
+    if (target && target !== defaultLocale) {
       const url = req.nextUrl.clone();
       url.pathname = `/${target}${pathname === '/' ? '' : pathname}`;
       const res = NextResponse.redirect(url);

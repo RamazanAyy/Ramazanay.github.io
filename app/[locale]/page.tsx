@@ -9,6 +9,7 @@ import { motion } from 'framer-motion';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 import HeroSlider from '@/components/HeroSlider';
+import { getLocalizedUrl } from '@/lib/paths';
 
 // Below-the-fold sections — code-split to keep initial bundle lean
 const VideoSection = dynamic(() => import('@/components/VideoSection'), {
@@ -192,7 +193,7 @@ export default function HomePage() {
                 </div>
 
                 <Link
-                  href={`/${locale}/kurumsal/hakkimizda`}
+                  href={getLocalizedUrl(locale, '/kurumsal/hakkimizda')}
                   className="inline-flex items-center gap-2 border-2 border-[#1a5fa8] text-[#1a5fa8] font-bold px-7 py-3.5 rounded-xl hover:bg-[#1a5fa8] hover:text-white transition-all"
                 >
                   {tAbout('cta')}
@@ -277,7 +278,7 @@ export default function HomePage() {
                   {tPL('subtitle')}
                 </p>
                 <Link
-                  href={`/${locale}/ozel-etiket`}
+                  href={getLocalizedUrl(locale, '/ozel-etiket')}
                   className="inline-flex items-center gap-2 bg-white text-[#1a5fa8] font-bold px-8 py-4 rounded-xl hover:bg-[#00b4c8] hover:text-white transition-all hover:scale-105 active:scale-95 shadow-lg"
                 >
                   {tPL('cta')}
@@ -456,7 +457,7 @@ export default function HomePage() {
                 {tContact('whatsappBtn')}
               </a>
               <Link
-                href={`/${locale}/iletisim`}
+                href={getLocalizedUrl(locale, '/iletisim')}
                 className="inline-flex items-center gap-2 bg-[#00b4c8] hover:bg-[#009aad] text-white font-semibold px-6 py-3.5 rounded-xl transition-all hover:scale-105"
               >
                 <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">

@@ -11,6 +11,7 @@
 
 import {
   categories as baseCategories,
+  canonicalizeProductSlug,
   type Category,
   type FAQ,
   type Product,
@@ -488,5 +489,7 @@ export function getLocalizedCategoryBySlug(locale: string, slug: string): Catego
 }
 
 export function getLocalizedProductBySlug(locale: string, catSlug: string, prodSlug: string): Product | undefined {
-  return getLocalizedCategoryBySlug(locale, catSlug)?.products.find((p) => p.slug === prodSlug);
+  // URL'deki ürün slug'ı lokalize olabilir (örn. adult-diaper-m), önce canonical'a çevir
+  const canonicalProdSlug = canonicalizeProductSlug(prodSlug);
+  return getLocalizedCategoryBySlug(locale, catSlug)?.products.find((p) => p.slug === canonicalProdSlug);
 }

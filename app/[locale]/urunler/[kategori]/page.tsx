@@ -1,4 +1,4 @@
-import { notFound } from 'next/navigation';
+import { notFound, permanentRedirect } from 'next/navigation';
 import type { Metadata } from 'next';
 import { unstable_setRequestLocale, getTranslations } from 'next-intl/server';
 import {
@@ -44,7 +44,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
       locale: params.locale === 'tr' ? 'tr_TR' : params.locale,
     },
     alternates: {
-      canonical: getLocalizedUrl(params.locale, '/urunler', params.kategori),
+      canonical: getLocalizedUrl(params.locale, '/urunler', localizeCategorySlug(canonicalSlug, params.locale)),
       languages,
     },
   };
@@ -68,6 +68,12 @@ export default async function CategoryPage({ params }: PageProps) {
   const canonicalSlug = canonicalizeCategorySlug(params.kategori);
   const category = getLocalizedCategoryBySlug(params.locale, canonicalSlug);
   if (!category) notFound();
+
+  // SEO: locale ile uyuşmayan slug → lokalize URL'e 301
+  const expectedCatSlug = localizeCategorySlug(canonicalSlug, params.locale);
+  if (params.kategori !== expectedCatSlug) {
+    permanentRedirect(getLocalizedUrl(params.locale, '/urunler', expectedCatSlug));
+  }
 
   const faqJsonLd = {
     '@context': 'https://schema.org',

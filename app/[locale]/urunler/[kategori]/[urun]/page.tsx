@@ -1,4 +1,4 @@
-import { notFound } from 'next/navigation';
+import { notFound, permanentRedirect } from 'next/navigation';
 import type { Metadata } from 'next';
 import { unstable_setRequestLocale, getTranslations } from 'next-intl/server';
 import Link from 'next/link';
@@ -8,6 +8,8 @@ import {
   SUPPORTED_LOCALES,
   canonicalizeCategorySlug,
   localizeCategorySlug,
+  localizeProductSlug,
+  canonicalizeProductSlug,
 } from '@/lib/products-data';
 import {
   getLocalizedCategoryBySlug,
@@ -40,10 +42,16 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   const title = `${product.name} | ${category.name} | Soft & Power`;
   const description = product.description;
 
-  // hreflang: her dilin kendi kategori slug'ı (ürün slug'ı sabit)
+  // hreflang: her dil → kendi lokalize kategori VE ürün slug'ı
+  const canonicalProdSlug = canonicalizeProductSlug(params.urun);
   const languages: Record<string, string> = {};
   for (const l of SUPPORTED_LOCALES) {
-    languages[l] = getLocalizedUrl(l, '/urunler', localizeCategorySlug(canonicalSlug, l), params.urun);
+    languages[l] = getLocalizedUrl(
+      l,
+      '/urunler',
+      localizeCategorySlug(canonicalSlug, l),
+      localizeProductSlug(canonicalProdSlug, l),
+    );
   }
 
   return {
@@ -56,7 +64,13 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
       locale: params.locale === 'tr' ? 'tr_TR' : params.locale,
     },
     alternates: {
-      canonical: getLocalizedUrl(params.locale, '/urunler', params.kategori, params.urun),
+      // Canonical her zaman lokalize URL (TR product slug vs EN URL gibi karışık erişimler de canonical'a çekilsin)
+      canonical: getLocalizedUrl(
+        params.locale,
+        '/urunler',
+        localizeCategorySlug(canonicalSlug, params.locale),
+        localizeProductSlug(canonicalProdSlug, params.locale),
+      ),
       languages,
     },
   };
@@ -64,14 +78,15 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
 
 /* ─── Static Params ─────────────────────────────────────────────── */
 
-// Her dil için locale-specific kategori slug'ı ile ürün sayfaları üret
+// Her dil için locale-specific kategori VE ürün slug'larıyla sayfa üret
 export function generateStaticParams() {
   const paths: { locale: string; kategori: string; urun: string }[] = [];
   for (const locale of SUPPORTED_LOCALES) {
     for (const cat of categories) {
-      const localizedSlug = CATEGORY_SLUGS_BY_LOCALE[cat.slug]?.[locale] || cat.slug;
+      const localizedCatSlug = CATEGORY_SLUGS_BY_LOCALE[cat.slug]?.[locale] || cat.slug;
       for (const prod of cat.products) {
-        paths.push({ locale, kategori: localizedSlug, urun: prod.slug });
+        const localizedProdSlug = localizeProductSlug(prod.slug, locale);
+        paths.push({ locale, kategori: localizedCatSlug, urun: localizedProdSlug });
       }
     }
   }
@@ -87,6 +102,13 @@ export default async function ProductPage({ params }: PageProps) {
   const category = getLocalizedCategoryBySlug(params.locale, canonicalSlug);
   const product = getLocalizedProductBySlug(params.locale, canonicalSlug, params.urun);
   if (!category || !product) notFound();
+
+  // SEO: locale ile uyuşmayan slug varsa lokalize URL'e 301 redirect (duplicate content önler)
+  const expectedCatSlug = localizeCategorySlug(canonicalSlug, params.locale);
+  const expectedProdSlug = localizeProductSlug(canonicalizeProductSlug(params.urun), params.locale);
+  if (params.kategori !== expectedCatSlug || params.urun !== expectedProdSlug) {
+    permanentRedirect(getLocalizedUrl(params.locale, '/urunler', expectedCatSlug, expectedProdSlug));
+  }
 
   // Product images
   const images = getProductImages(product.slug);
@@ -407,7 +429,7 @@ export default async function ProductPage({ params }: PageProps) {
               {related.map((rel, i) => (
                 <FadeInUp key={rel.slug} delay={i * 0.08}>
                   <Link
-                    href={getLocalizedUrl(params.locale, '/urunler', params.kategori, rel.slug)}
+                    href={getLocalizedUrl(params.locale, '/urunler', params.kategori, localizeProductSlug(rel.slug, params.locale))}
                     className="group block rounded-2xl bg-white border border-gray-100 shadow-sm hover:shadow-lg hover:border-[#1a5fa8]/20 transition-all duration-300 overflow-hidden"
                   >
                     {/* Image or gradient fallback */}

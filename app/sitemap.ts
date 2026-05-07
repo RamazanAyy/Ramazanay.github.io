@@ -1,5 +1,5 @@
 import { MetadataRoute } from 'next';
-import { categories, CATEGORY_SLUGS_BY_LOCALE, SUPPORTED_LOCALES } from '@/lib/products-data';
+import { categories, CATEGORY_SLUGS_BY_LOCALE, SUPPORTED_LOCALES, localizeProductSlug } from '@/lib/products-data';
 import { getLocalizedPath } from '@/lib/paths';
 import { pathnames } from '@/i18n/routing';
 
@@ -33,10 +33,12 @@ function localeUrl(locale: string, canonicalPath: string): string {
   return `/${locale}${getLocalizedPath(locale, canonicalPath)}`;
 }
 
-function localeProductUrl(locale: string, canonicalCategorySlug: string, productSlug?: string): string {
+function localeProductUrl(locale: string, canonicalCategorySlug: string, canonicalProductSlug?: string): string {
   const localizedCat = CATEGORY_SLUGS_BY_LOCALE[canonicalCategorySlug]?.[locale as (typeof SUPPORTED_LOCALES)[number]] || canonicalCategorySlug;
   const base = `/${locale}${getLocalizedPath(locale, '/urunler')}/${localizedCat}`;
-  return productSlug ? `${base}/${productSlug}` : base;
+  if (!canonicalProductSlug) return base;
+  const localizedProd = localizeProductSlug(canonicalProductSlug, locale);
+  return `${base}/${localizedProd}`;
 }
 
 export default function sitemap(): MetadataRoute.Sitemap {

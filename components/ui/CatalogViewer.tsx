@@ -1,20 +1,30 @@
 "use client"
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import Image from "next/image"
 import { motion, AnimatePresence } from "framer-motion"
 import { useLocale } from "next-intl"
 import { ChevronLeft, ChevronRight, Download, X, ZoomIn, ZoomOut } from "lucide-react"
 
-const PAGES = Array.from({ length: 30 }, (_, i) =>
-  `/images/catalog/pages/page-${String(i + 1).padStart(2, '0')}.jpg`
+const PAGE_COUNT = 30
+const buildPages = (folder: string) => Array.from({ length: PAGE_COUNT }, (_, i) =>
+  `/images/catalog/${folder}/page-${String(i + 1).padStart(2, '0')}.jpg`
 )
 
-const CATALOG_PDF: Record<string, { href: string; downloadName: string }> = {
-  tr: { href: "/images/catalog/softandpower-katalog-tr.pdf", downloadName: "SoftPower-Katalog-TR.pdf" },
-  en: { href: "/images/catalog/softpower-katalog.pdf",       downloadName: "SoftPower-Catalog-EN.pdf" },
+type CatalogAsset = { href: string; downloadName: string; pages: string[] }
+const CATALOG: Record<string, CatalogAsset> = {
+  tr: {
+    href: "/images/catalog/softandpower-katalog-tr.pdf",
+    downloadName: "SoftPower-Katalog-TR.pdf",
+    pages: buildPages('pages-tr'),
+  },
+  en: {
+    href: "/images/catalog/softpower-katalog.pdf",
+    downloadName: "SoftPower-Catalog-EN.pdf",
+    pages: buildPages('pages'),
+  },
 }
-function getCatalogPdf(locale: string) {
-  return CATALOG_PDF[locale] || CATALOG_PDF.en
+function getCatalogAsset(locale: string): CatalogAsset {
+  return CATALOG[locale] || CATALOG.en
 }
 
 interface CatalogViewerProps {
@@ -26,10 +36,14 @@ export function CatalogViewer({ isOpen, onClose }: CatalogViewerProps) {
   const [page, setPage] = useState(0)
   const [zoomed, setZoomed] = useState(false)
   const locale = useLocale()
-  const pdf = getCatalogPdf(locale)
+  const asset = getCatalogAsset(locale)
+  const pages = asset.pages
+
+  // Dil değişince başa sar
+  useEffect(() => { setPage(0) }, [locale])
 
   const prev = () => setPage((p) => Math.max(0, p - 1))
-  const next = () => setPage((p) => Math.min(PAGES.length - 1, p + 1))
+  const next = () => setPage((p) => Math.min(pages.length - 1, p + 1))
 
   return (
     <AnimatePresence>
@@ -64,8 +78,8 @@ export function CatalogViewer({ isOpen, onClose }: CatalogViewerProps) {
                   {zoomed ? <ZoomOut className="w-4 h-4" /> : <ZoomIn className="w-4 h-4" />}
                 </button>
                 <a
-                  href={pdf.href}
-                  download={pdf.downloadName}
+                  href={asset.href}
+                  download={asset.downloadName}
                   className="flex items-center gap-1.5 bg-[#00b4c8] text-white text-xs font-semibold px-3 py-1.5 rounded-lg hover:bg-[#00b4c8]/80 transition-colors"
                 >
                   <Download className="w-3.5 h-3.5" />
@@ -92,7 +106,7 @@ export function CatalogViewer({ isOpen, onClose }: CatalogViewerProps) {
                   className={`relative ${zoomed ? 'w-full h-auto min-h-full' : 'w-full h-full'}`}
                 >
                   <Image
-                    src={PAGES[page]}
+                    src={pages[page]}
                     alt={`Katalog sayfa ${page + 1}`}
                     fill={!zoomed}
                     width={zoomed ? 1200 : undefined}
@@ -114,7 +128,7 @@ export function CatalogViewer({ isOpen, onClose }: CatalogViewerProps) {
               </button>
               <button
                 onClick={next}
-                disabled={page === PAGES.length - 1}
+                disabled={page === pages.length - 1}
                 className="absolute right-3 top-1/2 -translate-y-1/2 w-10 h-10 bg-black/50 hover:bg-black/70 disabled:opacity-20 text-white rounded-full flex items-center justify-center transition-all"
               >
                 <ChevronRight className="w-5 h-5" />
@@ -126,12 +140,12 @@ export function CatalogViewer({ isOpen, onClose }: CatalogViewerProps) {
               <div className="flex items-center gap-3">
                 {/* Page number */}
                 <span className="text-white text-sm font-bold shrink-0">
-                  {page + 1} <span className="text-white/40">/ {PAGES.length}</span>
+                  {page + 1} <span className="text-white/40">/ {pages.length}</span>
                 </span>
 
                 {/* Thumbnail strip */}
                 <div className="flex-1 overflow-x-auto flex gap-1.5" style={{ scrollbarWidth: 'none' }}>
-                  {PAGES.map((src, i) => (
+                  {pages.map((src, i) => (
                     <button
                       key={i}
                       onClick={() => setPage(i)}

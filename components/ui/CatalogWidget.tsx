@@ -6,18 +6,30 @@ import { useTranslations, useLocale } from "next-intl"
 import { FileDown, Eye } from "lucide-react"
 import { CatalogViewer } from "./CatalogViewer"
 
-const CATALOG_IMAGES = Array.from({ length: 30 }, (_, i) =>
-  `/images/catalog/pages/page-${String(i + 1).padStart(2, '0')}.jpg`
+const PAGE_COUNT = 30
+const buildPages = (folder: string) => Array.from({ length: PAGE_COUNT }, (_, i) =>
+  `/images/catalog/${folder}/page-${String(i + 1).padStart(2, '0')}.jpg`
 )
+// EN sayfa görselleri zaten /pages, TR sayfa görselleri /pages-tr
+const CATALOG_IMAGES_EN = buildPages('pages')
+const CATALOG_IMAGES_TR = buildPages('pages-tr')
 
-// Locale → katalog PDF dosyası. TR kendine, diğerleri İngilizce'ye düşer.
-const CATALOG_PDF: Record<string, { href: string; downloadName: string }> = {
-  tr: { href: "/images/catalog/softandpower-katalog-tr.pdf", downloadName: "SoftPower-Katalog-TR.pdf" },
-  // EN, DE, RU, AR, UK → ortak İngilizce katalog
-  en: { href: "/images/catalog/softpower-katalog.pdf",       downloadName: "SoftPower-Catalog-EN.pdf" },
+// Locale → katalog PDF + sayfa görselleri. TR kendine, diğerleri İngilizce'ye düşer.
+type CatalogAsset = { href: string; downloadName: string; pages: string[] }
+const CATALOG: Record<string, CatalogAsset> = {
+  tr: {
+    href: "/images/catalog/softandpower-katalog-tr.pdf",
+    downloadName: "SoftPower-Katalog-TR.pdf",
+    pages: CATALOG_IMAGES_TR,
+  },
+  en: {
+    href: "/images/catalog/softpower-katalog.pdf",
+    downloadName: "SoftPower-Catalog-EN.pdf",
+    pages: CATALOG_IMAGES_EN,
+  },
 }
-function getCatalogPdf(locale: string) {
-  return CATALOG_PDF[locale] || CATALOG_PDF.en
+function getCatalogAsset(locale: string): CatalogAsset {
+  return CATALOG[locale] || CATALOG.en
 }
 
 export function CatalogWidget() {
@@ -25,14 +37,16 @@ export function CatalogWidget() {
   const [currentImg, setCurrentImg] = useState(0)
   const t = useTranslations('catalogWidget')
   const locale = useLocale()
-  const pdf = getCatalogPdf(locale)
+  const asset = getCatalogAsset(locale)
+  const pages = asset.pages
 
   useEffect(() => {
+    setCurrentImg(0)
     const timer = setInterval(() => {
-      setCurrentImg((c) => (c + 1) % CATALOG_IMAGES.length)
+      setCurrentImg((c) => (c + 1) % pages.length)
     }, 3000)
     return () => clearInterval(timer)
-  }, [])
+  }, [pages.length])
 
   return (
     <>
@@ -60,7 +74,7 @@ export function CatalogWidget() {
                   className="absolute inset-0"
                 >
                   <Image
-                    src={CATALOG_IMAGES[currentImg]}
+                    src={pages[currentImg]}
                     alt={`Katalog sayfa ${currentImg + 1}`}
                     fill
                     className="object-contain"
@@ -78,7 +92,7 @@ export function CatalogWidget() {
                   {t('yearBadge')}
                 </span>
                 <span className="bg-white/20 backdrop-blur-sm text-white text-[9px] font-medium px-2 py-1 rounded-md">
-                  {currentImg + 1}/{CATALOG_IMAGES.length}
+                  {currentImg + 1}/{pages.length}
                 </span>
               </div>
 
@@ -133,8 +147,8 @@ export function CatalogWidget() {
             </div>
             <div className="flex flex-wrap gap-4 justify-center md:justify-start">
               <motion.a
-                href={pdf.href}
-                download={pdf.downloadName}
+                href={asset.href}
+                download={asset.downloadName}
                 className="flex items-center gap-2 bg-[#00b4c8] text-white font-semibold px-6 py-3 rounded-xl hover:bg-[#00b4c8]/90 transition-colors shadow-lg shadow-[#00b4c8]/25"
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.98 }}

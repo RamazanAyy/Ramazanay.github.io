@@ -136,7 +136,7 @@ export default function ProductsPage() {
                   {/* Image */}
                   <div className="relative h-[200px] sm:h-[220px] overflow-hidden">
                     <Image
-                      src={getCategoryImage(cat.slug) || '/slider/slide-baby-diapers.jpg'}
+                      src={getCategoryImage(cat.slug) || '/slider/slide-baby-diapers.webp'}
                       alt={cat.name}
                       fill
                       sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"

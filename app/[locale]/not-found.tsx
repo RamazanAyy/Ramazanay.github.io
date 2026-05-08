@@ -5,7 +5,7 @@ export default function NotFound() {
   return (
     <main className="min-h-screen flex flex-col items-center justify-center px-4 py-16 text-center bg-[#f4f7fb]">
       <Image
-        src="/logo-transparent.png"
+        src="/logo-transparent.webp"
         alt="Soft & Power"
         width={180}
         height={60}

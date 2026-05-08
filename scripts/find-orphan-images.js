@@ -19,7 +19,8 @@ function scanCode(dir, refs = new Set()) {
     } else if (/\.(tsx|ts|jsx|js)$/.test(e.name)) {
       const content = fs.readFileSync(p, 'utf8');
       // Boşluk içeren dosya isimlerini ("SP_X (2).webp") yakala — sadece tırnaklara kadar
-      const matches = content.match(/\/images\/[^"']*?\.(png|jpg|jpeg|webp)/g);
+      // Hem /images/, /slider/, hem de root /logo*.webp gibi public path'leri yakala
+      const matches = content.match(/\/[^"']*?\.(png|jpg|jpeg|webp)/g);
       if (matches) matches.forEach(m => refs.add(m));
     }
   }
@@ -30,7 +31,8 @@ const refs = new Set();
 ['app', 'components', 'lib'].forEach(d => scanCode(d, refs));
 console.log('Kod referanslarındaki dosya sayısı:', refs.size);
 
-const allFiles = walk('public/images').filter(f => /\.(png|jpg|jpeg|webp)$/.test(f));
+// public/ tüm görseller (alt klasörler dahil — slider, logo, vb.)
+const allFiles = walk('public').filter(f => /\.(png|jpg|jpeg|webp)$/.test(f));
 console.log('Disk dosya sayısı:', allFiles.length);
 
 const orphans = [];
@@ -52,9 +54,9 @@ console.log('\nToplam orphan: ' + (totalOrphan / 1024 / 1024).toFixed(1) + ' MB'
 if (process.argv.includes('--delete')) {
   console.log('\nSiliniyor...');
   for (const o of orphans) {
-    // Catalog page görsellerini ve PDF'leri silme
-    if (o.includes('catalog') || o.endsWith('.pdf')) {
-      console.log('  ATLA (catalog/pdf):', o);
+    // Catalog page'leri (template ile dinamik referans) ve PDF'leri silme
+    if (o.includes('catalog\\pages') || o.includes('catalog/pages') || o.endsWith('.pdf')) {
+      console.log('  ATLA (catalog page/pdf):', o);
       continue;
     }
     fs.unlinkSync(o);

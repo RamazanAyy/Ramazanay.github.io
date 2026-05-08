@@ -167,7 +167,7 @@ export default function HomePage() {
                   <div className="absolute -inset-[1px] rounded-2xl lg:rounded-3xl bg-gradient-to-br from-[#00b4c8]/50 via-[#1a5fa8]/30 to-[#00b4c8]/20 z-0" />
                   <div className="relative z-10 rounded-2xl lg:rounded-3xl overflow-hidden bg-white p-4 sm:p-6 lg:p-10 flex items-center justify-center">
                     <Image
-                      src="/logo-wide.png"
+                      src="/logo-wide.webp"
                       alt="Soft & Power Logo"
                       width={500}
                       height={300}

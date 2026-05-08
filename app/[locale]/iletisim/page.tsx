@@ -38,7 +38,7 @@ const localBusinessSchema = {
   '@type': 'LocalBusiness',
   name: 'Soft & Power Hygiene',
   url: 'https://softandpower.com',
-  logo: 'https://softandpower.com/logo-wide.png',
+  logo: 'https://softandpower.com/logo-wide.webp',
   description: 'Hijyen ürünleri üreticisi - Bebek bezi, yetişkin bezi, ıslak mendil, özel etiket üretimi.',
   address: {
     '@type': 'PostalAddress',

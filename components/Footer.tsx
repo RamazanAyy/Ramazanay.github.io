@@ -42,7 +42,7 @@ export default function Footer() {
           {/* Brand Column */}
           <div className="lg:col-span-1">
             <div className="inline-block mb-5">
-              <Image src="/logo-transparent.png" alt="Soft & Power" width={120} height={40} />
+              <Image src="/logo-transparent.webp" alt="Soft & Power" width={120} height={40} />
             </div>
             <p className="text-blue-200 text-sm leading-relaxed mb-6">{t('description')}</p>
             <div className="flex gap-3">

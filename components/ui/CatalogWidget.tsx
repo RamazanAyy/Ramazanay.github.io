@@ -99,7 +99,7 @@ export function CatalogWidget() {
               {/* Bottom content on book */}
               <div className="absolute bottom-0 left-0 right-0 p-4">
                 <Image
-                  src="/logo.png"
+                  src="/logo.webp"
                   alt="Soft & Power"
                   width={90}
                   height={30}

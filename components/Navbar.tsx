@@ -329,7 +329,7 @@ export default function Navbar() {
               <div className="flex w-full lg:w-auto justify-between lg:justify-start items-center shrink-0">
                 <Link href={`/${locale}`} aria-label="Anasayfa" className="flex items-center">
                   <Image
-                    src="/logo.png"
+                    src="/logo.webp"
                     alt="Soft & Power"
                     width={150}
                     height={48}
@@ -520,7 +520,7 @@ export default function Navbar() {
             <div className="flex items-center justify-between px-5 sm:px-6 h-[64px] shrink-0 border-b border-white/10 relative">
               <Link href={`/${locale}`} onClick={closeMobile} className="flex items-center">
                 <Image
-                  src="/logo-transparent.png"
+                  src="/logo-transparent.webp"
                   alt="Soft & Power"
                   width={110}
                   height={36}

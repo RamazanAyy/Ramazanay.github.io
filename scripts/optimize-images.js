@@ -38,13 +38,10 @@ async function processOne(file) {
     img = img.resize(MAX_DIM, MAX_DIM, { fit: 'inside', withoutEnlargement: true });
   }
 
-  if (ext === '.png') {
-    outFile = file.replace(/\.png$/i, '.webp');
+  // Tüm görselleri WebP'e çevir (PNG ve JPG dahil)
+  if (ext === '.png' || ext === '.jpg' || ext === '.jpeg' || /\.jpg\.jpeg$/i.test(file)) {
+    outFile = file.replace(/\.(png|jpg|jpeg)$/i, '.webp').replace(/\.jpg\.jpeg$/i, '.webp');
     outBuf = await img.webp({ quality: PNG_QUALITY, effort: 5 }).toBuffer();
-  } else if (ext === '.jpg' || ext === '.jpeg' || /\.jpg\.jpeg$/i.test(file)) {
-    // Some files have weird .jpg.jpeg double-ext; normalize to .jpg
-    outFile = file.replace(/\.(jpg|jpeg|jpg\.jpeg)$/i, '.jpg');
-    outBuf = await img.jpeg({ quality: JPG_QUALITY, mozjpeg: true, progressive: true }).toBuffer();
   } else {
     return null; // skip
   }

@@ -787,175 +787,25 @@ export const categories: Category[] = [
   },
 ];
 
-// ─── LOCALIZED SLUGS — SEO için her dilde özel slug ────────────────
+// ─── LOCALES ───────────────────────────────────────────────────────
 
 export const SUPPORTED_LOCALES = ['tr', 'en', 'de', 'ru', 'ar', 'uk'] as const;
 export type SupportedLocale = typeof SUPPORTED_LOCALES[number];
 
-// Canonical (TR) slug → localized slug per locale
-export const CATEGORY_SLUGS_BY_LOCALE: Record<string, Record<SupportedLocale, string>> = {
-  'bebek-bezi': {
-    tr: 'bebek-bezi',
-    en: 'baby-diapers',
-    de: 'babywindeln',
-    ru: 'detskie-podguzniki',
-    ar: 'hafadat-atfal',
-    uk: 'dytyachi-pidguzky',
-  },
-  'yetiskin-bezi': {
-    tr: 'yetiskin-bezi',
-    en: 'adult-diapers',
-    de: 'erwachsenenwindeln',
-    ru: 'podguzniki-dlya-vzroslyh',
-    ar: 'hafadat-balighin',
-    uk: 'pidguzky-dlya-doroslyh',
-  },
-  'yetiskin-kulot-bezi': {
-    tr: 'yetiskin-kulot-bezi',
-    en: 'adult-pants',
-    de: 'erwachsenen-pants',
-    ru: 'podguzniki-trusiki',
-    ar: 'sarawil-balighin',
-    uk: 'pidguzky-trusyky',
-  },
-  'yetiskin-alt-serme-ortusu': {
-    tr: 'yetiskin-alt-serme-ortusu',
-    en: 'adult-underpads',
-    de: 'krankenunterlagen',
-    ru: 'pelenki-dlya-vzroslyh',
-    ar: 'mafarish-balighin',
-    uk: 'pidstylky-dlya-doroslyh',
-  },
-  'bebek-alt-serme-ortusu': {
-    tr: 'bebek-alt-serme-ortusu',
-    en: 'baby-underpads',
-    de: 'baby-unterlagen',
-    ru: 'pelenki-detskie',
-    ar: 'mafarish-atfal',
-    uk: 'pidstylky-dytyachi',
-  },
-  'mesane-pedi': {
-    tr: 'mesane-pedi',
-    en: 'bladder-pads',
-    de: 'inkontinenzeinlagen',
-    ru: 'urologicheskie-prokladki',
-    ar: 'fewat-mathana',
-    uk: 'urologichni-prokladky',
-  },
-  'hijyenik-ped': {
-    tr: 'hijyenik-ped',
-    en: 'sanitary-pads',
-    de: 'damenbinden',
-    ru: 'gigienicheskie-prokladki',
-    ar: 'fewat-sihiya',
-    uk: 'gigienichni-prokladky',
-  },
-  'islak-mendil': {
-    tr: 'islak-mendil',
-    en: 'wet-wipes',
-    de: 'feuchttuecher',
-    ru: 'vlazhnye-salfetki',
-    ar: 'mandil-mubalal',
-    uk: 'vologi-servetky',
-  },
-  'yuzey-temizleme-havlusu': {
-    tr: 'yuzey-temizleme-havlusu',
-    en: 'cleaning-towels',
-    de: 'reinigungstuecher',
-    ru: 'salfetki-dlya-uborki',
-    ar: 'mandil-tanzif-asateh',
-    uk: 'servetky-dlya-prybyrannia',
-  },
-};
+// URL'lerde tek format kullanıyoruz (canonical TR slug, tüm dillerde aynı).
+// Aşağıdaki helper'lar identity döndürür — eski kodla uyumluluk için.
 
-// Reverse lookup: localized slug → canonical slug (for finding category)
-const SLUG_TO_CANONICAL: Record<string, string> = (() => {
-  const map: Record<string, string> = {};
-  for (const [canonical, locales] of Object.entries(CATEGORY_SLUGS_BY_LOCALE)) {
-    map[canonical] = canonical;
-    for (const slug of Object.values(locales)) map[slug] = canonical;
-  }
-  return map;
-})();
-
-export function localizeCategorySlug(canonicalSlug: string, _locale: string): string {
-  // URL'lerde tek format kullanıyoruz (canonical TR). Eski lokalize slug
-  // gelirse canonical'a çevir; aksi halde olduğu gibi kullan.
-  return canonicalizeCategorySlug(canonicalSlug);
+export function localizeCategorySlug(slug: string, _locale: string): string {
+  return slug;
 }
-
-export function canonicalizeCategorySlug(anySlug: string): string {
-  return SLUG_TO_CANONICAL[anySlug] || anySlug;
+export function canonicalizeCategorySlug(slug: string): string {
+  return slug;
 }
-
-// ─── PRODUCT SLUGS (lokalize) ───────────────────────────────────────
-// Canonical (TR) ürün slug'ı → her dilde kendi anahtar kelimeleriyle slug.
-// eco-* / premium-* serileri zaten universal (lokalize edilmedi).
-
-export const PRODUCT_SLUGS_BY_LOCALE: Record<string, Record<SupportedLocale, string>> = {
-  // Yetişkin bezi (M/L/XL)
-  'yetiskin-bezi-m':  { tr: 'yetiskin-bezi-m',  en: 'adult-diaper-m',  de: 'erwachsenenwindel-m',  ru: 'podguznik-vzroslyy-m',  ar: 'hafadat-balighin-m',  uk: 'pidguznyk-doroslyy-m'  },
-  'yetiskin-bezi-l':  { tr: 'yetiskin-bezi-l',  en: 'adult-diaper-l',  de: 'erwachsenenwindel-l',  ru: 'podguznik-vzroslyy-l',  ar: 'hafadat-balighin-l',  uk: 'pidguznyk-doroslyy-l'  },
-  'yetiskin-bezi-xl': { tr: 'yetiskin-bezi-xl', en: 'adult-diaper-xl', de: 'erwachsenenwindel-xl', ru: 'podguznik-vzroslyy-xl', ar: 'hafadat-balighin-xl', uk: 'pidguznyk-doroslyy-xl' },
-
-  // Yetişkin külot bezi (M/L/XL)
-  'kulot-bezi-m':  { tr: 'kulot-bezi-m',  en: 'adult-pant-m',  de: 'erwachsenen-pant-m',  ru: 'trusiki-vzroslyye-m',  ar: 'sarawil-balighin-m',  uk: 'trusyky-dorosli-m'  },
-  'kulot-bezi-l':  { tr: 'kulot-bezi-l',  en: 'adult-pant-l',  de: 'erwachsenen-pant-l',  ru: 'trusiki-vzroslyye-l',  ar: 'sarawil-balighin-l',  uk: 'trusyky-dorosli-l'  },
-  'kulot-bezi-xl': { tr: 'kulot-bezi-xl', en: 'adult-pant-xl', de: 'erwachsenen-pant-xl', ru: 'trusiki-vzroslyye-xl', ar: 'sarawil-balighin-xl', uk: 'trusyky-dorosli-xl' },
-
-  // Yetişkin alt serme örtüsü
-  'alt-serme-60x90': { tr: 'alt-serme-60x90', en: 'adult-underpad-60x90', de: 'krankenunterlage-60x90', ru: 'pelenka-vzroslaya-60x90', ar: 'mafrash-balighin-60x90', uk: 'pidstylka-dorosla-60x90' },
-
-  // Bebek alt serme örtüsü
-  'bebek-alt-serme-60x60': { tr: 'bebek-alt-serme-60x60', en: 'baby-underpad-60x60', de: 'baby-unterlage-60x60', ru: 'pelenka-detskaya-60x60', ar: 'mafrash-tifl-60x60', uk: 'pidstylka-dytyacha-60x60' },
-
-  // Mesane pedi (4/6/8 damla)
-  'mesane-pedi-4-damla': { tr: 'mesane-pedi-4-damla', en: 'bladder-pad-4-drops', de: 'inkontinenzeinlage-4-tropfen', ru: 'urologicheskaya-prokladka-4-kapli', ar: 'fewa-mathana-4-qatrat', uk: 'urologichna-prokladka-4-krapli' },
-  'mesane-pedi-6-damla': { tr: 'mesane-pedi-6-damla', en: 'bladder-pad-6-drops', de: 'inkontinenzeinlage-6-tropfen', ru: 'urologicheskaya-prokladka-6-kapli', ar: 'fewa-mathana-6-qatrat', uk: 'urologichna-prokladka-6-krapli' },
-  'mesane-pedi-8-damla': { tr: 'mesane-pedi-8-damla', en: 'bladder-pad-8-drops', de: 'inkontinenzeinlage-8-tropfen', ru: 'urologicheskaya-prokladka-8-kapli', ar: 'fewa-mathana-8-qatrat', uk: 'urologichna-prokladka-8-krapli' },
-
-  // Hijyenik ped (4/5/6 damla)
-  'hijyenik-ped-4-damla': { tr: 'hijyenik-ped-4-damla', en: 'sanitary-pad-4-drops', de: 'damenbinde-4-tropfen', ru: 'gigienicheskaya-prokladka-4-kapli', ar: 'fewa-sihiya-4-qatrat', uk: 'gigienichna-prokladka-4-krapli' },
-  'hijyenik-ped-5-damla': { tr: 'hijyenik-ped-5-damla', en: 'sanitary-pad-5-drops', de: 'damenbinde-5-tropfen', ru: 'gigienicheskaya-prokladka-5-kapli', ar: 'fewa-sihiya-5-qatrat', uk: 'gigienichna-prokladka-5-krapli' },
-  'hijyenik-ped-6-damla': { tr: 'hijyenik-ped-6-damla', en: 'sanitary-pad-6-drops', de: 'damenbinde-6-tropfen', ru: 'gigienicheskaya-prokladka-6-kapli', ar: 'fewa-sihiya-6-qatrat', uk: 'gigienichna-prokladka-6-krapli' },
-
-  // Islak mendil — bebek serisi (72/90/120 adet)
-  'islak-mendil-bebek-72':  { tr: 'islak-mendil-bebek-72',  en: 'baby-wipe-72',  de: 'feuchttuch-baby-72',  ru: 'vlazhnaya-salfetka-baby-72',  ar: 'mandil-mubalal-tifl-72',  uk: 'vologa-servetka-dytyacha-72'  },
-  'islak-mendil-bebek-90':  { tr: 'islak-mendil-bebek-90',  en: 'baby-wipe-90',  de: 'feuchttuch-baby-90',  ru: 'vlazhnaya-salfetka-baby-90',  ar: 'mandil-mubalal-tifl-90',  uk: 'vologa-servetka-dytyacha-90'  },
-  'islak-mendil-bebek-120': { tr: 'islak-mendil-bebek-120', en: 'baby-wipe-120', de: 'feuchttuch-baby-120', ru: 'vlazhnaya-salfetka-baby-120', ar: 'mandil-mubalal-tifl-120', uk: 'vologa-servetka-dytyacha-120' },
-
-  // Islak mendil — Fresh Splash (90/120 adet)
-  'islak-mendil-fresh-splash-90':  { tr: 'islak-mendil-fresh-splash-90',  en: 'wet-wipe-fresh-splash-90',  de: 'feuchttuch-fresh-splash-90',  ru: 'vlazhnaya-salfetka-fresh-splash-90',  ar: 'mandil-fresh-splash-90',  uk: 'vologa-servetka-fresh-splash-90'  },
-  'islak-mendil-fresh-splash-120': { tr: 'islak-mendil-fresh-splash-120', en: 'wet-wipe-fresh-splash-120', de: 'feuchttuch-fresh-splash-120', ru: 'vlazhnaya-salfetka-fresh-splash-120', ar: 'mandil-fresh-splash-120', uk: 'vologa-servetka-fresh-splash-120' },
-
-  // Islak mendil — kokulu seri (aloe vera, papatya, gül, lavanta)
-  'islak-mendil-aloe-vera': { tr: 'islak-mendil-aloe-vera', en: 'wet-wipe-aloe-vera', de: 'feuchttuch-aloe-vera', ru: 'vlazhnaya-salfetka-aloe-vera', ar: 'mandil-mubalal-aloe-vera', uk: 'vologa-servetka-aloe-vera' },
-  'islak-mendil-papatya':   { tr: 'islak-mendil-papatya',   en: 'wet-wipe-chamomile', de: 'feuchttuch-kamille',   ru: 'vlazhnaya-salfetka-romashka',  ar: 'mandil-mubalal-babunaj',  uk: 'vologa-servetka-romashka'  },
-  'islak-mendil-gul':       { tr: 'islak-mendil-gul',       en: 'wet-wipe-rose',       de: 'feuchttuch-rose',      ru: 'vlazhnaya-salfetka-roza',      ar: 'mandil-mubalal-ward',      uk: 'vologa-servetka-troyanda'   },
-  'islak-mendil-lavanta':   { tr: 'islak-mendil-lavanta',   en: 'wet-wipe-lavender',   de: 'feuchttuch-lavendel',  ru: 'vlazhnaya-salfetka-lavanda',   ar: 'mandil-mubalal-lavandar',  uk: 'vologa-servetka-lavanda'    },
-
-  // Yüzey temizleme havlusu
-  'yuzey-temizleme-havlusu-100': { tr: 'yuzey-temizleme-havlusu-100', en: 'cleaning-towel-100', de: 'reinigungstuch-100', ru: 'salfetka-uborka-100', ar: 'mandil-tanzif-asateh-100', uk: 'servetka-prybyrannia-100' },
-};
-
-// Reverse: lokalize ürün slug → canonical (TR)
-const PRODUCT_SLUG_TO_CANONICAL: Record<string, string> = (() => {
-  const map: Record<string, string> = {};
-  for (const [canonical, locales] of Object.entries(PRODUCT_SLUGS_BY_LOCALE)) {
-    map[canonical] = canonical;
-    for (const slug of Object.values(locales)) map[slug] = canonical;
-  }
-  return map;
-})();
-
-/** Tüm dillerde canonical (TR) ürün slug'ı kullanılır (tek URL formatı). */
-export function localizeProductSlug(canonicalSlug: string, _locale: string): string {
-  return canonicalizeProductSlug(canonicalSlug);
+export function localizeProductSlug(slug: string, _locale: string): string {
+  return slug;
 }
-
-/** Herhangi bir lokalize ürün slug → canonical TR slug. */
-export function canonicalizeProductSlug(anySlug: string): string {
-  return PRODUCT_SLUG_TO_CANONICAL[anySlug] || anySlug;
+export function canonicalizeProductSlug(slug: string): string {
+  return slug;
 }
 
 // ─── HELPER FUNCTIONS ────────────────────────────────────────────────

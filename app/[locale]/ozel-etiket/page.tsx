@@ -33,14 +33,6 @@ const PackageEditor = dynamic(
 
 // processSteps moved into component to access translations
 
-const minOrderTable = [
-  { category: 'Bebek Bezi', minQty: '50.000 adet', delivery: '15-20 gün' },
-  { category: 'Yetişkin Bezi', minQty: '30.000 adet', delivery: '15-20 gün' },
-  { category: 'Islak Mendil', minQty: '20.000 paket', delivery: '10-15 gün' },
-  { category: 'Hijyenik Ped', minQty: '50.000 adet', delivery: '15-20 gün' },
-  { category: 'Alt Açma Örtüsü', minQty: '20.000 adet', delivery: '10-15 gün' },
-];
-
 const ADV_ICONS = [
   <svg key="1" className="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M7 21a4 4 0 01-4-4V5a2 2 0 012-2h4a2 2 0 012 2v12a4 4 0 01-4 4zm0 0h12a2 2 0 002-2v-4a2 2 0 00-2-2h-2.343M11 7.343l1.657-1.657a2 2 0 012.828 0l2.829 2.829a2 2 0 010 2.828l-8.486 8.485M7 17h.01" /></svg>,
   <svg key="2" className="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6V4m0 2a2 2 0 100 4m0-4a2 2 0 110 4m-6 8a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4m6 6v10m6-2a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4" /></svg>,
@@ -229,50 +221,6 @@ export default function OzelEtiketPage() {
             </FadeInUp>
             <FadeInUp delay={0.1}>
               <PackageEditor />
-            </FadeInUp>
-          </div>
-        </section>
-
-        {/* Min Order Table */}
-        <section className="py-20 bg-white">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <FadeInUp>
-              <div className="text-center mb-14">
-                <span className="inline-flex items-center gap-2 bg-[#00b4c8]/10 text-[#00b4c8] border border-[#00b4c8]/25 text-xs font-bold px-4 py-2 rounded-full uppercase tracking-wider mb-5">
-                  Sipariş Bilgileri
-                </span>
-                <h2 className="text-3xl lg:text-4xl font-black text-[#0d2d5e]" style={{ fontFamily: 'var(--font-outfit)' }}>
-                  Minimum Sipariş Miktarları
-                </h2>
-              </div>
-            </FadeInUp>
-
-            <FadeInUp delay={0.1}>
-              <div className="max-w-3xl mx-auto overflow-hidden rounded-2xl border border-gray-100 shadow-sm">
-                <div className="overflow-x-auto">
-                  <table className="w-full">
-                    <thead>
-                      <tr className="bg-[#0d2d5e] text-white">
-                        <th className="px-6 py-4 text-left text-sm font-semibold">Kategori</th>
-                        <th className="px-6 py-4 text-left text-sm font-semibold">Min. Sipariş</th>
-                        <th className="px-6 py-4 text-left text-sm font-semibold">Teslimat Süresi</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      {minOrderTable.map((row, i) => (
-                        <tr
-                          key={row.category}
-                          className={`${i % 2 === 0 ? 'bg-white' : 'bg-[#f4f7fb]'} hover:bg-[#1a5fa8]/5 transition-colors`}
-                        >
-                          <td className="px-6 py-4 text-sm font-medium text-[#0d2d5e]">{row.category}</td>
-                          <td className="px-6 py-4 text-sm text-gray-600">{row.minQty}</td>
-                          <td className="px-6 py-4 text-sm text-gray-600">{row.delivery}</td>
-                        </tr>
-                      ))}
-                    </tbody>
-                  </table>
-                </div>
-              </div>
             </FadeInUp>
           </div>
         </section>

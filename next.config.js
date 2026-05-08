@@ -95,33 +95,55 @@ const nextConfig = {
       { source: '/production',     destination: '/tr/kurumsal/uretim',      permanent: true },
     );
 
-    // ─── 3. Lokalize-edilmemiş eski URL'ler → yeni lokalize URL'ler ──
-    // Örnek: /en/urunler/baby-diapers → /en/products/baby-diapers
-    // Path translations (i18n/routing.ts ile aynı tutulmalı)
-    const PATHS = {
-      '/urunler':                { en: '/products',     de: '/produkte',     ru: '/produkty',     ar: '/muntajat',     uk: '/produkty' },
-      '/iletisim':               { en: '/contact',      de: '/kontakt',      ru: '/kontakty',     ar: '/tawasul',      uk: '/kontakty' },
-      '/ozel-etiket':            { en: '/private-label',de: '/eigenmarke',   ru: '/sobstvennaya-marka', ar: '/alama-khasa', uk: '/vlasna-marka' },
-      '/kurumsal/hakkimizda':    { en: '/about/about-us',de: '/unternehmen/ueber-uns',ru: '/o-kompanii/o-nas', ar: '/al-sharika/man-nahnu', uk: '/kompaniya/pro-nas' },
-      '/kurumsal/sertifikalar':  { en: '/about/certificates',de: '/unternehmen/zertifikate',ru: '/o-kompanii/sertifikaty', ar: '/al-sharika/al-shahadat', uk: '/kompaniya/sertyfikaty' },
-      '/kurumsal/uretim':        { en: '/about/production',de: '/unternehmen/produktion',ru: '/o-kompanii/proizvodstvo', ar: '/al-sharika/al-intaj', uk: '/kompaniya/vyrobnytstvo' },
-      '/kurumsal/ihracat':       { en: '/about/export',  de: '/unternehmen/export',  ru: '/o-kompanii/eksport', ar: '/al-sharika/al-tasdir', uk: '/kompaniya/eksport' },
+    // ─── 3. Eski lokalize URL'ler (kısa süreli deploydaydı) → canonical TR ──
+    // /en/products/... → /en/urunler/..., /de/produkte/... → /de/urunler/..., vb.
+    const REVERSE_PATHS = {
+      '/products':                  '/urunler',
+      '/produkte':                  '/urunler',
+      '/produkty':                  '/urunler',
+      '/muntajat':                  '/urunler',
+      '/contact':                   '/iletisim',
+      '/kontakt':                   '/iletisim',
+      '/kontakty':                  '/iletisim',
+      '/tawasul':                   '/iletisim',
+      '/private-label':             '/ozel-etiket',
+      '/eigenmarke':                '/ozel-etiket',
+      '/sobstvennaya-marka':        '/ozel-etiket',
+      '/alama-khasa':               '/ozel-etiket',
+      '/vlasna-marka':              '/ozel-etiket',
+      '/about/about-us':            '/kurumsal/hakkimizda',
+      '/unternehmen/ueber-uns':     '/kurumsal/hakkimizda',
+      '/o-kompanii/o-nas':          '/kurumsal/hakkimizda',
+      '/al-sharika/man-nahnu':      '/kurumsal/hakkimizda',
+      '/kompaniya/pro-nas':         '/kurumsal/hakkimizda',
+      '/about/certificates':        '/kurumsal/sertifikalar',
+      '/unternehmen/zertifikate':   '/kurumsal/sertifikalar',
+      '/o-kompanii/sertifikaty':    '/kurumsal/sertifikalar',
+      '/al-sharika/al-shahadat':    '/kurumsal/sertifikalar',
+      '/kompaniya/sertyfikaty':     '/kurumsal/sertifikalar',
+      '/about/production':          '/kurumsal/uretim',
+      '/unternehmen/produktion':    '/kurumsal/uretim',
+      '/o-kompanii/proizvodstvo':   '/kurumsal/uretim',
+      '/al-sharika/al-intaj':       '/kurumsal/uretim',
+      '/kompaniya/vyrobnytstvo':    '/kurumsal/uretim',
+      '/about/export':              '/kurumsal/ihracat',
+      '/unternehmen/export':        '/kurumsal/ihracat',
+      '/o-kompanii/eksport':        '/kurumsal/ihracat',
+      '/al-sharika/al-tasdir':      '/kurumsal/ihracat',
+      '/kompaniya/eksport':         '/kurumsal/ihracat',
     };
 
-    for (const [canonical, perLocale] of Object.entries(PATHS)) {
-      for (const [locale, localized] of Object.entries(perLocale)) {
-        // Tek path + alt path varsa wildcard ekle (özellikle /urunler/:slug için)
-        out.push({
-          source: `/${locale}${canonical}`,
-          destination: `/${locale}${localized}`,
-          permanent: true,
-        });
-        out.push({
-          source: `/${locale}${canonical}/:slug*`,
-          destination: `/${locale}${localized}/:slug*`,
-          permanent: true,
-        });
-      }
+    for (const [localized, canonical] of Object.entries(REVERSE_PATHS)) {
+      out.push({
+        source: `/:locale(tr|en|de|ru|ar|uk)${localized}`,
+        destination: `/:locale${canonical}`,
+        permanent: true,
+      });
+      out.push({
+        source: `/:locale(tr|en|de|ru|ar|uk)${localized}/:slug*`,
+        destination: `/:locale${canonical}/:slug*`,
+        permanent: true,
+      });
     }
 
     return out;

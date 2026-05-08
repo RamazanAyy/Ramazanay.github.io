@@ -878,8 +878,10 @@ const SLUG_TO_CANONICAL: Record<string, string> = (() => {
   return map;
 })();
 
-export function localizeCategorySlug(canonicalSlug: string, locale: string): string {
-  return CATEGORY_SLUGS_BY_LOCALE[canonicalSlug]?.[locale as SupportedLocale] || canonicalSlug;
+export function localizeCategorySlug(canonicalSlug: string, _locale: string): string {
+  // URL'lerde tek format kullanıyoruz (canonical TR). Eski lokalize slug
+  // gelirse canonical'a çevir; aksi halde olduğu gibi kullan.
+  return canonicalizeCategorySlug(canonicalSlug);
 }
 
 export function canonicalizeCategorySlug(anySlug: string): string {
@@ -946,9 +948,9 @@ const PRODUCT_SLUG_TO_CANONICAL: Record<string, string> = (() => {
   return map;
 })();
 
-/** Canonical (TR) ürün slug'ı → locale-specific slug. Eşleme yoksa canonical kalır (örn. eco-newborn, premium-maxi). */
-export function localizeProductSlug(canonicalSlug: string, locale: string): string {
-  return PRODUCT_SLUGS_BY_LOCALE[canonicalSlug]?.[locale as SupportedLocale] || canonicalSlug;
+/** Tüm dillerde canonical (TR) ürün slug'ı kullanılır (tek URL formatı). */
+export function localizeProductSlug(canonicalSlug: string, _locale: string): string {
+  return canonicalizeProductSlug(canonicalSlug);
 }
 
 /** Herhangi bir lokalize ürün slug → canonical TR slug. */

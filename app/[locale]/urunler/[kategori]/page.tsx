@@ -3,13 +3,11 @@ import type { Metadata } from 'next';
 import { unstable_setRequestLocale, getTranslations } from 'next-intl/server';
 import {
   categories,
-  CATEGORY_SLUGS_BY_LOCALE,
   SUPPORTED_LOCALES,
   canonicalizeCategorySlug,
-  localizeCategorySlug,
 } from '@/lib/products-data';
 import { getLocalizedCategoryBySlug } from '@/lib/i18n-products';
-import { getLocalizedUrl, getLocalizedPath } from '@/lib/paths';
+import { getLocalizedUrl } from '@/lib/paths';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 import Breadcrumb from '@/components/sections/Breadcrumb';
@@ -28,10 +26,10 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   const category = getLocalizedCategoryBySlug(params.locale, canonicalSlug);
   if (!category) return {};
 
-  // hreflang: her dilin kendi lokalize URL'i
+  // hreflang: tüm diller aynı canonical URL'i kullanır
   const languages: Record<string, string> = {};
   for (const l of SUPPORTED_LOCALES) {
-    languages[l] = getLocalizedUrl(l, '/urunler', localizeCategorySlug(canonicalSlug, l));
+    languages[l] = getLocalizedUrl(l, '/urunler', canonicalSlug);
   }
 
   return {
@@ -44,19 +42,18 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
       locale: params.locale === 'tr' ? 'tr_TR' : params.locale,
     },
     alternates: {
-      canonical: getLocalizedUrl(params.locale, '/urunler', localizeCategorySlug(canonicalSlug, params.locale)),
+      canonical: getLocalizedUrl(params.locale, '/urunler', canonicalSlug),
       languages,
     },
   };
 }
 
-// Her dil için kendi slug'ını üret (locale x kategori)
+// Her dil için canonical TR slug
 export function generateStaticParams() {
   const params: { locale: string; kategori: string }[] = [];
   for (const locale of SUPPORTED_LOCALES) {
     for (const cat of categories) {
-      const slug = CATEGORY_SLUGS_BY_LOCALE[cat.slug]?.[locale] || cat.slug;
-      params.push({ locale, kategori: slug });
+      params.push({ locale, kategori: cat.slug });
     }
   }
   return params;
@@ -69,10 +66,9 @@ export default async function CategoryPage({ params }: PageProps) {
   const category = getLocalizedCategoryBySlug(params.locale, canonicalSlug);
   if (!category) notFound();
 
-  // SEO: locale ile uyuşmayan slug → lokalize URL'e 301
-  const expectedCatSlug = localizeCategorySlug(canonicalSlug, params.locale);
-  if (params.kategori !== expectedCatSlug) {
-    permanentRedirect(getLocalizedUrl(params.locale, '/urunler', expectedCatSlug));
+  // SEO: lokalize ya da yanlış slug → canonical TR slug'a 301
+  if (params.kategori !== canonicalSlug) {
+    permanentRedirect(getLocalizedUrl(params.locale, '/urunler', canonicalSlug));
   }
 
   const faqJsonLd = {

@@ -13,31 +13,31 @@ const certificates = [
     title: 'GHP',
     subtitle: 'Good Hygiene Practices',
     issuer: 'SQS International Certification',
-    image: '/images/certificates/ghp.png',
+    image: '/images/certificates/ghp.webp',
   },
   {
     title: 'GMP',
     subtitle: 'Good Manufacture Practices',
     issuer: 'SQR — Sigmacert',
-    image: '/images/certificates/gmp.png',
+    image: '/images/certificates/gmp.webp',
   },
   {
     title: 'CE',
     subtitle: 'Attestation of Conformity (93/42/EEC)',
     issuer: 'DCS Certification',
-    image: '/images/certificates/ce.png',
+    image: '/images/certificates/ce.webp',
   },
   {
     title: 'ISO 13485:2016',
     subtitle: 'Medical Devices — Quality Management',
     issuer: 'IQR International',
-    image: '/images/certificates/iso-13485.png',
+    image: '/images/certificates/iso-13485.webp',
   },
   {
     title: 'ISO 9001:2015',
     subtitle: 'Quality Management System',
     issuer: 'SQR — Sigmacert',
-    image: '/images/certificates/iso-9001.png',
+    image: '/images/certificates/iso-9001.webp',
   },
 ];
 

@@ -112,11 +112,11 @@ export default function HomePage() {
 
 
   const certificates = [
-    { name: 'GHP',           subtitle: 'Good Hygiene Practices',                image: '/images/certificates/ghp.png' },
-    { name: 'GMP',           subtitle: 'Good Manufacture Practices',            image: '/images/certificates/gmp.png' },
-    { name: 'CE',            subtitle: 'Attestation of Conformity (93/42/EEC)', image: '/images/certificates/ce.png' },
-    { name: 'ISO 13485:2016', subtitle: 'Medical Devices — Quality Management', image: '/images/certificates/iso-13485.png' },
-    { name: 'ISO 9001:2015',  subtitle: 'Quality Management System',            image: '/images/certificates/iso-9001.png' },
+    { name: 'GHP',           subtitle: 'Good Hygiene Practices',                image: '/images/certificates/ghp.webp' },
+    { name: 'GMP',           subtitle: 'Good Manufacture Practices',            image: '/images/certificates/gmp.webp' },
+    { name: 'CE',            subtitle: 'Attestation of Conformity (93/42/EEC)', image: '/images/certificates/ce.webp' },
+    { name: 'ISO 13485:2016', subtitle: 'Medical Devices — Quality Management', image: '/images/certificates/iso-13485.webp' },
+    { name: 'ISO 9001:2015',  subtitle: 'Quality Management System',            image: '/images/certificates/iso-9001.webp' },
   ];
 
   const [certLightbox, setCertLightbox] = useState<number | null>(null);

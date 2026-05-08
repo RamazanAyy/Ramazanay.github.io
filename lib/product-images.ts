@@ -1,15 +1,15 @@
 // ── Shared product images ──────────────────────────────────────────
-const BABY_DIAPER_OPEN = '/images/products/eco-baby-diapers/SP_BABY_DIAPER_OPEN.png';
+const BABY_DIAPER_OPEN = '/images/products/eco-baby-diapers/SP_BABY_DIAPER_OPEN.webp';
 
 // ── Category cover images ──────────────────────────────────────────
 export const categoryImages: Record<string, string> = {
   'bebek-bezi': '/images/products/eco-baby-diapers/SP_BABY_DIAPERS_ECO_1_.jpg',
-  'yetiskin-bezi': '/images/products/adult-diapers-30/SP_ADULT_DIAPERS_M (2).png',
+  'yetiskin-bezi': '/images/products/adult-diapers-30/SP_ADULT_DIAPERS_M (2).webp',
   'yetiskin-kulot-bezi': '/images/products/adult-pants-30/SP_ADULT_PANTS_M (2).jpg',
   'yetiskin-alt-serme-ortusu': '/images/products/adult-underpad/SP_UNDERPAD_60x90_30 (2).jpg',
-  'bebek-alt-serme-ortusu': '/images/products/baby-underpad/SP_UNDERPAD_BABY_60x60_10.png',
+  'bebek-alt-serme-ortusu': '/images/products/baby-underpad/SP_UNDERPAD_BABY_60x60_10.webp',
   'mesane-pedi': '/images/products/bladder-pads/SP_PADS_UNISEX_4 (2).jpg',
-  'hijyenik-ped': '/images/products/sanitary-pads/SP_PADS_LADY_4.jpg.jpeg',
+  'hijyenik-ped': '/images/products/sanitary-pads/SP_PADS_LADY_4.jpg',
   'islak-mendil': '/images/products/wet-wipes/SP_WET_WIPES_120.jpg',
   'yuzey-temizleme-havlusu': '/images/products/home-care-wet-towels/SP_Cleaning_towels_100.jpg',
 };
@@ -17,35 +17,35 @@ export const categoryImages: Record<string, string> = {
 // ── Product images mapped by product slug ──────────────────────────
 export const productImages: Record<string, string[]> = {
   // Bebek Bezi - Eco
-  'eco-newborn': ['/images/products/eco-baby-diapers/SP_BABY_DIAPERS_ECO_1_.png', BABY_DIAPER_OPEN],
-  'eco-mini': ['/images/products/eco-baby-diapers/SP_BABY_DIAPERS_ECO_2.png', BABY_DIAPER_OPEN],
-  'eco-midi': ['/images/products/eco-baby-diapers/SP_BABY_DIAPERS_ECO_3.png', BABY_DIAPER_OPEN],
-  'eco-maxi': ['/images/products/eco-baby-diapers/SP_BABY_DIAPERS_ECO_4.png', BABY_DIAPER_OPEN],
-  'eco-junior': ['/images/products/eco-baby-diapers/SP_BABY_DIAPERS_ECO_5 (2).png', BABY_DIAPER_OPEN],
-  'eco-xlarge': ['/images/products/eco-baby-diapers/SP_BABY_DIAPERS_ECO_6 (2).png', BABY_DIAPER_OPEN],
-  'eco-xxlarge': ['/images/products/eco-baby-diapers/SP_BABY_DIAPERS_ECO_7_.png', BABY_DIAPER_OPEN],
+  'eco-newborn': ['/images/products/eco-baby-diapers/SP_BABY_DIAPERS_ECO_1_.webp', BABY_DIAPER_OPEN],
+  'eco-mini': ['/images/products/eco-baby-diapers/SP_BABY_DIAPERS_ECO_2.webp', BABY_DIAPER_OPEN],
+  'eco-midi': ['/images/products/eco-baby-diapers/SP_BABY_DIAPERS_ECO_3.webp', BABY_DIAPER_OPEN],
+  'eco-maxi': ['/images/products/eco-baby-diapers/SP_BABY_DIAPERS_ECO_4.webp', BABY_DIAPER_OPEN],
+  'eco-junior': ['/images/products/eco-baby-diapers/SP_BABY_DIAPERS_ECO_5 (2).webp', BABY_DIAPER_OPEN],
+  'eco-xlarge': ['/images/products/eco-baby-diapers/SP_BABY_DIAPERS_ECO_6 (2).webp', BABY_DIAPER_OPEN],
+  'eco-xxlarge': ['/images/products/eco-baby-diapers/SP_BABY_DIAPERS_ECO_7_.webp', BABY_DIAPER_OPEN],
 
   // Bebek Bezi - Premium (Mega)
-  'premium-newborn': ['/images/products/mega-baby-diapers/SP_BABY_DIAPERS_MEGA_1_.png', BABY_DIAPER_OPEN],
-  'premium-mini': ['/images/products/mega-baby-diapers/SP_BABY_DIAPERS_MEGA_2_.png', BABY_DIAPER_OPEN],
-  'premium-midi': ['/images/products/mega-baby-diapers/SP_BABY_DIAPERS_MEGA_3_.png', BABY_DIAPER_OPEN],
-  'premium-maxi': ['/images/products/mega-baby-diapers/SP_BABY_DIAPERS_MEGA_4_.png', BABY_DIAPER_OPEN],
-  'premium-junior': ['/images/products/mega-baby-diapers/SP_BABY_DIAPERS_MEGA_5_.png', BABY_DIAPER_OPEN],
-  'premium-xlarge': ['/images/products/mega-baby-diapers/SP_BABY_DIAPERS_MEGA_6_.png', BABY_DIAPER_OPEN],
-  'premium-xxlarge': ['/images/products/mega-baby-diapers/SP_BABY_DIAPERS_MEGA_7_.png', BABY_DIAPER_OPEN],
+  'premium-newborn': ['/images/products/mega-baby-diapers/SP_BABY_DIAPERS_MEGA_1_.webp', BABY_DIAPER_OPEN],
+  'premium-mini': ['/images/products/mega-baby-diapers/SP_BABY_DIAPERS_MEGA_2_.webp', BABY_DIAPER_OPEN],
+  'premium-midi': ['/images/products/mega-baby-diapers/SP_BABY_DIAPERS_MEGA_3_.webp', BABY_DIAPER_OPEN],
+  'premium-maxi': ['/images/products/mega-baby-diapers/SP_BABY_DIAPERS_MEGA_4_.webp', BABY_DIAPER_OPEN],
+  'premium-junior': ['/images/products/mega-baby-diapers/SP_BABY_DIAPERS_MEGA_5_.webp', BABY_DIAPER_OPEN],
+  'premium-xlarge': ['/images/products/mega-baby-diapers/SP_BABY_DIAPERS_MEGA_6_.webp', BABY_DIAPER_OPEN],
+  'premium-xxlarge': ['/images/products/mega-baby-diapers/SP_BABY_DIAPERS_MEGA_7_.webp', BABY_DIAPER_OPEN],
 
   // Yetişkin Bezi
   'yetiskin-bezi-m': [
-    '/images/products/adult-diapers-30/SP_ADULT_DIAPERS_M (2).png',
-    '/images/products/adult-diapers-10/SP_ADULT_DIAPERS_M_10.png',
+    '/images/products/adult-diapers-30/SP_ADULT_DIAPERS_M (2).webp',
+    '/images/products/adult-diapers-10/SP_ADULT_DIAPERS_M_10.webp',
   ],
   'yetiskin-bezi-l': [
-    '/images/products/adult-diapers-30/SP_ADULT_DIAPERS_L (2).png',
-    '/images/products/adult-diapers-10/SP_ADULT_DIAPERS_L_10.png',
+    '/images/products/adult-diapers-30/SP_ADULT_DIAPERS_L (2).webp',
+    '/images/products/adult-diapers-10/SP_ADULT_DIAPERS_L_10.webp',
   ],
   'yetiskin-bezi-xl': [
-    '/images/products/adult-diapers-30/SP_ADULT_DIAPERS_XL (2).png',
-    '/images/products/adult-diapers-10/SP_ADULT_DIAPERS_XL_10.png',
+    '/images/products/adult-diapers-30/SP_ADULT_DIAPERS_XL (2).webp',
+    '/images/products/adult-diapers-10/SP_ADULT_DIAPERS_XL_10.webp',
   ],
 
   // Yetişkin Külot Bezi
@@ -66,17 +66,17 @@ export const productImages: Record<string, string[]> = {
   'alt-serme-60x90': ['/images/products/adult-underpad/SP_UNDERPAD_60x90_30 (2).jpg'],
 
   // Bebek Alt Serme
-  'bebek-alt-serme-60x60': ['/images/products/baby-underpad/SP_UNDERPAD_BABY_60x60_10.png'],
+  'bebek-alt-serme-60x60': ['/images/products/baby-underpad/SP_UNDERPAD_BABY_60x60_10.webp'],
 
   // Mesane Pedi
   'mesane-pedi-4-damla': ['/images/products/bladder-pads/SP_PADS_UNISEX_4.jpg'],
   'mesane-pedi-6-damla': ['/images/products/bladder-pads/SP_PADS_UNISEX_6.jpg'],
-  'mesane-pedi-8-damla': ['/images/products/bladder-pads/SP_PADS_UNISEX_PURPLE.png'],
+  'mesane-pedi-8-damla': ['/images/products/bladder-pads/SP_PADS_UNISEX_PURPLE.webp'],
 
   // Hijyenik Ped
-  'hijyenik-ped-4-damla': ['/images/products/sanitary-pads/SP_PADS_LADY_4.jpg.jpeg'],
-  'hijyenik-ped-5-damla': ['/images/products/sanitary-pads/SP_PADS_LADY_5.jpg.jpeg'],
-  'hijyenik-ped-6-damla': ['/images/products/sanitary-pads/SP_PADS_LADY_6.jpg.jpeg'],
+  'hijyenik-ped-4-damla': ['/images/products/sanitary-pads/SP_PADS_LADY_4.jpg'],
+  'hijyenik-ped-5-damla': ['/images/products/sanitary-pads/SP_PADS_LADY_5.jpg'],
+  'hijyenik-ped-6-damla': ['/images/products/sanitary-pads/SP_PADS_LADY_6.jpg'],
 
   // Islak Mendil
   // Bebek serisi

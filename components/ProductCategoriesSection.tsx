@@ -53,7 +53,7 @@ const CATEGORIES: CategoryDef[] = [
     products: [
       { nameKey: 'babyDiapers', descKey: 'babyDiapersDesc', img: '/images/products/eco-baby-diapers/SP_BABY_DIAPERS_ECO_1_.jpg', href: '/urunler/bebek-bezi', badgeKey: 'badgeBestSeller' },
       { nameKey: 'babyWipes', descKey: 'babyWipesDesc', img: '/images/products/baby-wet-wipes/SP_WET_WIPES_BABY_72.jpg', href: '/urunler/islak-mendil', badgeKey: null },
-      { nameKey: 'babyUnderpads', descKey: 'babyUnderpadsDesc', img: '/images/products/baby-underpad/SP_UNDERPAD_BABY_60x60_10.png', href: '/urunler/bebek-alt-serme-ortusu', badgeKey: null },
+      { nameKey: 'babyUnderpads', descKey: 'babyUnderpadsDesc', img: '/images/products/baby-underpad/SP_UNDERPAD_BABY_60x60_10.webp', href: '/urunler/bebek-alt-serme-ortusu', badgeKey: null },
     ],
   },
   {
@@ -76,7 +76,7 @@ const CATEGORIES: CategoryDef[] = [
       { nameKey: 'adultDiapers', descKey: 'adultDiapersDesc', img: '/images/products/adult-diapers-30/SP_ADULT_DIAPERS_M (2).jpg', href: '/urunler/yetiskin-bezi', badgeKey: null },
       { nameKey: 'adultUnderpads', descKey: 'adultUnderpadsDesc', img: '/images/products/adult-underpad/SP_UNDERPAD_60x90_30 (2).jpg', href: '/urunler/yetiskin-alt-serme-ortusu', badgeKey: null },
       { nameKey: 'bladderPads', descKey: 'bladderPadsDesc', img: '/images/products/bladder-pads/SP_PADS_UNISEX_4 (2).jpg', href: '/urunler/mesane-pedi', badgeKey: null },
-      { nameKey: 'sanitaryPads', descKey: 'sanitaryPadsDesc', img: '/images/products/sanitary-pads/SP_PADS_LADY_4.jpg.jpeg', href: '/urunler/hijyenik-ped', badgeKey: null },
+      { nameKey: 'sanitaryPads', descKey: 'sanitaryPadsDesc', img: '/images/products/sanitary-pads/SP_PADS_LADY_4.jpg', href: '/urunler/hijyenik-ped', badgeKey: null },
     ],
   },
   {

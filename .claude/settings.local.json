@@ -21,7 +21,14 @@
       "Bash(vercel login:*)",
       "Bash(vercel --prod --yes)",
       "Bash(vercel --prod --yes --name softandpower)",
-      "Bash(vercel logs:*)"
+      "Bash(vercel logs:*)",
+      "Bash(git push:*)",
+      "Bash(git add:*)",
+      "Bash(git commit:*)",
+      "Bash(git status)",
+      "Bash(git log:*)",
+      "Bash(git diff:*)",
+      "Bash(curl:*)"
     ]
   }
 }

@@ -5,6 +5,7 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { useTranslations, useLocale } from 'next-intl';
 import { usePathname, useRouter } from '@/i18n/navigation';
+import { useParams } from 'next/navigation';
 import { motion, AnimatePresence } from 'framer-motion';
 import { cn } from '@/lib/utils';
 import {
@@ -16,7 +17,12 @@ import {
   NavigationMenuTrigger,
   navigationMenuTriggerStyle,
 } from '@/components/ui/navigation-menu';
-import { localizeCategorySlug } from '@/lib/products-data';
+import {
+  localizeCategorySlug,
+  canonicalizeCategorySlug,
+  localizeProductSlug,
+  canonicalizeProductSlug,
+} from '@/lib/products-data';
 import { getLocalizedUrl } from '@/lib/paths';
 
 const cs = (canonical: string, locale: string) => localizeCategorySlug(canonical, locale);
@@ -188,6 +194,7 @@ export default function Navbar() {
   const locale = useLocale();
   const pathname = usePathname();
   const router = useRouter();
+  const params = useParams() as { kategori?: string; urun?: string };
 
   const [isScrolled, setIsScrolled]   = React.useState(false);
   const [mobileOpen, setMobileOpen]   = React.useState(false);
@@ -211,8 +218,46 @@ export default function Navbar() {
   }, [mobileOpen]);
 
   const switchLocale = (code: string) => {
-    // next-intl router/usePathname canonical path döndürür → router.push otomatik lokalize URL üretir
-    router.push(pathname as any, { locale: code });
+    // Aynı dil seçildiyse hiçbir şey yapma
+    if (code === locale) {
+      setLangOpen(false);
+      setMobileOpen(false);
+      return;
+    }
+
+    try {
+      // Dynamic param'ları yeni dile çevir (kategori + ürün slug'ları)
+      if (params.urun && params.kategori) {
+        const catCanonical = canonicalizeCategorySlug(params.kategori);
+        const prodCanonical = canonicalizeProductSlug(params.urun);
+        router.push(
+          {
+            pathname: '/urunler/[kategori]/[urun]',
+            params: {
+              kategori: localizeCategorySlug(catCanonical, code),
+              urun: localizeProductSlug(prodCanonical, code),
+            },
+          } as any,
+          { locale: code },
+        );
+      } else if (params.kategori) {
+        const catCanonical = canonicalizeCategorySlug(params.kategori);
+        router.push(
+          {
+            pathname: '/urunler/[kategori]',
+            params: { kategori: localizeCategorySlug(catCanonical, code) },
+          } as any,
+          { locale: code },
+        );
+      } else {
+        // Statik sayfa — pathname canonical, params yok
+        router.push(pathname as any, { locale: code });
+      }
+    } catch {
+      // Hata olursa güvenli düşüş: yeni dilin anasayfasına git
+      router.push('/' as any, { locale: code });
+    }
+
     setLangOpen(false);
     setMobileOpen(false);
   };

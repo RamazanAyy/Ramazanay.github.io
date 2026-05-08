@@ -27,6 +27,7 @@ const nextConfig = {
   },
   async headers() {
     return [
+      // Static assets — uzun cache (immutable, hash'li)
       {
         source: '/images/(.*)',
         headers: [
@@ -34,8 +35,17 @@ const nextConfig = {
         ],
       },
       {
-        source: '/(.*)',
+        source: '/_next/static/(.*)',
         headers: [
+          { key: 'Cache-Control', value: 'public, max-age=31536000, immutable' },
+        ],
+      },
+      // HTML pages — kısa cache, deploy sonrası anında güncellenir
+      {
+        source: '/((?!_next/static|images|api).*)',
+        headers: [
+          // CDN'de 60 saniye, browser'da hiç (her zaman revalidate)
+          { key: 'Cache-Control', value: 'public, max-age=0, s-maxage=60, must-revalidate' },
           { key: 'X-Content-Type-Options', value: 'nosniff' },
           { key: 'X-Frame-Options', value: 'DENY' },
           { key: 'X-XSS-Protection', value: '1; mode=block' },

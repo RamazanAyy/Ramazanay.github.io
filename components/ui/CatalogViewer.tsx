@@ -7,7 +7,7 @@ import { ChevronLeft, ChevronRight, Download, X, ZoomIn, ZoomOut } from "lucide-
 
 const PAGE_COUNT = 30
 const buildPages = (folder: string) => Array.from({ length: PAGE_COUNT }, (_, i) =>
-  `/images/catalog/${folder}/page-${String(i + 1).padStart(2, '0')}.jpg`
+  `/images/catalog/${folder}/page-${String(i + 1).padStart(2, '0')}.webp`
 )
 
 type CatalogAsset = { href: string; downloadName: string; pages: string[] }

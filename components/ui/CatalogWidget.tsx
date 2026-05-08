@@ -8,7 +8,7 @@ import { CatalogViewer } from "./CatalogViewer"
 
 const PAGE_COUNT = 30
 const buildPages = (folder: string) => Array.from({ length: PAGE_COUNT }, (_, i) =>
-  `/images/catalog/${folder}/page-${String(i + 1).padStart(2, '0')}.jpg`
+  `/images/catalog/${folder}/page-${String(i + 1).padStart(2, '0')}.webp`
 )
 // EN sayfa görselleri zaten /pages, TR sayfa görselleri /pages-tr
 const CATALOG_IMAGES_EN = buildPages('pages')

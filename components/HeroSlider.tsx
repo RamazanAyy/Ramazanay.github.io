@@ -1,263 +1,193 @@
 'use client';
 
-import { useState, useEffect, useCallback } from 'react';
+import { useState, useEffect, useCallback, useRef } from 'react';
 import Image from 'next/image';
-import Link from 'next/link';
 import { motion, AnimatePresence } from 'framer-motion';
-import { useLocale, useTranslations } from 'next-intl';
-import { localizeCategorySlug } from '@/lib/products-data';
-import { getLocalizedUrl } from '@/lib/paths';
-
-// "/urunler/<canonical-slug>" → tam lokalize URL ("/en/products/<localized-slug>")
-function localizeProductHref(href: string, locale: string): string {
-  const m = href.match(/^\/urunler\/([^/]+)(.*)$/);
-  if (!m) return `/${locale}${href}`;
-  const localizedSlug = localizeCategorySlug(m[1], locale);
-  return getLocalizedUrl(locale, '/urunler', localizedSlug + (m[2] || ''));
-}
 
 const SLIDES = [
-  {
-    img: '/slider/slide-baby-diapers.webp',
-    tagKey: 'tagBabyCare' as const,
-    nameKey: 'babyDiapers' as const,
-    descKey: 'babyDiapersDesc' as const,
-    href: '/urunler/bebek-bezi',
-  },
-  {
-    img: '/slider/slide-adult-pants.webp',
-    tagKey: 'tagAdultCare' as const,
-    nameKey: 'adultPants' as const,
-    descKey: 'adultPantsDesc' as const,
-    href: '/urunler/yetiskin-kulot-bezi',
-  },
-  {
-    img: '/slider/slide-wet-wipes.webp',
-    tagKey: 'tagPersonalHygiene' as const,
-    nameKey: 'wetWipes' as const,
-    descKey: 'wetWipesDesc' as const,
-    href: '/urunler/islak-mendil',
-  },
-  {
-    img: '/slider/slide-baby-underpads.webp',
-    tagKey: 'tagBabyCare' as const,
-    nameKey: 'babyUnderpads' as const,
-    descKey: 'babyUnderpadsDesc' as const,
-    href: '/urunler/bebek-alt-serme-ortusu',
-  },
-  {
-    img: '/slider/slide-bladder-pads.webp',
-    tagKey: 'tagAdultCare' as const,
-    nameKey: 'bladderPads' as const,
-    descKey: 'bladderPadsDesc' as const,
-    href: '/urunler/mesane-pedi',
-  },
-  {
-    img: '/slider/slide-cleaning-towels.webp',
-    tagKey: 'tagProfessionalCleaning' as const,
-    nameKey: 'cleaningTowels' as const,
-    descKey: 'cleaningTowelsDesc' as const,
-    href: '/urunler/yuzey-temizleme-havlusu',
-  },
-  {
-    img: '/slider/slide-underpads.webp',
-    tagKey: 'tagAdultCare' as const,
-    nameKey: 'adultUnderpads' as const,
-    descKey: 'adultUnderpadsDesc' as const,
-    href: '/urunler/yetiskin-alt-serme-ortusu',
-  },
-  {
-    img: '/slider/slide-wipes.webp',
-    tagKey: 'tagBabyCare' as const,
-    nameKey: 'babyWipes' as const,
-    descKey: 'babyWipesDesc' as const,
-    href: '/urunler/islak-mendil',
-  },
+  { img: '/slider/slide-baby-diapers.webp',    label: 'Bebek Bezi' },
+  { img: '/slider/slide-adult-pants.webp',     label: 'Külot Bezi' },
+  { img: '/slider/slide-wet-wipes.webp',       label: 'Islak Mendil' },
+  { img: '/slider/slide-baby-underpads.webp',  label: 'Bebek Örtüsü' },
+  { img: '/slider/slide-bladder-pads.webp',    label: 'Mesane Pedi' },
+  { img: '/slider/slide-cleaning-towels.webp', label: 'Temizleme Havlusu' },
+  { img: '/slider/slide-underpads.webp',       label: 'Alt Örtüsü' },
+  { img: '/slider/slide-wipes.webp',           label: 'Bebek Mendili' },
 ];
 
-const INTERVAL_MS = 5500;
+const INTERVAL_MS = 5000;
+const SWIPE_THRESHOLD = 50;
 
 export default function HeroSlider() {
-  const locale = useLocale();
-  const tSlider = useTranslations('slider');
-  const tProducts = useTranslations('products');
   const [current, setCurrent] = useState(0);
+  const [direction, setDirection] = useState<1 | -1>(1);
   const [isPaused, setIsPaused] = useState(false);
+  const touchStartX = useRef<number | null>(null);
 
-  const next = useCallback(() => setCurrent((c) => (c + 1) % SLIDES.length), []);
-  const prev = useCallback(() => setCurrent((c) => (c - 1 + SLIDES.length) % SLIDES.length), []);
+  const goTo = useCallback((idx: number, dir?: 1 | -1) => {
+    setCurrent((prev) => {
+      const next = ((idx % SLIDES.length) + SLIDES.length) % SLIDES.length;
+      setDirection(dir ?? (next > prev ? 1 : -1));
+      return next;
+    });
+  }, []);
+  const next = useCallback(() => goTo(current + 1, 1), [current, goTo]);
+  const prev = useCallback(() => goTo(current - 1, -1), [current, goTo]);
 
+  // Auto-rotate
   useEffect(() => {
     if (isPaused) return;
-    const id = setInterval(next, INTERVAL_MS);
+    const id = setInterval(() => goTo(current + 1, 1), INTERVAL_MS);
     return () => clearInterval(id);
-  }, [isPaused, next]);
+  }, [isPaused, current, goTo]);
 
-  const slide = SLIDES[current];
-  const heading = tProducts(slide.nameKey as any);
+  // Keyboard
+  useEffect(() => {
+    const handler = (e: KeyboardEvent) => {
+      if (e.key === 'ArrowRight') next();
+      else if (e.key === 'ArrowLeft') prev();
+    };
+    window.addEventListener('keydown', handler);
+    return () => window.removeEventListener('keydown', handler);
+  }, [next, prev]);
+
+  // Touch swipe
+  const onTouchStart = (e: React.TouchEvent) => { touchStartX.current = e.touches[0].clientX; };
+  const onTouchEnd = (e: React.TouchEvent) => {
+    if (touchStartX.current == null) return;
+    const delta = e.changedTouches[0].clientX - touchStartX.current;
+    if (Math.abs(delta) > SWIPE_THRESHOLD) (delta < 0 ? next() : prev());
+    touchStartX.current = null;
+  };
+
+  const slideVariants = {
+    enter: (dir: number) => ({ x: dir > 0 ? '100%' : '-100%', opacity: 0 }),
+    center: { x: 0, opacity: 1 },
+    exit:  (dir: number) => ({ x: dir > 0 ? '-100%' : '100%', opacity: 0 }),
+  };
 
   return (
     <section
-      className="relative w-full overflow-hidden bg-[#0d2d5e] mt-[56px] md:mt-[96px]"
-      style={{ height: 'clamp(260px, 55vw, 580px)', minHeight: '260px' }}
+      className="relative w-full bg-[#0d2d5e] mt-[56px] md:mt-[96px]"
       onMouseEnter={() => setIsPaused(true)}
       onMouseLeave={() => setIsPaused(false)}
+      aria-roledescription="carousel"
+      aria-label="Soft & Power ürün galerisi"
     >
-      {/* ── Slide Images ─────────────────────────────────────────── */}
-      <AnimatePresence mode="wait">
-        <motion.div
-          key={current}
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          exit={{ opacity: 0 }}
-          transition={{ duration: 0.65, ease: 'easeInOut' }}
-          className="absolute inset-0"
-        >
-          <Image
-            src={slide.img}
-            alt={heading}
-            fill
-            sizes="100vw"
-            className="object-cover object-center"
-            priority={current === 0}
-            quality={85}
-          />
-          {/* Gradient overlays */}
-          <div className="absolute inset-0 bg-gradient-to-r from-[#0d2d5e]/85 via-[#0d2d5e]/50 to-[#0d2d5e]/10" />
-          <div className="absolute inset-0 bg-gradient-to-t from-[#0d2d5e]/70 via-transparent to-transparent" />
-        </motion.div>
-      </AnimatePresence>
-
-      {/* ── Slide Content ─────────────────────────────────────────── */}
-      <div className="relative h-full flex items-center">
-        <div className="max-w-7xl mx-auto px-12 sm:px-8 lg:px-12 w-full">
-          <AnimatePresence mode="wait">
+      {/* MAIN slider — görselin tam oranı (1920:606), kırpma + bant yok */}
+      <div
+        className="relative w-full overflow-hidden group"
+        onTouchStart={onTouchStart}
+        onTouchEnd={onTouchEnd}
+      >
+        <div className="relative w-full aspect-[1920/606]">
+          <AnimatePresence mode="wait" initial={false} custom={direction}>
             <motion.div
-              key={`text-${current}`}
-              initial={{ opacity: 0, y: 30 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -10 }}
-              transition={{ duration: 0.5, delay: 0.15 }}
-              className="max-w-xl"
+              key={current}
+              custom={direction}
+              variants={slideVariants}
+              initial="enter"
+              animate="center"
+              exit="exit"
+              transition={{
+                x: { type: 'spring', stiffness: 220, damping: 28 },
+                opacity: { duration: 0.4 },
+              }}
+              className="absolute inset-0"
             >
-              {/* Brand line */}
-              <div className="flex items-center gap-2 sm:gap-3 mb-3 sm:mb-5">
-                <span className="w-6 sm:w-8 h-[2px] bg-[#00b4c8]" />
-                <span className="text-[#00b4c8] text-[10px] sm:text-xs font-semibold uppercase tracking-[0.25em]">
-                  Soft &amp; Power Hygiene
-                </span>
-              </div>
-
-              {/* Category badge */}
-              <span className="inline-block bg-white/15 backdrop-blur-sm border border-white/25 text-white text-[10px] sm:text-xs font-bold px-2.5 py-1 sm:px-3 sm:py-1.5 rounded-full mb-3 sm:mb-4 uppercase tracking-wider">
-                {tSlider(slide.tagKey as any)}
-              </span>
-
-              {/* Heading */}
-              <h1
-                className="text-2xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-black text-white leading-[1.08] mb-3 sm:mb-4"
-                style={{ fontFamily: 'var(--font-outfit)' }}
-              >
-                {heading}
-              </h1>
-
-              {/* Subtitle */}
-              <p className="text-blue-200/90 text-xs sm:text-base lg:text-lg leading-relaxed mb-4 sm:mb-6 max-w-sm hidden sm:block">
-                {tProducts(slide.descKey as any)}
-              </p>
-
-              {/* CTAs */}
-              <div className="flex flex-wrap gap-2 sm:gap-3">
-                <Link
-                  href={localizeProductHref(slide.href, locale)}
-                  className="inline-flex items-center gap-1.5 sm:gap-2 bg-[#00b4c8] hover:bg-[#009aad] text-white font-bold px-4 py-2 sm:px-7 sm:py-3.5 text-xs sm:text-base rounded-lg sm:rounded-xl transition-all hover:scale-105 active:scale-95 shadow-lg shadow-[#00b4c8]/30"
-                >
-                  {tSlider('discoverProduct')}
-                  <svg className="w-3.5 h-3.5 sm:w-4 sm:h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M17 8l4 4m0 0l-4 4m4-4H3" />
-                  </svg>
-                </Link>
-                <Link
-                  href={getLocalizedUrl(locale, '/urunler')}
-                  className="inline-flex items-center gap-1.5 sm:gap-2 border-2 border-white/35 hover:border-white/65 hover:bg-white/10 text-white font-semibold px-4 py-2 sm:px-7 sm:py-3.5 text-xs sm:text-base rounded-lg sm:rounded-xl transition-all"
-                >
-                  {tSlider('allProducts')}
-                </Link>
-              </div>
-
-              {/* Trust marks */}
-              <div className="hidden md:flex flex-wrap items-center gap-4 mt-8 pt-6 border-t border-white/15">
-                {['ISO 9001', 'CE', 'GMP', 'ISO 13485'].map((cert) => (
-                  <div key={cert} className="flex items-center gap-1.5 text-xs text-blue-200/80">
-                    <svg className="w-3.5 h-3.5 text-[#00b4c8] shrink-0" fill="currentColor" viewBox="0 0 20 20">
-                      <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
-                    </svg>
-                    {cert}
-                  </div>
-                ))}
-                <div className="text-xs text-blue-200/80">🇹🇷 {tSlider('madeInTurkey')}</div>
-              </div>
+              <Image
+                src={SLIDES[current].img}
+                alt={SLIDES[current].label}
+                fill
+                sizes="100vw"
+                className="object-cover object-center"
+                priority={current === 0}
+                quality={90}
+              />
             </motion.div>
           </AnimatePresence>
+
+          {/* Vignette */}
+          <div className="absolute inset-0 pointer-events-none bg-gradient-to-t from-black/25 via-transparent to-transparent" />
         </div>
-      </div>
 
-      {/* ── Navigation Arrows ─────────────────────────────────────── */}
-      <button
-        type="button"
-        onClick={prev}
-        className="absolute left-2 sm:left-4 top-1/2 -translate-y-1/2 w-8 h-8 sm:w-11 sm:h-11 bg-black/25 hover:bg-black/45 backdrop-blur-sm border border-white/20 rounded-full flex items-center justify-center text-white transition-all hover:scale-110 z-10"
-        aria-label="Previous slide"
-      >
-        <svg className="w-4 h-4 sm:w-5 sm:h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M15 19l-7-7 7-7" />
-        </svg>
-      </button>
-      <button
-        type="button"
-        onClick={next}
-        className="absolute right-2 sm:right-4 top-1/2 -translate-y-1/2 w-8 h-8 sm:w-11 sm:h-11 bg-black/25 hover:bg-black/45 backdrop-blur-sm border border-white/20 rounded-full flex items-center justify-center text-white transition-all hover:scale-110 z-10"
-        aria-label="Next slide"
-      >
-        <svg className="w-4 h-4 sm:w-5 sm:h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M9 5l7 7-7 7" />
-        </svg>
-      </button>
+        {/* Arrows */}
+        <button
+          type="button" onClick={prev} aria-label="Önceki"
+          className="absolute left-3 sm:left-6 top-1/2 -translate-y-1/2 w-11 h-11 sm:w-13 sm:h-13 bg-white/95 hover:bg-white text-[#0d2d5e] rounded-full flex items-center justify-center shadow-xl shadow-black/30 transition-all duration-300 hover:scale-110 active:scale-95 z-10 lg:opacity-0 lg:group-hover:opacity-100 lg:-translate-x-3 lg:group-hover:translate-x-0"
+        >
+          <svg className="w-5 h-5 sm:w-6 sm:h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M15 19l-7-7 7-7" />
+          </svg>
+        </button>
+        <button
+          type="button" onClick={next} aria-label="Sonraki"
+          className="absolute right-3 sm:right-6 top-1/2 -translate-y-1/2 w-11 h-11 sm:w-13 sm:h-13 bg-white/95 hover:bg-white text-[#0d2d5e] rounded-full flex items-center justify-center shadow-xl shadow-black/30 transition-all duration-300 hover:scale-110 active:scale-95 z-10 lg:opacity-0 lg:group-hover:opacity-100 lg:translate-x-3 lg:group-hover:translate-x-0"
+        >
+          <svg className="w-5 h-5 sm:w-6 sm:h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M9 5l7 7-7 7" />
+          </svg>
+        </button>
 
-      {/* ── Slide Counter (top-right) ─────────────────────────────── */}
-      <div className="absolute top-3 right-3 sm:top-6 sm:right-6 flex items-center gap-1.5 sm:gap-2 bg-black/30 backdrop-blur-sm border border-white/15 rounded-full px-2 py-1 sm:px-3 sm:py-1.5 z-10">
-        <span className="text-white font-bold text-[10px] sm:text-sm">{String(current + 1).padStart(2, '0')}</span>
-        <span className="text-white/40 text-[8px] sm:text-xs">/</span>
-        <span className="text-white/50 text-[8px] sm:text-xs">{String(SLIDES.length).padStart(2, '0')}</span>
-      </div>
+        {/* Vertical pagination — right side (örnek sitedeki gibi) */}
+        <div className="absolute right-3 sm:right-5 top-1/2 -translate-y-1/2 hidden md:flex flex-col items-center gap-3 z-10">
+          {SLIDES.map((_, i) => (
+            <button
+              type="button"
+              key={i}
+              onClick={() => goTo(i)}
+              aria-label={`Slide ${i + 1}`}
+              aria-current={i === current ? 'true' : undefined}
+              className="group/dot flex items-center gap-2 transition-all"
+            >
+              <span className={`text-xs font-bold tabular-nums transition-all duration-300 ${
+                i === current ? 'text-white opacity-100 -translate-x-0' : 'text-white/0 group-hover/dot:text-white/70 group-hover/dot:opacity-100 -translate-x-2'
+              }`}>
+                {String(i + 1).padStart(2, '0')}
+              </span>
+              <span className={`block rounded-full transition-all duration-500 ${
+                i === current
+                  ? 'w-1 h-8 bg-[#00b4c8]'
+                  : 'w-1 h-1 bg-white/40 group-hover/dot:bg-white/80'
+              }`} />
+            </button>
+          ))}
+        </div>
 
-      {/* ── Dot Indicators ────────────────────────────────────────── */}
-      <div className="absolute bottom-4 sm:bottom-8 left-1/2 -translate-x-1/2 flex items-center gap-1 sm:gap-1.5 z-10">
-        {SLIDES.map((_, i) => (
-          <button
-            type="button"
-            key={i}
-            onClick={() => setCurrent(i)}
-            className={`rounded-full transition-all duration-300 ${
-              i === current
-                ? 'w-7 h-2 bg-[#00b4c8]'
-                : 'w-2 h-2 bg-white/35 hover:bg-white/60'
-            }`}
-            aria-label={`Slide ${i + 1}`}
+        {/* Mobile dots — bottom */}
+        <div className="absolute bottom-5 left-1/2 -translate-x-1/2 flex md:hidden items-center gap-2 z-10">
+          {SLIDES.map((_, i) => (
+            <button
+              type="button"
+              key={i}
+              onClick={() => goTo(i)}
+              aria-label={`Slide ${i + 1}`}
+              aria-current={i === current ? 'true' : undefined}
+              className={`h-1.5 rounded-full transition-all duration-500 ${
+                i === current ? 'w-8 bg-white' : 'w-1.5 bg-white/50'
+              }`}
+            />
+          ))}
+        </div>
+
+        {/* Big counter (top-right desktop) — opsiyonel ferah görünüm */}
+        <div className="absolute top-5 right-5 hidden lg:flex items-baseline gap-1 z-10">
+          <span className="text-white font-black text-2xl tabular-nums drop-shadow-lg">{String(current + 1).padStart(2, '0')}</span>
+          <span className="text-white/40 text-base">/</span>
+          <span className="text-white/60 text-sm tabular-nums">{String(SLIDES.length).padStart(2, '0')}</span>
+        </div>
+
+        {/* Progress bar */}
+        {!isPaused && (
+          <motion.div
+            key={`progress-${current}`}
+            className="absolute bottom-0 left-0 h-[3px] bg-[#00b4c8] z-10 shadow-[0_0_8px_#00b4c8]"
+            initial={{ width: '0%' }}
+            animate={{ width: '100%' }}
+            transition={{ duration: INTERVAL_MS / 1000, ease: 'linear' }}
           />
-        ))}
+        )}
       </div>
-
-      {/* ── Progress Bar ──────────────────────────────────────────── */}
-      {!isPaused && (
-        <motion.div
-          key={`progress-${current}`}
-          className="absolute bottom-0 left-0 h-[3px] bg-[#00b4c8] z-10"
-          initial={{ width: '0%' }}
-          animate={{ width: '100%' }}
-          transition={{ duration: INTERVAL_MS / 1000, ease: 'linear' }}
-        />
-      )}
     </section>
   );
 }

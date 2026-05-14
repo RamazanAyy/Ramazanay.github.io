@@ -111,3 +111,12 @@ body {
 .pulse-btn {
   animation: pulse-ring 2s ease-out infinite;
 }
+
+/* Hide scrollbar (used in slider thumbnail strip) */
+.scrollbar-hide {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
+}

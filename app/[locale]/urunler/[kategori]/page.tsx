@@ -12,7 +12,6 @@ import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 import Breadcrumb from '@/components/sections/Breadcrumb';
 import CategoryHero from '@/components/sections/CategoryHero';
-import B2BAdvantages from '@/components/sections/B2BAdvantages';
 import ProductSeriesGroups from '@/components/sections/ProductSeriesGroups';
 import FaqAccordion from '@/components/sections/FaqAccordion';
 import CtaSection from '@/components/sections/CtaSection';
@@ -162,9 +161,6 @@ export default async function CategoryPage({ params }: PageProps) {
             categoryName={category.name}
           />
         </section>
-
-        {/* B2B advantages */}
-        <B2BAdvantages />
 
         {/* FAQ */}
         {category.faqs.length > 0 && (

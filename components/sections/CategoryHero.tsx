@@ -59,9 +59,10 @@ export default function CategoryHero({
           priority
           quality={90}
         />
-        {/* Dark gradient overlay — mobilde daha koyu (sol→sağ değil, ortalama koyuluk), desktop'ta soldan koyu */}
-        <div className="absolute inset-0 bg-[#0d2d5e]/80 lg:bg-gradient-to-r lg:from-[#0d2d5e]/95 lg:via-[#0d2d5e]/75 lg:to-[#0d2d5e]/30" />
-        <div className="absolute inset-0 bg-gradient-to-t from-[#0d2d5e]/70 via-transparent to-transparent" />
+        {/* Gradient overlay — sol koyu (yazı okunabilir), sağda neredeyse şeffaf (ürünler net görünür) */}
+        <div className="absolute inset-0 bg-gradient-to-r from-[#0d2d5e]/90 via-[#0d2d5e]/40 to-transparent" />
+        {/* Mobile için ek hafif overlay (yazılar daha az koyu ama hâlâ okunaklı) */}
+        <div className="absolute inset-0 lg:hidden bg-[#0d2d5e]/35" />
       </div>
 
       {/* Content over banner */}
@@ -72,8 +73,11 @@ export default function CategoryHero({
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 0.1 }}
-            className="text-3xl sm:text-4xl lg:text-5xl xl:text-6xl font-black text-white leading-[1.05] tracking-tight drop-shadow-lg"
-            style={{ fontFamily: 'var(--font-outfit)' }}
+            className="text-3xl sm:text-4xl lg:text-5xl xl:text-6xl font-black text-white leading-[1.05] tracking-tight"
+            style={{
+              fontFamily: 'var(--font-outfit)',
+              textShadow: '0 2px 12px rgba(0,0,0,0.5)',
+            }}
           >
             {title}
           </motion.h1>
@@ -83,7 +87,8 @@ export default function CategoryHero({
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 0.2 }}
-            className="mt-4 text-base sm:text-lg text-blue-100/95 leading-relaxed max-w-xl drop-shadow"
+            className="mt-4 text-base sm:text-lg text-white leading-relaxed max-w-xl"
+            style={{ textShadow: '0 1px 8px rgba(0,0,0,0.5)' }}
           >
             {description}
           </motion.p>

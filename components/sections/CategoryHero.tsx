@@ -80,7 +80,7 @@ export default function CategoryHero({
   );
 
   return (
-    <section className="relative bg-[#0d2d5e]">
+    <section className="relative bg-[#0d2d5e] mt-[56px] md:mt-[96px]">
       {/* === DESKTOP: banner üzerinde overlay text === */}
       <div className="hidden lg:block relative overflow-hidden">
         <div className="relative w-full aspect-[1920/606]">

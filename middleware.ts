@@ -78,7 +78,13 @@ export default function middleware(req: NextRequest) {
     }
   }
 
-  return intlMiddleware(req);
+  const res = intlMiddleware(req);
+  // Cache-Control'u zorla — Next.js'in default 1 yıl s-maxage'ini ez.
+  // CDN'de 60s, browser'da zorla yeniden doğrulama. Eski cache'li
+  // yanıtlar bu sayede invalidate olur.
+  res.headers.set('Cache-Control', 'public, max-age=0, s-maxage=60, must-revalidate');
+  res.headers.set('Clear-Site-Data', '"cache"');
+  return res;
 }
 
 export const config = {

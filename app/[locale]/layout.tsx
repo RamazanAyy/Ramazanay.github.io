@@ -1,5 +1,10 @@
 import type { Metadata } from 'next';
 import { Plus_Jakarta_Sans, Outfit } from 'next/font/google';
+
+// Next.js statik sayfa cache TTL'ini düşür (1 yıl default → 60s).
+// Bu, Cache-Control: s-maxage=60 dönmesini sağlar. Deploy sonrası ~1 dk
+// içinde tüm CDN/browser cache invalidate olur.
+export const revalidate = 60;
 import { NextIntlClientProvider } from 'next-intl';
 import { getMessages, unstable_setRequestLocale } from 'next-intl/server';
 import ScrollProgress from '@/components/animations/ScrollProgress';

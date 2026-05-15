@@ -8,10 +8,14 @@ import {
 } from '@/lib/products-data';
 import { getLocalizedCategoryBySlug } from '@/lib/i18n-products';
 import { getLocalizedUrl } from '@/lib/paths';
+import { getCategoryImage } from '@/lib/product-images';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 import Breadcrumb from '@/components/sections/Breadcrumb';
 import CategoryHero from '@/components/sections/CategoryHero';
+import WholesaleTrustStrip from '@/components/sections/WholesaleTrustStrip';
+import ProductionStats from '@/components/sections/ProductionStats';
+import B2BAdvantages from '@/components/sections/B2BAdvantages';
 import ProductSeriesGroups from '@/components/sections/ProductSeriesGroups';
 import FaqAccordion from '@/components/sections/FaqAccordion';
 import CtaSection from '@/components/sections/CtaSection';
@@ -84,10 +88,70 @@ export default async function CategoryPage({ params }: PageProps) {
     })),
   };
 
+  // SEO: ItemList + Organization + Product schema for category
+  const pageUrl = `https://softandpower.com${getLocalizedUrl(params.locale, '/urunler', canonicalSlug)}`;
+  const itemListJsonLd = {
+    '@context': 'https://schema.org',
+    '@type': 'CollectionPage',
+    name: category.seoTitle,
+    description: category.seoDescription,
+    url: pageUrl,
+    publisher: {
+      '@type': 'Organization',
+      name: 'Soft & Power Hygiene',
+      url: 'https://softandpower.com',
+      logo: 'https://softandpower.com/logo.webp',
+    },
+    mainEntity: {
+      '@type': 'ItemList',
+      numberOfItems: category.products.length,
+      itemListElement: category.products.map((p, idx) => ({
+        '@type': 'ListItem',
+        position: idx + 1,
+        item: {
+          '@type': 'Product',
+          name: p.name,
+          description: p.description,
+          brand: { '@type': 'Brand', name: 'Soft & Power' },
+          category: category.name,
+          url: `${pageUrl}/${p.slug}`,
+        },
+      })),
+    },
+  };
+
+  const breadcrumbJsonLd = {
+    '@context': 'https://schema.org',
+    '@type': 'BreadcrumbList',
+    itemListElement: [
+      { '@type': 'ListItem', position: 1, name: t('nav.products'), item: `https://softandpower.com${getLocalizedUrl(params.locale, '/urunler')}` },
+      { '@type': 'ListItem', position: 2, name: category.name, item: pageUrl },
+    ],
+  };
+
+  const heroImage = getCategoryImage(canonicalSlug);
+
   return (
     <>
       <Navbar />
       <main className="min-h-screen bg-[#f4f7fb]">
+        {/* JSON-LD: FAQ + ItemList + Breadcrumb */}
+        <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd) }} />
+        <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(itemListJsonLd) }} />
+        <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd) }} />
+
+        {/* Hero with banner image + wholesale CTAs */}
+        <CategoryHero
+          title={category.name}
+          description={category.description}
+          features={category.features}
+          locale={params.locale}
+          bannerImage={heroImage}
+        />
+
+        {/* Trust strip — sertifika, ülke, MOQ, lead time */}
+        <WholesaleTrustStrip />
+
         {/* Breadcrumb */}
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <Breadcrumb
@@ -98,13 +162,6 @@ export default async function CategoryPage({ params }: PageProps) {
           />
         </div>
 
-        {/* Hero */}
-        <CategoryHero
-          title={category.name}
-          description={category.description}
-          features={category.features}
-        />
-
         {/* Products */}
         <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-16 lg:py-20">
           <ProductSeriesGroups
@@ -114,13 +171,15 @@ export default async function CategoryPage({ params }: PageProps) {
           />
         </section>
 
-        {/* FAQ with JSON-LD */}
+        {/* Production capacity stats */}
+        <ProductionStats />
+
+        {/* B2B advantages */}
+        <B2BAdvantages />
+
+        {/* FAQ */}
         {category.faqs.length > 0 && (
           <section className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-16">
-            <script
-              type="application/ld+json"
-              dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd) }}
-            />
             <FadeInUp>
               <h2 className="text-2xl sm:text-3xl font-bold text-[#0d2d5e] text-center mb-8">
                 {t('categoryPage.frequentlyAsked')}

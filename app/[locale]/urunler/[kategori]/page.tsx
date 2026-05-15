@@ -12,7 +12,6 @@ import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 import Breadcrumb from '@/components/sections/Breadcrumb';
 import CategoryHero from '@/components/sections/CategoryHero';
-import ProductionStats from '@/components/sections/ProductionStats';
 import B2BAdvantages from '@/components/sections/B2BAdvantages';
 import ProductSeriesGroups from '@/components/sections/ProductSeriesGroups';
 import FaqAccordion from '@/components/sections/FaqAccordion';
@@ -163,9 +162,6 @@ export default async function CategoryPage({ params }: PageProps) {
             categoryName={category.name}
           />
         </section>
-
-        {/* Production capacity stats */}
-        <ProductionStats />
 
         {/* B2B advantages */}
         <B2BAdvantages />

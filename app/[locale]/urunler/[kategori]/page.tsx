@@ -12,7 +12,6 @@ import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 import Breadcrumb from '@/components/sections/Breadcrumb';
 import CategoryHero from '@/components/sections/CategoryHero';
-import WholesaleTrustStrip from '@/components/sections/WholesaleTrustStrip';
 import ProductionStats from '@/components/sections/ProductionStats';
 import B2BAdvantages from '@/components/sections/B2BAdvantages';
 import ProductSeriesGroups from '@/components/sections/ProductSeriesGroups';
@@ -145,9 +144,6 @@ export default async function CategoryPage({ params }: PageProps) {
           locale={params.locale}
           canonicalSlug={canonicalSlug}
         />
-
-        {/* Trust strip — sertifika, ülke, MOQ, lead time */}
-        <WholesaleTrustStrip />
 
         {/* Breadcrumb */}
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">

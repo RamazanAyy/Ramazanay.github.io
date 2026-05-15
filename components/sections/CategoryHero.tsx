@@ -47,7 +47,7 @@ export default function CategoryHero({
   const banner = (canonicalSlug && CATEGORY_BANNER[canonicalSlug]) || '/slider/slide-baby-diapers.webp';
 
   return (
-    <section className="relative overflow-hidden bg-[#0d2d5e]">
+    <section className="relative overflow-hidden bg-[#0d2d5e] min-h-[520px] sm:min-h-[560px] lg:min-h-[600px] flex items-center">
       {/* Background banner image — anasayfa slider stili */}
       <div className="absolute inset-0">
         <Image
@@ -59,13 +59,13 @@ export default function CategoryHero({
           priority
           quality={90}
         />
-        {/* Dark gradient overlay — yazı okunabilir olsun */}
-        <div className="absolute inset-0 bg-gradient-to-r from-[#0d2d5e]/95 via-[#0d2d5e]/75 to-[#0d2d5e]/30" />
-        <div className="absolute inset-0 bg-gradient-to-t from-[#0d2d5e]/60 via-transparent to-transparent" />
+        {/* Dark gradient overlay — mobilde daha koyu (sol→sağ değil, ortalama koyuluk), desktop'ta soldan koyu */}
+        <div className="absolute inset-0 bg-[#0d2d5e]/80 lg:bg-gradient-to-r lg:from-[#0d2d5e]/95 lg:via-[#0d2d5e]/75 lg:to-[#0d2d5e]/30" />
+        <div className="absolute inset-0 bg-gradient-to-t from-[#0d2d5e]/70 via-transparent to-transparent" />
       </div>
 
       {/* Content over banner */}
-      <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 sm:py-20 lg:py-24">
+      <div className="relative w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-16 lg:py-20">
         <div className="max-w-2xl">
           {/* Title */}
           <motion.h1

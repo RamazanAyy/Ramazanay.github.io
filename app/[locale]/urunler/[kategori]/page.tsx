@@ -8,7 +8,6 @@ import {
 } from '@/lib/products-data';
 import { getLocalizedCategoryBySlug } from '@/lib/i18n-products';
 import { getLocalizedUrl } from '@/lib/paths';
-import { getCategoryImage } from '@/lib/product-images';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 import Breadcrumb from '@/components/sections/Breadcrumb';
@@ -129,8 +128,6 @@ export default async function CategoryPage({ params }: PageProps) {
     ],
   };
 
-  const heroImage = getCategoryImage(canonicalSlug);
-
   return (
     <>
       <Navbar />
@@ -140,13 +137,13 @@ export default async function CategoryPage({ params }: PageProps) {
         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(itemListJsonLd) }} />
         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd) }} />
 
-        {/* Hero with banner image + wholesale CTAs */}
+        {/* Hero — anasayfa slider stilinde banner görseli + yazılar üstte */}
         <CategoryHero
           title={category.name}
           description={category.description}
           features={category.features}
           locale={params.locale}
-          bannerImage={heroImage}
+          canonicalSlug={canonicalSlug}
         />
 
         {/* Trust strip — sertifika, ülke, MOQ, lead time */}

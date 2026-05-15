@@ -46,6 +46,9 @@ const nextConfig = {
         headers: [
           // CDN'de 60 saniye, browser'da hiç (her zaman revalidate)
           { key: 'Cache-Control', value: 'public, max-age=0, s-maxage=60, must-revalidate' },
+          // Eski (1 yıllık) cache'i olan kullanıcıların tarayıcısını temizle.
+          // Bu header birkaç hafta kalacak, sonra kaldırılacak.
+          { key: 'Clear-Site-Data', value: '"cache"' },
           { key: 'X-Content-Type-Options', value: 'nosniff' },
           { key: 'X-Frame-Options', value: 'DENY' },
           { key: 'X-XSS-Protection', value: '1; mode=block' },

@@ -47,9 +47,10 @@ export default function CategoryHero({
   const banner = (canonicalSlug && CATEGORY_BANNER[canonicalSlug]) || '/slider/slide-baby-diapers.webp';
 
   return (
-    <section className="relative overflow-hidden bg-[#0d2d5e] min-h-[520px] sm:min-h-[560px] lg:min-h-[600px] flex items-center">
-      {/* Background banner image — anasayfa slider stili */}
-      <div className="absolute inset-0">
+    <section className="relative overflow-hidden bg-[#0d2d5e]">
+      {/* Container görselin gerçek oranında (1920:606) — kırpma yok */}
+      <div className="relative w-full aspect-[1920/606] min-h-[280px]">
+        {/* Banner görseli — tam görünür */}
         <Image
           src={banner}
           alt={title}
@@ -59,15 +60,14 @@ export default function CategoryHero({
           priority
           quality={90}
         />
-        {/* Gradient overlay — sol koyu (yazı okunabilir), sağda neredeyse şeffaf (ürünler net görünür) */}
-        <div className="absolute inset-0 bg-gradient-to-r from-[#0d2d5e]/90 via-[#0d2d5e]/40 to-transparent" />
-        {/* Mobile için ek hafif overlay (yazılar daha az koyu ama hâlâ okunaklı) */}
-        <div className="absolute inset-0 lg:hidden bg-[#0d2d5e]/35" />
-      </div>
+        {/* Hafif gradient (yazı okunabilir olsun, ürünler net görünsün) */}
+        <div className="absolute inset-0 bg-gradient-to-r from-[#0d2d5e]/85 via-[#0d2d5e]/40 to-transparent" />
+        <div className="absolute inset-0 lg:hidden bg-[#0d2d5e]/30" />
 
-      {/* Content over banner */}
-      <div className="relative w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-16 lg:py-20">
-        <div className="max-w-2xl">
+        {/* Content overlay — banner üzerinde dikey ortalı */}
+        <div className="absolute inset-0 flex items-center">
+          <div className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="max-w-2xl">
           {/* Title */}
           <motion.h1
             initial={{ opacity: 0, y: 20 }}
@@ -141,6 +141,8 @@ export default function CategoryHero({
               {tCommon('askWhatsapp')}
             </a>
           </motion.div>
+            </div>
+          </div>
         </div>
       </div>
     </section>

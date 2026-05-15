@@ -67,17 +67,6 @@ export default function CategoryHero({
       {/* Content over banner */}
       <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 sm:py-20 lg:py-24">
         <div className="max-w-2xl">
-          {/* Badge */}
-          <motion.span
-            initial={{ opacity: 0, y: 12 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.4 }}
-            className="inline-flex items-center gap-2 bg-[#00b4c8]/20 text-[#00b4c8] border border-[#00b4c8]/40 backdrop-blur-sm text-xs font-bold px-4 py-2 rounded-full uppercase tracking-wider mb-5"
-          >
-            <span className="w-1.5 h-1.5 rounded-full bg-[#00b4c8] animate-pulse" />
-            {t('wholesaleBadge')}
-          </motion.span>
-
           {/* Title */}
           <motion.h1
             initial={{ opacity: 0, y: 20 }}

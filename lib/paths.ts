@@ -1,11 +1,11 @@
 /**
- * Basit URL oluşturucu — tüm dillerde aynı path yapısını kullan.
+ * Basit URL oluşturucu — tüm dillerde aynı path yapısını kullan (EN canonical).
  *
  * Örnek:
- *   getLocalizedUrl('en', '/urunler')                           → '/en/urunler'
- *   getLocalizedUrl('de', '/urunler', 'bebek-bezi')            → '/de/urunler/bebek-bezi'
- *   getLocalizedUrl('en', '/urunler', 'bebek-bezi', 'eco-newborn')
- *                                                              → '/en/urunler/bebek-bezi/eco-newborn'
+ *   getLocalizedUrl('en', '/products')                            → '/en/products'
+ *   getLocalizedUrl('de', '/products', 'baby-diapers')            → '/de/products/baby-diapers'
+ *   getLocalizedUrl('en', '/products', 'baby-diapers', 'eco-newborn')
+ *                                                                 → '/en/products/baby-diapers/eco-newborn'
  */
 export function getLocalizedUrl(
   locale: string,

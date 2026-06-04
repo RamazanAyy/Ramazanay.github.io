@@ -12,15 +12,15 @@ import { localizeCategorySlug } from '@/lib/products-data';
 import { getLocalizedUrl } from '@/lib/paths';
 
 const CATEGORY_ICONS: Record<string, string> = {
-  'bebek-bezi': '👶',
-  'yetiskin-bezi': '🛡️',
-  'yetiskin-kulot-bezi': '🩲',
-  'yetiskin-alt-serme-ortusu': '🛏️',
-  'bebek-alt-serme-ortusu': '🍼',
-  'mesane-pedi': '💧',
-  'hijyenik-ped': '🌸',
-  'islak-mendil': '🧴',
-  'yuzey-temizleme-havlusu': '🧹',
+  'baby-diapers': '👶',
+  'adult-diapers': '🛡️',
+  'adult-pants': '🩲',
+  'adult-underpads': '🛏️',
+  'baby-underpads': '🍼',
+  'bladder-pads': '💧',
+  'sanitary-pads': '🌸',
+  'wet-wipes': '🧴',
+  'cleaning-towels': '🧹',
 };
 
 export default function ProductsPage() {
@@ -130,7 +130,7 @@ export default function ProductsPage() {
                 transition={{ duration: 0.45, delay: i * 0.06, ease: 'easeOut' as const }}
               >
                 <Link
-                  href={getLocalizedUrl(locale, '/urunler', localizeCategorySlug(cat.slug, locale))}
+                  href={getLocalizedUrl(locale, '/products', localizeCategorySlug(cat.slug, locale))}
                   className="group relative flex flex-col bg-white rounded-2xl border border-gray-100 overflow-hidden shadow-sm hover:shadow-2xl hover:border-[#1a5fa8]/20 transition-all duration-400 hover:-translate-y-1.5"
                 >
                   {/* Image */}
@@ -233,7 +233,7 @@ export default function ProductsPage() {
                   {t('ctaWhatsapp')}
                 </a>
                 <Link
-                  href={getLocalizedUrl(locale, '/iletisim')}
+                  href={getLocalizedUrl(locale, '/contact')}
                   className="inline-flex items-center gap-2 bg-[#00b4c8] hover:bg-[#009aad] text-white font-semibold px-6 py-3.5 rounded-xl transition-all hover:scale-105"
                 >
                   <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">

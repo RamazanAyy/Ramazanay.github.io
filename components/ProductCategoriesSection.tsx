@@ -8,12 +8,12 @@ import { useLocale, useTranslations } from 'next-intl';
 import { localizeCategorySlug } from '@/lib/products-data';
 import { getLocalizedUrl } from '@/lib/paths';
 
-// Canonical "/urunler/<slug>" → tam lokalize URL ("/en/products/<localized-slug>")
+// Canonical "/products/<slug>" → tam lokalize URL ("/en/products/<localized-slug>")
 function localizeProductHref(href: string, locale: string): string {
-  const m = href.match(/^\/urunler\/([^/]+)(.*)$/);
+  const m = href.match(/^\/products\/([^/]+)(.*)$/);
   if (!m) return `/${locale}${href}`;
   const [, slug, rest] = m;
-  return getLocalizedUrl(locale, '/urunler', localizeCategorySlug(slug, locale) + (rest || ''));
+  return getLocalizedUrl(locale, '/products', localizeCategorySlug(slug, locale) + (rest || ''));
 }
 
 interface ProductDef {
@@ -51,9 +51,9 @@ const CATEGORIES: CategoryDef[] = [
       </svg>
     ),
     products: [
-      { nameKey: 'babyDiapers', descKey: 'babyDiapersDesc', img: '/images/products/eco-baby-diapers/SP_BABY_DIAPERS_ECO_1_.webp', href: '/urunler/bebek-bezi', badgeKey: 'badgeBestSeller' },
-      { nameKey: 'babyWipes', descKey: 'babyWipesDesc', img: '/images/products/baby-wet-wipes/SP_WET_WIPES_BABY_72.webp', href: '/urunler/islak-mendil', badgeKey: null },
-      { nameKey: 'babyUnderpads', descKey: 'babyUnderpadsDesc', img: '/images/products/baby-underpad/SP_UNDERPAD_BABY_60x60_10.webp', href: '/urunler/bebek-alt-serme-ortusu', badgeKey: null },
+      { nameKey: 'babyDiapers', descKey: 'babyDiapersDesc', img: '/images/products/eco-baby-diapers/SP_BABY_DIAPERS_ECO_1_.webp', href: '/products/baby-diapers', badgeKey: 'badgeBestSeller' },
+      { nameKey: 'babyWipes', descKey: 'babyWipesDesc', img: '/images/products/baby-wet-wipes/SP_WET_WIPES_BABY_72.webp', href: '/products/wet-wipes', badgeKey: null },
+      { nameKey: 'babyUnderpads', descKey: 'babyUnderpadsDesc', img: '/images/products/baby-underpad/SP_UNDERPAD_BABY_60x60_10.webp', href: '/products/baby-underpads', badgeKey: null },
     ],
   },
   {
@@ -72,11 +72,11 @@ const CATEGORIES: CategoryDef[] = [
       </svg>
     ),
     products: [
-      { nameKey: 'adultPants', descKey: 'adultPantsDesc', img: '/images/products/adult-pants-30/SP_ADULT_PANTS_M (2).webp', href: '/urunler/yetiskin-kulot-bezi', badgeKey: 'badgeNew' },
-      { nameKey: 'adultDiapers', descKey: 'adultDiapersDesc', img: '/images/products/adult-diapers-30/SP_ADULT_DIAPERS_M (2).webp', href: '/urunler/yetiskin-bezi', badgeKey: null },
-      { nameKey: 'adultUnderpads', descKey: 'adultUnderpadsDesc', img: '/images/products/adult-underpad/SP_UNDERPAD_60x90_30 (2).webp', href: '/urunler/yetiskin-alt-serme-ortusu', badgeKey: null },
-      { nameKey: 'bladderPads', descKey: 'bladderPadsDesc', img: '/images/products/bladder-pads/SP_PADS_UNISEX_4 (2).webp', href: '/urunler/mesane-pedi', badgeKey: null },
-      { nameKey: 'sanitaryPads', descKey: 'sanitaryPadsDesc', img: '/images/products/sanitary-pads/SP_PADS_LADY_4.webp', href: '/urunler/hijyenik-ped', badgeKey: null },
+      { nameKey: 'adultPants', descKey: 'adultPantsDesc', img: '/images/products/adult-pants-30/SP_ADULT_PANTS_M (2).webp', href: '/products/adult-pants', badgeKey: 'badgeNew' },
+      { nameKey: 'adultDiapers', descKey: 'adultDiapersDesc', img: '/images/products/adult-diapers-30/SP_ADULT_DIAPERS_M (2).webp', href: '/products/adult-diapers', badgeKey: null },
+      { nameKey: 'adultUnderpads', descKey: 'adultUnderpadsDesc', img: '/images/products/adult-underpad/SP_UNDERPAD_60x90_30 (2).webp', href: '/products/adult-underpads', badgeKey: null },
+      { nameKey: 'bladderPads', descKey: 'bladderPadsDesc', img: '/images/products/bladder-pads/SP_PADS_UNISEX_4 (2).webp', href: '/products/bladder-pads', badgeKey: null },
+      { nameKey: 'sanitaryPads', descKey: 'sanitaryPadsDesc', img: '/images/products/sanitary-pads/SP_PADS_LADY_4.webp', href: '/products/sanitary-pads', badgeKey: null },
     ],
   },
   {
@@ -98,8 +98,8 @@ const CATEGORIES: CategoryDef[] = [
       </svg>
     ),
     products: [
-      { nameKey: 'babyWipes', descKey: 'babyWipesDesc', img: '/images/products/baby-wet-wipes/SP_WET_WIPES_BABY_72.webp', href: '/urunler/islak-mendil', badgeKey: null },
-      { nameKey: 'wetWipes', descKey: 'wetWipesDesc', img: '/images/products/wet-wipes/SP_WET_WIPES_120.webp', href: '/urunler/islak-mendil', badgeKey: null },
+      { nameKey: 'babyWipes', descKey: 'babyWipesDesc', img: '/images/products/baby-wet-wipes/SP_WET_WIPES_BABY_72.webp', href: '/products/wet-wipes', badgeKey: null },
+      { nameKey: 'wetWipes', descKey: 'wetWipesDesc', img: '/images/products/wet-wipes/SP_WET_WIPES_120.webp', href: '/products/wet-wipes', badgeKey: null },
     ],
   },
   {
@@ -121,7 +121,7 @@ const CATEGORIES: CategoryDef[] = [
       </svg>
     ),
     products: [
-      { nameKey: 'cleaningTowels', descKey: 'cleaningTowelsDesc', img: '/images/products/home-care-wet-towels/SP_Cleaning_towels_100.webp', href: '/urunler/yuzey-temizleme-havlusu', badgeKey: null },
+      { nameKey: 'cleaningTowels', descKey: 'cleaningTowelsDesc', img: '/images/products/home-care-wet-towels/SP_Cleaning_towels_100.webp', href: '/products/cleaning-towels', badgeKey: null },
     ],
   },
 ];
@@ -371,7 +371,7 @@ export default function ProductCategoriesSection() {
                 }`}
               >
                 <Link
-                  href={getLocalizedUrl(locale, '/urunler')}
+                  href={getLocalizedUrl(locale, '/products')}
                   className="group flex flex-row sm:flex-col items-center justify-center bg-gradient-to-b from-[#f0f9ff] to-white border-2 border-dashed border-[#00b4c8]/40 hover:border-solid hover:border-[#00b4c8] rounded-2xl sm:rounded-3xl min-h-[90px] sm:min-h-[360px] h-full transition-all duration-300 gap-3 sm:gap-4 p-4 sm:p-5 text-center hover:shadow-lg"
                 >
                   <div className="w-14 h-14 rounded-2xl bg-[#1a5fa8]/10 group-hover:bg-[#1a5fa8] flex items-center justify-center transition-all">

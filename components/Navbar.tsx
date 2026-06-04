@@ -75,7 +75,7 @@ function CorporateMenu({ locale, t, tNav }: { locale: string; t: ReturnType<type
   const links = [
     {
       key: 'about' as const,
-      href: url(locale, '/kurumsal/hakkimizda'),
+      href: url(locale, '/about/about-us'),
       descKey: 'aboutDesc' as const,
       icon: (
         <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -85,7 +85,7 @@ function CorporateMenu({ locale, t, tNav }: { locale: string; t: ReturnType<type
     },
     {
       key: 'quality' as const,
-      href: url(locale, '/kurumsal/uretim'),
+      href: url(locale, '/about/production'),
       descKey: 'qualityDesc' as const,
       icon: (
         <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -95,7 +95,7 @@ function CorporateMenu({ locale, t, tNav }: { locale: string; t: ReturnType<type
     },
     {
       key: 'certificates' as const,
-      href: url(locale, '/kurumsal/sertifikalar'),
+      href: url(locale, '/about/certificates'),
       descKey: 'certificatesDesc' as const,
       icon: (
         <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -133,15 +133,15 @@ function CorporateMenu({ locale, t, tNav }: { locale: string; t: ReturnType<type
 
 function ProductsMenu({ locale, tProducts, tNav }: { locale: string; tProducts: ReturnType<typeof useTranslations<'products'>>; tNav: ReturnType<typeof useTranslations<'navExtra'>> }) {
   const items = [
-    { key: 'babyDiapers' as const,    href: url(locale, '/urunler', cs('bebek-bezi', locale)) },
-    { key: 'adultDiapers' as const,   href: url(locale, '/urunler', cs('yetiskin-bezi', locale)) },
-    { key: 'adultPants' as const,     href: url(locale, '/urunler', cs('yetiskin-kulot-bezi', locale)) },
-    { key: 'adultUnderpads' as const, href: url(locale, '/urunler', cs('yetiskin-alt-serme-ortusu', locale)) },
-    { key: 'babyUnderpads' as const,  href: url(locale, '/urunler', cs('bebek-alt-serme-ortusu', locale)) },
-    { key: 'bladderPads' as const,    href: url(locale, '/urunler', cs('mesane-pedi', locale)) },
-    { key: 'sanitaryPads' as const,   href: url(locale, '/urunler', cs('hijyenik-ped', locale)) },
-    { key: 'wetWipes' as const,       href: url(locale, '/urunler', cs('islak-mendil', locale)) },
-    { key: 'cleaningTowels' as const, href: url(locale, '/urunler', cs('yuzey-temizleme-havlusu', locale)) },
+    { key: 'babyDiapers' as const,    href: url(locale, '/products', cs('baby-diapers', locale)) },
+    { key: 'adultDiapers' as const,   href: url(locale, '/products', cs('adult-diapers', locale)) },
+    { key: 'adultPants' as const,     href: url(locale, '/products', cs('adult-pants', locale)) },
+    { key: 'adultUnderpads' as const, href: url(locale, '/products', cs('adult-underpads', locale)) },
+    { key: 'babyUnderpads' as const,  href: url(locale, '/products', cs('baby-underpads', locale)) },
+    { key: 'bladderPads' as const,    href: url(locale, '/products', cs('bladder-pads', locale)) },
+    { key: 'sanitaryPads' as const,   href: url(locale, '/products', cs('sanitary-pads', locale)) },
+    { key: 'wetWipes' as const,       href: url(locale, '/products', cs('wet-wipes', locale)) },
+    { key: 'cleaningTowels' as const, href: url(locale, '/products', cs('cleaning-towels', locale)) },
   ];
 
   return (
@@ -166,7 +166,7 @@ function ProductsMenu({ locale, tProducts, tNav }: { locale: string; tProducts: 
       </ul>
       <div className="border-t border-gray-100 mt-3 pt-3 px-3">
         <Link
-          href={url(locale, '/urunler')}
+          href={url(locale, '/products')}
           className="text-xs font-semibold text-[#1a5fa8] hover:text-[#00b4c8] transition-colors flex items-center gap-1"
         >
           {tNav('allProducts')}
@@ -354,14 +354,14 @@ export default function Navbar() {
                       {/* Private Label */}
                       <NavigationMenuItem>
                         <NavigationMenuLink asChild className={cn(navigationMenuTriggerStyle(), 'bg-transparent text-[15px]')}>
-                          <Link href={url(locale, '/ozel-etiket')}>{t('privateLabel')}</Link>
+                          <Link href={url(locale, '/private-label')}>{t('privateLabel')}</Link>
                         </NavigationMenuLink>
                       </NavigationMenuItem>
 
                       {/* İletişim */}
                       <NavigationMenuItem>
                         <NavigationMenuLink asChild className={cn(navigationMenuTriggerStyle(), 'bg-transparent text-[15px]')}>
-                          <Link href={url(locale, '/iletisim')}>{t('contact')}</Link>
+                          <Link href={url(locale, '/contact')}>{t('contact')}</Link>
                         </NavigationMenuLink>
                       </NavigationMenuItem>
 
@@ -416,7 +416,7 @@ export default function Navbar() {
 
                 {/* CTA button */}
                 <Link
-                  href={url(locale, '/iletisim')}
+                  href={url(locale, '/contact')}
                   className="inline-flex items-center gap-1.5 bg-[#00b4c8] hover:bg-[#009aad] text-white text-[13px] font-semibold px-4 py-2 rounded-xl transition-all hover:scale-105 active:scale-95 whitespace-nowrap"
                 >
                   {tNavExtra('getQuote')}
@@ -538,15 +538,15 @@ export default function Navbar() {
                     >
                       <div className="grid grid-cols-2 gap-x-3 gap-y-1 py-2">
                         {[
-                          { key: 'babyDiapers' as const,    href: url(locale, '/urunler', cs('bebek-bezi', locale)) },
-                          { key: 'adultDiapers' as const,   href: url(locale, '/urunler', cs('yetiskin-bezi', locale)) },
-                          { key: 'adultPants' as const,     href: url(locale, '/urunler', cs('yetiskin-kulot-bezi', locale)) },
-                          { key: 'adultUnderpads' as const, href: url(locale, '/urunler', cs('yetiskin-alt-serme-ortusu', locale)) },
-                          { key: 'babyUnderpads' as const,  href: url(locale, '/urunler', cs('bebek-alt-serme-ortusu', locale)) },
-                          { key: 'bladderPads' as const,    href: url(locale, '/urunler', cs('mesane-pedi', locale)) },
-                          { key: 'sanitaryPads' as const,   href: url(locale, '/urunler', cs('hijyenik-ped', locale)) },
-                          { key: 'wetWipes' as const,       href: url(locale, '/urunler', cs('islak-mendil', locale)) },
-                          { key: 'cleaningTowels' as const, href: url(locale, '/urunler', cs('yuzey-temizleme-havlusu', locale)) },
+                          { key: 'babyDiapers' as const,    href: url(locale, '/products', cs('baby-diapers', locale)) },
+                          { key: 'adultDiapers' as const,   href: url(locale, '/products', cs('adult-diapers', locale)) },
+                          { key: 'adultPants' as const,     href: url(locale, '/products', cs('adult-pants', locale)) },
+                          { key: 'adultUnderpads' as const, href: url(locale, '/products', cs('adult-underpads', locale)) },
+                          { key: 'babyUnderpads' as const,  href: url(locale, '/products', cs('baby-underpads', locale)) },
+                          { key: 'bladderPads' as const,    href: url(locale, '/products', cs('bladder-pads', locale)) },
+                          { key: 'sanitaryPads' as const,   href: url(locale, '/products', cs('sanitary-pads', locale)) },
+                          { key: 'wetWipes' as const,       href: url(locale, '/products', cs('wet-wipes', locale)) },
+                          { key: 'cleaningTowels' as const, href: url(locale, '/products', cs('cleaning-towels', locale)) },
                         ].map(({ key, href }) => (
                           <Link
                             key={key}
@@ -560,7 +560,7 @@ export default function Navbar() {
                         ))}
                       </div>
                       <Link
-                        href={url(locale, '/urunler')}
+                        href={url(locale, '/products')}
                         onClick={closeMobile}
                         className="flex items-center gap-2 pb-4 text-sm font-semibold text-[#00b4c8] hover:text-white transition-colors"
                       >
@@ -577,7 +577,7 @@ export default function Navbar() {
               {/* Özel Etiket */}
               <motion.div variants={mobileItemVariants}>
                 <Link
-                  href={url(locale, '/ozel-etiket')}
+                  href={url(locale, '/private-label')}
                   onClick={closeMobile}
                   className="flex items-center py-4 text-xl font-bold text-white border-b border-white/10 hover:text-[#00b4c8] transition-colors"
                 >
@@ -588,7 +588,7 @@ export default function Navbar() {
               {/* İletişim */}
               <motion.div variants={mobileItemVariants}>
                 <Link
-                  href={url(locale, '/iletisim')}
+                  href={url(locale, '/contact')}
                   onClick={closeMobile}
                   className="flex items-center py-4 text-xl font-bold text-white border-b border-white/10 hover:text-[#00b4c8] transition-colors"
                 >
@@ -622,9 +622,9 @@ export default function Navbar() {
                       className="overflow-hidden pl-4 border-b border-white/10"
                     >
                       {[
-                        { key: 'about',        href: url(locale, '/kurumsal/hakkimizda') },
-                        { key: 'quality',      href: url(locale, '/kurumsal/uretim') },
-                        { key: 'certificates', href: url(locale, '/kurumsal/sertifikalar') },
+                        { key: 'about',        href: url(locale, '/about/about-us') },
+                        { key: 'quality',      href: url(locale, '/about/production') },
+                        { key: 'certificates', href: url(locale, '/about/certificates') },
                       ].map(({ key, href }) => (
                         <Link
                           key={key}

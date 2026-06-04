@@ -3,15 +3,15 @@ const BABY_DIAPER_OPEN = '/images/products/eco-baby-diapers/SP_BABY_DIAPER_OPEN.
 
 // ── Category cover images ──────────────────────────────────────────
 export const categoryImages: Record<string, string> = {
-  'bebek-bezi': '/images/products/eco-baby-diapers/SP_BABY_DIAPERS_ECO_1_.webp',
-  'yetiskin-bezi': '/images/products/adult-diapers-30/SP_ADULT_DIAPERS_M (2).webp',
-  'yetiskin-kulot-bezi': '/images/products/adult-pants-30/SP_ADULT_PANTS_M (2).webp',
-  'yetiskin-alt-serme-ortusu': '/images/products/adult-underpad/SP_UNDERPAD_60x90_30 (2).webp',
-  'bebek-alt-serme-ortusu': '/images/products/baby-underpad/SP_UNDERPAD_BABY_60x60_10.webp',
-  'mesane-pedi': '/images/products/bladder-pads/SP_PADS_UNISEX_4 (2).webp',
-  'hijyenik-ped': '/images/products/sanitary-pads/SP_PADS_LADY_4.webp',
-  'islak-mendil': '/images/products/wet-wipes/SP_WET_WIPES_120.webp',
-  'yuzey-temizleme-havlusu': '/images/products/home-care-wet-towels/SP_Cleaning_towels_100.webp',
+  'baby-diapers': '/images/products/eco-baby-diapers/SP_BABY_DIAPERS_ECO_1_.webp',
+  'adult-diapers': '/images/products/adult-diapers-30/SP_ADULT_DIAPERS_M (2).webp',
+  'adult-pants': '/images/products/adult-pants-30/SP_ADULT_PANTS_M (2).webp',
+  'adult-underpads': '/images/products/adult-underpad/SP_UNDERPAD_60x90_30 (2).webp',
+  'baby-underpads': '/images/products/baby-underpad/SP_UNDERPAD_BABY_60x60_10.webp',
+  'bladder-pads': '/images/products/bladder-pads/SP_PADS_UNISEX_4 (2).webp',
+  'sanitary-pads': '/images/products/sanitary-pads/SP_PADS_LADY_4.webp',
+  'wet-wipes': '/images/products/wet-wipes/SP_WET_WIPES_120.webp',
+  'cleaning-towels': '/images/products/home-care-wet-towels/SP_Cleaning_towels_100.webp',
 };
 
 // ── Product images mapped by product slug ──────────────────────────
@@ -35,65 +35,65 @@ export const productImages: Record<string, string[]> = {
   'premium-xxlarge': ['/images/products/mega-baby-diapers/SP_BABY_DIAPERS_MEGA_7_.webp', BABY_DIAPER_OPEN],
 
   // Yetişkin Bezi
-  'yetiskin-bezi-m': [
+  'adult-diaper-m': [
     '/images/products/adult-diapers-30/SP_ADULT_DIAPERS_M (2).webp',
     '/images/products/adult-diapers-10/SP_ADULT_DIAPERS_M_10.webp',
   ],
-  'yetiskin-bezi-l': [
+  'adult-diaper-l': [
     '/images/products/adult-diapers-30/SP_ADULT_DIAPERS_L (2).webp',
     '/images/products/adult-diapers-10/SP_ADULT_DIAPERS_L_10.webp',
   ],
-  'yetiskin-bezi-xl': [
+  'adult-diaper-xl': [
     '/images/products/adult-diapers-30/SP_ADULT_DIAPERS_XL (2).webp',
     '/images/products/adult-diapers-10/SP_ADULT_DIAPERS_XL_10.webp',
   ],
 
   // Yetişkin Külot Bezi
-  'kulot-bezi-m': [
+  'adult-pant-m': [
     '/images/products/adult-pants-30/SP_ADULT_PANTS_M (2).webp',
     '/images/products/adult-pants-10/SP_ADULT_PANTS_M_10.webp',
   ],
-  'kulot-bezi-l': [
+  'adult-pant-l': [
     '/images/products/adult-pants-30/SP_ADULT_PANTS_L (2).webp',
     '/images/products/adult-pants-10/SP_ADULT_PANTS_L_10.webp',
   ],
-  'kulot-bezi-xl': [
+  'adult-pant-xl': [
     '/images/products/adult-pants-30/SP_ADULT_PANTS_XL (2).webp',
     '/images/products/adult-pants-10/SP_ADULT_PANTS_XL_10.webp',
   ],
 
   // Yetişkin Alt Serme
-  'alt-serme-60x90': ['/images/products/adult-underpad/SP_UNDERPAD_60x90_30 (2).webp'],
+  'adult-underpad-60x90': ['/images/products/adult-underpad/SP_UNDERPAD_60x90_30 (2).webp'],
 
   // Bebek Alt Serme
-  'bebek-alt-serme-60x60': ['/images/products/baby-underpad/SP_UNDERPAD_BABY_60x60_10.webp'],
+  'baby-underpad-60x60': ['/images/products/baby-underpad/SP_UNDERPAD_BABY_60x60_10.webp'],
 
   // Mesane Pedi
-  'mesane-pedi-4-damla': ['/images/products/bladder-pads/SP_PADS_UNISEX_4.webp'],
-  'mesane-pedi-6-damla': ['/images/products/bladder-pads/SP_PADS_UNISEX_6.webp'],
-  'mesane-pedi-8-damla': ['/images/products/bladder-pads/SP_PADS_UNISEX_PURPLE.webp'],
+  'bladder-pad-4-drops': ['/images/products/bladder-pads/SP_PADS_UNISEX_4.webp'],
+  'bladder-pad-6-drops': ['/images/products/bladder-pads/SP_PADS_UNISEX_6.webp'],
+  'bladder-pad-8-drops': ['/images/products/bladder-pads/SP_PADS_UNISEX_PURPLE.webp'],
 
   // Hijyenik Ped
-  'hijyenik-ped-4-damla': ['/images/products/sanitary-pads/SP_PADS_LADY_4.webp'],
-  'hijyenik-ped-5-damla': ['/images/products/sanitary-pads/SP_PADS_LADY_5.webp'],
-  'hijyenik-ped-6-damla': ['/images/products/sanitary-pads/SP_PADS_LADY_6.webp'],
+  'sanitary-pad-4-drops': ['/images/products/sanitary-pads/SP_PADS_LADY_4.webp'],
+  'sanitary-pad-5-drops': ['/images/products/sanitary-pads/SP_PADS_LADY_5.webp'],
+  'sanitary-pad-6-drops': ['/images/products/sanitary-pads/SP_PADS_LADY_6.webp'],
 
   // Islak Mendil
   // Bebek serisi
-  'islak-mendil-bebek-72': ['/images/products/baby-wet-wipes/SP_WET_WIPES_BABY_72.webp'],
-  'islak-mendil-bebek-90': ['/images/products/baby-wet-wipes/SP_WET_WIPES_BABY_90.webp'],
-  'islak-mendil-bebek-120': ['/images/products/baby-wet-wipes/SP_WET_WIPES_BABY_120.webp'],
+  'baby-wipe-72': ['/images/products/baby-wet-wipes/SP_WET_WIPES_BABY_72.webp'],
+  'baby-wipe-90': ['/images/products/baby-wet-wipes/SP_WET_WIPES_BABY_90.webp'],
+  'baby-wipe-120': ['/images/products/baby-wet-wipes/SP_WET_WIPES_BABY_120.webp'],
   // Günlük Kullanım serisi
-  'islak-mendil-fresh-splash-120': ['/images/products/wet-wipes/SP_WET_WIPES_120.webp'],
-  'islak-mendil-fresh-splash-90': ['/images/products/wet-wipes/SP_WET_WIPES_UNIVERSAL_90.webp'],
+  'wet-wipe-fresh-splash-120': ['/images/products/wet-wipes/SP_WET_WIPES_120.webp'],
+  'wet-wipe-fresh-splash-90': ['/images/products/wet-wipes/SP_WET_WIPES_UNIVERSAL_90.webp'],
   // Çiçek serisi
-  'islak-mendil-aloe-vera': ['/images/products/wet-wipes/SP_WET_WIPES_ALOE_90.webp'],
-  'islak-mendil-papatya': ['/images/products/wet-wipes/SP_WET_WIPES_CHAMOMILE_90.webp'],
-  'islak-mendil-gul': ['/images/products/wet-wipes/SP_WET_WIPES_ROSE_90.webp'],
-  'islak-mendil-lavanta': ['/images/products/wet-wipes/SP_WET_WIPES_LAVENDER_90.webp'],
+  'wet-wipe-aloe-vera': ['/images/products/wet-wipes/SP_WET_WIPES_ALOE_90.webp'],
+  'wet-wipe-chamomile': ['/images/products/wet-wipes/SP_WET_WIPES_CHAMOMILE_90.webp'],
+  'wet-wipe-rose': ['/images/products/wet-wipes/SP_WET_WIPES_ROSE_90.webp'],
+  'wet-wipe-lavender': ['/images/products/wet-wipes/SP_WET_WIPES_LAVENDER_90.webp'],
 
   // Yüzey Temizleme Havlusu
-  'yuzey-temizleme-havlusu-100': ['/images/products/home-care-wet-towels/SP_Cleaning_towels_100.webp'],
+  'cleaning-towel-100': ['/images/products/home-care-wet-towels/SP_Cleaning_towels_100.webp'],
 };
 
 /** Get primary image for a product slug */

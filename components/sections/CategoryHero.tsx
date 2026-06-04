@@ -15,15 +15,15 @@ interface CategoryHeroProps {
 }
 
 const CATEGORY_BANNER: Record<string, string> = {
-  'bebek-bezi': '/slider/slide-baby-diapers.webp',
-  'yetiskin-bezi': '/slider/slide-adult-pants.webp',
-  'yetiskin-kulot-bezi': '/slider/slide-adult-pants.webp',
-  'yetiskin-alt-serme-ortusu': '/slider/slide-underpads.webp',
-  'bebek-alt-serme-ortusu': '/slider/slide-baby-underpads.webp',
-  'mesane-pedi': '/slider/slide-bladder-pads.webp',
-  'hijyenik-ped': '/slider/slide-bladder-pads.webp',
-  'islak-mendil': '/slider/slide-wet-wipes.webp',
-  'yuzey-temizleme-havlusu': '/slider/slide-cleaning-towels.webp',
+  'baby-diapers': '/slider/slide-baby-diapers.webp',
+  'adult-diapers': '/slider/slide-adult-pants.webp',
+  'adult-pants': '/slider/slide-adult-pants.webp',
+  'adult-underpads': '/slider/slide-underpads.webp',
+  'baby-underpads': '/slider/slide-baby-underpads.webp',
+  'bladder-pads': '/slider/slide-bladder-pads.webp',
+  'sanitary-pads': '/slider/slide-bladder-pads.webp',
+  'wet-wipes': '/slider/slide-wet-wipes.webp',
+  'cleaning-towels': '/slider/slide-cleaning-towels.webp',
 };
 
 export default function CategoryHero({
@@ -41,7 +41,7 @@ export default function CategoryHero({
   const CTAs = (
     <div className="flex flex-wrap gap-3">
       <Link
-        href={getLocalizedUrl(locale, '/iletisim')}
+        href={getLocalizedUrl(locale, '/contact')}
         className="inline-flex items-center gap-2 bg-[#00b4c8] hover:bg-[#009aad] text-white font-bold px-6 sm:px-7 py-3 sm:py-3.5 rounded-xl shadow-lg shadow-[#00b4c8]/40 hover:scale-[1.03] active:scale-[0.98] transition-all"
       >
         {t('getWholesaleQuote')}

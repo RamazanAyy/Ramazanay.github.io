@@ -57,7 +57,7 @@ export default function SeriesSizeGuide({
             return (
               <Link
                 key={p.slug}
-                href={getLocalizedUrl(locale, '/urunler', categorySlug, localizeProductSlug(p.slug, locale))}
+                href={getLocalizedUrl(locale, '/products', categorySlug, localizeProductSlug(p.slug, locale))}
                 aria-current={isActive ? 'page' : undefined}
                 className={`group relative flex flex-col items-center text-center rounded-xl border transition-all duration-200 overflow-hidden ${
                   isActive

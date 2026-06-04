@@ -166,7 +166,7 @@ export default function ProductGrid({ products, categorySlug }: ProductGridProps
             {/* Action buttons */}
             <div className="mt-4 flex gap-3">
               <Link
-                href={getLocalizedUrl(locale, '/urunler', categorySlug, localizeProductSlug(product.slug, locale))}
+                href={getLocalizedUrl(locale, '/products', categorySlug, localizeProductSlug(product.slug, locale))}
                 className="flex-1 inline-flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl bg-[#00b4c8] hover:bg-[#009db0] text-white text-sm font-semibold transition-all duration-200 hover:scale-[1.02] active:scale-[0.98]"
               >
                 {t('viewDetails')}

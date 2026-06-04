@@ -58,7 +58,7 @@ export default function CtaSection() {
 
           {/* Teklif Formu Button */}
           <Link
-            href={getLocalizedUrl(locale, '/iletisim')}
+            href={getLocalizedUrl(locale, '/contact')}
             className="inline-flex items-center gap-3 px-8 py-3.5 rounded-xl border-2 border-[#00b4c8] text-[#00b4c8] hover:bg-[#00b4c8] hover:text-white font-semibold text-base transition-all duration-200 hover:scale-[1.02] active:scale-[0.98]"
           >
             <svg

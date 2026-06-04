@@ -193,7 +193,7 @@ export default function HomePage() {
                 </div>
 
                 <Link
-                  href={getLocalizedUrl(locale, '/kurumsal/hakkimizda')}
+                  href={getLocalizedUrl(locale, '/about/about-us')}
                   className="inline-flex items-center gap-2 border-2 border-[#1a5fa8] text-[#1a5fa8] font-bold px-7 py-3.5 rounded-xl hover:bg-[#1a5fa8] hover:text-white transition-all"
                 >
                   {tAbout('cta')}
@@ -278,7 +278,7 @@ export default function HomePage() {
                   {tPL('subtitle')}
                 </p>
                 <Link
-                  href={getLocalizedUrl(locale, '/ozel-etiket')}
+                  href={getLocalizedUrl(locale, '/private-label')}
                   className="inline-flex items-center gap-2 bg-white text-[#1a5fa8] font-bold px-8 py-4 rounded-xl hover:bg-[#00b4c8] hover:text-white transition-all hover:scale-105 active:scale-95 shadow-lg"
                 >
                   {tPL('cta')}
@@ -457,7 +457,7 @@ export default function HomePage() {
                 {tContact('whatsappBtn')}
               </a>
               <Link
-                href={getLocalizedUrl(locale, '/iletisim')}
+                href={getLocalizedUrl(locale, '/contact')}
                 className="inline-flex items-center gap-2 bg-[#00b4c8] hover:bg-[#009aad] text-white font-semibold px-6 py-3.5 rounded-xl transition-all hover:scale-105"
               >
                 <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">

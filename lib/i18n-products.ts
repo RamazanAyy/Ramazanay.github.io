@@ -74,7 +74,7 @@ const TR: LocaleData = buildTrData();
 // ─── EN data ─────────────────────────────────────────────────────────────────
 const EN: LocaleData = {
   categories: {
-    'bebek-bezi': {
+    'baby-diapers': {
       name: 'Baby Diapers',
       description:
         "Super-absorbent, leak-proof baby diapers that protect your baby's delicate skin. Our Eco and Mega series offer solutions for every budget.",
@@ -105,7 +105,7 @@ const EN: LocaleData = {
         },
       ],
     },
-    'yetiskin-bezi': {
+    'adult-diapers': {
       name: 'Adult Diapers',
       description:
         'High absorbency, leak-proof protection and breathable construction make these diapers suitable for both day and night use.',
@@ -146,7 +146,7 @@ const EN: LocaleData = {
         },
       ],
     },
-    'yetiskin-kulot-bezi': {
+    'adult-pants': {
       name: 'Adult Pants',
       description:
         'Pull-up style adult diapers designed for active life; 360° protection and an elastic waistband provide all-day comfort.',
@@ -182,7 +182,7 @@ const EN: LocaleData = {
         },
       ],
     },
-    'yetiskin-alt-serme-ortusu': {
+    'adult-underpads': {
       name: 'Adult Underpads',
       description:
         'Adult underpads designed for bed and surface protection. A waterproof base layer and a fast-absorbing top surface provide hygienic protection.',
@@ -213,7 +213,7 @@ const EN: LocaleData = {
         },
       ],
     },
-    'bebek-alt-serme-ortusu': {
+    'baby-underpads': {
       name: 'Baby Underpads',
       description:
         'Baby underpads designed for hygienic use during diaper changes. Soft, breathable upper surface and waterproof bottom layer for safe protection.',
@@ -244,7 +244,7 @@ const EN: LocaleData = {
         },
       ],
     },
-    'mesane-pedi': {
+    'bladder-pads': {
       name: 'Bladder Pads',
       description:
         'Pads specifically designed for urinary incontinence. Discreet, anatomic design with a neutral odour system supports comfort throughout the day.',
@@ -285,7 +285,7 @@ const EN: LocaleData = {
         },
       ],
     },
-    'hijyenik-ped': {
+    'sanitary-pads': {
       name: 'Sanitary Pads',
       description:
         'Sanitary pads offering superior protection and comfort during your period. A fast-absorbing surface and leak-proof back design provide assurance at every moment.',
@@ -321,7 +321,7 @@ const EN: LocaleData = {
         },
       ],
     },
-    'islak-mendil': {
+    'wet-wipes': {
       name: 'Wet Wipes',
       description:
         'pH-balanced, alcohol-free wet wipes suitable for every age group. A wide range from baby care to general cleaning.',
@@ -357,7 +357,7 @@ const EN: LocaleData = {
         },
       ],
     },
-    'yuzey-temizleme-havlusu': {
+    'cleaning-towels': {
       name: 'Surface Cleaning Towels',
       description:
         'Practical and durable cleaning towels for home, office and industrial use.',
@@ -407,39 +407,39 @@ const EN: LocaleData = {
     'premium-xlarge': { name: 'Mega X Large', description: 'XL premium-pack diaper, day & night premium protection with breathing channels for skin.', count: '56 pcs', size: '15+ kg', series: 'Mega Pack' },
     'premium-xxlarge': { name: 'Mega XX Large', description: 'Largest premium-pack diaper – highest absorbency capacity for active children.', count: '48 pcs', size: '20-30 kg', series: 'Mega Pack' },
     // Adult diapers
-    'yetiskin-bezi-m': { name: 'Adult Diaper M', description: 'Medium adult diaper. High absorbency, leak-proof side gathers and breathable build for day & night use. Waist 85-125 cm.', count: '30 pcs', size: 'M (85-125 cm)', series: 'Standard' },
-    'yetiskin-bezi-l': { name: 'Adult Diaper L', description: 'Large adult diaper. High absorbency, leak-proof side gathers and breathable build for day & night use. Waist 100-150 cm.', count: '30 pcs', size: 'L (100-150 cm)', series: 'Standard' },
-    'yetiskin-bezi-xl': { name: 'Adult Diaper XL', description: 'Extra-large adult diaper. High absorbency, leak-proof side gathers and breathable build for day & night use. Waist 120-170 cm.', count: '30 pcs', size: 'XL (120-170 cm)', series: 'Standard' },
+    'adult-diaper-m': { name: 'Adult Diaper M', description: 'Medium adult diaper. High absorbency, leak-proof side gathers and breathable build for day & night use. Waist 85-125 cm.', count: '30 pcs', size: 'M (85-125 cm)', series: 'Standard' },
+    'adult-diaper-l': { name: 'Adult Diaper L', description: 'Large adult diaper. High absorbency, leak-proof side gathers and breathable build for day & night use. Waist 100-150 cm.', count: '30 pcs', size: 'L (100-150 cm)', series: 'Standard' },
+    'adult-diaper-xl': { name: 'Adult Diaper XL', description: 'Extra-large adult diaper. High absorbency, leak-proof side gathers and breathable build for day & night use. Waist 120-170 cm.', count: '30 pcs', size: 'XL (120-170 cm)', series: 'Standard' },
     // Adult pants
-    'kulot-bezi-m': { name: 'Adult Pants Medium', description: 'Medium pant diaper that can be pulled on like regular underwear. The 360° elastic waistband fits snugly.', count: '30 pcs', size: 'M (70-100 cm)', series: 'Standard' },
-    'kulot-bezi-l': { name: 'Adult Pants Large', description: 'Large pant diaper offering ideal freedom of movement for active users. Double-barrier system prevents leaks.', count: '30 pcs', size: 'L (90-120 cm)', series: 'Standard' },
-    'kulot-bezi-xl': { name: 'Adult Pants XLarge', description: 'Extra-large pant diaper with a wide absorbent surface for superior protection. Tear-away sides for easy removal.', count: '28 pcs', size: 'XL (110-150 cm)', series: 'Standard' },
+    'adult-pant-m': { name: 'Adult Pants Medium', description: 'Medium pant diaper that can be pulled on like regular underwear. The 360° elastic waistband fits snugly.', count: '30 pcs', size: 'M (70-100 cm)', series: 'Standard' },
+    'adult-pant-l': { name: 'Adult Pants Large', description: 'Large pant diaper offering ideal freedom of movement for active users. Double-barrier system prevents leaks.', count: '30 pcs', size: 'L (90-120 cm)', series: 'Standard' },
+    'adult-pant-xl': { name: 'Adult Pants XLarge', description: 'Extra-large pant diaper with a wide absorbent surface for superior protection. Tear-away sides for easy removal.', count: '28 pcs', size: 'XL (110-150 cm)', series: 'Standard' },
     // Adult underpad
-    'alt-serme-60x90': { name: 'Underpad 60x90', description: "Wide-format adult underpad – the most preferred size for bed protection. Quick-absorbing top keeps skin dry.", count: '30 pcs', size: '60x90 cm', series: 'Standard' },
+    'adult-underpad-60x90': { name: 'Underpad 60x90', description: "Wide-format adult underpad – the most preferred size for bed protection. Quick-absorbing top keeps skin dry.", count: '30 pcs', size: '60x90 cm', series: 'Standard' },
     // Baby underpad
-    'bebek-alt-serme-60x60': { name: 'Baby Underpad 60x60', description: "Wide baby underpad – the perfect size for cribs and changing units. Breathable construction protects baby skin.", count: '10 pcs', size: '60x60 cm', series: 'Standard' },
+    'baby-underpad-60x60': { name: 'Baby Underpad 60x60', description: "Wide baby underpad – the perfect size for cribs and changing units. Breathable construction protects baby skin.", count: '10 pcs', size: '60x60 cm', series: 'Standard' },
     // Bladder pads
-    'mesane-pedi-4-damla': { name: 'Bladder Pad 4 Drops', description: 'Bladder pad designed for light urinary incontinence. Slim, discreet build can be used comfortably in daily life.', count: '20 pcs', size: '4 Drops · Light Flow', series: 'Standard' },
-    'mesane-pedi-6-damla': { name: 'Bladder Pad 6 Drops', description: 'Ideal bladder pad for moderate urinary incontinence. Anatomic form fits the body.', count: '20 pcs', size: '6 Drops · Moderate Flow', series: 'Standard' },
-    'mesane-pedi-8-damla': { name: 'Bladder Pad 8 Drops', description: 'High-absorbency bladder pad for heavy urinary incontinence. Wide absorbent surface and neutral odour system.', count: '20 pcs', size: '8 Drops · Heavy Flow', series: 'Standard' },
+    'bladder-pad-4-drops': { name: 'Bladder Pad 4 Drops', description: 'Bladder pad designed for light urinary incontinence. Slim, discreet build can be used comfortably in daily life.', count: '20 pcs', size: '4 Drops · Light Flow', series: 'Standard' },
+    'bladder-pad-6-drops': { name: 'Bladder Pad 6 Drops', description: 'Ideal bladder pad for moderate urinary incontinence. Anatomic form fits the body.', count: '20 pcs', size: '6 Drops · Moderate Flow', series: 'Standard' },
+    'bladder-pad-8-drops': { name: 'Bladder Pad 8 Drops', description: 'High-absorbency bladder pad for heavy urinary incontinence. Wide absorbent surface and neutral odour system.', count: '20 pcs', size: '8 Drops · Heavy Flow', series: 'Standard' },
     // Sanitary pads
-    'hijyenik-ped-4-damla': { name: 'Sanitary Pad 4 Drops', description: 'Ultra-thin sanitary pad. Flexible wings, extra-dry surface and skin-friendly construction make it ideal for normal flow days.', count: '20 pcs', size: '4 Drops', series: 'Standard' },
-    'hijyenik-ped-5-damla': { name: 'Sanitary Pad 5 Drops', description: 'Super-absorbent sanitary pad designed for heavy flow days. Wide absorbent core and flexible wings provide all-day confidence.', count: '20 pcs', size: '5 Drops', series: 'Standard' },
-    'hijyenik-ped-6-damla': { name: 'Sanitary Pad 6 Drops', description: 'Extra-long, high-absorbency sanitary pad for night use. Total night-long protection for restful sleep.', count: '20 pcs', size: '6 Drops', series: 'Standard' },
+    'sanitary-pad-4-drops': { name: 'Sanitary Pad 4 Drops', description: 'Ultra-thin sanitary pad. Flexible wings, extra-dry surface and skin-friendly construction make it ideal for normal flow days.', count: '20 pcs', size: '4 Drops', series: 'Standard' },
+    'sanitary-pad-5-drops': { name: 'Sanitary Pad 5 Drops', description: 'Super-absorbent sanitary pad designed for heavy flow days. Wide absorbent core and flexible wings provide all-day confidence.', count: '20 pcs', size: '5 Drops', series: 'Standard' },
+    'sanitary-pad-6-drops': { name: 'Sanitary Pad 6 Drops', description: 'Extra-long, high-absorbency sanitary pad for night use. Total night-long protection for restful sleep.', count: '20 pcs', size: '6 Drops', series: 'Standard' },
     // Wet wipes - Baby
-    'islak-mendil-bebek-72': { name: 'Sensitive Baby Wet Wipes 72', description: "Fragrance-free, pH-balanced wet wipes safe for all babies including newborns.", count: '72 sheets', series: 'Baby' },
-    'islak-mendil-bebek-90': { name: 'Sensitive Baby Wet Wipes 90', description: 'Soft and thick texture for gentle baby skin. Practical lid for easy use at home and on the go.', count: '90 sheets', series: 'Baby' },
-    'islak-mendil-bebek-120': { name: 'Sensitive Baby Wet Wipes 120', description: 'Family-size economical pack. Ideal for heavy use, daily diaper changes and skincare.', count: '120 sheets', series: 'Baby' },
+    'baby-wipe-72': { name: 'Sensitive Baby Wet Wipes 72', description: "Fragrance-free, pH-balanced wet wipes safe for all babies including newborns.", count: '72 sheets', series: 'Baby' },
+    'baby-wipe-90': { name: 'Sensitive Baby Wet Wipes 90', description: 'Soft and thick texture for gentle baby skin. Practical lid for easy use at home and on the go.', count: '90 sheets', series: 'Baby' },
+    'baby-wipe-120': { name: 'Sensitive Baby Wet Wipes 120', description: 'Family-size economical pack. Ideal for heavy use, daily diaper changes and skincare.', count: '120 sheets', series: 'Baby' },
     // Wet wipes - Daily
-    'islak-mendil-fresh-splash-120': { name: 'Fresh Splash Wet Wipes', description: 'Refreshing scent and thick texture. Suitable for hand, face and surface cleaning. The lidded pack keeps wipes fresh.', count: '120 sheets', series: 'Daily Use' },
-    'islak-mendil-fresh-splash-90': { name: 'Fresh Splash Wet Wipes 90', description: 'Practical-sized daily wet wipes. Compact for carrying – ideal for quick clean-ups on the go.', count: '90 sheets', series: 'Daily Use' },
+    'wet-wipe-fresh-splash-120': { name: 'Fresh Splash Wet Wipes', description: 'Refreshing scent and thick texture. Suitable for hand, face and surface cleaning. The lidded pack keeps wipes fresh.', count: '120 sheets', series: 'Daily Use' },
+    'wet-wipe-fresh-splash-90': { name: 'Fresh Splash Wet Wipes 90', description: 'Practical-sized daily wet wipes. Compact for carrying – ideal for quick clean-ups on the go.', count: '90 sheets', series: 'Daily Use' },
     // Wet wipes - Flower
-    'islak-mendil-aloe-vera': { name: 'Aloe Vera Wet Wipes', description: 'Gentle Touch wet wipes with aloe vera extract. Cleanses while moisturising the skin with a natural fresh feel.', count: '90 sheets', series: 'Flower Series' },
-    'islak-mendil-papatya': { name: 'Chamomile Wet Wipes', description: 'Gentle Touch wet wipes with chamomile extract. The soothing formula is ideal for sensitive skin.', count: '90 sheets', series: 'Flower Series' },
-    'islak-mendil-gul': { name: 'Rose Wet Wipes', description: 'Gentle Touch wet wipes with rose extract. Pleasant scent and gentle formula offer daily care for face and hands.', count: '90 sheets', series: 'Flower Series' },
-    'islak-mendil-lavanta': { name: 'Lavender Wet Wipes', description: 'Gentle Touch wet wipes with lavender extract. Soothing scent freshens the skin and leaves it soft.', count: '90 sheets', series: 'Flower Series' },
+    'wet-wipe-aloe-vera': { name: 'Aloe Vera Wet Wipes', description: 'Gentle Touch wet wipes with aloe vera extract. Cleanses while moisturising the skin with a natural fresh feel.', count: '90 sheets', series: 'Flower Series' },
+    'wet-wipe-chamomile': { name: 'Chamomile Wet Wipes', description: 'Gentle Touch wet wipes with chamomile extract. The soothing formula is ideal for sensitive skin.', count: '90 sheets', series: 'Flower Series' },
+    'wet-wipe-rose': { name: 'Rose Wet Wipes', description: 'Gentle Touch wet wipes with rose extract. Pleasant scent and gentle formula offer daily care for face and hands.', count: '90 sheets', series: 'Flower Series' },
+    'wet-wipe-lavender': { name: 'Lavender Wet Wipes', description: 'Gentle Touch wet wipes with lavender extract. Soothing scent freshens the skin and leaves it soft.', count: '90 sheets', series: 'Flower Series' },
     // Cleaning towels
-    'yuzey-temizleme-havlusu-100': { name: 'Surface Cleaning Towel', description: 'Practical and hygienic cleaning for all surfaces such as glass, kitchen counters, sinks and bathrooms. Free from parabens and SLS.', count: '100 sheets', series: 'Standard' },
+    'cleaning-towel-100': { name: 'Surface Cleaning Towel', description: 'Practical and hygienic cleaning for all surfaces such as glass, kitchen counters, sinks and bathrooms. Free from parabens and SLS.', count: '100 sheets', series: 'Standard' },
   },
 };
 

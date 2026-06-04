@@ -29,13 +29,13 @@ export default function NotFound() {
           Anasayfaya Dön
         </Link>
         <Link
-          href="/tr/urunler"
+          href="/tr/products"
           className="inline-flex items-center gap-2 border-2 border-[#1a5fa8] text-[#1a5fa8] font-semibold px-6 py-3 rounded-xl hover:bg-[#1a5fa8] hover:text-white transition-all"
         >
           Ürünleri Gör
         </Link>
         <Link
-          href="/tr/iletisim"
+          href="/tr/contact"
           className="inline-flex items-center gap-2 text-[#1a5fa8] font-semibold px-6 py-3 hover:text-[#00b4c8] transition-all"
         >
           İletişim

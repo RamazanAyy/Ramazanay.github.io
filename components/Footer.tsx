@@ -16,21 +16,21 @@ export default function Footer() {
   const url = (path: string, ...rest: string[]) => getLocalizedUrl(locale, path, ...rest);
 
   const productLinks = [
-    { key: 'babyDiapers',  href: url('/urunler', slug('bebek-bezi')) },
-    { key: 'adultDiapers', href: url('/urunler', slug('yetiskin-bezi')) },
-    { key: 'adultPants',   href: url('/urunler', slug('yetiskin-kulot-bezi')) },
-    { key: 'sanitaryPads', href: url('/urunler', slug('hijyenik-ped')) },
-    { key: 'babyWipes',    href: url('/urunler', slug('islak-mendil')) },
-    { key: 'wetWipes',     href: url('/urunler', slug('islak-mendil')) },
+    { key: 'babyDiapers',  href: url('/products', slug('baby-diapers')) },
+    { key: 'adultDiapers', href: url('/products', slug('adult-diapers')) },
+    { key: 'adultPants',   href: url('/products', slug('adult-pants')) },
+    { key: 'sanitaryPads', href: url('/products', slug('sanitary-pads')) },
+    { key: 'babyWipes',    href: url('/products', slug('wet-wipes')) },
+    { key: 'wetWipes',     href: url('/products', slug('wet-wipes')) },
   ];
 
   const quickLinks = [
     { label: tNav('home'),         href: `/${locale}` },
-    { label: tNav('about'),        href: url('/kurumsal/hakkimizda') },
-    { label: tNav('quality'),      href: url('/kurumsal/uretim') },
-    { label: tNav('certificates'), href: url('/kurumsal/sertifikalar') },
-    { label: tNav('privateLabel'), href: url('/ozel-etiket') },
-    { label: tNav('contact'),      href: url('/iletisim') },
+    { label: tNav('about'),        href: url('/about/about-us') },
+    { label: tNav('quality'),      href: url('/about/production') },
+    { label: tNav('certificates'), href: url('/about/certificates') },
+    { label: tNav('privateLabel'), href: url('/private-label') },
+    { label: tNav('contact'),      href: url('/contact') },
   ];
 
   return (

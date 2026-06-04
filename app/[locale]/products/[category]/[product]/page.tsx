@@ -25,25 +25,25 @@ import SeriesSizeGuide from '@/components/sections/SeriesSizeGuide';
 import { getProductImages, getProductImage } from '@/lib/product-images';
 
 interface PageProps {
-  params: { locale: string; kategori: string; urun: string };
+  params: { locale: string; category: string; product: string };
 }
 
 /* ─── SEO Metadata ──────────────────────────────────────────────── */
 
 export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
-  const canonicalSlug = canonicalizeCategorySlug(params.kategori);
+  const canonicalSlug = canonicalizeCategorySlug(params.category);
   const category = getLocalizedCategoryBySlug(params.locale, canonicalSlug);
-  const product = getLocalizedProductBySlug(params.locale, canonicalSlug, params.urun);
+  const product = getLocalizedProductBySlug(params.locale, canonicalSlug, params.product);
   if (!product || !category) return {};
 
   const title = `${product.name} | ${category.name} | Soft & Power`;
   const description = product.description;
 
   // hreflang: tüm diller aynı canonical URL'i kullanır
-  const canonicalProdSlug = canonicalizeProductSlug(params.urun);
+  const canonicalProdSlug = canonicalizeProductSlug(params.product);
   const languages: Record<string, string> = {};
   for (const l of SUPPORTED_LOCALES) {
-    languages[l] = getLocalizedUrl(l, '/urunler', canonicalSlug, canonicalProdSlug);
+    languages[l] = getLocalizedUrl(l, '/products', canonicalSlug, canonicalProdSlug);
   }
 
   return {
@@ -56,7 +56,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
       locale: params.locale === 'tr' ? 'tr_TR' : params.locale,
     },
     alternates: {
-      canonical: getLocalizedUrl(params.locale, '/urunler', canonicalSlug, canonicalProdSlug),
+      canonical: getLocalizedUrl(params.locale, '/products', canonicalSlug, canonicalProdSlug),
       languages,
     },
   };
@@ -66,11 +66,11 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
 
 // Canonical TR slug'larla sayfa üret (her dil aynı URL'i kullanır)
 export function generateStaticParams() {
-  const paths: { locale: string; kategori: string; urun: string }[] = [];
+  const paths: { locale: string; category: string; product: string }[] = [];
   for (const locale of SUPPORTED_LOCALES) {
     for (const cat of categories) {
       for (const prod of cat.products) {
-        paths.push({ locale, kategori: cat.slug, urun: prod.slug });
+        paths.push({ locale, category: cat.slug, product: prod.slug });
       }
     }
   }
@@ -82,15 +82,15 @@ export function generateStaticParams() {
 export default async function ProductPage({ params }: PageProps) {
   unstable_setRequestLocale(params.locale);
   const t = await getTranslations({ locale: params.locale });
-  const canonicalSlug = canonicalizeCategorySlug(params.kategori);
+  const canonicalSlug = canonicalizeCategorySlug(params.category);
   const category = getLocalizedCategoryBySlug(params.locale, canonicalSlug);
-  const product = getLocalizedProductBySlug(params.locale, canonicalSlug, params.urun);
+  const product = getLocalizedProductBySlug(params.locale, canonicalSlug, params.product);
   if (!category || !product) notFound();
 
   // SEO: lokalize ya da yanlış slug → canonical TR URL'ine 301
-  const canonicalProdSlug = canonicalizeProductSlug(params.urun);
-  if (params.kategori !== canonicalSlug || params.urun !== canonicalProdSlug) {
-    permanentRedirect(getLocalizedUrl(params.locale, '/urunler', canonicalSlug, canonicalProdSlug));
+  const canonicalProdSlug = canonicalizeProductSlug(params.product);
+  if (params.category !== canonicalSlug || params.product !== canonicalProdSlug) {
+    permanentRedirect(getLocalizedUrl(params.locale, '/products', canonicalSlug, canonicalProdSlug));
   }
 
   // Product images
@@ -145,10 +145,10 @@ export default async function ProductPage({ params }: PageProps) {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <Breadcrumb
             items={[
-              { label: t('nav.products'), href: getLocalizedUrl(params.locale, '/urunler') },
+              { label: t('nav.products'), href: getLocalizedUrl(params.locale, '/products') },
               {
                 label: category.name,
-                href: getLocalizedUrl(params.locale, '/urunler', params.kategori),
+                href: getLocalizedUrl(params.locale, '/products', params.category),
               },
               { label: product.name },
             ]}
@@ -346,7 +346,7 @@ export default async function ProductPage({ params }: PageProps) {
                 seriesColor={product.seriesColor}
                 products={seriesSiblings}
                 activeSlug={product.slug}
-                categorySlug={params.kategori}
+                categorySlug={params.category}
               />
             </FadeInUp>
           </section>
@@ -412,7 +412,7 @@ export default async function ProductPage({ params }: PageProps) {
               {related.map((rel, i) => (
                 <FadeInUp key={rel.slug} delay={i * 0.08}>
                   <Link
-                    href={getLocalizedUrl(params.locale, '/urunler', params.kategori, rel.slug)}
+                    href={getLocalizedUrl(params.locale, '/products', params.category, rel.slug)}
                     className="group block rounded-2xl bg-white border border-gray-100 shadow-sm hover:shadow-lg hover:border-[#1a5fa8]/20 transition-all duration-300 overflow-hidden"
                   >
                     {/* Image or gradient fallback */}

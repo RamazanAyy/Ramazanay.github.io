@@ -56,53 +56,100 @@ const nextConfig = {
   async redirects() {
     const out = [];
 
-    // ─── 1. Eski WordPress kategorileri (TR slug'a yönlendir) ──────
-    const SLUG_MAP = {
-      'baby-diaper':       'bebek-bezi',
-      'baby-diapers':      'bebek-bezi',
-      'baby-underpad':     'bebek-alt-serme-ortusu',
-      'baby-underpads':    'bebek-alt-serme-ortusu',
-      'baby-wipe':         'islak-mendil',
-      'baby-wipes':        'islak-mendil',
-      'adult-diaper':      'yetiskin-bezi',
-      'adult-diapers':     'yetiskin-bezi',
-      'adult-pant':        'yetiskin-kulot-bezi',
-      'adult-pants':       'yetiskin-kulot-bezi',
-      'adult-underpad':    'yetiskin-alt-serme-ortusu',
-      'adult-underpads':   'yetiskin-alt-serme-ortusu',
-      'bladder-pad':       'mesane-pedi',
-      'bladder-pads':      'mesane-pedi',
-      'sanitary-pad':      'hijyenik-ped',
-      'sanitary-pads':     'hijyenik-ped',
-      'wet-wipe':          'islak-mendil',
-      'wet-wipes':         'islak-mendil',
-      'cleaning-towel':    'yuzey-temizleme-havlusu',
-      'cleaning-towels':   'yuzey-temizleme-havlusu',
+    // ─── 1. Path segment redirects: eski TR → yeni EN canonical ──────
+    // /:locale/urunler/...     → /:locale/products/...
+    // /:locale/iletisim        → /:locale/contact
+    // /:locale/ozel-etiket     → /:locale/private-label
+    // /:locale/kurumsal/...    → /:locale/about/...
+    const LOC = ':locale(tr|en|de|ru|ar|uk)';
+    out.push(
+      { source: `/${LOC}/urunler`,                       destination: '/:locale/products',                  permanent: true },
+      { source: `/${LOC}/urunler/:path*`,                destination: '/:locale/products/:path*',           permanent: true },
+      { source: `/${LOC}/iletisim`,                      destination: '/:locale/contact',                   permanent: true },
+      { source: `/${LOC}/ozel-etiket`,                   destination: '/:locale/private-label',             permanent: true },
+      { source: `/${LOC}/kurumsal/hakkimizda`,           destination: '/:locale/about/about-us',            permanent: true },
+      { source: `/${LOC}/kurumsal/sertifikalar`,         destination: '/:locale/about/certificates',        permanent: true },
+      { source: `/${LOC}/kurumsal/uretim`,               destination: '/:locale/about/production',          permanent: true },
+      { source: `/${LOC}/kurumsal/ihracat`,              destination: '/:locale/about/export',              permanent: true },
+      { source: `/${LOC}/kurumsal`,                      destination: '/:locale/about/about-us',            permanent: true },
+    );
+
+    // ─── 2. Kategori slug redirects: eski TR slug → yeni EN canonical ──
+    // /:locale/products/bebek-bezi/...  → /:locale/products/baby-diapers/...
+    const CAT_MAP = {
+      'bebek-bezi':                  'baby-diapers',
+      'yetiskin-bezi':               'adult-diapers',
+      'yetiskin-kulot-bezi':         'adult-pants',
+      'yetiskin-alt-serme-ortusu':   'adult-underpads',
+      'bebek-alt-serme-ortusu':      'baby-underpads',
+      'mesane-pedi':                 'bladder-pads',
+      'hijyenik-ped':                'sanitary-pads',
+      'islak-mendil':                'wet-wipes',
+      'yuzey-temizleme-havlusu':     'cleaning-towels',
     };
-    for (const [oldSlug, newSlug] of Object.entries(SLUG_MAP)) {
+    for (const [oldCat, newCat] of Object.entries(CAT_MAP)) {
+      // /:locale/urunler/bebek-bezi/... — eski path + eski kategori (en eski URL)
       out.push({
-        source: `/${oldSlug}`,
-        destination: `/tr/urunler/${newSlug}`,
+        source: `/${LOC}/urunler/${oldCat}`,
+        destination: `/:locale/products/${newCat}`,
         permanent: true,
       });
       out.push({
-        source: `/:locale(tr|en|de|ru|ar|uk)/${oldSlug}`,
-        destination: `/:locale/urunler/${newSlug}`,
+        source: `/${LOC}/urunler/${oldCat}/:product*`,
+        destination: `/:locale/products/${newCat}/:product*`,
+        permanent: true,
+      });
+      // /:locale/products/bebek-bezi/... — yeni path + eski kategori
+      out.push({
+        source: `/${LOC}/products/${oldCat}`,
+        destination: `/:locale/products/${newCat}`,
+        permanent: true,
+      });
+      out.push({
+        source: `/${LOC}/products/${oldCat}/:product*`,
+        destination: `/:locale/products/${newCat}/:product*`,
         permanent: true,
       });
     }
 
-    // ─── 2. Eski WordPress sayfaları ──────────────────────────────
+    // ─── 3. Eski WordPress kök-level kategori slug'ları ──────
+    // /baby-diaper → /tr/products/baby-diapers, vb.
+    const WP_SLUG_MAP = {
+      'baby-diaper':       'baby-diapers',
+      'baby-diapers':      'baby-diapers',
+      'baby-underpad':     'baby-underpads',
+      'baby-underpads':    'baby-underpads',
+      'baby-wipe':         'wet-wipes',
+      'baby-wipes':        'wet-wipes',
+      'adult-diaper':      'adult-diapers',
+      'adult-diapers':     'adult-diapers',
+      'adult-pant':        'adult-pants',
+      'adult-pants':       'adult-pants',
+      'adult-underpad':    'adult-underpads',
+      'adult-underpads':   'adult-underpads',
+      'bladder-pad':       'bladder-pads',
+      'bladder-pads':      'bladder-pads',
+      'sanitary-pad':      'sanitary-pads',
+      'sanitary-pads':     'sanitary-pads',
+      'wet-wipe':          'wet-wipes',
+      'wet-wipes':         'wet-wipes',
+      'cleaning-towel':    'cleaning-towels',
+      'cleaning-towels':   'cleaning-towels',
+    };
+    for (const [oldSlug, newSlug] of Object.entries(WP_SLUG_MAP)) {
+      out.push({
+        source: `/${oldSlug}`,
+        destination: `/tr/products/${newSlug}`,
+        permanent: true,
+      });
+    }
+
+    // ─── 4. Eski WordPress sayfaları (kök-level, locale prefix yok) ──
     out.push(
-      { source: '/about',          destination: '/tr/kurumsal/hakkimizda',  permanent: true },
-      { source: '/about-us',       destination: '/tr/kurumsal/hakkimizda',  permanent: true },
-      { source: '/contact',        destination: '/tr/iletisim',             permanent: true },
-      { source: '/contact-us',     destination: '/tr/iletisim',             permanent: true },
-      { source: '/products',       destination: '/tr/urunler',              permanent: true },
-      { source: '/private-label',  destination: '/tr/ozel-etiket',          permanent: true },
-      { source: '/certificates',   destination: '/tr/kurumsal/sertifikalar',permanent: true },
-      { source: '/quality',        destination: '/tr/kurumsal/uretim',      permanent: true },
-      { source: '/production',     destination: '/tr/kurumsal/uretim',      permanent: true },
+      { source: '/about',          destination: '/tr/about/about-us',     permanent: true },
+      { source: '/about-us',       destination: '/tr/about/about-us',     permanent: true },
+      { source: '/contact-us',     destination: '/tr/contact',            permanent: true },
+      { source: '/quality',        destination: '/tr/about/production',   permanent: true },
     );
 
     return out;

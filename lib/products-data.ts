@@ -31,7 +31,7 @@ export interface Category {
 export const categories: Category[] = [
   // ─── 1. BEBEK BEZİ ───────────────────────────────────────────────
   {
-    slug: "bebek-bezi",
+    slug: "baby-diapers",
     name: "Bebek Bezi",
     nameKey: "babyDiapers",
     description:
@@ -211,7 +211,7 @@ export const categories: Category[] = [
 
   // ─── 2. YETİŞKİN BEZİ ────────────────────────────────────────────
   {
-    slug: "yetiskin-bezi",
+    slug: "adult-diapers",
     name: "Yetişkin Bezi",
     nameKey: "adultDiapers",
     description:
@@ -228,7 +228,7 @@ export const categories: Category[] = [
     gradient: "from-indigo-600 to-blue-400",
     products: [
       {
-        slug: "yetiskin-bezi-m",
+        slug: "adult-diaper-m",
         name: "Yetişkin Bezi M",
         description:
           "Orta beden yetişkin bezi. Yüksek emiş gücü, sızdırmaz yan bariyerleri ve nefes alabilen yapısıyla gündüz ve gece kullanıma uygundur. Bel çevresi 85-125 cm.",
@@ -238,7 +238,7 @@ export const categories: Category[] = [
         seriesColor: "#1a5fa8",
       },
       {
-        slug: "yetiskin-bezi-l",
+        slug: "adult-diaper-l",
         name: "Yetişkin Bezi L",
         description:
           "Büyük beden yetişkin bezi. Yüksek emiş gücü, sızdırmaz yan bariyerleri ve nefes alabilen yapısıyla gündüz ve gece kullanıma uygundur. Bel çevresi 100-150 cm.",
@@ -248,7 +248,7 @@ export const categories: Category[] = [
         seriesColor: "#1a5fa8",
       },
       {
-        slug: "yetiskin-bezi-xl",
+        slug: "adult-diaper-xl",
         name: "Yetişkin Bezi XL",
         description:
           "Ekstra büyük beden yetişkin bezi. Yüksek emiş gücü, sızdırmaz yan bariyerleri ve nefes alabilen yapısıyla gündüz ve gece kullanıma uygundur. Bel çevresi 120-170 cm.",
@@ -294,7 +294,7 @@ export const categories: Category[] = [
 
   // ─── 3. YETİŞKİN KÜLOT BEZİ ──────────────────────────────────────
   {
-    slug: "yetiskin-kulot-bezi",
+    slug: "adult-pants",
     name: "Yetişkin Külot Bezi",
     nameKey: "adultPants",
     description:
@@ -306,7 +306,7 @@ export const categories: Category[] = [
     gradient: "from-violet-600 to-indigo-400",
     products: [
       {
-        slug: "kulot-bezi-m",
+        slug: "adult-pant-m",
         name: "Külot Bezi Medium",
         description:
           "Orta beden külot bezi, normal iç çamaşırı gibi giyilip çıkarılabilir. 360° elastik bel bandı ile vücuda tam oturur.",
@@ -316,7 +316,7 @@ export const categories: Category[] = [
         seriesColor: "#1a5fa8",
       },
       {
-        slug: "kulot-bezi-l",
+        slug: "adult-pant-l",
         name: "Külot Bezi Large",
         description:
           "Büyük beden külot bezi, aktif kullanıcılar için ideal hareket özgürlüğü sağlar. Çift bariyer sistemiyle sızıntıyı önler.",
@@ -326,7 +326,7 @@ export const categories: Category[] = [
         seriesColor: "#1a5fa8",
       },
       {
-        slug: "kulot-bezi-xl",
+        slug: "adult-pant-xl",
         name: "Külot Bezi XLarge",
         description:
           "Ekstra büyük beden külot bezi, geniş emici yüzeyiyle üstün koruma sunar. Yırtılarak kolayca çıkarılabilir tasarıma sahiptir.",
@@ -367,7 +367,7 @@ export const categories: Category[] = [
 
   // ─── 4. YETİŞKİN ALT SERME ÖRTÜSÜ ────────────────────────────────
   {
-    slug: "yetiskin-alt-serme-ortusu",
+    slug: "adult-underpads",
     name: "Yetişkin Alt Serme Örtüsü",
     nameKey: "adultUnderpads",
     description:
@@ -379,7 +379,7 @@ export const categories: Category[] = [
     gradient: "from-sky-600 to-cyan-400",
     products: [
       {
-        slug: "alt-serme-60x90",
+        slug: "adult-underpad-60x90",
         name: "Alt Serme Örtüsü 60x90",
         description:
           "Geniş boyutlu yetişkin alt serme örtüsü, yatak koruma için en çok tercih edilen boyut. Hızlı emici üst yüzeyi ile cildi kuru tutar.",
@@ -415,7 +415,7 @@ export const categories: Category[] = [
 
   // ─── 5. BEBEK ALT SERME ÖRTÜSÜ ────────────────────────────────────
   {
-    slug: "bebek-alt-serme-ortusu",
+    slug: "baby-underpads",
     name: "Bebek Alt Serme Örtüsü",
     nameKey: "babyUnderpads",
     description:
@@ -427,7 +427,7 @@ export const categories: Category[] = [
     gradient: "from-pink-400 to-rose-300",
     products: [
       {
-        slug: "bebek-alt-serme-60x60",
+        slug: "baby-underpad-60x60",
         name: "Bebek Alt Serme Örtüsü 60x60",
         description:
           "Geniş boyutlu bebek alt serme örtüsü, bebek yatağı ve alt değiştirme ünitesi için mükemmel boyut. Nefes alan yapısıyla bebeğinizin cildini korur.",
@@ -463,7 +463,7 @@ export const categories: Category[] = [
 
   // ─── 6. MESANE PEDİ ───────────────────────────────────────────────
   {
-    slug: "mesane-pedi",
+    slug: "bladder-pads",
     name: "Mesane Pedi",
     nameKey: "bladderPads",
     description:
@@ -475,7 +475,7 @@ export const categories: Category[] = [
     gradient: "from-teal-500 to-emerald-400",
     products: [
       {
-        slug: "mesane-pedi-4-damla",
+        slug: "bladder-pad-4-drops",
         name: "Mesane Pedi 4 Damla",
         description:
           "Hafif idrar kaçırma için tasarlanmış mesane pedi. İnce ve gizli yapısıyla günlük hayatta rahatça kullanılabilir. Normal iç çamaşırına yapışarak sabit kalır.",
@@ -485,7 +485,7 @@ export const categories: Category[] = [
         seriesColor: "#1a5fa8",
       },
       {
-        slug: "mesane-pedi-6-damla",
+        slug: "bladder-pad-6-drops",
         name: "Mesane Pedi 6 Damla",
         description:
           "Orta düzey idrar kaçırma için ideal mesane pedi. Anatomik formu ile vücuda uyum sağlar ve hareket sırasında yerinden oynamaz.",
@@ -495,7 +495,7 @@ export const categories: Category[] = [
         seriesColor: "#1a5fa8",
       },
       {
-        slug: "mesane-pedi-8-damla",
+        slug: "bladder-pad-8-drops",
         name: "Mesane Pedi 8 Damla",
         description:
           "Yoğun idrar kaçırma için yüksek emiciliğe sahip mesane pedi. Geniş emici yüzeyi ve nötr koku sistemiyle uzun süreli güvence sağlar.",
@@ -541,7 +541,7 @@ export const categories: Category[] = [
 
   // ─── 7. HİJYENİK PED ──────────────────────────────────────────────
   {
-    slug: "hijyenik-ped",
+    slug: "sanitary-pads",
     name: "Hijyenik Ped",
     nameKey: "sanitaryPads",
     description:
@@ -553,7 +553,7 @@ export const categories: Category[] = [
     gradient: "from-rose-500 to-pink-400",
     products: [
       {
-        slug: "hijyenik-ped-4-damla",
+        slug: "sanitary-pad-4-drops",
         name: "Hijyenik Ped 4 Damla",
         description:
           "Ultra ince hijyenik ped. Esnek kanatları, ekstra kuruluk yüzeyi ve cildi tahriş etmeyen yumuşak yapısıyla normal akıntılı günler için ideal koruma sunar.",
@@ -563,7 +563,7 @@ export const categories: Category[] = [
         seriesColor: "#1a5fa8",
       },
       {
-        slug: "hijyenik-ped-5-damla",
+        slug: "sanitary-pad-5-drops",
         name: "Hijyenik Ped 5 Damla",
         description:
           "Yoğun akıntılı günler için tasarlanmış süper emici hijyenik ped. Geniş emici çekirdeği ve esnek kanatlarıyla gün boyu konfor ve güvence sağlar.",
@@ -573,7 +573,7 @@ export const categories: Category[] = [
         seriesColor: "#1a5fa8",
       },
       {
-        slug: "hijyenik-ped-6-damla",
+        slug: "sanitary-pad-6-drops",
         name: "Hijyenik Ped 6 Damla",
         description:
           "Gece kullanımı için ekstra uzun ve yüksek emicilikli hijyenik ped. Gece boyu tam koruma ve rahat bir uyku için güvence sunar.",
@@ -614,7 +614,7 @@ export const categories: Category[] = [
 
   // ─── 8. ISLAK MENDİL ──────────────────────────────────────────────
   {
-    slug: "islak-mendil",
+    slug: "wet-wipes",
     name: "Islak Mendil",
     nameKey: "wetWipes",
     description:
@@ -627,7 +627,7 @@ export const categories: Category[] = [
     products: [
       // Bebek serisi
       {
-        slug: "islak-mendil-bebek-72",
+        slug: "baby-wipe-72",
         name: "Bebek Hassas Islak Mendil 72'li",
         description:
           "Parfümsüz formülüyle yeni doğan bebekler dahil tüm bebekler için güvenli ıslak mendil. pH dengeli yapısıyla bebek cildinin doğal dengesini korur.",
@@ -636,7 +636,7 @@ export const categories: Category[] = [
         seriesColor: "#1a5fa8",
       },
       {
-        slug: "islak-mendil-bebek-90",
+        slug: "baby-wipe-90",
         name: "Bebek Hassas Islak Mendil 90'lı",
         description:
           "Yumuşak ve kalın dokusuyla bebek cildine nazik temizlik sunar. Pratik kapaklı ambalajıyla evde ve dışarıda kolay kullanım sağlar.",
@@ -645,7 +645,7 @@ export const categories: Category[] = [
         seriesColor: "#1a5fa8",
       },
       {
-        slug: "islak-mendil-bebek-120",
+        slug: "baby-wipe-120",
         name: "Bebek Hassas Islak Mendil 120'li",
         description:
           "Aile boyu ekonomik ambalaj. Yoğun kullanım dönemleri için ideal, bebek alt temizliği ve günlük bakımda güvenle tercih edilir.",
@@ -655,7 +655,7 @@ export const categories: Category[] = [
       },
       // Günlük Kullanım serisi
       {
-        slug: "islak-mendil-fresh-splash-120",
+        slug: "wet-wipe-fresh-splash-120",
         name: "Fresh Splash Islak Mendil",
         description:
           "Ferahlatıcı kokusu ve kalın dokusuyla el, yüz ve yüzey temizliği için günlük kullanıma uygun ıslak mendil. Kapaklı paketi tazeliğini korur.",
@@ -664,7 +664,7 @@ export const categories: Category[] = [
         seriesColor: "#00b4c8",
       },
       {
-        slug: "islak-mendil-fresh-splash-90",
+        slug: "wet-wipe-fresh-splash-90",
         name: "Fresh Splash Islak Mendil 90'lı",
         description:
           "Pratik boyutlu günlük kullanım ıslak mendili. Çantada yer kaplamaz, dışarıda hızlı temizlik için idealdir.",
@@ -674,7 +674,7 @@ export const categories: Category[] = [
       },
       // Çiçek Serisi
       {
-        slug: "islak-mendil-aloe-vera",
+        slug: "wet-wipe-aloe-vera",
         name: "Aloe Vera Islak Mendil",
         description:
           "Aloe vera özlü Gentle Touch ıslak mendil. Cildi temizlerken aynı zamanda nemlendirir ve doğal ferahlık sağlar.",
@@ -683,7 +683,7 @@ export const categories: Category[] = [
         seriesColor: "#a78bfa",
       },
       {
-        slug: "islak-mendil-papatya",
+        slug: "wet-wipe-chamomile",
         name: "Papatya Islak Mendil",
         description:
           "Papatya özlü Gentle Touch ıslak mendil. Cildi yatıştıran nazik formülüyle hassas ciltler için idealdir.",
@@ -692,7 +692,7 @@ export const categories: Category[] = [
         seriesColor: "#a78bfa",
       },
       {
-        slug: "islak-mendil-gul",
+        slug: "wet-wipe-rose",
         name: "Gül Islak Mendil",
         description:
           "Gül özlü Gentle Touch ıslak mendil. Hoş kokusu ve nazik formülüyle yüz ve el temizliğinde günlük bakım sunar.",
@@ -701,7 +701,7 @@ export const categories: Category[] = [
         seriesColor: "#a78bfa",
       },
       {
-        slug: "islak-mendil-lavanta",
+        slug: "wet-wipe-lavender",
         name: "Lavanta Islak Mendil",
         description:
           "Lavanta özlü Gentle Touch ıslak mendil. Rahatlatıcı kokusuyla cildinizi tazeler ve yumuşak hisle bırakır.",
@@ -741,7 +741,7 @@ export const categories: Category[] = [
 
   // ─── 9. YÜZEY TEMİZLEME HAVLUSU ──────────────────────────────────
   {
-    slug: "yuzey-temizleme-havlusu",
+    slug: "cleaning-towels",
     name: "Yüzey Temizleme Havlusu",
     nameKey: "cleaningTowels",
     description:
@@ -753,7 +753,7 @@ export const categories: Category[] = [
     gradient: "from-amber-500 to-yellow-400",
     products: [
       {
-        slug: "yuzey-temizleme-havlusu-100",
+        slug: "cleaning-towel-100",
         name: "Yüzey Temizleme Havlusu",
         description:
           "Cam, mutfak tezgahı, lavabo ve banyo gibi tüm yüzeylerde pratik ve hijyenik temizlik sağlar. Paraben ve SLS içermez; her silmede etkili sonuç sunar.",
@@ -792,20 +792,65 @@ export const categories: Category[] = [
 export const SUPPORTED_LOCALES = ['tr', 'en', 'de', 'ru', 'ar', 'uk'] as const;
 export type SupportedLocale = typeof SUPPORTED_LOCALES[number];
 
-// URL'lerde tek format kullanıyoruz (canonical TR slug, tüm dillerde aynı).
-// Aşağıdaki helper'lar identity döndürür — eski kodla uyumluluk için.
+// URL'lerde tek format kullanıyoruz (canonical EN slug, tüm dillerde aynı).
+// Eski TR slug'lardan yeni EN canonical'a mapping — eski URL'ler 301 redirect için.
 
+const LEGACY_CATEGORY_SLUG_MAP: Record<string, string> = {
+  'bebek-bezi': 'baby-diapers',
+  'yetiskin-bezi': 'adult-diapers',
+  'yetiskin-kulot-bezi': 'adult-pants',
+  'yetiskin-alt-serme-ortusu': 'adult-underpads',
+  'bebek-alt-serme-ortusu': 'baby-underpads',
+  'mesane-pedi': 'bladder-pads',
+  'hijyenik-ped': 'sanitary-pads',
+  'islak-mendil': 'wet-wipes',
+  'yuzey-temizleme-havlusu': 'cleaning-towels',
+};
+
+const LEGACY_PRODUCT_SLUG_MAP: Record<string, string> = {
+  'yetiskin-bezi-m': 'adult-diaper-m',
+  'yetiskin-bezi-l': 'adult-diaper-l',
+  'yetiskin-bezi-xl': 'adult-diaper-xl',
+  'kulot-bezi-m': 'adult-pant-m',
+  'kulot-bezi-l': 'adult-pant-l',
+  'kulot-bezi-xl': 'adult-pant-xl',
+  'alt-serme-60x90': 'adult-underpad-60x90',
+  'bebek-alt-serme-60x60': 'baby-underpad-60x60',
+  'mesane-pedi-4-damla': 'bladder-pad-4-drops',
+  'mesane-pedi-6-damla': 'bladder-pad-6-drops',
+  'mesane-pedi-8-damla': 'bladder-pad-8-drops',
+  'hijyenik-ped-4-damla': 'sanitary-pad-4-drops',
+  'hijyenik-ped-5-damla': 'sanitary-pad-5-drops',
+  'hijyenik-ped-6-damla': 'sanitary-pad-6-drops',
+  'islak-mendil-bebek-72': 'baby-wipe-72',
+  'islak-mendil-bebek-90': 'baby-wipe-90',
+  'islak-mendil-bebek-120': 'baby-wipe-120',
+  'islak-mendil-fresh-splash-90': 'wet-wipe-fresh-splash-90',
+  'islak-mendil-fresh-splash-120': 'wet-wipe-fresh-splash-120',
+  'islak-mendil-aloe-vera': 'wet-wipe-aloe-vera',
+  'islak-mendil-papatya': 'wet-wipe-chamomile',
+  'islak-mendil-gul': 'wet-wipe-rose',
+  'islak-mendil-lavanta': 'wet-wipe-lavender',
+  'yuzey-temizleme-havlusu-100': 'cleaning-towel-100',
+};
+
+/** Backwards-compat. URL'lerde tek format (canonical EN). Identity for new EN slugs. */
 export function localizeCategorySlug(slug: string, _locale: string): string {
   return slug;
 }
+
+/** Eski TR slug gelirse yeni EN canonical'a çevir. */
 export function canonicalizeCategorySlug(slug: string): string {
-  return slug;
+  return LEGACY_CATEGORY_SLUG_MAP[slug] ?? slug;
 }
+
 export function localizeProductSlug(slug: string, _locale: string): string {
   return slug;
 }
+
+/** Eski TR ürün slug gelirse yeni EN canonical'a çevir. */
 export function canonicalizeProductSlug(slug: string): string {
-  return slug;
+  return LEGACY_PRODUCT_SLUG_MAP[slug] ?? slug;
 }
 
 // ─── HELPER FUNCTIONS ────────────────────────────────────────────────

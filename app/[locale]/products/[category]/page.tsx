@@ -18,18 +18,18 @@ import CtaSection from '@/components/sections/CtaSection';
 import FadeInUp from '@/components/animations/FadeInUp';
 
 interface PageProps {
-  params: { locale: string; kategori: string };
+  params: { locale: string; category: string };
 }
 
 export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
-  const canonicalSlug = canonicalizeCategorySlug(params.kategori);
+  const canonicalSlug = canonicalizeCategorySlug(params.category);
   const category = getLocalizedCategoryBySlug(params.locale, canonicalSlug);
   if (!category) return {};
 
   // hreflang: tüm diller aynı canonical URL'i kullanır
   const languages: Record<string, string> = {};
   for (const l of SUPPORTED_LOCALES) {
-    languages[l] = getLocalizedUrl(l, '/urunler', canonicalSlug);
+    languages[l] = getLocalizedUrl(l, '/products', canonicalSlug);
   }
 
   return {
@@ -42,7 +42,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
       locale: params.locale === 'tr' ? 'tr_TR' : params.locale,
     },
     alternates: {
-      canonical: getLocalizedUrl(params.locale, '/urunler', canonicalSlug),
+      canonical: getLocalizedUrl(params.locale, '/products', canonicalSlug),
       languages,
     },
   };
@@ -50,10 +50,10 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
 
 // Her dil için canonical TR slug
 export function generateStaticParams() {
-  const params: { locale: string; kategori: string }[] = [];
+  const params: { locale: string; category: string }[] = [];
   for (const locale of SUPPORTED_LOCALES) {
     for (const cat of categories) {
-      params.push({ locale, kategori: cat.slug });
+      params.push({ locale, category: cat.slug });
     }
   }
   return params;
@@ -62,13 +62,13 @@ export function generateStaticParams() {
 export default async function CategoryPage({ params }: PageProps) {
   unstable_setRequestLocale(params.locale);
   const t = await getTranslations({ locale: params.locale });
-  const canonicalSlug = canonicalizeCategorySlug(params.kategori);
+  const canonicalSlug = canonicalizeCategorySlug(params.category);
   const category = getLocalizedCategoryBySlug(params.locale, canonicalSlug);
   if (!category) notFound();
 
   // SEO: lokalize ya da yanlış slug → canonical TR slug'a 301
-  if (params.kategori !== canonicalSlug) {
-    permanentRedirect(getLocalizedUrl(params.locale, '/urunler', canonicalSlug));
+  if (params.category !== canonicalSlug) {
+    permanentRedirect(getLocalizedUrl(params.locale, '/products', canonicalSlug));
   }
 
   const faqJsonLd = {
@@ -85,7 +85,7 @@ export default async function CategoryPage({ params }: PageProps) {
   };
 
   // SEO: ItemList + Organization + Product schema for category
-  const pageUrl = `https://softandpower.com${getLocalizedUrl(params.locale, '/urunler', canonicalSlug)}`;
+  const pageUrl = `https://softandpower.com${getLocalizedUrl(params.locale, '/products', canonicalSlug)}`;
   const itemListJsonLd = {
     '@context': 'https://schema.org',
     '@type': 'CollectionPage',
@@ -120,7 +120,7 @@ export default async function CategoryPage({ params }: PageProps) {
     '@context': 'https://schema.org',
     '@type': 'BreadcrumbList',
     itemListElement: [
-      { '@type': 'ListItem', position: 1, name: t('nav.products'), item: `https://softandpower.com${getLocalizedUrl(params.locale, '/urunler')}` },
+      { '@type': 'ListItem', position: 1, name: t('nav.products'), item: `https://softandpower.com${getLocalizedUrl(params.locale, '/products')}` },
       { '@type': 'ListItem', position: 2, name: category.name, item: pageUrl },
     ],
   };
@@ -147,7 +147,7 @@ export default async function CategoryPage({ params }: PageProps) {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <Breadcrumb
             items={[
-              { label: t('nav.products'), href: getLocalizedUrl(params.locale, '/urunler') },
+              { label: t('nav.products'), href: getLocalizedUrl(params.locale, '/products') },
               { label: category.name },
             ]}
           />
@@ -157,7 +157,7 @@ export default async function CategoryPage({ params }: PageProps) {
         <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-16 lg:py-20">
           <ProductSeriesGroups
             products={category.products}
-            categorySlug={params.kategori}
+            categorySlug={params.category}
             categoryName={category.name}
           />
         </section>

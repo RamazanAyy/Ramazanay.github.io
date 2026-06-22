@@ -23,7 +23,7 @@ const SOURCE_LABEL: Record<ContactBody['source'], string> = {
   urun: 'Ürün Bilgi Talebi',
 };
 
-const RECIPIENTS = ['info@softandpower.com', 'mustafapolat@globalvefa.com'];
+const RECIPIENTS = ['info@softandpower.com', 'sena@softandpower.com', 'mustafapolat@globalvefa.com'];
 
 function escape(s: string | undefined): string {
   if (!s) return '-';

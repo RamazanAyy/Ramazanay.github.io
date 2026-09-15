@@ -247,11 +247,11 @@ export default function Navbar() {
           >
             <div className="max-w-7xl mx-auto px-6 py-2 flex items-center justify-between">
               <div className="flex items-center gap-6">
-                <a href="tel:+905396312392" className="flex items-center gap-1.5 hover:text-blue-200 transition-colors">
+                <a href="tel:+905366172515" className="flex items-center gap-1.5 hover:text-blue-200 transition-colors">
                   <svg className="w-3.5 h-3.5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
                   </svg>
-                  +90 539 631 23 92
+                  +90 536 617 25 15
                 </a>
                 <a href="mailto:info@softandpower.com" className="flex items-center gap-1.5 hover:text-blue-200 transition-colors">
                   <svg className="w-3.5 h-3.5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -663,11 +663,11 @@ export default function Navbar() {
 
               {/* Contact info */}
               <motion.div variants={mobileItemVariants} className="mt-8 pt-6 border-t border-white/10 space-y-2">
-                <a href="tel:+905396312392" className="flex items-center gap-2 text-blue-200 hover:text-white text-sm transition-colors break-all">
+                <a href="tel:+905366172515" className="flex items-center gap-2 text-blue-200 hover:text-white text-sm transition-colors break-all">
                   <svg className="w-4 h-4 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
                   </svg>
-                  +90 539 631 23 92
+                  +90 536 617 25 15
                 </a>
                 <a href="mailto:info@softandpower.com" className="flex items-center gap-2 text-blue-200 hover:text-white text-sm transition-colors break-all">
                   <svg className="w-4 h-4 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">

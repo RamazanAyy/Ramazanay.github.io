@@ -180,7 +180,7 @@ export default function ProductGrid({ products, categorySlug }: ProductGridProps
                 </svg>
               </Link>
               <a
-                href="https://wa.me/905396312392"
+                href="https://wa.me/905366172515"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="inline-flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl border-2 border-[#1a5fa8] text-[#1a5fa8] hover:bg-[#1a5fa8] hover:text-white text-sm font-semibold transition-all duration-200 hover:scale-[1.02] active:scale-[0.98]"

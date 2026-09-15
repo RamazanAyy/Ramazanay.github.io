@@ -444,11 +444,11 @@ export default function HomePage() {
               >
                 {tContact('title')}
               </h3>
-              <p className="text-gray-400 text-sm sm:text-base">info@softandpower.com · +90 539 631 23 92</p>
+              <p className="text-gray-400 text-sm sm:text-base">info@softandpower.com · +90 536 617 25 15</p>
             </div>
             <div className="flex flex-wrap gap-4 shrink-0">
               <a
-                href="https://wa.me/905396312392"
+                href="https://wa.me/905366172515"
                 className="inline-flex items-center gap-2 bg-[#25D366] hover:bg-[#20bd5a] text-white font-semibold px-6 py-3.5 rounded-xl transition-all hover:scale-105"
               >
                 <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">

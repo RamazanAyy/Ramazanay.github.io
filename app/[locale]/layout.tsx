@@ -71,7 +71,7 @@ export default async function LocaleLayout({
               name: 'Soft & Power Hygiene',
               url: 'https://softandpower.com',
               logo: 'https://softandpower.com/logo.webp',
-              telephone: '+905396312392',
+              telephone: '+905366172515',
               email: 'info@softandpower.com',
               address: {
                 '@type': 'PostalAddress',

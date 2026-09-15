@@ -50,7 +50,7 @@ export default function WhatsAppButton() {
 
           {/* WhatsApp button */}
           <motion.a
-            href="https://wa.me/905396312392?text=Merhaba%2C%20%C3%BCr%C3%BCnleriniz%20hakk%C4%B1nda%20bilgi%20almak%20istiyorum."
+            href="https://wa.me/905366172515?text=Merhaba%2C%20%C3%BCr%C3%BCnleriniz%20hakk%C4%B1nda%20bilgi%20almak%20istiyorum."
             target="_blank"
             rel="noopener noreferrer"
             initial={{ scale: 0 }}

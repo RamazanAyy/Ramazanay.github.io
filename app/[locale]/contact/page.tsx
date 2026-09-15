@@ -112,7 +112,7 @@ export default function IletisimPage() {
       href: 'tel:+908503082515',
       extra: [
         { value: '+90 530 878 44 92', href: 'tel:+905308784492' },
-        { value: '+90 539 631 23 92', href: 'tel:+905396312392' },
+        { value: '+90 536 617 25 15', href: 'tel:+905366172515' },
       ],
       icon: ICON_PHONE,
     },
@@ -343,7 +343,7 @@ export default function IletisimPage() {
 
                   {/* WhatsApp CTA */}
                   <a
-                    href="https://wa.me/905396312392"
+                    href="https://wa.me/905366172515"
                     target="_blank"
                     rel="noopener noreferrer"
                     className="group flex items-center gap-4 bg-[#25D366] hover:bg-[#20bd5a] text-white rounded-2xl p-6 transition-all hover:shadow-lg hover:shadow-[#25D366]/25"

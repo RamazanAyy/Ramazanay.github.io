@@ -50,7 +50,7 @@ export default function CategoryHero({
         </svg>
       </Link>
       <a
-        href="https://wa.me/905396312392"
+        href="https://wa.me/905366172515"
         target="_blank"
         rel="noopener noreferrer"
         className="inline-flex items-center gap-2 bg-[#25D366] hover:bg-[#20bd5a] text-white font-bold px-6 sm:px-7 py-3 sm:py-3.5 rounded-xl shadow-lg shadow-[#25D366]/40 hover:scale-[1.03] active:scale-[0.98] transition-all"

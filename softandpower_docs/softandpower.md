@@ -16,9 +16,9 @@ Soft & Power Hygiene, Türkiye merkezli bir hijyen ürünleri üreticisidir.
 Toptan satış ve özel etiket (private label / fason) hizmeti vermektedir.
 
 **İletişim:**
-- Telefon: +90 539 631 23 92
+- Telefon: +90 536 617 25 15
 - E-posta: info@softandpower.com
-- WhatsApp: +90 539 631 23 92
+- WhatsApp: +90 536 617 25 15
 
 **Sosyal medya:**
 - Facebook: https://www.facebook.com/people/Softpower/61579102840493/

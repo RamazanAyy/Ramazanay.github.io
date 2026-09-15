@@ -407,7 +407,7 @@ export default function ProductCategoriesSection() {
         >
           <span className="text-gray-500 text-sm">Aradığınız Ürünü Bulamadınız mı?</span>
           <a
-            href="https://wa.me/905396312392?text=Merhaba%2C%20urunleriniz%20hakkinda%20bilgi%20almak%20istiyorum."
+            href="https://wa.me/905366172515?text=Merhaba%2C%20urunleriniz%20hakkinda%20bilgi%20almak%20istiyorum."
             target="_blank"
             rel="noopener noreferrer"
             className="inline-flex items-center gap-2 bg-[#25D366] hover:bg-[#20bd5a] text-white font-semibold text-sm px-5 py-2.5 rounded-xl transition-all hover:scale-105 shadow-md"

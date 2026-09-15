@@ -45,7 +45,7 @@ export default function CtaSection() {
         >
           {/* WhatsApp Button */}
           <a
-            href="https://wa.me/905396312392"
+            href="https://wa.me/905366172515"
             target="_blank"
             rel="noopener noreferrer"
             className="inline-flex items-center gap-3 px-8 py-3.5 rounded-xl bg-[#25D366] hover:bg-[#20bd5a] text-white font-semibold text-base shadow-lg shadow-[#25D366]/25 transition-all duration-200 hover:scale-[1.02] active:scale-[0.98]"

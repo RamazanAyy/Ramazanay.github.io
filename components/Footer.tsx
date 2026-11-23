@@ -161,7 +161,6 @@ export default function Footer() {
                 </span>
                 <div className="flex flex-col leading-snug">
                   <a href="tel:+908503082515" className="text-blue-100 text-sm hover:text-white transition-colors">+90 850 308 25 15</a>
-                  <a href="tel:+905308784492" className="text-blue-100 text-sm hover:text-white transition-colors">+90 530 878 44 92</a>
                   <a href="tel:+905366172515" className="text-blue-100 text-sm hover:text-white transition-colors">+90 536 617 25 15</a>
                 </div>
               </li>

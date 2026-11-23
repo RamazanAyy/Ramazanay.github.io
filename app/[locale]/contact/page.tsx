@@ -111,7 +111,6 @@ export default function IletisimPage() {
       value: '+90 850 308 25 15',
       href: 'tel:+908503082515',
       extra: [
-        { value: '+90 530 878 44 92', href: 'tel:+905308784492' },
         { value: '+90 536 617 25 15', href: 'tel:+905366172515' },
       ],
       icon: ICON_PHONE,
